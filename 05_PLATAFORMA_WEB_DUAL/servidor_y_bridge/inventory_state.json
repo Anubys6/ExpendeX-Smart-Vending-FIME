@@ -1,0 +1,688 @@
+{
+  "MEAL_A1": {
+    "id": "MEAL_A1",
+    "name": "Pechuga al Limón con Arroz y Espárragos",
+    "category": "comida",
+    "slots": [
+      "A1"
+    ],
+    "slotsStock": {
+      "A1": 8
+    },
+    "slotCapacities": {
+      "A1": 8
+    },
+    "capacity": 8,
+    "stock": 8,
+    "price": 125,
+    "cost": 52,
+    "image": "images/pechuga_limon.jpg",
+    "slot": "A1"
+  },
+  "MEAL_A6": {
+    "id": "MEAL_A6",
+    "name": "Salmón a la Plancha con Puré de Camote",
+    "category": "comida",
+    "slots": [
+      "A6"
+    ],
+    "slotsStock": {
+      "A6": 8
+    },
+    "slotCapacities": {
+      "A6": 8
+    },
+    "capacity": 8,
+    "stock": 8,
+    "price": 145,
+    "cost": 68,
+    "image": "images/salmon_camote.jpg"
+  },
+  "MEAL_B1": {
+    "id": "MEAL_B1",
+    "name": "Picadillo Norteño Fitness 95/5 con Nopales",
+    "category": "comida",
+    "slots": [
+      "B1"
+    ],
+    "slotsStock": {
+      "B1": 8
+    },
+    "slotCapacities": {
+      "B1": 8
+    },
+    "capacity": 8,
+    "stock": 8,
+    "price": 120,
+    "cost": 48,
+    "image": "images/picadillo_norteno.jpg"
+  },
+  "MEAL_B6": {
+    "id": "MEAL_B6",
+    "name": "Fajitas de Pollo con Pimientos Asados",
+    "category": "comida",
+    "slots": [
+      "B6"
+    ],
+    "slotsStock": {
+      "B6": 8
+    },
+    "slotCapacities": {
+      "B6": 8
+    },
+    "capacity": 8,
+    "stock": 8,
+    "price": 125,
+    "cost": 50,
+    "image": "images/fajitas_pollo.jpg"
+  },
+  "MEAL_C1": {
+    "id": "MEAL_C1",
+    "name": "Albóndigas de Pavo Caseras con Quinoa",
+    "category": "comida",
+    "slots": [
+      "C1"
+    ],
+    "slotsStock": {
+      "C1": 8
+    },
+    "slotCapacities": {
+      "C1": 8
+    },
+    "capacity": 8,
+    "stock": 8,
+    "price": 125,
+    "cost": 51,
+    "image": "images/albondigas_pavo.jpg"
+  },
+  "MEAL_C6": {
+    "id": "MEAL_C6",
+    "name": "Lomo de Cerdo Magro Adobado con Puré",
+    "category": "comida",
+    "slots": [
+      "C6"
+    ],
+    "slotsStock": {
+      "C6": 8
+    },
+    "slotCapacities": {
+      "C6": 8
+    },
+    "capacity": 8,
+    "stock": 8,
+    "price": 130,
+    "cost": 53,
+    "image": "images/lomo_adobado.jpg"
+  },
+  "MEAL_D1": {
+    "id": "MEAL_D1",
+    "name": "Bowl de Ternera con Champiñones Portobello",
+    "category": "comida",
+    "slots": [
+      "D1"
+    ],
+    "slotsStock": {
+      "D1": 8
+    },
+    "slotCapacities": {
+      "D1": 8
+    },
+    "capacity": 8,
+    "stock": 8,
+    "price": 135,
+    "cost": 56,
+    "image": "images/bowl_ternera.jpg",
+    "slot": "D1"
+  },
+  "MEAL_D6": {
+    "id": "MEAL_D6",
+    "name": "Chiles Poblanos Rellenos de Queso Panela",
+    "category": "comida",
+    "slots": [
+      "D6"
+    ],
+    "slotsStock": {
+      "D6": 8
+    },
+    "slotCapacities": {
+      "D6": 8
+    },
+    "capacity": 8,
+    "stock": 8,
+    "price": 120,
+    "cost": 47,
+    "image": "images/chile_poblano_relleno.jpg"
+  },
+  "MEAL_E1": {
+    "id": "MEAL_E1",
+    "name": "Tinga de Pollo Pechuga Magra con Tostadas",
+    "category": "comida",
+    "slots": [
+      "E1"
+    ],
+    "slotsStock": {
+      "E1": 8
+    },
+    "slotCapacities": {
+      "E1": 8
+    },
+    "capacity": 8,
+    "stock": 8,
+    "price": 120,
+    "cost": 46,
+    "image": "images/tinga_pollo.jpg"
+  },
+  "MEAL_E6": {
+    "id": "MEAL_E6",
+    "name": "Lasaña de Berenjena y Calabaza",
+    "category": "comida",
+    "slots": [
+      "E6"
+    ],
+    "slotsStock": {
+      "E6": 8
+    },
+    "slotCapacities": {
+      "E6": 8
+    },
+    "capacity": 8,
+    "stock": 8,
+    "price": 125,
+    "cost": 49,
+    "image": "images/lasana_berenjena.jpg"
+  },
+  "MEAL_F1": {
+    "id": "MEAL_F1",
+    "name": "Pechuga Cordon Bleu Horneada Light",
+    "category": "comida",
+    "slots": [
+      "F1"
+    ],
+    "slotsStock": {
+      "F1": 8
+    },
+    "slotCapacities": {
+      "F1": 8
+    },
+    "capacity": 8,
+    "stock": 8,
+    "price": 135,
+    "cost": 55,
+    "image": "images/pechuga_cordon_bleu.jpg"
+  },
+  "MEAL_F6": {
+    "id": "MEAL_F6",
+    "name": "Guisado de Res Magra en Salsa Verde",
+    "category": "comida",
+    "slots": [
+      "F6"
+    ],
+    "slotsStock": {
+      "F6": 8
+    },
+    "slotCapacities": {
+      "F6": 8
+    },
+    "capacity": 8,
+    "stock": 8,
+    "price": 130,
+    "cost": 52,
+    "image": "images/guisado_res.jpg"
+  },
+  "DRINK_A2": {
+    "id": "DRINK_A2",
+    "name": "Agua Ciel Purificada 600 ml",
+    "category": "bebida",
+    "slots": [
+      "A2"
+    ],
+    "slotsStock": {
+      "A2": 10
+    },
+    "slotCapacities": {
+      "A2": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 18,
+    "cost": 7,
+    "image": "images/ciel_purificada.jpg"
+  },
+  "DRINK_A3": {
+    "id": "DRINK_A3",
+    "name": "Agua Ciel Alcalina 600 ml",
+    "category": "bebida",
+    "slots": [
+      "A3"
+    ],
+    "slotsStock": {
+      "A3": 10
+    },
+    "slotCapacities": {
+      "A3": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 24,
+    "cost": 10,
+    "image": "images/ciel_alcalina.jpg"
+  },
+  "DRINK_A4": {
+    "id": "DRINK_A4",
+    "name": "Ciel Mineralizada Gasificada 600 ml",
+    "category": "bebida",
+    "slots": [
+      "A4"
+    ],
+    "slotsStock": {
+      "A4": 10
+    },
+    "slotCapacities": {
+      "A4": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 22,
+    "cost": 9,
+    "image": "images/ciel_gasificada.jpg"
+  },
+  "DRINK_A5": {
+    "id": "DRINK_A5",
+    "name": "Ciel Exprim Jamaica 600 ml",
+    "category": "bebida",
+    "slots": [
+      "A5"
+    ],
+    "slotsStock": {
+      "A5": 10
+    },
+    "slotCapacities": {
+      "A5": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 25,
+    "cost": 11,
+    "image": "images/ciel_exprim_jamaica.jpg"
+  },
+  "DRINK_B2": {
+    "id": "DRINK_B2",
+    "name": "Agua Fresca Jamaica Natural 500 ml",
+    "category": "bebida",
+    "slots": [
+      "B2"
+    ],
+    "slotsStock": {
+      "B2": 10
+    },
+    "slotCapacities": {
+      "B2": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 28,
+    "cost": 12,
+    "image": "images/agua_jamaica.jpg"
+  },
+  "DRINK_B3": {
+    "id": "DRINK_B3",
+    "name": "Agua Fresca Limón con Chía 500 ml",
+    "category": "bebida",
+    "slots": [
+      "B3"
+    ],
+    "slotsStock": {
+      "B3": 10
+    },
+    "slotCapacities": {
+      "B3": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 28,
+    "cost": 12,
+    "image": "images/agua_limon_chia.jpg"
+  },
+  "DRINK_B4": {
+    "id": "DRINK_B4",
+    "name": "Agua Fresca Horchata Avena Ligera",
+    "category": "bebida",
+    "slots": [
+      "B4"
+    ],
+    "slotsStock": {
+      "B4": 10
+    },
+    "slotCapacities": {
+      "B4": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 30,
+    "cost": 13,
+    "image": "images/agua_horchata.jpg"
+  },
+  "DRINK_B5": {
+    "id": "DRINK_B5",
+    "name": "Agua Fresca Pepino Limón Menta",
+    "category": "bebida",
+    "slots": [
+      "B5"
+    ],
+    "slotsStock": {
+      "B5": 10
+    },
+    "slotCapacities": {
+      "B5": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 28,
+    "cost": 12,
+    "image": "images/agua_pepino_menta.jpg"
+  },
+  "DRINK_C2": {
+    "id": "DRINK_C2",
+    "name": "Agua Artesanal Tamarindo 500 ml",
+    "category": "bebida",
+    "slots": [
+      "C2"
+    ],
+    "slotsStock": {
+      "C2": 10
+    },
+    "slotCapacities": {
+      "C2": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 28,
+    "cost": 12,
+    "image": "images/agua_tamarindo.jpg"
+  },
+  "DRINK_C3": {
+    "id": "DRINK_C3",
+    "name": "Infusión Frutos Rojos Silvestres",
+    "category": "bebida",
+    "slots": [
+      "C3"
+    ],
+    "slotsStock": {
+      "C3": 10
+    },
+    "slotCapacities": {
+      "C3": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 32,
+    "cost": 14,
+    "image": "images/infusion_frutos_rojos.jpg"
+  },
+  "DRINK_C4": {
+    "id": "DRINK_C4",
+    "name": "Infusión Manzanilla y Miel Fría",
+    "category": "bebida",
+    "slots": [
+      "C4"
+    ],
+    "slotsStock": {
+      "C4": 10
+    },
+    "slotCapacities": {
+      "C4": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 30,
+    "cost": 13,
+    "image": "images/infusion_manzanilla.jpg"
+  },
+  "DRINK_C5": {
+    "id": "DRINK_C5",
+    "name": "Agua Natural Manzana Jengibre",
+    "category": "bebida",
+    "slots": [
+      "C5"
+    ],
+    "slotsStock": {
+      "C5": 10
+    },
+    "slotCapacities": {
+      "C5": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 32,
+    "cost": 14,
+    "image": "images/agua_manzana_jengibre.jpg"
+  },
+  "DRINK_D2": {
+    "id": "DRINK_D2",
+    "name": "Coca-Cola Sin Azúcar 600 ml",
+    "category": "bebida",
+    "slots": [
+      "D2"
+    ],
+    "slotsStock": {
+      "D2": 10
+    },
+    "slotCapacities": {
+      "D2": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 25,
+    "cost": 11,
+    "image": "images/coca_cola_sin_azucar.jpg"
+  },
+  "DRINK_D3": {
+    "id": "DRINK_D3",
+    "name": "Coca-Cola Light 600 ml",
+    "category": "bebida",
+    "slots": [
+      "D3"
+    ],
+    "slotsStock": {
+      "D3": 10
+    },
+    "slotCapacities": {
+      "D3": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 25,
+    "cost": 11,
+    "image": "images/coca_cola_light.jpg"
+  },
+  "DRINK_D4": {
+    "id": "DRINK_D4",
+    "name": "Sprite Cero Azúcar 600 ml",
+    "category": "bebida",
+    "slots": [
+      "D4"
+    ],
+    "slotsStock": {
+      "D4": 10
+    },
+    "slotCapacities": {
+      "D4": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 24,
+    "cost": 10.5,
+    "image": "images/sprite_cero.jpg"
+  },
+  "DRINK_D5": {
+    "id": "DRINK_D5",
+    "name": "Del Valle Cero Durazno 500 ml",
+    "category": "bebida",
+    "slots": [
+      "D5"
+    ],
+    "slotsStock": {
+      "D5": 10
+    },
+    "slotCapacities": {
+      "D5": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 26,
+    "cost": 11.5,
+    "image": "images/del_valle_cero.jpg"
+  },
+  "DRINK_E2": {
+    "id": "DRINK_E2",
+    "name": "Fuze Tea Cero Té Negro Limón",
+    "category": "bebida",
+    "slots": [
+      "E2"
+    ],
+    "slotsStock": {
+      "E2": 10
+    },
+    "slotCapacities": {
+      "E2": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 26,
+    "cost": 11.5,
+    "image": "images/fuze_tea_cero.jpg"
+  },
+  "DRINK_E3": {
+    "id": "DRINK_E3",
+    "name": "Té Verde Comercial Natural Frío",
+    "category": "bebida",
+    "slots": [
+      "E3"
+    ],
+    "slotsStock": {
+      "E3": 10
+    },
+    "slotCapacities": {
+      "E3": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 28,
+    "cost": 12,
+    "image": "images/te_verde_comercial.jpg"
+  },
+  "DRINK_E4": {
+    "id": "DRINK_E4",
+    "name": "Té Matcha Helado Orgánico",
+    "category": "bebida",
+    "slots": [
+      "E4"
+    ],
+    "slotsStock": {
+      "E4": 10
+    },
+    "slotCapacities": {
+      "E4": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 35,
+    "cost": 15,
+    "image": "images/te_matcha_frio.jpg"
+  },
+  "DRINK_E5": {
+    "id": "DRINK_E5",
+    "name": "Kombucha Orgánica de Manzana",
+    "category": "bebida",
+    "slots": [
+      "E5"
+    ],
+    "slotsStock": {
+      "E5": 10
+    },
+    "slotCapacities": {
+      "E5": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 42,
+    "cost": 19,
+    "image": "images/kombucha.jpg"
+  },
+  "DRINK_F2": {
+    "id": "DRINK_F2",
+    "name": "Electrolit Cero Mora Azul 625 ml",
+    "category": "bebida",
+    "slots": [
+      "F2"
+    ],
+    "slotsStock": {
+      "F2": 10
+    },
+    "slotCapacities": {
+      "F2": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 36,
+    "cost": 16,
+    "image": "images/electrolit_zero.jpg"
+  },
+  "DRINK_F3": {
+    "id": "DRINK_F3",
+    "name": "Powerade Zero Frutas 600 ml",
+    "category": "bebida",
+    "slots": [
+      "F3"
+    ],
+    "slotsStock": {
+      "F3": 10
+    },
+    "slotCapacities": {
+      "F3": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 30,
+    "cost": 13,
+    "image": "images/powerade_zero.jpg"
+  },
+  "DRINK_F4": {
+    "id": "DRINK_F4",
+    "name": "Gatorade Cero Naranja 600 ml",
+    "category": "bebida",
+    "slots": [
+      "F4"
+    ],
+    "slotsStock": {
+      "F4": 10
+    },
+    "slotCapacities": {
+      "F4": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 32,
+    "cost": 14,
+    "image": "images/gatorade_zero.jpg"
+  },
+  "DRINK_F5": {
+    "id": "DRINK_F5",
+    "name": "Agua Artesiana Fiji Natural 500 ml",
+    "category": "bebida",
+    "slots": [
+      "F5"
+    ],
+    "slotsStock": {
+      "F5": 10
+    },
+    "slotCapacities": {
+      "F5": 10
+    },
+    "capacity": 10,
+    "stock": 10,
+    "price": 45,
+    "cost": 20,
+    "image": "images/fiji_water.jpg"
+  }
+}

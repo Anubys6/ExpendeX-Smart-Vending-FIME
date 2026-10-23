@@ -1,0 +1,10 @@
+﻿{
+    "autodeskProduct": "Fusion360",
+    "type": "script",
+    "author": "Samuel Tovar Mojica",
+    "description": {
+        "": "Expandex 5 - Maquina dispensadora con espirales gigantes laterales para comida, resortes lisos de hilo continuo y embonado directo a embolo de motor."
+    },
+    "supportedOS": "windows|mac",
+    "editEnabled": true
+}

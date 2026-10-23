@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ExpendeX® Fresh & Fit — #NutriciónAlInstante | Smart Vending FIME UANL</title>
+  <meta name="description" content="ExpendeX® — Campaña 'Energía que se Activa' (#NutriciónAlInstante). Comida corrida recién hecha, bebidas cero azúcar y pago inteligente QR Mercado Pago conectado a ESP32.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="images/brand_logo_official.svg" type="image/svg+xml">
+  <!-- Google Pay Web SDK Oficial -->
+  <script src="https://pay.google.com/gp/p/js/pay.js" async></script>
+</head>
+<body>
+
+  <!-- ======================================================================
+       CABECERA OFICIAL ExpendeX® — OPTIMIZADA PARA IPHONE 16 / RESPONSIVE
+       ====================================================================== -->
+  <header class="app-header" id="clientAppHeader">
+    <div class="header-top">
+      <div class="brand-wrapper" id="btnBrandHome" title="ExpendeX® — Nutrición Real, Activada al Instante">
+        <div class="brand-logo-img-box">
+          <img src="images/brand_logo_official.svg" width="46" height="46" alt="ExpendeX® Logo Oficial">
+        </div>
+        <div class="brand-info">
+          <h1>ExpendeX<sup class="reg-mark">®</sup> <span class="badge-fit">FRESH & FIT</span></h1>
+          <div class="brand-subtitle"><strong>Energía que se Activa</strong> • #NutriciónAlInstante</div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Círculo Amarillo del Carrito (Visible y desplazado a la izquierda para evitar cortes en iPhone 16) -->
+        <button class="btn-cart-floating" id="btnOpenCart" aria-label="Abrir carrito de compras" title="Abrir carrito de compras">
+          <span class="cart-icon">🛒</span>
+          <span class="cart-count-badge" id="cartCountBadge">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Barra de Telemetría Ambiental + ESP32 + Campaña Oficial -->
+    <div class="telemetry-bar">
+      <div class="status-indicator">
+        <span class="status-dot"></span>
+        <span>ESP32-S3: <strong id="headerEsp32Status">En Línea</strong></span>
+      </div>
+      <div class="temp-badge" id="tempBadge">
+        ❄️ 3.4 °C (NOM-251)
+      </div>
+      <!-- Botón de Campaña Independiente (Separado de QR y reubicado) -->
+      <button class="btn-campaign-pill" id="btnOpenBrandCampaign" title="Ver Campaña Oficial ExpendeX®">
+        <span>✨ Campaña</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       CATÁLOGO PRINCIPAL MINIMALISTA (CONTROLADO POR LA BARRA INFERIOR)
+       ====================================================================== -->
+  <main class="main-content">
+    <!-- Carrusel Horizontal dinámico donde se inyectan las tarjetas de producto -->
+    <div class="products-grid" id="productsGrid">
+      <!-- Generado dinámicamente por app.js -->
+    </div>
+  </main>
+
+  <!-- ======================================================================
+       DRAWER / CARRITO LATERAL DE COMPRAS
+       ====================================================================== -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Carrito de compras">
+    <div class="cart-header">
+      <h2>🛒 Tu Pedido ExpendeX®</h2>
+      <button class="btn-close-drawer" id="btnCloseCart" aria-label="Cerrar carrito">&times;</button>
+    </div>
+
+    <div class="cart-items-list" id="cartItemsList">
+      <!-- Se inyectan los items del pedido dinámicamente -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-summary-line">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">$0.00 MXN</span>
+      </div>
+      <div class="cart-summary-line" id="comboDiscountRow" style="display: none; color: var(--primary); font-weight: 750;">
+        <span>Descuento Combo #NutriciónAlInstante</span>
+        <span id="cartDiscount">-$0.00 MXN</span>
+      </div>
+      <div class="cart-total-line">
+        <span>Total a Pagar</span>
+        <span id="cartTotal">$0.00 MXN</span>
+      </div>
+      <button class="btn-checkout" id="btnCheckout">
+        <span>Pagar Orden con QR Mercado Pago</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ======================================================================
+       MODAL 1: PASARELA QR MERCADO LIBRE / MERCADO PAGO + ESP32 VIRTUAL
+       (Al pagar, el ESP32 virtual recibe, autoriza, cobra y lanza la animación)
+       ====================================================================== -->
+  <div class="modal-overlay" id="itemQrModalOverlay">
+    <div class="modal-card modal-mp-card">
+      <button class="btn-modal-close-icon" id="btnCloseItemQrModal" aria-label="Cerrar">✕</button>
+
+      <div class="modal-header">
+        <h3 id="modalQrItemTitle">Pechuga al Limón con Arroz y Espárragos</h3>
+        <p class="modal-subtitle" id="modalQrItemSubtitle">
+          Se autorizará y activará al instante.
+        </p>
+      </div>
+
+      <!-- Fila Dividida: Foto del Producto (Izquierda) + Código QR (Derecha) Compartiendo Espacio -->
+      <div class="modal-product-qr-split">
+        <div class="modal-split-photo-box">
+          <img id="modalQrItemPhoto" class="modal-split-photo" src="images/pechuga_limon.jpg" alt="Vista previa del platillo">
+        </div>
+        <div class="modal-split-qr-box">
+          <div class="modal-qr-container mp-qr-interactive" id="modalQrSvgHolder" title="Toca el QR para abrir Mercado Pago">
+            <!-- SVG QR renderizado por app.js -->
+          </div>
+        </div>
+      </div>
+      <div class="mp-qr-tap-hint">📲 Toca el código QR o escanéalo con tu celular para pagar</div>
+
+      <!-- Monitor de Estado en Tiempo Real -->
+      <div class="esp32-virtual-box" id="itemEsp32Box">
+        <div class="esp32-box-header">
+          <span class="esp32-chip-tag">🔌</span>
+          <span class="esp32-live-badge" id="itemEsp32Badge">ESPERANDO PAGO QR</span>
+        </div>
+        <div class="esp32-steps-row">
+          <div class="esp32-step" id="espStep1">
+            <span class="step-dot">1</span>
+            <span>Pago QR</span>
+          </div>
+          <div class="esp32-step-line"></div>
+          <div class="esp32-step" id="espStep2">
+            <span class="step-dot">2</span>
+            <span>Recibiendo</span>
+          </div>
+          <div class="esp32-step-line"></div>
+          <div class="esp32-step" id="espStep3">
+            <span class="step-dot">3</span>
+            <span>Autoriza y Cobra</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="qr-item-details-box">
+        <div class="qr-details-top-bar">
+          <div class="qr-detail-chip chip-slot">
+            <span class="chip-icon">📍</span>
+            <span id="modalQrSlot">Casilla A1</span>
+          </div>
+          <div class="qr-detail-chip chip-price">
+            <span class="chip-icon">💰</span>
+            <span id="modalQrPrice">$125.00 MXN</span>
+          </div>
+        </div>
+        <div id="modalDishStructureRow" class="modal-dish-categories-box">
+          <div id="modalDishStructureContent"></div>
+          <span id="modalDishStructureText" style="display: none;"></span>
+        </div>
+      </div>
+
+      <!-- Métodos de Pago: Billeteras Digitales Oficiales (Apple Pay & Google Pay) -->
+      <div class="digital-wallets-container">
+        <div class="digital-wallets-grid">
+          <button class="btn-wallet-official" id="btnPayApple" aria-label="Pagar con Apple Pay" title="Pagar con Apple Pay">
+            <svg class="wallet-btn-svg" viewBox="0 0 120 80" fill="#ffffff" aria-hidden="true">
+              <path d="M31.7358 25.6955C32.8058 24.3572 33.5319 22.5603 33.3404 20.724C31.7741 20.8019 29.8627 21.7573 28.7562 23.0967C27.7626 24.2436 26.8832 26.1158 27.1124 27.8751C28.8707 28.0276 30.6273 26.9962 31.7358 25.6955Z"/>
+              <path d="M33.3204 28.2186C30.7671 28.0665 28.5961 29.6678 27.3767 29.6678C26.1567 29.6678 24.2894 28.2952 22.2698 28.3322C19.6412 28.3708 17.2022 29.8571 15.8682 32.2209C13.1246 36.9497 15.1442 43.9642 17.8122 47.8155C19.1079 49.7209 20.6694 51.8189 22.7269 51.7435C24.6709 51.6672 25.4328 50.4847 27.7958 50.4847C30.1571 50.4847 30.8435 51.7435 32.9013 51.7054C35.0353 51.6672 36.3695 49.799 37.6651 47.8918C39.1515 45.7198 39.7599 43.6225 39.7982 43.5073C39.7599 43.4692 35.6832 41.9053 35.6454 37.2158C35.6069 33.2892 38.8461 31.4215 38.9985 31.3057C37.1694 28.6003 34.3113 28.2952 33.3204 28.2186Z"/>
+              <path d="M55.5533 22.9046C61.103 22.9046 64.9675 26.7301 64.9675 32.2997C64.9675 37.8892 61.0235 41.7345 55.4142 41.7345H49.2696V51.5062H44.8301V22.9046L55.5533 22.9046ZM49.2695 38.0081H54.3635C58.2288 38.0081 60.4286 35.9271 60.4286 32.3196C60.4286 28.7124 58.2288 26.6509 54.3834 26.6509H49.2695V38.0081Z"/>
+              <path d="M66.1274 45.5799C66.1274 41.9326 68.9222 39.6929 73.8778 39.4154L79.5858 39.0786V37.4732C79.5858 35.1541 78.0198 33.7666 75.404 33.7666C72.9258 33.7666 71.3797 34.9556 71.0035 36.8191H66.9601C67.1979 33.0528 70.4086 30.278 75.5623 30.278C80.6165 30.278 83.8471 32.9538 83.8471 37.136V51.5062H79.7441V48.0772H79.6454C78.4365 50.3963 75.8001 51.8629 73.065 51.8629C68.9818 51.8629 66.1274 49.3258 66.1274 45.5799ZM79.5858 43.697V42.0518L74.452 42.3688C71.8951 42.5473 70.4484 43.6771 70.4484 45.461C70.4484 47.2842 71.9547 48.4736 74.254 48.4736C77.2468 48.4736 79.5858 46.4122 79.5858 43.697Z"/>
+              <path d="M87.7206 59.177V55.7082C88.0372 55.7874 88.7506 55.7874 89.1077 55.7874C91.0896 55.7874 92.1601 54.9551 92.8139 52.8145C92.8139 52.7747 93.1908 51.5459 93.1908 51.5261L85.6592 30.6546H90.2967L95.5696 47.6214H95.6484L100.921 30.6546H105.44L97.6303 52.5962C95.8472 57.6508 93.7857 59.276 89.4648 59.276C89.1077 59.276 88.0372 59.2363 87.7206 59.177Z"/>
+            </svg>
+          </button>
+          <button class="btn-wallet-official" id="btnPayGoogle" aria-label="Pagar con Google Pay" title="Pagar con Google Pay">
+            <svg class="wallet-btn-svg" viewBox="0 0 120 80" aria-hidden="true">
+              <path fill="#ffffff" d="M57.5437 26.997V35.9796H63.0833C64.4033 35.9796 65.4945 35.5352 66.3569 34.6486C67.2435 33.7642 67.6879 32.7082 67.6879 31.4872C67.6879 30.2904 67.2435 29.2476 66.3569 28.3588C65.4945 27.4502 64.4033 26.9948 63.0833 26.9948H57.5437V26.997ZM57.5437 39.141V49.5602H54.2349V23.8356H63.0129C65.2415 23.8356 67.1335 24.577 68.6933 26.062C70.2773 27.547 71.0693 29.3554 71.0693 31.4872C71.0693 33.6674 70.2773 35.489 68.6933 36.9476C67.1599 38.4106 65.2635 39.1388 63.0107 39.1388H57.5437V39.141ZM74.4133 44.1724C74.4133 45.0348 74.7785 45.752 75.5111 46.3284C76.2415 46.9004 77.0995 47.1886 78.0807 47.1886C79.4733 47.1886 80.7119 46.6738 81.8031 45.6464C82.8965 44.6146 83.4399 43.4046 83.4399 42.0164C82.4081 41.2024 80.9693 40.7954 79.1235 40.7954C77.7815 40.7954 76.6595 41.121 75.7619 41.7678C74.8621 42.4146 74.4133 43.2132 74.4133 44.1724ZM78.6945 31.3794C81.1409 31.3794 83.0703 32.0328 84.4871 33.3374C85.8995 34.6442 86.6079 36.435 86.6079 38.7098V49.5602H83.4421V47.1182H83.2991C81.9307 49.129 80.1091 50.1366 77.8299 50.1366C75.8895 50.1366 74.2637 49.5602 72.9569 48.4118C71.6501 47.2612 70.9967 45.8246 70.9967 44.0998C70.9967 42.2782 71.6853 40.8306 73.0647 39.7526C74.4441 38.6746 76.2833 38.1356 78.5867 38.1356C80.5491 38.1356 82.1705 38.4942 83.4399 39.2136V38.4568C83.4399 37.3084 82.9845 36.3316 82.0737 35.5308C81.1961 34.7411 80.0531 34.3114 78.8727 34.3274C77.0247 34.3274 75.5639 35.104 74.4837 36.6638L71.5709 34.829C73.1769 32.53 75.5529 31.3794 78.6945 31.3794ZM104.771 31.9558L93.7271 57.3218H90.3105L94.4113 48.447L87.1469 31.9558H90.7439L95.9953 44.6036H96.0657L101.174 31.9536L104.771 31.9558Z"/>
+              <path fill="#4285F4" d="M44.1722 36.8948C44.1722 35.8542 44.0842 34.8488 43.917 33.8896H29.9602V39.5832H37.955C37.6239 41.4215 36.5557 43.0445 34.9982 44.0756V47.7716H39.77C42.564 45.1976 44.1722 41.3916 44.1722 36.8948Z"/>
+              <path fill="#34A853" d="M29.9603 51.34C33.9555 51.34 37.3171 50.031 39.7701 47.7738L34.9983 44.0756C33.6717 44.9688 31.9623 45.4902 29.9603 45.4902C26.1015 45.4902 22.8235 42.8898 21.6531 39.3874H16.7383V43.1956C19.2527 48.1909 24.3678 51.3425 29.9603 51.3422"/>
+              <path fill="#FABB05" d="M21.6529 39.3874C21.0355 37.5518 21.0355 35.5646 21.6529 33.729V29.9208H16.7381C15.6991 31.9782 15.1587 34.2512 15.1606 36.556C15.1606 38.943 15.7327 41.198 16.7381 43.1934L21.6529 39.3852V39.3874Z"/>
+              <path fill="#E94235" d="M29.96 27.6262C32.1424 27.6262 34.096 28.3742 35.636 29.8438V29.846L39.86 25.6264C37.2992 23.2416 33.9552 21.7764 29.9622 21.7764C24.3703 21.7757 19.2553 24.9264 16.7402 29.9208L21.655 33.729C22.8254 30.2266 26.1034 27.6262 29.9622 27.6262"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL 2: EL PRODUCTO (ANIMACIÓN PURA — SOLAMENTE "Activación exitosa")
+       ====================================================================== -->
+  <div class="modal-overlay" id="dispenseModalOverlay">
+    <div class="modal-card dispense-pure-card" id="dispensePureCard">
+      <div class="activation-visual-stage">
+        <div class="activation-ring ring-outer"></div>
+        <div class="activation-ring ring-middle"></div>
+        <div class="activation-product-bubble">
+          <img id="dispenseProductImage" src="images/pechuga_limon.jpg" alt="Activación exitosa">
+          <div class="activation-check-badge">✓</div>
+        </div>
+      </div>
+
+      <h2 class="activation-only-title" id="dispenseOnlyTitle">Activación exitosa</h2>
+
+      <div class="activation-progress-track">
+        <div id="dispenseProgressBar" class="activation-progress-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL 3: CÓDIGO QR DE ORDEN COMPLETA (CARRITO MULTI-ÍTEM + ESP32)
+       ====================================================================== -->
+  <div class="modal-overlay" id="orderQrModalOverlay">
+    <div class="modal-card modal-order-card modal-mp-card">
+      <button class="btn-modal-close-icon" id="btnCloseOrderQrModal" aria-label="Cerrar">✕</button>
+
+      <div class="modal-header">
+        <h3 id="modalOrderQrTitle">Código QR de Orden Completa</h3>
+        <p class="modal-subtitle" id="modalOrderQrSubtitle">
+          Toca para pagar tu orden; el ESP32 autoriza, cobra y activa automáticamente
+        </p>
+      </div>
+
+      <div class="modal-qr-container mp-qr-interactive" id="modalOrderQrHolder" title="Toca para pagar orden con Mercado Pago">
+        <!-- SVG QR Compuesto de la Orden generado por app.js -->
+      </div>
+
+      <!-- Monitor para Orden Completa -->
+      <div class="esp32-virtual-box" id="orderEsp32Box">
+        <div class="esp32-box-header">
+          <span class="esp32-chip-tag">🔌</span>
+          <span class="esp32-live-badge" id="orderEsp32Badge">ESPERANDO PAGO QR</span>
+        </div>
+      </div>
+
+      <div class="order-summary-box">
+        <div class="order-meta-row">
+          <span><strong>Folio:</strong> <code id="orderTokenCode">EXP4-ORD-839210</code></span>
+          <span class="order-status-badge" id="orderPaymentStatusBadge">⏳ Pendiente de Pago</span>
+        </div>
+        <div class="order-total-highlight">
+          <span>Total a Cobrar:</span>
+          <span id="orderModalTotalDisplay">$0.00 MXN</span>
+        </div>
+
+        <div class="order-items-scroll-list" id="orderModalItemsList">
+          <!-- Desglose detallado de ítems -->
+        </div>
+      </div>
+
+      <button class="btn-mp-pay-now" id="btnSimulateOrderDispense">
+        <span>Pagar Orden con Mercado Pago</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL 4: CAMPAÑA PUBLICITARIA OFICIAL & IDENTIDAD DE MARCA
+       ====================================================================== -->
+  <div class="modal-overlay" id="brandCampaignModalOverlay">
+    <div class="modal-card modal-campaign-card">
+      <div class="campaign-hero-header">
+        <div class="campaign-hero-icon" style="font-size: 2.2rem; line-height: 1;">✨</div>
+        <div>
+          <span class="campaign-tag-top">CAMPAÑA OFICIAL 2026 • IDENTIDAD DE MARCA</span>
+          <h3>ExpendeX® — "Energía que se Activa"</h3>
+          <p>#NutriciónAlInstante • Comida Real en 3 Segundos</p>
+        </div>
+      </div>
+
+      <div class="campaign-pillars-grid">
+        <div class="campaign-pillar-box">
+          <strong>🥗 1. Nutrición Real</strong>
+          <p>1 Plato Fuerte + 2 Guarniciones recién hechas en topper hermético a 3.4 °C (NOM-251).</p>
+        </div>
+        <div class="campaign-pillar-box">
+          <strong>🧊 2. Cero Azúcar</strong>
+          <p>Aguas frescas endulzadas con monkfruit e hidratación deportiva 0% calorías.</p>
+        </div>
+        <div class="campaign-pillar-box">
+          <strong>⚡ 3. Entrega Instantánea</strong>
+          <p>Comida corrida balanceada lista en menos de 3 segundos con autoservicio inteligente.</p>
+        </div>
+      </div>
+
+      <button class="btn-simulate-dispense" id="btnCloseBrandCampaign" style="margin-top: 14px;">
+        Listo, Volver al Menú
+      </button>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL: HOJA DE PAGO APPLE PAY (INTERFAZ NATIVA OFICIAL APPLE PAY)
+       ====================================================================== -->
+  <div class="modal-overlay" id="applePaySheetOverlay" style="z-index: 10000;">
+    <div class="modal-card apple-pay-sheet-card">
+      <div class="apple-pay-sheet-header">
+        <span class="apple-pay-sheet-logo">
+          <svg viewBox="0 0 120 80" fill="#000000" style="height: 28px; width: auto; display: inline-block; vertical-align: middle;">
+            <path d="M31.7358 25.6955C32.8058 24.3572 33.5319 22.5603 33.3404 20.724C31.7741 20.8019 29.8627 21.7573 28.7562 23.0967C27.7626 24.2436 26.8832 26.1158 27.1124 27.8751C28.8707 28.0276 30.6273 26.9962 31.7358 25.6955Z"/>
+            <path d="M33.3204 28.2186C30.7671 28.0665 28.5961 29.6678 27.3767 29.6678C26.1567 29.6678 24.2894 28.2952 22.2698 28.3322C19.6412 28.3708 17.2022 29.8571 15.8682 32.2209C13.1246 36.9497 15.1442 43.9642 17.8122 47.8155C19.1079 49.7209 20.6694 51.8189 22.7269 51.7435C24.6709 51.6672 25.4328 50.4847 27.7958 50.4847C30.1571 50.4847 30.8435 51.7435 32.9013 51.7054C35.0353 51.6672 36.3695 49.799 37.6651 47.8918C39.1515 45.7198 39.7599 43.6225 39.7982 43.5073C39.7599 43.4692 35.6832 41.9053 35.6454 37.2158C35.6069 33.2892 38.8461 31.4215 38.9985 31.3057C37.1694 28.6003 34.3113 28.2952 33.3204 28.2186Z"/>
+            <path d="M55.5533 22.9046C61.103 22.9046 64.9675 26.7301 64.9675 32.2997C64.9675 37.8892 61.0235 41.7345 55.4142 41.7345H49.2696V51.5062H44.8301V22.9046L55.5533 22.9046ZM49.2695 38.0081H54.3635C58.2288 38.0081 60.4286 35.9271 60.4286 32.3196C60.4286 28.7124 58.2288 26.6509 54.3834 26.6509H49.2695V38.0081Z"/>
+            <path d="M66.1274 45.5799C66.1274 41.9326 68.9222 39.6929 73.8778 39.4154L79.5858 39.0786V37.4732C79.5858 35.1541 78.0198 33.7666 75.404 33.7666C72.9258 33.7666 71.3797 34.9556 71.0035 36.8191H66.9601C67.1979 33.0528 70.4086 30.278 75.5623 30.278C80.6165 30.278 83.8471 32.9538 83.8471 37.136V51.5062H79.7441V48.0772H79.6454C78.4365 50.3963 75.8001 51.8629 73.065 51.8629C68.9818 51.8629 66.1274 49.3258 66.1274 45.5799ZM79.5858 43.697V42.0518L74.452 42.3688C71.8951 42.5473 70.4484 43.6771 70.4484 45.461C70.4484 47.2842 71.9547 48.4736 74.254 48.4736C77.2468 48.4736 79.5858 46.4122 79.5858 43.697Z"/>
+            <path d="M87.7206 59.177V55.7082C88.0372 55.7874 88.7506 55.7874 89.1077 55.7874C91.0896 55.7874 92.1601 54.9551 92.8139 52.8145C92.8139 52.7747 93.1908 51.5459 93.1908 51.5261L85.6592 30.6546H90.2967L95.5696 47.6214H95.6484L100.921 30.6546H105.44L97.6303 52.5962C95.8472 57.6508 93.7857 59.276 89.4648 59.276C89.1077 59.276 88.0372 59.2363 87.7206 59.177Z"/>
+          </svg>
+        </span>
+        <button class="apple-pay-sheet-cancel" id="btnCancelApplePaySheet">Cancelar</button>
+      </div>
+
+      <div class="apple-pay-sheet-body">
+        <div class="apple-pay-card-row">
+          <div class="apple-card-chip">
+            <span class="card-brand-icon">💳</span>
+            <div class="card-details">
+              <strong>Visa Débito (•••• 4821)</strong>
+              <span>Banco Santander / BBVA</span>
+            </div>
+          </div>
+          <span class="apple-chevron">›</span>
+        </div>
+
+        <div class="apple-pay-line-items">
+          <div class="apple-line-row">
+            <span class="apple-label">PRODUCTO</span>
+            <span class="apple-value" id="applePayItemTitle">Pechuga al Limón</span>
+          </div>
+          <div class="apple-line-row">
+            <span class="apple-label">UBICACIÓN</span>
+            <span class="apple-value" id="applePayItemSlot">Casilla A1</span>
+          </div>
+          <div class="apple-line-row">
+            <span class="apple-label">COMERCIO</span>
+            <span class="apple-value">Vita Fit UANL .centro</span>
+          </div>
+          <div class="apple-line-row apple-total-row">
+            <span class="apple-label-total">TOTAL</span>
+            <span class="apple-value-total" id="applePayItemTotal">$125.00 MXN</span>
+          </div>
+        </div>
+
+        <!-- Confirmación de Touch ID / Face ID -->
+        <div class="apple-pay-auth-section">
+          <div class="apple-pay-touchid-icon" id="applePayTouchIdIcon" title="Toca para pagar">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 3.42"/>
+              <path d="M14 13.12c0 2.38 0 6.38-1 8.88"/>
+              <path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"/>
+              <path d="M2 12a10 10 0 0 1 18-6"/>
+              <path d="M2 16h.01"/>
+              <path d="M21.8 16c.2-2 .131-5.354 0-6"/>
+              <path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2"/>
+              <path d="M8.65 22c.21-.66.45-1.32.57-2"/>
+              <path d="M9 6.8a6 6 0 0 1 9 5.2v2"/>
+            </svg>
+          </div>
+          <div class="apple-pay-auth-prompt" id="applePayAuthPrompt">
+            Toca o pulsa el botón para autorizar con Touch ID / Face ID
+          </div>
+          <button class="btn-apple-pay-confirm" id="btnConfirmApplePay">
+            <span>Pagar con Touch ID / Contraseña</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       BARRA DE NAVEGACIÓN INFERIOR PARA TELÉFONOS
+       ====================================================================== -->
+  <nav class="bottom-nav-mobile" aria-label="Navegación móvil">
+    <button class="nav-tab-btn active" id="tabNavCombos">
+      <span class="tab-icon">⭐</span>
+      <span>Combos (10)</span>
+    </button>
+    <button class="nav-tab-btn" id="tabNavMeals">
+      <span class="tab-icon">🍱</span>
+      <span>Platillos (12)</span>
+    </button>
+    <button class="nav-tab-btn" id="tabNavDrinks">
+      <span class="tab-icon">🥤</span>
+      <span>Bebidas (24)</span>
+    </button>
+    <button class="nav-tab-btn" id="tabNavAll">
+      <span class="tab-icon">🍽️</span>
+      <span>Todo (46)</span>
+    </button>
+    <button type="button" class="nav-tab-btn" id="btnOpenThemeSettings" title="Personalizar Apariencia y Colores">
+      <span class="tab-icon">⚙️</span>
+      <span>Ajustes</span>
+    </button>
+  </nav>
+
+  <!-- ======================================================================
+       MODAL DE PERSONALIZACIÓN: MODO NOCHE / CLARO & PALETAS DE COLOR
+       ====================================================================== -->
+  <div class="theme-modal-overlay" id="themeModalOverlay" style="display: none;">
+    <div class="theme-modal-card">
+      <div class="theme-modal-header">
+        <div class="theme-modal-title-box">
+          <span class="theme-modal-icon">⚙️</span>
+          <div>
+            <h3>Ajustes de Apariencia</h3>
+            <p>Personaliza el tema visual y colores del quiosco</p>
+          </div>
+        </div>
+        <button type="button" class="btn-close-theme-modal" id="btnCloseThemeModal" aria-label="Cerrar">&times;</button>
+      </div>
+
+      <div class="theme-modal-body">
+        <!-- Modo Noche / Claro -->
+        <div class="theme-setting-block">
+          <div class="theme-setting-label">
+            <strong>🌓 Modo de Visualización</strong>
+            <small>Alterna entre tema luminoso o modo noche de alto contraste</small>
+          </div>
+          <div class="theme-mode-toggle-group">
+            <button type="button" class="btn-theme-mode active" id="btnModeLight" data-mode="light">
+              <span class="mode-icon">☀️</span>
+              <span>Modo Claro</span>
+            </button>
+            <button type="button" class="btn-theme-mode" id="btnModeDark" data-mode="dark">
+              <span class="mode-icon">🌙</span>
+              <span>Modo Noche</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Paleta de Colores -->
+        <div class="theme-setting-block">
+          <div class="theme-setting-label">
+            <strong>🎨 Paleta de Colores de la Marca</strong>
+            <small>Elige tu estilo cromático preferido para botones y acentos</small>
+          </div>
+          <div class="theme-palettes-grid">
+            <!-- Opción 1: Verde Fit Esmeralda -->
+            <button type="button" class="btn-palette-choice active" data-palette="emerald">
+              <span class="palette-swatch swatch-emerald"></span>
+              <div class="palette-info">
+                <strong>Verde Esmeralda</strong>
+                <small>Fresh & Fit Oficial</small>
+              </div>
+            </button>
+
+            <!-- Opción 2: Azul Eléctrico Zafiro -->
+            <button type="button" class="btn-palette-choice" data-palette="sapphire">
+              <span class="palette-swatch swatch-sapphire"></span>
+              <div class="palette-info">
+                <strong>Azul Zafiro</strong>
+                <small>High-Tech FIME</small>
+              </div>
+            </button>
+
+            <!-- Opción 3: Naranja Sunset Solar -->
+            <button type="button" class="btn-palette-choice" data-palette="sunset">
+              <span class="palette-swatch swatch-sunset"></span>
+              <div class="palette-info">
+                <strong>Naranja Sunset</strong>
+                <small>Energía Fitness</small>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="theme-modal-footer">
+        <button type="button" class="btn-theme-confirm" id="btnConfirmThemeModal">
+          <span>✓ Aplicar y Guardar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lógica y Base de Datos Completa con Imágenes Reales -->
+  <script src="app.js"></script>
+</body>
+</html>

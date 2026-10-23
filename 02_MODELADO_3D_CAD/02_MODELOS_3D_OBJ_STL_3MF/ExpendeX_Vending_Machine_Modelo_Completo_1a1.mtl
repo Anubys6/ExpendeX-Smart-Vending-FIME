@@ -1,0 +1,145 @@
+# ExpendeX Vending Machine - Materiales
+
+newmtl Chassis_Dark
+Ka 0 0 0
+Kd 0.120 0.140 0.180
+Ks 0.5 0.5 0.5
+Ns 80
+d 1.00
+illum 2
+
+newmtl Compressor_Bay
+Ka 0 0 0
+Kd 0.180 0.200 0.240
+Ks 0.5 0.5 0.5
+Ns 80
+d 1.00
+illum 2
+
+newmtl Delivery_Frame
+Ka 0 0 0
+Kd 0.200 0.220 0.260
+Ks 0.5 0.5 0.5
+Ns 80
+d 1.00
+illum 2
+
+newmtl Divider
+Ka 0 0 0
+Kd 0.600 0.620 0.650
+Ks 0.5 0.5 0.5
+Ns 80
+d 1.00
+illum 2
+
+newmtl Drop_Flap
+Ka 0 0 0
+Kd 0.080 0.080 0.090
+Ks 0.5 0.5 0.5
+Ns 80
+d 1.00
+illum 2
+
+newmtl Glass_Frame
+Ka 0 0 0
+Kd 0.750 0.760 0.780
+Ks 0.5 0.5 0.5
+Ns 80
+d 1.00
+illum 2
+
+newmtl Grille_Louvers
+Ka 0 0 0
+Kd 0.050 0.050 0.060
+Ks 0.5 0.5 0.5
+Ns 80
+d 1.00
+illum 2
+
+newmtl Header_Panel
+Ka 0 0 0
+Kd 0.100 0.450 0.750
+Ks 0.5 0.5 0.5
+Ns 80
+d 1.00
+illum 2
+
+newmtl Internal_Ramp
+Ka 0 0 0
+Kd 0.700 0.720 0.750
+Ks 0.5 0.5 0.5
+Ns 80
+d 1.00
+illum 2
+
+newmtl NEMA17_Motor
+Ka 0 0 0
+Kd 0.100 0.100 0.100
+Ks 0.5 0.5 0.5
+Ns 80
+d 1.00
+illum 2
+
+newmtl Panoramic_Glass
+Ka 0 0 0
+Kd 0.800 0.900 1.000
+Ks 0.5 0.5 0.5
+Ns 80
+d 0.30
+illum 2
+
+newmtl Price_Rail
+Ka 0 0 0
+Kd 0.950 0.600 0.100
+Ks 0.5 0.5 0.5
+Ns 80
+d 1.00
+illum 2
+
+newmtl QR_Plaque
+Ka 0 0 0
+Kd 0.950 0.950 0.950
+Ks 0.5 0.5 0.5
+Ns 80
+d 1.00
+illum 2
+
+newmtl Speaker_Grille
+Ka 0 0 0
+Kd 0.150 0.150 0.150
+Ks 0.5 0.5 0.5
+Ns 80
+d 1.00
+illum 2
+
+newmtl Spring_Beverage
+Ka 0 0 0
+Kd 0.850 0.850 0.880
+Ks 0.5 0.5 0.5
+Ns 80
+d 1.00
+illum 2
+
+newmtl Spring_Giant
+Ka 0 0 0
+Kd 0.850 0.850 0.880
+Ks 0.5 0.5 0.5
+Ns 80
+d 1.00
+illum 2
+
+newmtl Touchscreen_Glass
+Ka 0 0 0
+Kd 0.020 0.020 0.030
+Ks 0.5 0.5 0.5
+Ns 80
+d 1.00
+illum 2
+
+newmtl Tray_Stainless
+Ka 0 0 0
+Kd 0.780 0.800 0.820
+Ks 0.5 0.5 0.5
+Ns 80
+d 1.00
+illum 2

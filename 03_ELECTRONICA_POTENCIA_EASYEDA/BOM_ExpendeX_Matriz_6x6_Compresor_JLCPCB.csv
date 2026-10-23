@@ -1,0 +1,21 @@
+﻿Item,Designator,Quantity,Comment / Value,Footprint / Package,LCSC Part #,Manufacturer Part,Description
+1,M_A1..M_F6,36,Motor_24V,CONN-TH_2P-P5.08,C8465,WJ500V-5.08-2P,Bornera 2 pines 5.08mm para motores de charola
+2,D_BLK_A1..D_BLK_F6,36,1N4007,SOD-123FL,C2836239,1N4007(A7),Diodo rectificador de bloqueo anti-ghosting en serie
+3,D_FLY_A1..D_FLY_F6,36,1N4007,SOD-123FL,C2836239,1N4007(A7),Diodo flyback antiparalelo de supresion inductiva
+4,Q_COL1..Q_COL6,6,IRF9540N,TO-220-3,C148074,IRF9540NPBF,MOSFET Canal P -100V -23A 0.117Ω (Conmutacion High-Side)
+5,Q_FILA_A..Q_FILA_F,6,IRLZ44N,TO-220-3,C78396,IRLZ44NPBF,MOSFET Canal N Nivel Logico 55V 47A 0.022Ω (Conmutacion Low-Side)
+6,"U_OPTO_C1..C6, U_OPTO_FA..FF",12,PC817C,SOP-4,C4998,PC817C-MS,Optoacoplador de aislamiento galvanico 5kV CTR 200-400%
+7,"R_LED_C1..C6, R_LED_FA..FF",12,330_Ohm,R0805,C17632,0805W8F3300T5E,Resistencia limitadora corriente LED optoacoplador 1/8W 1%
+8,"R_PU_C1..C6, R_PD_A..F",12,10k_Ohm,R0805,C17414,0805W8F1002T5E,Resistencia Pull-up / Pull-down compuerta MOSFET 1/8W 1%
+9,U_BUCK_5V,1,LM2596S-5.0,TO-263-5,C347434,LM2596S-5.0,Regulador reductor Step-Down DC-DC conmutado 24V->5V 3A
+10,"C_BULK1, C_OUT_5V",2,100uF,CAP-TH_BD6.3-P2.5,C3399,RYHG35V100UF,Condensador electrolitico bajo ESR filtrado de alimentacion
+11,U_ESP32,1,ESP32-WROOM-32,SMD-38,C473012,ESP32-WROOM-32 (16MB),Modulo microcontrolador Wi-Fi + BLE Dual Core 240MHz
+12,J_PWR_24V,1,Bornera_24V_10A,CONN-TH_2P-P5.08,C8465,WJ500V-5.08-2P,Bornera tornillo paso 5.08mm entrada principal de potencia
+13,"Q_DRV_COMP, Q_DRV_FAN",2,IRLZ44N,TO-220-3,C78396,IRLZ44NPBF,MOSFETs de potencia para actuadores de refrigeracion
+14,"U_OPTO_COMP, U_OPTO_FAN",2,PC817C,SOP-4,C4998,PC817C-MS,Optoacopladores de control aislado refrigeracion
+15,"D_FLY_COMP, D_FLY_FAN",2,1N4007,SOD-123FL,C2836239,1N4007(A7),Diodos flyback compresor y ventilador condensador
+16,C_SNUB_COMP,1,100uF_35V,CAP-TH_BD6.3-P2.5,C3399,RYHG35V100UF,Condensador desacoplo/amortiguador bus compresor
+17,"J_COMPRESOR, J_FAN_COND",2,Bornera_Refrig_24V,CONN-TH_2P-P5.08,C8465,WJ500V-5.08-2P,Borneras de salida para compresor 1/5 HP y fan
+18,J_TEMP_SENS,1,Sonda_DS18B20,CONN-TH_2P-P5.08,C8465,WJ500V-5.08-2P,Conector para sonda termica digital de evaporador
+19,R_PU_TEMP,1,4.7k_Ohm,R0805,C17673,0805W8F4701T5E,Resistencia Pull-up bus 1-Wire DS18B20 1/8W 1%
+20,"R_LED_COMP, R_PD_COMP, R_LED_FAN, R_PD_FAN",4,330_Ohm / 10k_Ohm,R0805,C17632 / C17414,0805W8F...,Resistencias de polarizacion y disparo etapas de refrigeracion

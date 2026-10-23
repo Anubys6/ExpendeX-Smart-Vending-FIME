@@ -1,0 +1,10 @@
+{
+    "autodeskProduct": "Fusion360",
+    "type": "script",
+    "author": "Samuel Tovar Mojica",
+    "description": {
+        "": "Expandex 4 - Maquina dispensadora con terminal touch en puerta, QR unico de acceso web y techo liso sin pantalla superior."
+    },
+    "supportedOS": "windows|mac",
+    "editEnabled": true
+}

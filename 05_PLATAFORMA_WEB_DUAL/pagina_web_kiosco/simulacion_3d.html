@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExpendeX® 3D - Gemelo Digital y Simulación Física en Tiempo Real</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at center, #1a202c 0%, #0d1117 100%);
+      color: #e2e8f0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+    }
+    #canvas-container {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+    .hud {
+      position: absolute;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .hud-header {
+      top: 20px;
+      left: 25px;
+    }
+    .hud-header h1 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #38bdf8;
+      text-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .badge {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid #38bdf8;
+      color: #38bdf8;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .hud-header p {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    /* Panel de Control Lateral */
+    .control-panel {
+      bottom: 25px;
+      left: 25px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 16px;
+      padding: 18px 22px;
+      pointer-events: auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      width: 320px;
+    }
+    .control-panel h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #94a3b8;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 6px;
+    }
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .btn-dispense {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #ffffff;
+      border: 1px solid #38bdf8;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+    }
+    .btn-dispense:hover:not(:disabled) {
+      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(14, 165, 233, 0.45);
+    }
+    .btn-dispense:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .btn-reset {
+      background: rgba(51, 65, 85, 0.8);
+      border: 1px solid #64748b;
+      color: #cbd5e1;
+      margin-top: 5px;
+    }
+    .btn-reset:hover {
+      background: #475569;
+    }
+
+    /* Panel de Telemetría Sensor Infrarrojo */
+    .telemetry-panel {
+      top: 20px;
+      right: 25px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 16px 20px;
+      pointer-events: auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      width: 290px;
+    }
+    .telemetry-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .telemetry-row:last-child { border-bottom: none; }
+    .telemetry-label { color: #94a3b8; }
+    .telemetry-value { font-weight: 700; color: #f8fafc; font-family: monospace; }
+    .sensor-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .sensor-ok {
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+      border: 1px solid #22c55e;
+    }
+    .sensor-beam-broken {
+      background: rgba(239, 68, 68, 0.3);
+      color: #f87171;
+      border: 1px solid #ef4444;
+      animation: pulse 0.4s infinite alternate;
+    }
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.05); }
+    }
+    .camera-hint {
+      position: absolute;
+      bottom: 25px;
+      right: 25px;
+      background: rgba(0,0,0,0.4);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      color: #64748b;
+    }
+  </style>
+
+  <!-- Three.js + OrbitControls + Cannon.js (Physics Engine) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
+</head>
+<body>
+
+  <div id="canvas-container"></div>
+
+  <!-- HUD Header -->
+  <div class="hud hud-header">
+    <h1>
+      ExpendeX® Digital Twin
+      <span class="badge">Física 3D en Vivo</span>
+    </h1>
+    <p>Simulación cinemática de espirales, gravedad (-9.81 m/s²) y sensor óptico de caída</p>
+  </div>
+
+  <!-- Telemetría en Vivo -->
+  <div class="hud telemetry-panel">
+    <div style="font-size: 12px; font-weight: 700; color: #38bdf8; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+      <span>TELEMETRÍA MECATRÓNICA</span>
+      <span style="font-size: 9px; color: #10b981;">● 60 FPS</span>
+    </div>
+    <div class="telemetry-row">
+      <span class="telemetry-label">Motor Activo:</span>
+      <span class="telemetry-value" id="val-motor">EN ESPERA</span>
+    </div>
+    <div class="telemetry-row">
+      <span class="telemetry-label">Velocidad Angular:</span>
+      <span class="telemetry-value" id="val-rpm">0.0 RPM</span>
+    </div>
+    <div class="telemetry-row">
+      <span class="telemetry-label">Giro de Espiral:</span>
+      <span class="telemetry-value" id="val-angle">0.0° / 360°</span>
+    </div>
+    <div class="telemetry-row">
+      <span class="telemetry-label">Sensor Infrarrojo Caída:</span>
+      <span id="sensor-badge" class="sensor-indicator sensor-ok">HAZ ACTIVO (100%)</span>
+    </div>
+    <div class="telemetry-row">
+      <span class="telemetry-label">Estado de Entrega:</span>
+      <span class="telemetry-value" id="val-status" style="color: #cbd5e1;">Listo</span>
+    </div>
+  </div>
+
+  <!-- Panel de Control de Dispensado -->
+  <div class="hud control-panel">
+    <h3>Prueba de Dispensado Físico</h3>
+    <div class="btn-group">
+      <button class="btn-dispense" id="btn-a1" onclick="dispense('A1')">
+        <span>Slot A1: Coca-Cola Sin Azúcar</span>
+        <span style="font-size: 10px; opacity: 0.8;">[Bebida 355ml]</span>
+      </button>
+      <button class="btn-dispense" id="btn-a2" onclick="dispense('A2')">
+        <span>Slot A2: Gatorade Zero Naranja</span>
+        <span style="font-size: 10px; opacity: 0.8;">[Bebida 600ml]</span>
+      </button>
+      <button class="btn-dispense" id="btn-b1" onclick="dispense('B1')">
+        <span>Slot B1: Tinga de Pollo Fitness</span>
+        <span style="font-size: 10px; opacity: 0.8;">[Comida 400g]</span>
+      </button>
+      <button class="btn-dispense btn-reset" onclick="resetProducts()">
+        <span>↺ Reponer Todos los Productos</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="hud camera-hint">
+    Arrastra el ratón para rotar 360° | Rueda para zoom
+  </div>
+
+  <script>
+    // =========================================================================
+    // INICIALIZACIÓN THREE.JS + CANNON.JS
+    // =========================================================================
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0e131f);
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 1.4, 3.2);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    container.appendChild(renderer.domElement);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.target.set(0, 0.9, 0);
+
+    // Luces
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    scene.add(ambientLight);
+
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    dirLight.position.set(3, 5, 4);
+    dirLight.castShadow = true;
+    dirLight.shadow.mapSize.width = 1024;
+    dirLight.shadow.mapSize.height = 1024;
+    scene.add(dirLight);
+
+    const cabinLight = new THREE.PointLight(0x38bdf8, 2.0, 3.0);
+    cabinLight.position.set(0, 1.8, 0.2);
+    scene.add(cabinLight);
+
+    // MUNDO DE FÍSICA CANNON.JS
+    const world = new CANNON.World();
+    world.gravity.set(0, -9.82, 0);
+    world.broadphase = new CANNON.NaiveBroadphase();
+    world.solver.iterations = 10;
+
+    const defaultMaterial = new CANNON.Material('default');
+    const contactMat = new CANNON.ContactMaterial(defaultMaterial, defaultMaterial, {
+      friction: 0.35,
+      restitution: 0.15
+    });
+    world.addContactMaterial(contactMat);
+
+    // Piso
+    const floorGeo = new THREE.PlaneGeometry(12, 12);
+    const floorMat = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.8 });
+    const floorMesh = new THREE.Mesh(floorGeo, floorMat);
+    floorMesh.rotation.x = -Math.PI / 2;
+    floorMesh.receiveShadow = true;
+    scene.add(floorMesh);
+
+    const floorBody = new CANNON.Body({ mass: 0, material: defaultMaterial });
+    floorBody.addShape(new CANNON.Plane());
+    floorBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
+    world.addBody(floorBody);
+
+    // =========================================================================
+    // MODELADO DE LA MÁQUINA EXPENDEX EN 3D
+    // =========================================================================
+    const cabinetGroup = new THREE.Group();
+
+    // Gabinete Exterior (Acero Oscuro Mate)
+    const steelMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.6, roughness: 0.4 });
+    const shelfMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.8, roughness: 0.2 });
+    const glassMat = new THREE.MeshPhysicalMaterial({ color: 0xe0f2fe, transparent: true, opacity: 0.35, roughness: 0.1, transmission: 0.9, thickness: 0.05 });
+
+    // Paredes del Gabinete
+    function createBox(w, h, d, x, y, z, mat, isPhysics = true) {
+      const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+      mesh.position.set(x, y, z);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      cabinetGroup.add(mesh);
+
+      if (isPhysics) {
+        const body = new CANNON.Body({ mass: 0, material: defaultMaterial });
+        body.addShape(new CANNON.Box(new CANNON.Vec3(w/2, h/2, d/2)));
+        body.position.set(x, y, z);
+        world.addBody(body);
+      }
+      return mesh;
+    }
+
+    // Estructura
+    createBox(1.0, 2.0, 0.03, 0, 1.0, -0.45, steelMat); // Fondo
+    createBox(0.03, 2.0, 0.9, -0.5, 1.0, 0, steelMat);  // Izquierda
+    createBox(0.03, 2.0, 0.9, 0.5, 1.0, 0, steelMat);   // Derecha
+    createBox(1.0, 0.03, 0.9, 0, 2.0, 0, steelMat);     // Techo
+    createBox(1.0, 0.03, 0.9, 0, 0.015, 0, steelMat);   // Base
+
+    // Puerta de Vidrio
+    createBox(0.96, 1.4, 0.02, 0, 1.3, 0.45, glassMat, false);
+
+    // Panel frontal inferior
+    createBox(0.96, 0.55, 0.03, 0, 0.275, 0.45, steelMat);
+
+    // Rampa inferior de entrega (inclinada hacia adelante)
+    const rampGeo = new THREE.BoxGeometry(0.92, 0.02, 0.65);
+    const rampMesh = new THREE.Mesh(rampGeo, shelfMat);
+    rampMesh.position.set(0, 0.25, 0.05);
+    rampMesh.rotation.x = 0.4;
+    cabinetGroup.add(rampMesh);
+
+    const rampBody = new CANNON.Body({ mass: 0, material: defaultMaterial });
+    rampBody.addShape(new CANNON.Box(new CANNON.Vec3(0.92/2, 0.02/2, 0.65/2)));
+    rampBody.position.set(0, 0.25, 0.05);
+    rampBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), 0.4);
+    world.addBody(rampBody);
+
+    // Bandeja 1 (Piso Superior - Altura 1.40m)
+    createBox(0.92, 0.02, 0.65, 0, 1.40, -0.1, shelfMat);
+
+    // Bandeja 2 (Piso Medio - Altura 0.95m)
+    createBox(0.92, 0.02, 0.65, 0, 0.95, -0.1, shelfMat);
+
+    // HAZ ÓPTICO INFRARROJO DE CAÍDA (Láser rojo visible)
+    const beamGeo = new THREE.CylinderGeometry(0.003, 0.003, 0.9);
+    const beamMat = new THREE.MeshBasicMaterial({ color: 0xef4444, transparent: true, opacity: 0.8 });
+    const beamMesh = new THREE.Mesh(beamGeo, beamMat);
+    beamMesh.rotation.z = Math.PI / 2;
+    beamMesh.position.set(0, 0.45, 0.22);
+    cabinetGroup.add(beamMesh);
+
+    scene.add(cabinetGroup);
+
+    // =========================================================================
+    // ESPIRALES DISPENSADORAS (ESPIRAL HELICOIDAL EN 3D)
+    // =========================================================================
+    function createSpiralMesh(color = 0x38bdf8) {
+      const group = new THREE.Group();
+      const radius = 0.055;
+      const length = 0.52;
+      const turns = 6;
+      const points = [];
+      const totalPoints = 120;
+
+      for (let i = 0; i <= totalPoints; i++) {
+        const t = i / totalPoints;
+        const angle = t * turns * Math.PI * 2;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+        const z = (t - 0.5) * length;
+        points.push(new THREE.Vector3(x, y, z));
+      }
+
+      const curve = new THREE.CatmullRomCurve3(points);
+      const tubeGeo = new THREE.TubeGeometry(curve, 90, 0.005, 8, false);
+      const tubeMat = new THREE.MeshStandardMaterial({ color: color, metalness: 0.8, roughness: 0.3 });
+      const tubeMesh = new THREE.Mesh(tubeGeo, tubeMat);
+      group.add(tubeMesh);
+
+      // Pala de empuje en la punta frontal
+      const paddleGeo = new THREE.BoxGeometry(0.08, 0.02, 0.03);
+      const paddleMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, metalness: 0.6, roughness: 0.4 });
+      const paddleMesh = new THREE.Mesh(paddleGeo, paddleMat);
+      paddleMesh.position.set(0, 0.035, length/2);
+      group.add(paddleMesh);
+
+      return group;
+    }
+
+    const spirals = {
+      'A1': { mesh: createSpiralMesh(0xef4444), x: -0.25, y: 1.48, z: -0.1, angle: 0, rotating: false },
+      'A2': { mesh: createSpiralMesh(0x38bdf8), x: 0.25, y: 1.48, z: -0.1, angle: 0, rotating: false },
+      'B1': { mesh: createSpiralMesh(0x22c55e), x: -0.25, y: 1.03, z: -0.1, angle: 0, rotating: false }
+    };
+
+    for (let key in spirals) {
+      const s = spirals[key];
+      s.mesh.position.set(s.x, s.y, s.z);
+      scene.add(s.mesh);
+    }
+
+    // =========================================================================
+    // PRODUCTOS FÍSICOS (LATAS Y COMIDA CON CANNON.JS)
+    // =========================================================================
+    let products = [];
+
+    function spawnCan(slotKey, color, name, x, y, z) {
+      const radius = 0.035;
+      const height = 0.12;
+
+      const canGeo = new THREE.CylinderGeometry(radius, radius, height, 20);
+      const canMat = new THREE.MeshStandardMaterial({ color: color, metalness: 0.9, roughness: 0.2 });
+      const canMesh = new THREE.Mesh(canGeo, canMat);
+      canMesh.castShadow = true;
+      scene.add(canMesh);
+
+      const canShape = new CANNON.Cylinder(radius, radius, height, 12);
+      const canBody = new CANNON.Body({
+        mass: 0.35,
+        material: defaultMaterial,
+        linearDamping: 0.1,
+        angularDamping: 0.2
+      });
+      // Rotar cilindro de Cannon para alinearlo con Three.js
+      const q = new CANNON.Quaternion();
+      q.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
+      canBody.addShape(canShape, new CANNON.Vec3(0, 0, 0), q);
+      canBody.position.set(x, y, z);
+      world.addBody(canBody);
+
+      products.push({ slot: slotKey, name: name, mesh: canMesh, body: canBody, dropped: false });
+    }
+
+    function spawnBox(slotKey, color, name, x, y, z) {
+      const w = 0.13, h = 0.05, d = 0.12;
+      const boxGeo = new THREE.BoxGeometry(w, h, d);
+      const boxMat = new THREE.MeshStandardMaterial({ color: color, metalness: 0.3, roughness: 0.5 });
+      const boxMesh = new THREE.Mesh(boxGeo, boxMat);
+      boxMesh.castShadow = true;
+      scene.add(boxMesh);
+
+      const boxShape = new CANNON.Box(new CANNON.Vec3(w/2, h/2, d/2));
+      const boxBody = new CANNON.Body({
+        mass: 0.45,
+        material: defaultMaterial,
+        linearDamping: 0.1,
+        angularDamping: 0.2
+      });
+      boxBody.addShape(boxShape);
+      boxBody.position.set(x, y, z);
+      world.addBody(boxBody);
+
+      products.push({ slot: slotKey, name: name, mesh: boxMesh, body: boxBody, dropped: false });
+    }
+
+    function initProducts() {
+      // Limpiar productos anteriores
+      products.forEach(p => {
+        scene.remove(p.mesh);
+        world.remove(p.body);
+      });
+      products = [];
+
+      // Colocar productos frente a las espirales
+      spawnCan('A1', 0xdc2626, 'Coca-Cola Sin Azúcar', -0.25, 1.48, 0.12);
+      spawnCan('A2', 0x0284c7, 'Gatorade Zero', 0.25, 1.48, 0.12);
+      spawnBox('B1', 0x16a34a, 'Tinga de Pollo Fitness', -0.25, 1.01, 0.12);
+    }
+
+    initProducts();
+
+    function resetProducts() {
+      initProducts();
+      document.getElementById('val-status').innerText = 'Productos Repuestos';
+      document.getElementById('val-status').style.color = '#38bdf8';
+    }
+
+    // =========================================================================
+    // LÓGICA DE DISPENSADO Y EMPUJE FÍSICO
+    // =========================================================================
+    let currentDispense = null;
+
+    function dispense(slot) {
+      if (currentDispense) return;
+
+      const spiral = spirals[slot];
+      if (!spiral) return;
+
+      currentDispense = {
+        slot: slot,
+        spiral: spiral,
+        targetAngle: spiral.angle + Math.PI * 2, // 360 grados
+        speed: 3.5, // rad/s (~33 RPM)
+        product: products.find(p => p.slot === slot && !p.dropped)
+      };
+
+      document.getElementById('val-motor').innerText = `MOTOR ${slot} (24V DC)`;
+      document.getElementById('val-rpm').innerText = '33.4 RPM';
+      document.getElementById('val-status').innerText = 'Girando espiral...';
+      document.getElementById('val-status').style.color = '#f59e0b';
+
+      // Deshabilitar botones mientras gira
+      document.querySelectorAll('.btn-dispense').forEach(b => b.disabled = true);
+    }
+
+    // =========================================================================
+    // BUCLE PRINCIPAL DE ANIMACIÓN Y FÍSICA
+    // =========================================================================
+    const clock = new THREE.Clock();
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      const delta = Math.min(clock.getDelta(), 0.1);
+      world.step(1 / 60, delta, 3);
+
+      // 1. Control del motor de espiral activo
+      if (currentDispense) {
+        const s = currentDispense.spiral;
+        s.angle += currentDispense.speed * delta;
+        s.mesh.rotation.z = s.angle;
+
+        const currentDeg = ((s.angle % (Math.PI * 2)) * 180 / Math.PI).toFixed(1);
+        document.getElementById('val-angle').innerText = `${currentDeg}° / 360°`;
+
+        // Empujar el producto físicamente hacia adelante mientras gira
+        if (currentDispense.product && !currentDispense.product.dropped) {
+          const body = currentDispense.product.body;
+          if (body.position.z < 0.28) {
+            body.velocity.z = 0.28; // Empuje continuo hacia el borde
+          }
+        }
+
+        // Fin de giro 360°
+        if (s.angle >= currentDispense.targetAngle) {
+          s.angle = currentDispense.targetAngle;
+          s.mesh.rotation.z = s.angle;
+          document.getElementById('val-motor').innerText = 'EN ESPERA';
+          document.getElementById('val-rpm').innerText = '0.0 RPM';
+          document.getElementById('val-angle').innerText = '360.0° / 360°';
+
+          document.querySelectorAll('.btn-dispense').forEach(b => b.disabled = false);
+          currentDispense = null;
+        }
+      }
+
+      // 2. Sincronizar cuerpos rígidos de Cannon con Three.js
+      let beamBroken = false;
+
+      products.forEach(p => {
+        p.mesh.position.copy(p.body.position);
+        p.mesh.quaternion.copy(p.body.quaternion);
+
+        // Comprobar si el producto cruza el haz óptico de caída (Y ~ 0.45, Z ~ 0.22)
+        if (p.body.position.y < 0.55 && p.body.position.y > 0.30 && p.body.position.z > 0.10) {
+          beamBroken = true;
+          p.dropped = true;
+        }
+      });
+
+      // 3. Telemetría de Sensor de Caída Infrarrojo
+      const badge = document.getElementById('sensor-badge');
+      if (beamBroken) {
+        badge.className = 'sensor-indicator sensor-beam-broken';
+        badge.innerText = '⚡ HAZ INTERCEPTADO';
+        document.getElementById('val-status').innerText = '¡Producto Entregado!';
+        document.getElementById('val-status').style.color = '#4ade80';
+        beamMesh.material.color.setHex(0xffff00); // El haz brilla en amarillo al interceptarse
+      } else {
+        badge.className = 'sensor-indicator sensor-ok';
+        badge.innerText = 'HAZ ACTIVO (100%)';
+        beamMesh.material.color.setHex(0xef4444);
+      }
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>

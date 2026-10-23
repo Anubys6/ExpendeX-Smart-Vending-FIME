@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExpendeX® — Panel del Dueño, Campaña & Telemetría ESP32 | FIME UANL</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="images/brand_logo_official.svg" type="image/svg+xml">
+</head>
+<body>
+
+  <!-- ======================================================================
+       PANTALLA DE ACCESO / LOGIN (USUARIO: admin | CONTRASEÑA: admin)
+       ====================================================================== -->
+  <div class="login-wrapper" id="loginWrapper">
+    <!-- Tarjeta Principal de Login -->
+    <div class="login-card" id="loginCardBox">
+
+        <div class="login-brand" id="loginBrandHeader">
+          <div class="brand-logo-svg">
+            <img src="images/brand_logo_official.svg" width="58" height="58" alt="Logotipo Oficial ExpendeX®">
+          </div>
+          <div class="brand-text">
+            <h1>ExpendeX<sup style="font-size:0.55em; color:#059669;">®</sup></h1>
+            <div class="brand-sub">Campaña "Energía que se Activa" • #NutriciónAlInstante</div>
+            <div class="brand-org">Portal del Dueño • Telemetría ESP32 & Mercado Pago QR</div>
+          </div>
+        </div>
+
+        <div class="login-badge-info" id="loginBadgeInfo">
+          🔒 Acceso Ejecutivo • Sincronización Bidireccional con App de Venta & ESP32
+        </div>
+
+        <form id="loginForm" class="login-form" autocomplete="off">
+          <div id="loginAlert" class="login-alert" style="display: none;"></div>
+
+          <div class="form-group" id="loginUserGroup">
+            <label for="loginUser">Usuario Administrador</label>
+            <div class="input-with-icon">
+              <span class="input-icon">👤</span>
+              <input type="text" id="loginUser" placeholder="admin" value="admin" required spellcheck="false" autocapitalize="none">
+            </div>
+          </div>
+
+          <div class="form-group" id="loginPassGroup">
+            <label for="loginPass">Contraseña de Seguridad</label>
+            <div class="input-with-icon">
+              <span class="input-icon">🔑</span>
+              <input type="password" id="loginPass" placeholder="admin" value="admin" required>
+              <button type="button" id="btnTogglePass" class="btn-toggle-pass" title="Mostrar/Ocultar contraseña">👁️</button>
+            </div>
+          </div>
+
+          <div class="login-options">
+            <label class="remember-label">
+              <input type="checkbox" id="chkRemember" checked>
+              <span>Recordar sesión en esta terminal</span>
+            </label>
+          </div>
+
+          <button type="submit" id="btnLogin" class="btn-login-submit">
+            <span>🚀 Iniciar Sesión en ExpendeX</span>
+          </button>
+
+          <div class="login-hint-pill">
+            💡 Credenciales por defecto: <strong>admin</strong> / <strong>admin</strong>
+          </div>
+        </form>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       PANEL ADMINISTRATIVO PRINCIPAL (VISIBLE DESPUÉS DEL LOGIN)
+       ====================================================================== -->
+  <div class="dashboard-wrapper" id="dashboardWrapper" style="display: none;">
+    <!-- Barra Superior de Navegación y Telemetría -->
+    <header class="admin-header" id="adminHeaderBar">
+      <div class="admin-header-top-row">
+        <div class="admin-header-left" id="adminBrandLogoBox">
+          <div class="admin-logo-mark">
+            <img src="images/brand_logo_official.svg" width="46" height="46" alt="ExpendeX®">
+          </div>
+          <div class="admin-title-box">
+            <div class="admin-title">ExpendeX<sup>®</sup> <span class="tag-owner">PANEL DE CONTROL</span></div>
+            <div class="admin-subtitle">Campaña <strong>"Energía que se Activa" (#NutriciónAlInstante)</strong> • Telemetría ESP32 & Mercado Pago QR</div>
+          </div>
+        </div>
+
+        <!-- Esquina Superior Derecha: Círculo Admin + Sincronización Activa abajo -->
+        <div class="admin-corner-profile">
+          <button type="button" id="btnLogout" class="admin-circle-btn" title="Admin (Clic para cerrar sesión)">
+            <span class="admin-circle-text">Admin</span>
+          </button>
+          <div class="telemetry-chip chip-sync" id="syncStatusBadge">
+            ⚡ Sincronización Activa
+          </div>
+        </div>
+      </div>
+
+      <!-- Barra de Telemetría y Acciones Rápidas -->
+      <div class="admin-header-bottom-bar">
+        <div class="admin-header-telemetry">
+          <div class="telemetry-chip chip-online" id="adminTelemetryChipBox">
+            <span class="pulse-dot"></span>
+            <span id="adminEsp32StatusChip">ESP32-S3 + Mercado Pago QR En Línea</span>
+          </div>
+          <div class="telemetry-chip chip-temp" id="dashTempBadge">
+            ❄️ 3.4 °C (NOM-251)
+          </div>
+        </div>
+
+        <div class="admin-header-actions">
+          <a href="../p%C3%A1gina%20web/index.html" id="btnOpenSalesApp" class="btn-header-secondary" title="Abrir directamente la App de Venta">
+            <span>📱 App de Venta</span>
+          </a>
+          <button id="btnTopRestockAll" class="btn-header-primary" title="Rellenar todas las comidas a 8 y bebidas a 10">
+            <span>⚡ Rellenar a Tope</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Contenedor Principal del Dashboard -->
+    <main class="dashboard-main">
+      <!-- Selector de Periodo de Análisis Contable -->
+      <div class="period-selector-bar">
+        <div class="period-label-box">
+          <span class="period-icon">📅</span>
+          <div>
+            <strong>Periodo de Operación:</strong>
+            <div class="period-subtext" id="periodDateRange">18 Jul 2026 – 15 Oct 2026 (90 días)</div>
+          </div>
+        </div>
+
+        <div class="period-buttons" id="periodButtonsGroup">
+          <button type="button" class="btn-period btn-period-calendar" data-period="custom_day" id="btnPeriodDay">📅 Por Día / Horas</button>
+          <button type="button" class="btn-period" data-period="7d">Últimos 7 Días</button>
+          <button type="button" class="btn-period" data-period="30d">Últimos 30 Días</button>
+          <button type="button" class="btn-period" data-period="1m">Último Mes</button>
+          <button type="button" class="btn-period" data-period="2m">Últimos 2 Meses</button>
+          <button type="button" class="btn-period active" data-period="3m">Últimos 3 Meses</button>
+          <button type="button" class="btn-period" data-period="6m">Últimos 6 Meses</button>
+          <button type="button" class="btn-period" data-period="1y">Último Año</button>
+          <button type="button" class="btn-period" data-period="total">Historial Total</button>
+        </div>
+      </div>
+
+      <!-- Selector de Día Específico y Desglose por Horas (07:00 a 22:00) -->
+      <div class="day-picker-container" id="dayPickerContainer" style="display: none;">
+        <div class="custom-calendar-widget">
+          <div class="calendar-top-bar">
+            <div class="calendar-nav-group">
+              <button type="button" id="btnCalPrevMonth" class="btn-cal-nav" title="Mes Anterior">◀</button>
+              <span class="calendar-month-title" id="calendarMonthTitle">Octubre 2026</span>
+              <button type="button" id="btnCalNextMonth" class="btn-cal-nav" title="Mes Siguiente">▶</button>
+            </div>
+            <div class="calendar-day-quick-nav">
+              <button type="button" id="btnPrevDay" class="btn-day-nav" title="Día Anterior">◀ Anterior</button>
+              <button type="button" id="btnCalToday" class="btn-day-nav today" title="Ir a Hoy">Hoy (15 Oct)</button>
+              <button type="button" id="btnNextDay" class="btn-day-nav" title="Día Siguiente">Siguiente ▶</button>
+            </div>
+            <div class="calendar-selected-display">
+              <span class="day-name-tag" id="dayNameTag">Jueves, 15 de Octubre de 2026</span>
+            </div>
+          </div>
+
+          <!-- Cuadrícula interactiva de días del mes -->
+          <div class="calendar-grid-wrapper">
+            <div class="calendar-weekdays-row">
+              <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span>
+            </div>
+            <div class="calendar-days-grid" id="calendarDaysGrid">
+              <!-- Se generan dinámicamente los días del mes -->
+            </div>
+          </div>
+          
+          <input type="hidden" id="inputDayPicker" value="2026-10-15">
+        </div>
+
+        <div class="view-mode-toggles">
+          <button type="button" class="btn-view-toggle active" id="btnToggleHourlyView" data-mode="hourly">⏱️ Vista por Horas (07:00 – 22:00)</button>
+          <button type="button" class="btn-view-toggle" id="btnToggleDailyView" data-mode="daily">📊 Resumen del Día</button>
+        </div>
+      </div>
+
+      <!-- Tarjetas de Métricas Ejecutivas (Estado de Cuenta Financiero) -->
+      <section class="kpi-grid">
+        <div class="kpi-card kpi-revenue">
+          <div class="kpi-top">
+            <span class="kpi-label">Ingresos Totales Brutos</span>
+            <span class="kpi-icon">💰</span>
+          </div>
+          <div class="kpi-value" id="kpiRevenue">$0.00</div>
+          <div class="kpi-foot">
+            <span class="kpi-trend positive" id="kpiRevTrend">↑ +14.2%</span>
+            <span class="kpi-sub" id="kpiRevSub">en el periodo seleccionado</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-profit">
+          <div class="kpi-top">
+            <span class="kpi-label">Ganancia Bruta Neta</span>
+            <span class="kpi-icon">📈</span>
+          </div>
+          <div class="kpi-value" id="kpiProfit">$0.00</div>
+          <div class="kpi-foot">
+            <span class="kpi-margin-badge" id="kpiMarginBadge">Margen 55.6%</span>
+            <span class="kpi-sub">después de costo real de insumos</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-units">
+          <div class="kpi-top">
+            <span class="kpi-label">Unidades Totales Vendidas</span>
+            <span class="kpi-icon">📦</span>
+          </div>
+          <div class="kpi-value" id="kpiUnits">0</div>
+          <div class="kpi-foot">
+            <span class="kpi-breakdown" id="kpiUnitsBreakdown">Comidas: 0 • Bebidas: 0 • Combos: 0</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-ticket">
+          <div class="kpi-top">
+            <span class="kpi-label">Ticket Promedio por Compra</span>
+            <span class="kpi-icon">🎫</span>
+          </div>
+          <div class="kpi-value" id="kpiAvgTicket">$0.00</div>
+          <div class="kpi-foot">
+            <span class="kpi-sub">Gasto promedio por usuario</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-top-product">
+          <div class="kpi-top">
+            <span class="kpi-label">Producto Estrella & Menor Rotación</span>
+            <span class="kpi-icon">🏆</span>
+          </div>
+          <div class="kpi-product-top" id="kpiTopProduct">—</div>
+          <div class="kpi-foot">
+            <span class="kpi-alert-least" id="kpiLeastProduct">Menor rotación: —</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pestañas de Navegación del Dashboard -->
+      <nav class="dash-tabs-nav">
+        <button class="dash-tab-btn active" id="btnTabAnalytics" data-target="analyticsSection">
+          <span>📊 Rendimientos & Gráficas</span>
+        </button>
+        <button class="dash-tab-btn" id="btnTabFinancial" data-target="financialSection">
+          <span>📜 Estado de Cuenta</span>
+        </button>
+        <button class="dash-tab-btn" id="btnTabInventory" data-target="inventorySection">
+          <span>📦 Inventario Físico</span>
+        </button>
+        <button class="dash-tab-btn" id="btnTabPrices" data-target="pricesSection">
+          <span>💲 Editar Precios</span>
+        </button>
+        <button class="dash-tab-btn" id="btnTabBrandingEsp32" data-target="brandingEsp32Section">
+          <span>🎨 Branding & ESP32 QR</span>
+        </button>
+      </nav>
+
+      <!-- SECCIÓN 1: RENDIMIENTOS & GRÁFICAS DE VENTAS -->
+      <section id="analyticsSection" class="dashboard-section active">
+        <!-- Contenedor Deslizable Horizontal de Gráficas (Evita apilamiento y permite deslizar libremente) -->
+        <div class="charts-carousel-wrapper">
+          <div class="charts-carousel-bar">
+            <div class="carousel-bar-info">
+              <span class="carousel-bar-icon">📊</span>
+              <div>
+                <strong>Métricas y Gráficas de Rendimiento ExpendeX®</strong>
+                <div class="carousel-bar-sub">↔️ Desliza horizontalmente para explorar cada gráfica con total amplitud sin saturación</div>
+              </div>
+            </div>
+            <div class="charts-carousel-actions">
+              <button type="button" id="btnScrollChartsLeft" class="btn-carousel-pill" title="Ver gráfica anterior">◀ Anterior</button>
+              <div class="carousel-dots-indicator" id="chartsCarouselDots">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
+                <span class="dot" data-index="3"></span>
+              </div>
+              <button type="button" id="btnScrollChartsRight" class="btn-carousel-pill" title="Ver siguiente gráfica">Siguiente ▶</button>
+            </div>
+          </div>
+
+          <!-- Pista Deslizable Horizontal con Scroll Snap y Barra Deslizante -->
+          <div class="charts-horizontal-track" id="chartsScrollTrack">
+            <!-- Gráfica 1: Top Productos Más Vendidos -->
+            <div class="chart-card chart-slide-item">
+              <div class="chart-card-header">
+                <div>
+                  <h3>🏆 Top 10 Productos Más Vendidos</h3>
+                  <div class="chart-subtitle">Mayor volumen de unidades e ingresos generados</div>
+                </div>
+                <span class="chart-badge badge-green">Alta Rotación</span>
+              </div>
+              <div class="canvas-container">
+                <canvas id="canvasTopProducts" height="280"></canvas>
+              </div>
+            </div>
+
+            <!-- Gráfica 2: Productos Menos Vendidos (Baja Rotación) -->
+            <div class="chart-card chart-slide-item">
+              <div class="chart-card-header">
+                <div>
+                  <h3>⚠️ Productos Menos Vendidos (Menor Rotación)</h3>
+                  <div class="chart-subtitle">Candidatos para promociones o sustitución de menú</div>
+                </div>
+                <span class="chart-badge badge-amber">Baja Rotación</span>
+              </div>
+              <div class="canvas-container">
+                <canvas id="canvasLeastProducts" height="280"></canvas>
+              </div>
+            </div>
+
+            <!-- Gráfica 3: Curva de Ingresos Diarios del Periodo -->
+            <div class="chart-card chart-slide-item chart-card-wide">
+              <div class="chart-card-header">
+                <div>
+                  <h3>💵 Curva de Ingresos Diarios del Periodo</h3>
+                  <div class="chart-subtitle">Monitoreo del flujo financiero continuo de la máquina vending</div>
+                </div>
+                <span class="chart-badge badge-blue">Flujo de Efectivo</span>
+              </div>
+              <div class="canvas-container" style="height: 280px;">
+                <canvas id="canvasDailyRevenue" height="280"></canvas>
+              </div>
+            </div>
+
+            <!-- Gráfica 4: Rendimiento Personal de Cada Producto a lo Largo del Tiempo -->
+            <div class="chart-card chart-slide-item chart-card-wide">
+              <div class="chart-card-header flex-header">
+                <div>
+                  <h3>📈 Gráfica Personal de Cada Producto</h3>
+                  <div class="chart-subtitle">Evolución histórica diaria de cualquier platillo, bebida o combo</div>
+                </div>
+                <div class="product-picker-box">
+                  <label for="productSelect">Producto:</label>
+                  <select id="productSelect" class="product-select">
+                    <!-- Inyectado dinámicamente -->
+                  </select>
+                </div>
+              </div>
+
+              <!-- Mini Resumen del Producto Seleccionado -->
+              <div class="product-stats-strip" id="productStatsStrip">
+                <div class="strip-item"><span class="strip-label">Unidades:</span><strong id="statProdUnits">0</strong></div>
+                <div class="strip-item"><span class="strip-label">Ingresos:</span><strong id="statProdRev">$0.00 MXN</strong></div>
+                <div class="strip-item"><span class="strip-label">Ganancia:</span><strong id="statProdProfit" style="color: #059669;">$0.00 MXN</strong></div>
+                <div class="strip-item"><span class="strip-label">Promedio:</span><strong id="statProdAvg">0 / día</strong></div>
+                <div class="strip-item"><span class="strip-label">Stock:</span><strong id="statProdStock" class="stock-pill-stat">0 de 8</strong></div>
+              </div>
+
+              <div class="canvas-container" style="height: 280px;">
+                <canvas id="canvasProductHistory" height="280"></canvas>
+              </div>
+              <div class="chart-footer-hint">
+                💡 Pasa el cursor o toca la gráfica para ver los detalles de ventas e ingresos por cada día.
+              </div>
+            </div>
+
+            <!-- Gráfica 5 (Día Específico): Desglose de Ventas por Hora -->
+            <div class="chart-card chart-slide-item chart-card-wide" id="hourlyChartCard" style="display: none;">
+              <div class="chart-card-header">
+                <div>
+                  <h3>⏱️ Desglose de Ventas por Hora (07:00 – 22:00)</h3>
+                  <div class="chart-subtitle" id="hourlyChartSubtitle">Distribución horaria continua de unidades vendidas e ingresos</div>
+                </div>
+                <span class="chart-badge badge-blue">Horas Pico FIME</span>
+              </div>
+              <div class="canvas-container" style="height: 280px;">
+                <canvas id="canvasHourlySales" height="280"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 2: ESTADO DE CUENTA CONTABLE DETALLADO -->
+      <section id="financialSection" class="dashboard-section">
+        <div class="table-card">
+          <div class="table-card-header">
+            <div>
+              <h3>📜 Desglose Contable de Estado de Cuenta</h3>
+              <div class="table-sub">Análisis unitario de ingresos, costos de materias primas y márgenes de utilidad</div>
+            </div>
+
+            <div class="table-actions">
+              <input type="text" id="filterStatementTable" class="table-search-input" placeholder="🔍 Filtrar producto o ranura...">
+              <button id="btnPrintStatement" class="btn-print-statement">
+                <span>🖨️ Imprimir / Guardar PDF</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="statement-table" id="statementTable">
+              <thead>
+                <tr>
+                  <th>Ranura / SKU</th>
+                  <th>Producto</th>
+                  <th>Tipo</th>
+                  <th>Precio Venta</th>
+                  <th>Costo Insumo</th>
+                  <th>Unidades</th>
+                  <th>Ingreso Total</th>
+                  <th>Costo Total</th>
+                  <th>Ganancia Neta</th>
+                  <th>Margen %</th>
+                </tr>
+              </thead>
+              <tbody id="statementTableBody">
+                <!-- Filas generadas dinámicamente -->
+              </tbody>
+              <tfoot id="statementTableFoot">
+                <!-- Totales generales -->
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 3: CONTROL DE INVENTARIO EN TIEMPO REAL -->
+      <section id="inventorySection" class="dashboard-section">
+        <!-- Barra de Resumen de Capacidad FIME -->
+        <div class="capacity-summary-card">
+          <div class="capacity-stat">
+            <span class="cap-lbl">Capacidad Total de la Máquina</span>
+            <div class="cap-val" id="capTotalVal">0 / 336 productos</div>
+            <div class="cap-bar-outer"><div class="cap-bar-inner" id="capTotalBar" style="width: 80%;"></div></div>
+          </div>
+          <div class="capacity-stat">
+            <span class="cap-lbl">Comidas Corridas (Máx. 8 c/u)</span>
+            <div class="cap-val" id="capMealsVal">0 / 96 toppers</div>
+            <div class="cap-bar-outer"><div class="cap-bar-inner cap-meals" id="capMealsBar" style="width: 75%;"></div></div>
+          </div>
+          <div class="capacity-stat">
+            <span class="cap-lbl">Bebidas Frías (Máx. 10 c/u)</span>
+            <div class="cap-val" id="capDrinksVal">0 / 240 botellas</div>
+            <div class="cap-bar-outer"><div class="cap-bar-inner cap-drinks" id="capDrinksBar" style="width: 85%;"></div></div>
+          </div>
+          <div class="capacity-action-box">
+            <button id="btnRestockAllMachine" class="btn-restock-huge">
+              <span>⚡ Rellenar Toda la Máquina a Tope</span>
+              <small>(Poner 8 en comidas y 10 en bebidas)</small>
+            </button>
+          </div>
+        </div>
+
+        <!-- Banner de Alerta de Stock Bajo (2 a 4 unidades restantes) -->
+        <div id="inventoryStockAlertBanner" class="inv-stock-alert-banner" style="display: none;">
+          <div class="alert-banner-icon">⚠️</div>
+          <div class="alert-banner-content">
+            <strong>ALERTA DE REABASTECIMIENTO FÍSICO (Quedan de 2 a 4 unidades):</strong>
+            <span id="alertBannerItemsList">Cargando productos en alerta...</span>
+          </div>
+        </div>
+
+        <!-- Tabla de Inventario de Máquina -->
+        <div class="table-card">
+          <div class="table-card-header">
+            <div>
+              <h3>📦 Inventario Físico</h3>
+              <div class="table-sub">Control en tiempo real de los 36 canales físicos de la máquina (12 comidas + 24 bebidas)</div>
+            </div>
+            <div class="inventory-filters">
+              <button class="inv-filter-btn active" data-filter="all">Todos (36 ranuras)</button>
+              <button class="inv-filter-btn" data-filter="comida">Comidas (12)</button>
+              <button class="inv-filter-btn" data-filter="bebida">Bebidas (24)</button>
+              <button class="inv-filter-btn btn-filter-alert" data-filter="alert">⚠️ Alerta Reabastecer (2 - 4 uds)</button>
+              <button class="inv-filter-btn" data-filter="low">🔴 Crítico / Agotado (≤ 1)</button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="inventory-table" id="inventoryTable">
+              <thead>
+                <tr>
+                  <th>Ranura</th>
+                  <th>Foto</th>
+                  <th>Producto</th>
+                  <th>Tipo</th>
+                  <th>Capacidad</th>
+                  <th>Stock Actual</th>
+                  <th>Nivel en Máquina</th>
+                  <th>Estado NOM</th>
+                  <th>Acciones de Reabastecimiento</th>
+                </tr>
+              </thead>
+              <tbody id="inventoryTableBody">
+                <!-- Se inyecta dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 4: EDITOR DE PRECIOS FIJOS Y RECALCULACIÓN DE GRÁFICAS -->
+      <section id="pricesSection" class="dashboard-section">
+        <div class="capacity-summary-card prices-summary-card">
+          <div class="capacity-stat">
+            <span class="cap-lbl">Precio Promedio Comidas (12)</span>
+            <div class="cap-val" id="avgPriceMeals">$126.25 MXN</div>
+            <div class="table-sub">Platillos de comida corrida recién hecha</div>
+          </div>
+          <div class="capacity-stat">
+            <span class="cap-lbl">Precio Promedio Bebidas (24)</span>
+            <div class="cap-val" id="avgPriceDrinks">$29.63 MXN</div>
+            <div class="table-sub">Aguas frescas y bebidas cero azúcar</div>
+          </div>
+          <div class="capacity-stat">
+            <span class="cap-lbl">Precio Promedio Combos (10)</span>
+            <div class="cap-val" id="avgPriceCombos">$138.90 MXN</div>
+            <div class="table-sub">Paquetes promocionales comida + bebida</div>
+          </div>
+          <div class="capacity-action-box">
+            <button type="button" id="btnResetDefaultPrices" class="btn-restock-huge btn-reset-prices">
+              <span>🔄 Restaurar Precios Base</span>
+              <small>(Volver a precios fijos originales)</small>
+            </button>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-card-header">
+            <div>
+              <h3>💲 Editor de Precios Fijos (Recalculación Automática de Gráficas)</h3>
+              <div class="table-sub">Edita el precio fijo actual de cada producto; todas las gráficas, KPIs y el estado de cuenta se recalculan en tiempo real</div>
+            </div>
+            <div class="inventory-filters" id="priceFiltersGroup">
+              <button type="button" class="price-filter-btn inv-filter-btn active" data-pfilter="all">Todos (46)</button>
+              <button type="button" class="price-filter-btn inv-filter-btn" data-pfilter="comida">🍱 Comidas (12)</button>
+              <button type="button" class="price-filter-btn inv-filter-btn" data-pfilter="bebida">🥤 Bebidas (24)</button>
+              <button type="button" class="price-filter-btn inv-filter-btn" data-pfilter="combos">⭐ Combos (10)</button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="inventory-table prices-table" id="pricesTable">
+              <thead>
+                <tr>
+                  <th>Ranura</th>
+                  <th>Foto</th>
+                  <th>Producto</th>
+                  <th>Categoría</th>
+                  <th>Costo Insumo</th>
+                  <th>Precio Base</th>
+                  <th>Editar Precio Fijo ($ MXN)</th>
+                  <th>Ganancia Unitaria</th>
+                  <th>Margen %</th>
+                  <th>Restaurar</th>
+                </tr>
+              </thead>
+              <tbody id="pricesTableBody">
+                <!-- Se inyecta dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 5: BRANDING COMPLETO, CAMPAÑA OFICIAL & TELEMETRÍA ESP32 MERCADO PAGO -->
+      <section id="brandingEsp32Section" class="dashboard-section">
+        <!-- Tarjeta de Identidad Corporativa y Campaña Oficial -->
+        <div class="table-card" style="margin-bottom: 20px;">
+          <div class="table-card-header">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <img src="images/brand_logo_official.svg" width="58" height="58" alt="Logotipo Oficial ExpendeX®">
+              <div>
+                <h3>🎨 Identidad Corporativa & Campaña Oficial: "Energía que se Activa"</h3>
+                <div class="table-sub">Logotipo vectorial desarrollado, manual de marca y campaña <strong>#NutriciónAlInstante</strong> aplicada en ambas plataformas conectadas</div>
+              </div>
+            </div>
+            <span class="chart-badge badge-green">Identidad Oficial 2026</span>
+          </div>
+
+          <div style="padding: 18px 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px;">
+            <div style="background: #f8fafc; border: 1px solid var(--border); border-left: 4px solid #059669; border-radius: 10px; padding: 14px;">
+              <strong style="color: var(--navy); display: block; margin-bottom: 4px;">🛡️ Logotipo Desarrollado (X + E + Hoja + Nodo QR)</strong>
+              <p style="font-size: 0.80rem; color: var(--text-muted);">Escudo hexagonal de ingeniería con monograma entrelazado (Nutrición Bio-Esmeralda + Espiral Mecatrónica Oro/Cian) y núcleo IoT QR/ESP32.</p>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid var(--border); border-left: 4px solid #f59e0b; border-radius: 10px; padding: 14px;">
+              <strong style="color: var(--navy); display: block; margin-bottom: 4px;">🔥 Slogan & Campaña 360°</strong>
+              <p style="font-size: 0.80rem; color: var(--text-muted);"><strong>"Energía que se Activa — #NutriciónAlInstante"</strong>: Comida casera recién hecha (1 plato fuerte + 2 guarniciones) y bebidas 0% azúcar en 3 segundos.</p>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid var(--border); border-left: 4px solid #009ee3; border-radius: 10px; padding: 14px;">
+              <strong style="color: var(--navy); display: block; margin-bottom: 4px;">💙 Ecosistema Conectado Mercado Pago + ESP32</strong>
+              <p style="font-size: 0.80rem; color: var(--text-muted);">Pasarela sin fricción: el usuario paga el QR, el ESP32 virtual recibe el webhook, autoriza, cobra y despliega automáticamente <strong>"Activación exitosa"</strong>.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel de Conexión QR Mercado Libre / Mercado Pago y Monitor ESP32 Virtual -->
+        <div class="table-card">
+          <div class="table-card-header">
+            <div>
+              <h3>🔌 Pasarela QR Mercado Libre / Mercado Pago & Microcontrolador ESP32 Virtual</h3>
+              <div class="table-sub">Configura tu link de Mercado Pago y monitorea en vivo cada cobro recibido y autorizado por el ESP32</div>
+            </div>
+            <button type="button" id="btnTriggerRemoteMpPayment" class="btn-header-primary" style="background: #009ee3;">
+              <span>💙 Simular Pago QR Remoto → Activar ESP32</span>
+            </button>
+          </div>
+
+          <div style="padding: 18px 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; border-bottom: 1px solid var(--border);">
+            <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 10px; padding: 14px;">
+              <label for="adminMpLinkInput" style="font-size: 0.82rem; font-weight: 800; color: #0369a1; display: block; margin-bottom: 6px;">
+                🔗 Link de Cobro Mercado Pago / Mercado Libre vinculado a los QR:
+              </label>
+              <div style="display: flex; gap: 8px;">
+                <input type="url" id="adminMpLinkInput" value="https://mpago.la/xpendex-fime" style="flex: 1; padding: 8px 10px; border: 1px solid #7dd3fc; border-radius: 6px; font-size: 0.82rem;">
+                <button type="button" id="btnAdminSaveMpLink" class="btn-fill-top" style="background: #009ee3; color: white; border: none; padding: 8px 14px;">Guardar QR</button>
+              </div>
+              <div id="adminMpSavedMsg" style="font-size: 0.75rem; color: #059669; font-weight: 700; margin-top: 6px; display: none;">
+                ✅ Link sincronizado en todos los QR de la App de Venta.
+              </div>
+            </div>
+
+            <div style="background: #0f172a; color: #e2e8f0; border-radius: 10px; padding: 14px; font-family: monospace; font-size: 0.78rem;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                <strong style="color: #38bdf8;">📡 MONITOR SERIAL ESP32-S3 (115200 baud)</strong>
+                <span style="color: #34d399;" id="adminEsp32PinState">GPIO 26: LISTO</span>
+              </div>
+              <div id="adminEsp32SerialLine" style="color: #a7f3d0; background: rgba(0,0,0,0.35); padding: 8px; border-radius: 6px;">
+                &gt; [ESP32-S3] WiFi conectado • Escuchando Webhook IPN de Mercado Pago...
+              </div>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="statement-table" id="esp32LogsTable">
+              <thead>
+                <tr>
+                  <th>Hora</th>
+                  <th>ID Pago MP</th>
+                  <th>Producto / Orden</th>
+                  <th>Casilla</th>
+                  <th>Monto Cobrado</th>
+                  <th>Pasarela</th>
+                  <th>Pin ESP32</th>
+                  <th>Respuesta en Pantalla</th>
+                </tr>
+              </thead>
+              <tbody id="esp32LogsTableBody">
+                <!-- Se inyecta dinámicamente con los cobros del ESP32 -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Pie de Página Institucional -->
+    <footer class="admin-footer">
+      <div>ExpendeX® — Campaña "Energía que se Activa" (#NutriciónAlInstante) • Plataforma Inteligente con QR Mercado Pago + ESP32</div>
+      <div>Facultad de Ingeniería Mecánica y Eléctrica (FIME) • Universidad Autónoma de Nuevo León (UANL)</div>
+    </footer>
+  </div>
+
+  <!-- Scripts: Datos Simulados de 3 Meses y Lógica Principal -->
+  <script src="sales_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

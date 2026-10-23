@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizador 3D Interactivo - Expendex Vending Machine Oficial</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/MTLLoader.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #090d16; color: #f8fafc; overflow: hidden; margin: 0; }
+    #canvas-container { width: 100vw; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1; }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body class="select-none">
+
+  <!-- 3D Canvas -->
+  <div id="canvas-container"></div>
+
+  <!-- Header Overlay -->
+  <header class="absolute top-6 left-6 z-10 glass-panel rounded-2xl p-5 flex items-center space-x-4 max-w-md">
+    <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-emerald-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-emerald-500/20 text-white font-extrabold text-2xl">
+      X
+    </div>
+    <div>
+      <div class="flex items-center space-x-2">
+        <h1 class="text-xl font-bold tracking-tight text-white">Expendex 3D Viewer</h1>
+        <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Oficial 1:1</span>
+      </div>
+      <p class="text-xs text-slate-400 mt-0.5">Vitrina Transparente &bull; Pantalla Encendida &bull; Acabado Obsidian</p>
+    </div>
+  </header>
+
+  <!-- Controls Panel (Top Right) -->
+  <aside class="absolute top-6 right-6 z-10 glass-panel rounded-2xl p-4 flex flex-col space-y-2 text-xs">
+    <div class="text-slate-400 font-semibold uppercase tracking-wider mb-1 px-1">Vistas de Cámara</div>
+    <div class="grid grid-cols-2 gap-1.5">
+      <button onclick="setCameraView('iso')" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 hover:text-white transition font-medium border border-slate-700/50">
+        Isométrica
+      </button>
+      <button onclick="setCameraView('front')" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 hover:text-white transition font-medium border border-slate-700/50">
+        Frontal Vitrina
+      </button>
+      <button onclick="setCameraView('screen')" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 hover:text-white transition font-medium border border-slate-700/50">
+        Pantalla 10.1"
+      </button>
+      <button onclick="setCameraView('trays')" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 hover:text-white transition font-medium border border-slate-700/50">
+        Bandejas 36 Sel.
+      </button>
+    </div>
+
+    <div class="pt-3 border-t border-slate-800 flex items-center justify-between px-1">
+      <span class="text-slate-400">Rotación Automática</span>
+      <button id="toggle-rotate" onclick="toggleAutoRotate()" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 font-semibold border border-emerald-500/30">
+        Activa
+      </button>
+    </div>
+    <div class="flex items-center justify-between px-1">
+      <span class="text-slate-400">Modo Vitrina (Cristal)</span>
+      <button id="toggle-glass" onclick="toggleGlass()" class="px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-400 font-semibold border border-cyan-500/30">
+        Translúcido
+      </button>
+    </div>
+  </aside>
+
+  <!-- Technical Specs Overlay (Bottom Left) -->
+  <aside class="absolute bottom-6 left-6 z-10 glass-panel rounded-2xl p-4 max-w-sm hidden md:block">
+    <div class="text-xs font-semibold uppercase tracking-wider text-emerald-400 mb-2">Especificaciones de Arquitectura</div>
+    <ul class="text-xs text-slate-300 space-y-1.5 font-mono">
+      <li class="flex justify-between"><span>Gabinete:</span> <span class="text-white font-semibold">950 x 880 x 1830 mm</span></li>
+      <li class="flex justify-between"><span>Vitrina:</span> <span class="text-white font-semibold">Vidrio Templado Low-E</span></li>
+      <li class="flex justify-between"><span>Pantalla:</span> <span class="text-cyan-400 font-semibold">10.1" IPS Capacitiva (Encendida)</span></li>
+      <li class="flex justify-between"><span>Matriz:</span> <span class="text-white font-semibold">6 Niveles x 6 Bahías (36 Sel.)</span></li>
+      <li class="flex justify-between"><span>Refrigeración:</span> <span class="text-emerald-400 font-semibold">Compresor 1/5 HP R134a</span></li>
+    </ul>
+  </aside>
+
+  <!-- Interaction Guide (Bottom Center) -->
+  <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10 glass-panel rounded-full px-5 py-2 text-xs text-slate-400 flex items-center space-x-4">
+    <span>🖱️ Clic Izq: Rotar</span>
+    <span>&bull;</span>
+    <span>🖱️ Clic Der: Desplazar</span>
+    <span>&bull;</span>
+    <span>🔍 Rueda: Zoom</span>
+  </div>
+
+  <!-- Loading Screen -->
+  <div id="loader" class="absolute inset-0 z-50 bg-[#090d16] flex flex-col items-center justify-center transition-opacity duration-500">
+    <div class="w-16 h-16 border-4 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin mb-4"></div>
+    <div class="text-lg font-bold text-white tracking-wide">Cargando Modelo 3D Expendex Oficial</div>
+    <div class="text-xs text-slate-400 mt-1">Configurando materiales, vitrina de cristal y pantalla encendida...</div>
+  </div>
+
+  <script>
+    let scene, camera, renderer, controls, machineGroup;
+    let autoRotate = true;
+    let glassMaterial = null;
+    let glassVisible = true;
+
+    const container = document.getElementById('canvas-container');
+    const loaderElement = document.getElementById('loader');
+
+    function init() {
+      // Scene
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x090d16);
+      scene.fog = new THREE.FogExp2(0x090d16, 0.0003);
+
+      // Camera
+      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+      camera.position.set(1600, 1400, 2400);
+
+      // Renderer
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.15;
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      container.appendChild(renderer.domElement);
+
+      // Controls
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.target.set(0, 900, 0);
+      controls.maxPolarAngle = Math.PI / 2 + 0.05;
+      controls.minDistance = 600;
+      controls.maxDistance = 6000;
+
+      // Lights
+      setupLighting();
+
+      // Floor Grid & Pedestal
+      setupEnvironment();
+
+      // Load 3D Model with MTL
+      loadModel();
+
+      // Events
+      window.addEventListener('resize', onWindowResize, false);
+      animate();
+    }
+
+    function setupLighting() {
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+      scene.add(ambientLight);
+
+      // Main Key Light
+      const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
+      keyLight.position.set(1200, 2500, 1800);
+      keyLight.castShadow = true;
+      keyLight.shadow.mapSize.width = 2048;
+      keyLight.shadow.mapSize.height = 2048;
+      keyLight.shadow.bias = -0.0005;
+      scene.add(keyLight);
+
+      // Showcase Internal LED Light (simulates internal vending LED illumination)
+      const internalLight = new THREE.PointLight(0xffffff, 1.8, 2200);
+      internalLight.position.set(0, 1100, 200);
+      scene.add(internalLight);
+
+      // Cyberpunk Emerald Rim Light
+      const rimLightEmerald = new THREE.DirectionalLight(0x10b981, 1.5);
+      rimLightEmerald.position.set(-1500, 1800, -1000);
+      scene.add(rimLightEmerald);
+
+      // Electric Cyan Fill Light
+      const fillLightCyan = new THREE.DirectionalLight(0x06b6d4, 1.0);
+      fillLightCyan.position.set(1500, 800, -800);
+      scene.add(fillLightCyan);
+
+      // Screen Glow Light (from 10.1" display)
+      const screenGlow = new THREE.PointLight(0x00f2fe, 2.0, 800);
+      screenGlow.position.set(280, 1680, 480);
+      scene.add(screenGlow);
+    }
+
+    function setupEnvironment() {
+      // Circular Reflective Pedestal
+      const pedestalGeo = new THREE.CylinderGeometry(1400, 1500, 20, 64);
+      const pedestalMat = new THREE.MeshStandardMaterial({
+        color: 0x0f172a,
+        roughness: 0.3,
+        metalness: 0.8
+      });
+      const pedestal = new THREE.Mesh(pedestalGeo, pedestalMat);
+      pedestal.position.y = -10;
+      pedestal.receiveShadow = true;
+      scene.add(pedestal);
+
+      // Grid
+      const grid = new THREE.GridHelper(5000, 50, 0x1e293b, 0x0f172a);
+      grid.position.y = -20;
+      scene.add(grid);
+    }
+
+    function loadModel() {
+      const mtlLoader = new THREE.MTLLoader();
+      mtlLoader.load('ExpendeX_Vending_Machine_Oficial.mtl', function(materials) {
+        materials.preload();
+
+        // Customise Material Parameters for Realistic Render
+        for (let matName in materials.materials) {
+          const mat = materials.materials[matName];
+          mat.side = THREE.DoubleSide;
+
+          if (matName === 'Panoramic_Glass') {
+            glassMaterial = mat;
+            mat.transparent = true;
+            mat.opacity = 0.15;
+            mat.roughness = 0.05;
+            mat.metalness = 0.1;
+            mat.color.setHex(0xb0e0e6);
+          } else if (matName === 'Touchscreen_Glass') {
+            mat.color.setHex(0x00f2fe);
+            mat.emissive.setHex(0x00b4d8);
+            mat.emissiveIntensity = 0.9;
+            mat.roughness = 0.1;
+            mat.metalness = 0.5;
+          } else if (matName === 'Header_Panel') {
+            mat.color.setHex(0x10b981);
+            mat.emissive.setHex(0x059669);
+            mat.emissiveIntensity = 0.4;
+          } else if (matName === 'Price_Rail') {
+            mat.color.setHex(0x10b981);
+            mat.emissive.setHex(0x047857);
+            mat.emissiveIntensity = 0.5;
+          } else if (matName === 'Chassis_Dark') {
+            mat.color.setHex(0x0d1527);
+            mat.roughness = 0.35;
+            mat.metalness = 0.75;
+          } else if (matName.includes('Spring')) {
+            mat.color.setHex(0xe2e8f0);
+            mat.roughness = 0.15;
+            mat.metalness = 0.95;
+          } else if (matName.includes('Stainless') || matName.includes('Divider') || matName.includes('Ramp')) {
+            mat.color.setHex(0xd1d5db);
+            mat.roughness = 0.25;
+            mat.metalness = 0.85;
+          } else if (matName === 'Drop_Flap') {
+            mat.transparent = true;
+            mat.opacity = 0.35;
+            mat.roughness = 0.2;
+            mat.color.setHex(0x1e293b);
+          }
+        }
+
+        const objLoader = new THREE.OBJLoader();
+        objLoader.setMaterials(materials);
+        objLoader.load('ExpendeX_Vending_Machine_Oficial.obj', function(object) {
+          machineGroup = object;
+
+          // Compute Bounding Box to Center Model
+          const box = new THREE.Box3().setFromObject(object);
+          const center = box.getCenter(new THREE.Vector3());
+          
+          // Offset object to sit on the pedestal at (0, 0, 0)
+          object.position.x = -center.x;
+          object.position.y = -box.min.y;
+          object.position.z = -center.z;
+
+          object.traverse(function(child) {
+            if (child.isMesh) {
+              child.castShadow = true;
+              child.receiveShadow = true;
+            }
+          });
+
+          scene.add(object);
+          controls.target.set(0, (box.max.y - box.min.y) / 2, 0);
+
+          // Hide Loader
+          loaderElement.style.opacity = '0';
+          setTimeout(() => loaderElement.style.display = 'none', 500);
+
+        }, undefined, function(err) {
+          console.error('Error cargando OBJ:', err);
+          fallbackLoader();
+        });
+      }, undefined, function(err) {
+        console.warn('MTL no cargó directamente, procediendo con OBJ sin MTL:', err);
+        fallbackLoader();
+      });
+    }
+
+    function fallbackLoader() {
+      const objLoader = new THREE.OBJLoader();
+      objLoader.load('ExpendeX_Vending_Machine_Oficial.obj', function(object) {
+        machineGroup = object;
+        const defaultMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.6, roughness: 0.4 });
+        object.traverse(function(child) {
+          if (child.isMesh) {
+            child.material = defaultMat;
+            child.castShadow = true;
+            child.receiveShadow = true;
+          }
+        });
+        const box = new THREE.Box3().setFromObject(object);
+        const center = box.getCenter(new THREE.Vector3());
+        object.position.x = -center.x;
+        object.position.y = -box.min.y;
+        object.position.z = -center.z;
+        scene.add(object);
+        controls.target.set(0, (box.max.y - box.min.y) / 2, 0);
+        loaderElement.style.display = 'none';
+      });
+    }
+
+    function setCameraView(view) {
+      if (!controls) return;
+      if (view === 'iso') {
+        gsapAnimateCamera(1600, 1400, 2200, 0, 915, 0);
+      } else if (view === 'front') {
+        gsapAnimateCamera(0, 950, 2600, 0, 950, 0);
+      } else if (view === 'screen') {
+        gsapAnimateCamera(350, 1650, 850, 250, 1650, 440);
+      } else if (view === 'trays') {
+        gsapAnimateCamera(0, 1000, 1400, 0, 1000, 100);
+      }
+    }
+
+    function gsapAnimateCamera(tx, ty, tz, cx, cy, cz) {
+      camera.position.set(tx, ty, tz);
+      controls.target.set(cx, cy, cz);
+      controls.update();
+    }
+
+    function toggleAutoRotate() {
+      autoRotate = !autoRotate;
+      const btn = document.getElementById('toggle-rotate');
+      if (autoRotate) {
+        btn.textContent = 'Activa';
+        btn.className = 'px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 font-semibold border border-emerald-500/30';
+      } else {
+        btn.textContent = 'Pausada';
+        btn.className = 'px-2.5 py-1 rounded-lg bg-slate-800 text-slate-400 font-semibold border border-slate-700';
+      }
+    }
+
+    function toggleGlass() {
+      if (!glassMaterial) return;
+      glassVisible = !glassVisible;
+      const btn = document.getElementById('toggle-glass');
+      if (glassVisible) {
+        glassMaterial.opacity = 0.15;
+        glassMaterial.transparent = true;
+        btn.textContent = 'Translúcido';
+        btn.className = 'px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-400 font-semibold border border-cyan-500/30';
+      } else {
+        glassMaterial.opacity = 0.0;
+        glassMaterial.transparent = true;
+        btn.textContent = 'Oculto';
+        btn.className = 'px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-400 font-semibold border border-amber-500/30';
+      }
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      if (autoRotate && machineGroup) {
+        machineGroup.rotation.y += 0.003;
+      }
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>

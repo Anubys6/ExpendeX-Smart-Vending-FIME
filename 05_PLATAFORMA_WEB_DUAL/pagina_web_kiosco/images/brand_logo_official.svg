@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260" width="260" height="260" fill="none">
+  <defs>
+    <!-- Fondo brillante circular estilo Disney/Pixar -->
+    <radialGradient id="bgGlow" cx="50%" cy="45%" r="52%">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.35"/>
+      <stop offset="65%" stop-color="#0b2545" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#07172b"/>
+    </radialGradient>
+
+    <!-- Cuerpo de la Maquinita de Juguete (Esmeralda a Turquesa Mágico) -->
+    <linearGradient id="machineBody" x1="65" y1="35" x2="195" y2="195" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="45%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+
+    <!-- Borde Frontal Azul Real / Cian -->
+    <linearGradient id="machineTrim" x1="70" y1="40" x2="190" y2="190" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+
+    <!-- Pantalla Carita Feliz -->
+    <linearGradient id="faceScreen" x1="80" y1="55" x2="180" y2="140" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ecfdf5"/>
+    </linearGradient>
+
+    <!-- Zapatitos estilo caricatura -->
+    <linearGradient id="shoeGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <filter id="disneyShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000000" flood-opacity="0.32"/>
+    </filter>
+  </defs>
+
+  <!-- Medallón de Fondo -->
+  <circle cx="130" cy="130" r="118" fill="url(#bgGlow)" stroke="#34d399" stroke-width="5"/>
+  <circle cx="130" cy="130" r="108" stroke="#fbbf24" stroke-opacity="0.45" stroke-width="2" stroke-dasharray="6 6"/>
+
+  <!-- Estrellitas Mágicas Disney -->
+  <path d="M42 62 L45 70 L53 73 L45 76 L42 84 L39 76 L31 73 L39 70 Z" fill="#fbbf24"/>
+  <path d="M218 54 L220 60 L226 62 L220 64 L218 70 L216 64 L210 62 L216 60 Z" fill="#38bdf8"/>
+  <circle cx="212" cy="175" r="4" fill="#34d399"/>
+  <circle cx="46" cy="168" r="4" fill="#fbbf24"/>
+
+  <g filter="url(#disneyShadow)">
+    <!-- PATITAS ANIMADAS CON TENIS DE JUGUETE -->
+    <!-- Pierna Izquierda -->
+    <path d="M104 188 C100 204 96 212 92 220" stroke="#0b2545" stroke-width="11" stroke-linecap="round"/>
+    <path d="M104 188 C100 204 96 212 92 220" stroke="#38bdf8" stroke-width="7" stroke-linecap="round"/>
+    <ellipse cx="86" cy="224" rx="18" ry="10" fill="url(#shoeGrad)" stroke="#0b2545" stroke-width="3.5"/>
+    <path d="M72 226 H100" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Pierna Derecha (Dando pasito de baile) -->
+    <path d="M156 188 C160 202 168 210 174 216" stroke="#0b2545" stroke-width="11" stroke-linecap="round"/>
+    <path d="M156 188 C160 202 168 210 174 216" stroke="#38bdf8" stroke-width="7" stroke-linecap="round"/>
+    <ellipse cx="180" cy="218" rx="18" ry="10" transform="rotate(-14 180 218)" fill="url(#shoeGrad)" stroke="#0b2545" stroke-width="3.5"/>
+    <path d="M167 222 L193 216" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- BRAZO IZQUIERDO SALUDANDO CON GUANTE ESTILO DISNEY -->
+    <path d="M68 118 C44 106 34 86 42 68" stroke="#0b2545" stroke-width="11" stroke-linecap="round" fill="none"/>
+    <path d="M68 118 C44 106 34 86 42 68" stroke="#38bdf8" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <!-- Guante Blanco Izquierdo -->
+    <circle cx="42" cy="62" r="13" fill="#ffffff" stroke="#0b2545" stroke-width="3.5"/>
+    <circle cx="53" cy="65" r="6" fill="#ffffff" stroke="#0b2545" stroke-width="3"/>
+    <circle cx="33" cy="53" r="5.5" fill="#ffffff" stroke="#0b2545" stroke-width="3"/>
+    <circle cx="42" cy="49" r="5.5" fill="#ffffff" stroke="#0b2545" stroke-width="3"/>
+
+    <!-- BRAZO DERECHO JUGUETEANDO CON GUANTE ESTILO DISNEY -->
+    <path d="M192 118 C216 112 226 94 220 76" stroke="#0b2545" stroke-width="11" stroke-linecap="round" fill="none"/>
+    <path d="M192 118 C216 112 226 94 220 76" stroke="#38bdf8" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <!-- Guante Blanco Derecho -->
+    <circle cx="220" cy="70" r="13" fill="#ffffff" stroke="#0b2545" stroke-width="3.5"/>
+    <circle cx="209" cy="72" r="6" fill="#ffffff" stroke="#0b2545" stroke-width="3"/>
+    <circle cx="220" cy="57" r="5.5" fill="#ffffff" stroke="#0b2545" stroke-width="3"/>
+    <circle cx="229" cy="62" r="5.5" fill="#ffffff" stroke="#0b2545" stroke-width="3"/>
+
+    <!-- CUERPO PRINCIPAL DE LA MAQUINITA EXPENDEDORA DE JUGUETE -->
+    <rect x="66" y="38" width="128" height="154" rx="28" fill="url(#machineBody)" stroke="#0b2545" stroke-width="5"/>
+    <!-- Brillo lateral 3D -->
+    <path d="M78 52 V174" stroke="#ffffff" stroke-opacity="0.35" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Copete / Letrero Superior "ExpendeX" -->
+    <rect x="82" y="26" width="96" height="22" rx="11" fill="#fbbf24" stroke="#0b2545" stroke-width="4"/>
+    <text x="130" y="41" text-anchor="middle" fill="#0b2545" font-family="system-ui, sans-serif" font-weight="900" font-size="13">ExpendeX</text>
+
+    <!-- VENTANA / CARITA EXPRESIVA ESTILO DISNEY -->
+    <rect x="78" y="54" width="104" height="84" rx="18" fill="url(#faceScreen)" stroke="url(#machineTrim)" stroke-width="4"/>
+
+    <!-- Cejas Felices -->
+    <path d="M94 68 Q105 61 116 67" stroke="#0b2545" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+    <path d="M144 67 Q155 61 166 68" stroke="#0b2545" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+
+    <!-- Ojos Grandes Expresivos con Brillo Pixar/Disney -->
+    <ellipse cx="106" cy="84" rx="11" ry="14" fill="#0b2545"/>
+    <circle cx="102" cy="79" r="4.5" fill="#ffffff"/>
+    <circle cx="110" cy="89" r="2.2" fill="#38bdf8"/>
+
+    <ellipse cx="154" cy="84" rx="11" ry="14" fill="#0b2545"/>
+    <circle cx="150" cy="79" r="4.5" fill="#ffffff"/>
+    <circle cx="158" cy="89" r="2.2" fill="#38bdf8"/>
+
+    <!-- Mejillas Sonrojadas -->
+    <ellipse cx="89" cy="98" rx="8" ry="4.5" fill="#fb7185" fill-opacity="0.65"/>
+    <ellipse cx="171" cy="98" rx="8" ry="4.5" fill="#fb7185" fill-opacity="0.65"/>
+
+    <!-- Gran Sonrisa Feliz Abierta -->
+    <path d="M104 100 Q130 124 156 100 Z" fill="#0b2545"/>
+    <path d="M111 101 Q130 108 149 101" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+    <!-- Lengüita alegre -->
+    <ellipse cx="130" cy="112" rx="10" ry="5" fill="#fb7185"/>
+
+    <!-- Mini Estante de Comida y Bebida en la Barriguita de la Maquinita -->
+    <rect x="80" y="144" width="66" height="34" rx="9" fill="#07172b" stroke="#34d399" stroke-width="2.5"/>
+    <!-- Mini Topper Verde y Botellita Azul -->
+    <rect x="88" y="153" width="22" height="16" rx="4" fill="#10b981"/>
+    <rect x="118" y="149" width="16" height="20" rx="4" fill="#38bdf8"/>
+    <!-- Mini Panel QR Dorado -->
+    <rect x="152" y="144" width="28" height="34" rx="8" fill="#fbbf24" stroke="#0b2545" stroke-width="2.5"/>
+    <rect x="159" y="151" width="6" height="6" fill="#0b2545"/>
+    <rect x="167" y="151" width="6" height="6" fill="#0b2545"/>
+    <rect x="159" y="159" width="6" height="6" fill="#0b2545"/>
+    <rect x="167" y="159" width="6" height="6" fill="#059669"/>
+  </g>
+</svg>

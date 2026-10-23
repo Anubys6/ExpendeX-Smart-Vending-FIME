@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExpendeX - Reporte Técnico Electrónica de Potencia & Sistema de Refrigeración</title>
+<style>
+  @page { size: letter; margin: 18mm; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.55;
+    color: #1a202c;
+    background: #f7fafc;
+    margin: 0;
+    padding: 20px;
+  }
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  .header {
+    border-bottom: 3px solid #2b6cb0;
+    padding-bottom: 18px;
+    margin-bottom: 25px;
+  }
+  .header h1 {
+    margin: 0;
+    color: #1a365d;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .header h2 {
+    margin: 5px 0 12px 0;
+    color: #2b6cb0;
+    font-size: 17px;
+    font-weight: 500;
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 16px;
+    font-size: 13.5px;
+    color: #4a5568;
+    background: #edf2f7;
+    padding: 12px 16px;
+    border-radius: 6px;
+  }
+  h3 {
+    color: #2b6cb0;
+    border-left: 4px solid #3182ce;
+    padding-left: 10px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  p, li {
+    font-size: 14px;
+    color: #2d3748;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+  th, td {
+    padding: 8px 10px;
+    border: 1px solid #e2e8f0;
+    text-align: left;
+  }
+  th {
+    background-color: #2b6cb0;
+    color: #ffffff;
+    font-weight: 600;
+  }
+  tr:nth-child(even) { background-color: #f7fafc; }
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 11.5px;
+    font-weight: bold;
+  }
+  .badge-high { background: #feebc8; color: #c05621; }
+  .badge-low { background: #c6f6d5; color: #22543d; }
+  .badge-cold { background: #e0f2fe; color: #0369a1; }
+  .box-math {
+    background: #ebf8ff;
+    border: 1px solid #bee3f8;
+    border-radius: 6px;
+    padding: 12px 15px;
+    margin: 14px 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    color: #2c5282;
+    line-height: 1.5;
+  }
+  .diagram-box {
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 14px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 12px;
+    white-space: pre-wrap;
+    line-height: 1.4;
+    overflow-x: auto;
+  }
+  .btn-print {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #3182ce;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(49, 130, 206, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+  .btn-print:hover { background: #2b6cb0; transform: translateY(-2px); }
+  @media print {
+    body { background: white; padding: 0; }
+    .container { box-shadow: none; padding: 0; max-width: 100%; }
+    .btn-print { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<button class="btn-print" onclick="window.print()">🖨️ Imprimir / Guardar como PDF</button>
+
+<div class="container">
+  <div class="header">
+    <h1>Reporte Técnico de Electrónica de Potencia</h1>
+    <h2>Matriz MOSFET 6×6, Control de Compresor 30A & Diseño de PCB</h2>
+    <div class="meta-grid">
+      <div><strong>Proyecto:</strong> ExpendeX Smart Vending Machine</div>
+      <div><strong>Institución:</strong> Facultad de Ingeniería Mecánica y Eléctrica (FIME UANL)</div>
+      <div><strong>Controlador:</strong> ESP32-WROOM-32 (IoT & Pasarela Mercado Pago)</div>
+      <div><strong>Alimentación:</strong> 24 VDC @ 10A (Motores) + 120VAC / 24V (Compresor 1/5 HP)</div>
+      <div><strong>Dimensiones PCB:</strong> 260 mm × 180 mm (2 Capas FR4, Cobre 1 oz)</div>
+      <div><strong>Actuadores Totales:</strong> 36 Motores Espiral + 1 Compresor Hermético + Fan</div>
+    </div>
+  </div>
+
+  <h3>1. Arquitectura del Sistema de Potencia e Integración del Compresor</h3>
+  <p>El sistema de potencia de ExpendeX comprende dos subsistemas principales gobernados de forma centralizada por el microcontrolador ESP32:</p>
+  <ol>
+    <li><strong>Matriz Ortogonal 6×6 de Motores Dosificadores (24VDC):</strong> Multiplexa 36 motores mediante 12 transistores MOSFET (6 High-Side P-MOSFET IRF9540N y 6 Low-Side N-MOSFET IRLZ44N) con aislamiento galvánico de 5 kV por optoacopladores PC817C.</li>
+    <li><strong>Etapa de Refrigeración (Cámara Fría 3.0°C - 5.5°C):</strong> Conmuta un <strong>compresor hermético de refrigeración de 1/5 HP (150W)</strong> accionado mediante un relé industrial de alta corriente de <strong>30A / 250VAC (SLA-05VDC-SL-A)</strong>, protegido por una red snubber RC de absorción de transitorios inductivos y monitoreado en lazo cerrado por una sonda digital 1-Wire <strong>DS18B20</strong>.</li>
+  </ol>
+
+  <div class="diagram-box">
+  +24V BUS ──────────┬───────────────────┬───────────────────┬─── [6 Columnas P-MOSFET IRF9540N]
+                     │ (Q_COL1)          │ (Q_COL2)          │
+                 [COL_1 Bus]         [COL_2 Bus]         [COL_3 Bus]
+                     │                   │                   │
+  [FILA_A Bus] ──(M_A1 + 1N4007)─────(M_A2 + 1N4007)─────(M_A3 + 1N4007) ...
+                     │                   │                   │
+  GND RETORNO ───────┴─[Q_ROW_A]─────────┴─[Q_ROW_B]─────────┴─── [6 Filas N-MOSFET IRLZ44N]
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────
+  ETAPA DE REFRIGERACIÓN:
+  120VAC L ──[RELÉ 30A (SLA-05VDC)]──┬──(COMPRESOR 1/5 HP)── 120VAC N
+                                     │
+                             [SNUBBER 100Ω + 0.1μF]
+                                     │
+  ESP32 IO2 ──[PC817C]──[2N2222A]──[BOBINA RELÉ + 1N4007]
+  ESP32 IO5 ──[BUS 1-WIRE]─────────[SENSOR DIGITAL DS18B20 (3.0°C - 5.5°C)]
+  </div>
+
+  <h3>2. Red Snubber y Supresión de Arco en el Compresor</h3>
+  <p>Al arrancar o apagar un compresor inductivo de refrigeración, se induce un sobrevoltaje significativo ($\Delta V = L \frac{di}{dt}$) que genera arco eléctrico entre las platinas del relé. Para garantizar una vida útil superior a 200,000 ciclos:</p>
+  <ul>
+    <li><strong>Red Snubber RC:</strong> Se coloca en paralelo con los contactos normalmente abiertos (NO) una resistencia de $100\,\Omega$ (2W cerámico) en serie con un condensador de película de polipropileno metalizado de $0.1\,\mu\text{F}$ clase X2 (400V).</li>
+    <li><strong>Ranura de Aislamiento Galvánico (Creepage Slot):</strong> En el diseño de la placa PCB se fresó una ranura pasante sin cobre de $2.0\text{ mm}$ de ancho entre los contactos de alta tensión de 120VAC y las pistas lógicas de 5V/3.3V, garantizando una rigidez dieléctrica superior a <strong>4,000 Vrms</strong> bajo norma IEC 60950.</li>
+  </ul>
+
+  <h3>3. Asignación Completa de Pines GPIO del ESP32</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Señal Lógica</th>
+        <th>Pin ESP32</th>
+        <th>Tipo / Etapa</th>
+        <th>Componente Físico</th>
+        <th>Función en Máquina</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>FILA_A .. F</strong></td><td>IO13, 12, 14, 27, 26, 25</td><td><span class="badge badge-low">Low-Side (GND)</span></td><td>IRLZ44NPBF + PC817C</td><td>Conmuta GND a Pisos 1 a 6</td></tr>
+      <tr><td><strong>COL_1 .. 6</strong></td><td>IO33, 32, 23, 19, 17, 16</td><td><span class="badge badge-high">High-Side (+24V)</span></td><td>IRF9540NPBF + PC817C</td><td>Inyecta +24V a Columnas 1 a 6</td></tr>
+      <tr><td><strong>COMPRESOR</strong></td><td>IO2</td><td><span class="badge badge-cold">Potencia AC/DC</span></td><td>Relé 30A (SLA-05VDC) + Opto</td><td>Enciende/Apaga Compresor Frío</td></tr>
+      <tr><td><strong>TEMP_SENS</strong></td><td>IO5</td><td><span class="badge badge-cold">Sensor 1-Wire</span></td><td>DS18B20 (Sonda Inox)</td><td>Monitoreo Térmico con Histéresis</td></tr>
+      <tr><td><strong>DROP_SENSOR</strong></td><td>IO4</td><td>Digital Input</td><td>Barrera Infrarroja</td><td>Detección de Caída de Producto</td></tr>
+      <tr><td><strong>LCD_I2C</strong></td><td>IO21 (SDA), IO22 (SCL)</td><td>Bus I2C</td><td>LCD 1602 con Módulo PCF8574</td><td>Mensajes de Pago y Temperatura</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4. Lista de Materiales (BOM) con Números de Parte Oficiales JLCPCB / LCSC</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Componente</th>
+        <th>Cant.</th>
+        <th>Encapsulado</th>
+        <th>Parámetros Relevantes</th>
+        <th>Código LCSC</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>IRLZ44NPBF</strong></td><td>6</td><td>TO-220</td><td>N-MOSFET 55V, 47A, Vgs(th)=1.0V-2.0V, Rds=0.022Ω</td><td><strong>C75882</strong></td></tr>
+      <tr><td><strong>IRF9540NPBF</strong></td><td>6</td><td>TO-220</td><td>P-MOSFET -100V, -19A, Rds=0.117Ω</td><td><strong>C2599</strong></td></tr>
+      <tr><td><strong>SLA-05VDC-SL-A</strong></td><td>1</td><td>THT Power Relay</td><td>Relé de Potencia 30A 250VAC, Bobina 5VDC</td><td><strong>C12586</strong></td></tr>
+      <tr><td><strong>PC817C</strong></td><td>13</td><td>DIP-4</td><td>Optoacoplador Galvánico Viso=5000Vrms</td><td><strong>C76953</strong></td></tr>
+      <tr><td><strong>1N4007</strong></td><td>73</td><td>DO-41</td><td>Diodo Rectificador 1000V 1A (72 Matriz + 1 Relé)</td><td><strong>C64898</strong></td></tr>
+      <tr><td><strong>DS18B20</strong></td><td>1</td><td>TO-92 / Sonda</td><td>Sensor Digital de Temperatura 1-Wire ±0.5°C</td><td><strong>C74426</strong></td></tr>
+      <tr><td><strong>LM2596S-5.0</strong></td><td>1</td><td>TO-263-5</td><td>Regulador Reductor Conmutado 24V ➔ 5V 3A</td><td><strong>C29781</strong></td></tr>
+      <tr><td><strong>Snubber RC (100Ω/0.1μF)</strong></td><td>1</td><td>Radial 400V</td><td>Supresión de Arco Eléctrico para Compresor</td><td><strong>C14872</strong></td></tr>
+      <tr><td><strong>Borneras Motor 5.08mm</strong></td><td>36</td><td>CONN-2P</td><td>Conexión Rápida de 36 Motores de Espiral</td><td><strong>C8584</strong></td></tr>
+      <tr><td><strong>Bornera Red 7.62mm</strong></td><td>1</td><td>CONN-3P</td><td>Entrada de Alimentación Compresor (L, N, PE)</td><td><strong>C9421</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h3>5. Especificaciones Físicas de la Placa PCB Generada</h3>
+  <div class="box-math">
+    • Dimensiones de Placa: 260.0 mm × 180.0 mm (10.2" × 7.1")<br>
+    • Material: FR-4 Doble Capa (Top Layer + Bottom Layer), Grosor 1.6 mm<br>
+    • Espesor de Cobre: 1 oz (35 μm) con Plano de Masa y Bus de Potencia de 2.54 mm (100 mil)<br>
+    • Aislamiento Galvánico: Ranura de fresado físico de 2.0 mm (Creepage distance de 4,000 Vrms)<br>
+    • Disipación Térmica: Barra de aluminio común superior para los 12 transistores TO-220<br>
+    • Montaje: 4 barrenos M3 en esquinas con conexión a tierra de chasis (PE)
+  </div>
+</div>
+
+</body>
+</html>

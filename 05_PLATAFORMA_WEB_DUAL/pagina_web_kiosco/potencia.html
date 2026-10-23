@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExpendeX® — Potencia, Matriz MOSFET 6x6 & Sistema de Refrigeración / Compresor (EasyEDA Live)</title>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --panel: #111827;
+      --border: #1e293b;
+      --accent: #10b981;
+      --power24: #ef4444;
+      --gnd: #3b82f6;
+      --gate: #f59e0b;
+      --cold: #06b6d4;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+    
+    header {
+      background: linear-gradient(90deg, #0f172a, #1e293b);
+      border-bottom: 1px solid #334155;
+      padding: 12px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .badge {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .badge-cold {
+      background: rgba(6, 182, 212, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      background: #10b981;
+      color: #052e16;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-size: 12.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+    }
+    .btn:hover { background: #34d399; transform: translateY(-1px); }
+    .btn-pcb { background: #38bdf8; color: #082f49; }
+    .btn-pcb:hover { background: #7dd3fc; }
+    .btn-outline {
+      background: #1e293b;
+      color: #e2e8f0;
+      border: 1px solid #475569;
+    }
+    .btn-outline:hover { background: #334155; }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 16px;
+      padding: 16px;
+      flex: 1;
+    }
+    @media (max-width: 1200px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+
+    .sidebar { display: flex; flex-direction: column; gap: 14px; }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .card h2 {
+      font-size: 13.5px;
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .matrix-pad {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 5px;
+    }
+    .slot-btn {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #f8fafc;
+      padding: 7px 2px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 11px;
+      text-align: center;
+      transition: 0.15s;
+    }
+    .slot-btn.giant { border-color: rgba(245, 158, 11, 0.5); color: #fcd34d; }
+    .slot-btn:hover { border-color: #38bdf8; }
+    .slot-btn.active {
+      background: #10b981;
+      color: #022c22;
+      border-color: #6ee7b7;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+    }
+
+    .telemetry-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      font-size: 12px;
+    }
+    .tel-item {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      padding: 8px 10px;
+      border-radius: 8px;
+    }
+    .tel-label { color: var(--muted); font-size: 11px; }
+    .tel-val { font-weight: 700; font-size: 13px; margin-top: 2px; color: #34d399; }
+
+    /* SECCIÓN COMPRESOR Y REFRIGERACIÓN */
+    .refrig-box {
+      background: linear-gradient(145deg, #082f49, #0f172a);
+      border: 1px solid #0284c7;
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .refrig-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .temp-display {
+      font-size: 26px;
+      font-weight: 800;
+      color: #38bdf8;
+      font-family: monospace;
+      text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+    }
+    .comp-status-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .comp-on { background: #065f46; color: #34d399; border: 1px solid #10b981; }
+    .comp-off { background: #374151; color: #9ca3af; border: 1px solid #4b5563; }
+    
+    .comp-visual {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      background: rgba(0,0,0,0.25);
+      border-radius: 8px;
+      padding: 10px;
+    }
+    .motor-icon-spin {
+      animation: spinMotor 0.8s linear infinite;
+    }
+    @keyframes spinMotor {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .fan-spin {
+      animation: spinMotor 0.4s linear infinite;
+    }
+
+    .canvas-wrap {
+      background: #090d16;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .canvas-toolbar {
+      background: #111827;
+      border-bottom: 1px solid #1e293b;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #cbd5e1;
+      gap: 10px;
+    }
+    .tab-pills { display: flex; gap: 6px; }
+    .tab-pill {
+      background: #1e293b;
+      color: #94a3b8;
+      border: 1px solid #334155;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .tab-pill.active {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #38bdf8;
+    }
+
+    svg#schSvg, svg#pcbSvg {
+      width: 100%;
+      height: 760px;
+      background-image: radial-gradient(#1e293b 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .wire-idle { stroke: #334155; stroke-width: 2; fill: none; }
+    .wire-24v { stroke: #ef4444; stroke-width: 3; fill: none; stroke-dasharray: 8 4; animation: dash 0.6s linear infinite; }
+    .wire-gnd { stroke: #3b82f6; stroke-width: 3; fill: none; stroke-dasharray: 8 4; animation: dash 0.6s linear infinite; }
+    .wire-comp { stroke: #06b6d4; stroke-width: 3.5; fill: none; stroke-dasharray: 8 4; animation: dash 0.4s linear infinite; }
+    @keyframes dash { to { stroke-dashoffset: -24; } }
+
+    .bom-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+    }
+    .bom-table th, .bom-table td {
+      border-bottom: 1px solid #1e293b;
+      padding: 5px 3px;
+      text-align: left;
+    }
+    .bom-table th { color: #94a3b8; }
+    .code-part { color: #fbbf24; font-family: monospace; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div>
+      <h1 style="font-size: 17px;">ExpendeX® — Potencia, Matriz 6×6 & Compresor de Refrigeración</h1>
+      <div style="font-size: 11.5px; color: #94a3b8;">Circuito Completo EasyEDA + PCB Layout 2D + Control de Compresor 1/5 HP (Cámara Fría)</div>
+    </div>
+    <span class="badge">Matriz 36 Motores</span>
+    <span class="badge-cold">❄ Compresor 30A</span>
+  </div>
+  <div class="actions">
+    <a class="btn" href="ExpendeX_Matriz_6x6_MOSFET_Compresor_EasyEDA.zip" download="ExpendeX_Matriz_6x6_MOSFET_Compresor_EasyEDA.zip">
+      ⬇ Esquemático (.zip)
+    </a>
+    <a class="btn btn-pcb" href="ExpendeX_Matriz_6x6_MOSFET_Compresor_PCB.zip" download="ExpendeX_Matriz_6x6_MOSFET_Compresor_PCB.zip">
+      🖲 PCB Layout (.zip)
+    </a>
+    <a class="btn btn-outline" href="https://pro.easyeda.com/editor" target="_blank" rel="noopener">
+      🚀 Abrir EasyEDA Pro
+    </a>
+  </div>
+</header>
+
+<div class="main-grid">
+  <div class="sidebar">
+    <!-- 1. SISTEMA DE REFRIGERACIÓN Y COMPRESOR -->
+    <div class="card" style="border-color: #0284c7;">
+      <h2>
+        <span>❄ Sistema Refrigerado (Compresor)</span>
+        <button id="btnToggleComp" class="btn" style="padding: 4px 8px; font-size: 11px; background:#0284c7; color:white;" onclick="toggleCompressorManual()">
+          Manual ON/OFF
+        </button>
+      </h2>
+
+      <div class="refrig-box">
+        <div class="refrig-header">
+          <div>
+            <div style="font-size: 11px; color: #94a3b8;">TEMPERATURA CÁMARA FRÍA</div>
+            <div class="temp-display" id="dispTemp">3.8 °C</div>
+          </div>
+          <div>
+            <span class="comp-status-pill comp-on" id="pillCompStatus">COMPRESOR ACTIVO</span>
+          </div>
+        </div>
+
+        <div class="comp-visual">
+          <!-- Animación Compresor -->
+          <div style="text-align: center;">
+            <svg width="60" height="60" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="42" fill="#1e293b" stroke="#38bdf8" stroke-width="4"/>
+              <g id="compRotor" class="motor-icon-spin" style="transform-origin: 50px 50px;">
+                <circle cx="50" cy="50" r="14" fill="#0284c7"/>
+                <line x1="50" y1="20" x2="50" y2="80" stroke="#f8fafc" stroke-width="4"/>
+                <line x1="20" y1="50" x2="80" y2="50" stroke="#f8fafc" stroke-width="4"/>
+              </g>
+            </svg>
+            <div style="font-size: 10px; font-weight: bold; color: #38bdf8; margin-top: 2px;">Compresor 1/5 HP</div>
+          </div>
+
+          <!-- Animación Ventilador Condensador -->
+          <div style="text-align: center;">
+            <svg width="50" height="50" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="38" fill="#111827" stroke="#10b981" stroke-width="3"/>
+              <g id="fanBlades" class="fan-spin" style="transform-origin: 50px 50px;">
+                <path d="M50 50 Q40 20 50 15 Q60 20 50 50 Z" fill="#34d399"/>
+                <path d="M50 50 Q80 40 85 50 Q80 60 50 50 Z" fill="#34d399"/>
+                <path d="M50 50 Q60 80 50 85 Q40 80 50 50 Z" fill="#34d399"/>
+                <path d="M50 50 Q20 60 15 50 Q20 40 50 50 Z" fill="#34d399"/>
+              </g>
+            </svg>
+            <div style="font-size: 10px; font-weight: bold; color: #34d399; margin-top: 2px;">Fan Condensador</div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; font-size: 11px; color: #94a3b8; align-items: center;">
+          <span>Setpoint: <b id="setpointVal" style="color:#f8fafc;">4.0 °C</b></span>
+          <input type="range" id="sliderTemp" min="1.0" max="8.0" step="0.5" value="4.0" style="width: 120px;" oninput="updateSetpoint(this.value)">
+        </div>
+
+        <div class="telemetry-list" style="margin-top: 4px;">
+          <div class="tel-item">
+            <div class="tel-label">Relé 30A (IO2 ESP32)</div>
+            <div class="tel-val" id="telRelay" style="color:#38bdf8;">K_COMP: CERRADO</div>
+          </div>
+          <div class="tel-item">
+            <div class="tel-label">Corriente Compresor</div>
+            <div class="tel-val" id="telCompAmps">1.85 A (220 W)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. MATRIZ 6x6 MOTORES -->
+    <div class="card">
+      <h2>
+        <span>Matriz 6×6 (36 Motores)</span>
+        <span style="font-size: 11px; color: #94a3b8;">Clic para activar</span>
+      </h2>
+      <div class="matrix-pad" id="matrixPad"></div>
+
+      <div class="telemetry-list">
+        <div class="tel-item">
+          <div class="tel-label">Motor Activo</div>
+          <div class="tel-val" id="telSlot">A1 (Comida Gigante)</div>
+        </div>
+        <div class="tel-item">
+          <div class="tel-label">Pines Matriz ESP32</div>
+          <div class="tel-val" id="telPins">IO33 (HIGH) / IO13 (LOW)</div>
+        </div>
+        <div class="tel-item">
+          <div class="tel-label">MOSFET High-Side</div>
+          <div class="tel-val" id="telPmos" style="color:#f87171;">Q_COL1 (IRF9540N)</div>
+        </div>
+        <div class="tel-item">
+          <div class="tel-label">MOSFET Low-Side</div>
+          <div class="tel-val" id="telNmos" style="color:#60a5fa;">Q_FILA_A (IRLZ44N)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. BOM ACTUALIZADO -->
+    <div class="card">
+      <h2>BOM Oficial Incluyendo Refrigeración</h2>
+      <table class="bom-table">
+        <thead>
+          <tr><th>Ref</th><th>Componente</th><th>Función</th><th>Cant</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Q_FILA_A..F</td><td>IRLZ44NPBF (N-MOS)</td><td>Low-Side GND Matriz</td><td>6</td></tr>
+          <tr><td>Q_COL1..6</td><td>IRF9540NPBF (P-MOS)</td><td>High-Side +24V Matriz</td><td>6</td></tr>
+          <tr><td>K_RELAY_COMP</td><td>Relé 30A (SLA-05V)</td><td>Conmutación Compresor</td><td>1</td></tr>
+          <tr><td>M_COMP</td><td>Motor Compresor 1/5HP</td><td>Ciclo Frío Cámara</td><td>1</td></tr>
+          <tr><td>U_TEMP</td><td>DS18B20 (1-Wire)</td><td>Sensor Térmico (IO5)</td><td>1</td></tr>
+          <tr><td>U_OPTO</td><td>PC817C Optoacoplador</td><td>Aislamiento Lógico</td><td>13</td></tr>
+          <tr><td>D_FLY / BLK</td><td>1N4007 (1000V 1A)</td><td>Anti-BackEMF + Snubber</td><td>73</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CANVAS: ESQUEMÁTICO O PCB LAYOUT -->
+  <div class="canvas-wrap">
+    <div class="canvas-toolbar">
+      <div class="tab-pills">
+        <button class="tab-pill active" id="tabSch" onclick="switchView('SCH')">⚡ Vista Esquemático de Circuito</button>
+        <button class="tab-pill" id="tabPcb" onclick="switchView('PCB')">🖲 Vista Placa PCB 2D (Ruteo & Pads)</button>
+      </div>
+      <span id="activePathText" style="font-size: 11.5px; color:#38bdf8;">
+        Ruta: +24V ➔ Q_COL1 ➔ D_BLK_A1 ➔ MOTOR A1 ➔ Q_FILA_A ➔ GND | Compresor: ON
+      </span>
+    </div>
+    <svg id="schSvg" viewBox="0 0 1380 780"></svg>
+    <svg id="pcbSvg" viewBox="0 0 1380 780" style="display: none;"></svg>
+  </div>
+</div>
+
+<script>
+  const FILAS = ['A', 'B', 'C', 'D', 'E', 'F'];
+  const FILA_PINS = ['IO13', 'IO12', 'IO14', 'IO27', 'IO26', 'IO25'];
+  const COL_PINS  = ['IO33', 'IO32', 'IO23', 'IO19', 'IO17', 'IO16'];
+
+  let selRow = 0;
+  let selCol = 0;
+  let currentView = 'SCH';
+
+  // Estado del Compresor
+  let compOn = true;
+  let currentTemp = 3.8;
+  let setpoint = 4.0;
+  let manualOverride = false;
+
+  const pad = document.getElementById('matrixPad');
+  FILAS.forEach((r, ri) => {
+    for (let ci = 0; ci < 6; ci++) {
+      const btn = document.createElement('button');
+      const slot = `${r}${ci+1}`;
+      const isGiant = (ci === 0 || ci === 5);
+      btn.className = 'slot-btn' + (isGiant ? ' giant' : '') + (ri === 0 && ci === 0 ? ' active' : '');
+      btn.textContent = slot;
+      btn.onclick = () => selectSlot(ri, ci);
+      btn.id = `btn_${slot}`;
+      pad.appendChild(btn);
+    }
+  });
+
+  function selectSlot(ri, ci) {
+    selRow = ri;
+    selCol = ci;
+    document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('active'));
+    const slot = `${FILAS[ri]}${ci+1}`;
+    document.getElementById(`btn_${slot}`).classList.add('active');
+
+    const isGiant = (ci === 0 || ci === 5);
+    document.getElementById('telSlot').textContent = `${slot} (${isGiant ? 'Comida Gigante' : 'Bebida'})`;
+    document.getElementById('telPins').textContent = `${COL_PINS[ci]} (HIGH) / ${FILA_PINS[ri]} (LOW)`;
+    document.getElementById('telPmos').textContent = `Q_COL${ci+1} (IRF9540N: ON)`;
+    document.getElementById('telNmos').textContent = `Q_FILA_${FILAS[ri]} (IRLZ44N: ON)`;
+    
+    updatePathText();
+    renderCurrentView();
+  }
+
+  function updatePathText() {
+    const slot = `${FILAS[selRow]}${selCol+1}`;
+    document.getElementById('activePathText').textContent =
+      `Ruta Activa: +24V ➔ Q_COL${selCol+1} (IRF9540N) ➔ MOTOR ${slot} ➔ Q_FILA_${FILAS[selRow]} (IRLZ44N) ➔ GND | Compresor: ${compOn ? 'ACTIVO' : 'STANDBY'}`;
+  }
+
+  function toggleCompressorManual() {
+    manualOverride = !manualOverride;
+    compOn = !compOn;
+    updateCompressorUI();
+    renderCurrentView();
+  }
+
+  function updateSetpoint(val) {
+    setpoint = parseFloat(val);
+    document.getElementById('setpointVal').textContent = setpoint.toFixed(1) + ' °C';
+  }
+
+  function updateCompressorUI() {
+    const pill = document.getElementById('pillCompStatus');
+    const rotor = document.getElementById('compRotor');
+    const fan = document.getElementById('fanBlades');
+    const relText = document.getElementById('telRelay');
+    const ampText = document.getElementById('telCompAmps');
+
+    if (compOn) {
+      pill.className = 'comp-status-pill comp-on';
+      pill.textContent = 'COMPRESOR ACTIVO';
+      rotor.classList.add('motor-icon-spin');
+      fan.classList.add('fan-spin');
+      relText.textContent = 'K_COMP: CERRADO (IO2)';
+      relText.style.color = '#38bdf8';
+      ampText.textContent = '1.85 A (220 W)';
+    } else {
+      pill.className = 'comp-status-pill comp-off';
+      pill.textContent = 'STANDBY (APAGADO)';
+      rotor.classList.remove('motor-icon-spin');
+      fan.classList.remove('fan-spin');
+      relText.textContent = 'K_COMP: ABIERTO';
+      relText.style.color = '#94a3b8';
+      ampText.textContent = '0.00 A (0 W)';
+    }
+    updatePathText();
+  }
+
+  // Simulación Térmica con Histéresis
+  setInterval(() => {
+    if (!manualOverride) {
+      if (compOn) {
+        currentTemp -= 0.05;
+        if (currentTemp <= setpoint - 1.0) {
+          compOn = false;
+          updateCompressorUI();
+          renderCurrentView();
+        }
+      } else {
+        currentTemp += 0.04;
+        if (currentTemp >= setpoint + 1.2) {
+          compOn = true;
+          updateCompressorUI();
+          renderCurrentView();
+        }
+      }
+    }
+    document.getElementById('dispTemp').textContent = currentTemp.toFixed(1) + ' °C';
+  }, 1000);
+
+  function switchView(view) {
+    currentView = view;
+    document.getElementById('tabSch').classList.toggle('active', view === 'SCH');
+    document.getElementById('tabPcb').classList.toggle('active', view === 'PCB');
+    document.getElementById('schSvg').style.display = (view === 'SCH' ? 'block' : 'none');
+    document.getElementById('pcbSvg').style.display = (view === 'PCB' ? 'block' : 'none');
+    renderCurrentView();
+  }
+
+  function renderCurrentView() {
+    if (currentView === 'SCH') {
+      renderSchematic();
+    } else {
+      renderPCB();
+    }
+  }
+
+  // ESQUEMÁTICO: SEPARACIÓN Y GEOMETRÍA TOTALMENTE LIMPIA SIN EMPALMES
+  function renderSchematic() {
+    const svg = document.getElementById('schSvg');
+    let html = '';
+
+    // Riel superior +24V DC para la matriz (x = 40 a 760)
+    html += `<line x1="40" y1="30" x2="740" y2="30" stroke="#ef4444" stroke-width="4"/>`;
+    html += `<text x="45" y="20" fill="#ef4444" font-size="11.5" font-weight="bold">RIEL DE POTENCIA +24V DC (10A FUSIBLE) ➔ 36 MOTORES</text>`;
+
+    // 6 Columnas High-Side P-MOSFETs (cx = 75, 175, 275, 375, 475, 575)
+    for (let c = 0; c < 6; c++) {
+      const cx = 75 + c * 100;
+      const isAct = (c === selCol);
+      const colColor = isAct ? '#ef4444' : '#475569';
+
+      html += `<rect x="${cx-40}" y="45" width="80" height="52" rx="6" fill="${isAct ? 'rgba(239,68,68,0.18)' : '#111827'}" stroke="${colColor}" stroke-width="${isAct ? 2.5 : 1.2}"/>`;
+      html += `<text x="${cx}" y="62" fill="#f8fafc" font-size="9.5" font-weight="bold" text-anchor="middle">Q_COL${c+1} (P-MOS)</text>`;
+      html += `<text x="${cx}" y="75" fill="#94a3b8" font-size="8" text-anchor="middle">IRF9540N + PC817</text>`;
+      html += `<text x="${cx}" y="89" fill="${isAct ? '#fde047' : '#64748b'}" font-size="8" font-weight="bold" text-anchor="middle">${COL_PINS[c]}: ${isAct ? 'ON' : 'OFF'}</text>`;
+
+      html += `<line x1="${cx}" y1="30" x2="${cx}" y2="45" stroke="#ef4444" stroke-width="2"/>`;
+      html += `<line x1="${cx}" y1="97" x2="${cx}" y2="670" class="${isAct ? 'wire-24v' : 'wire-idle'}"/>`;
+    }
+
+    // 6 Filas Low-Side N-MOSFETs y 36 Motores
+    for (let r = 0; r < 6; r++) {
+      const ry = 145 + r * 85;
+      const isRowAct = (r === selRow);
+
+      // Bus horizontal de fila hacia los drivers
+      html += `<line x1="40" y1="${ry+20}" x2="720" y2="${ry+20}" class="${isRowAct ? 'wire-gnd' : 'wire-idle'}"/>`;
+
+      // Driver Low-Side ubicado en rx = 720 (ancho 105: de x=670 a 775)
+      const rx = 720;
+      const rowColor = isRowAct ? '#3b82f6' : '#475569';
+      html += `<rect x="${rx-52}" y="${ry-14}" width="105" height="52" rx="6" fill="${isRowAct ? 'rgba(59,130,246,0.18)' : '#111827'}" stroke="${rowColor}" stroke-width="${isRowAct ? 2.5 : 1.2}"/>`;
+      html += `<text x="${rx}" y="${ry+3}" fill="#f8fafc" font-size="9.5" font-weight="bold" text-anchor="middle">Q_FILA_${FILAS[r]} (N-MOS)</text>`;
+      html += `<text x="${rx}" y="${ry+16}" fill="#94a3b8" font-size="8" text-anchor="middle">IRLZ44N + PC817</text>`;
+      html += `<text x="${rx}" y="${ry+30}" fill="${isRowAct ? '#60a5fa' : '#64748b'}" font-size="8" font-weight="bold" text-anchor="middle">${FILA_PINS[r]}: ${isRowAct ? 'ON' : 'OFF'}</text>`;
+
+      // Retorno a tierra común
+      html += `<line x1="${rx+53}" y1="${ry+12}" x2="${rx+72}" y2="${ry+12}" stroke="${isRowAct ? '#3b82f6' : '#64748b'}" stroke-width="2"/>`;
+      html += `<text x="${rx+76}" y="${ry+16}" fill="#3b82f6" font-size="8" font-weight="bold">GND</text>`;
+
+      // 6 Celdas de Motor en la fila
+      for (let c = 0; c < 6; c++) {
+        const cx = 75 + c * 100;
+        const slot = `${FILAS[r]}${c+1}`;
+        const activeCell = (r === selRow && c === selCol);
+        const isGiant = (c === 0 || c === 5);
+
+        const boxFill = activeCell ? 'rgba(16,185,129,0.25)' : '#0f172a';
+        const boxStroke = activeCell ? '#10b981' : (isGiant ? '#b45309' : '#334155');
+
+        html += `<g style="cursor:pointer" onclick="selectSlot(${r},${c})">`;
+        html += `<rect x="${cx-34}" y="${ry-18}" width="68" height="36" rx="5" fill="${boxFill}" stroke="${boxStroke}" stroke-width="${activeCell ? 2.5 : 1}"/>`;
+        html += `<text x="${cx}" y="${ry-3}" fill="${activeCell ? '#34d399' : '#f8fafc'}" font-size="9.5" font-weight="bold" text-anchor="middle">M_${slot} ${activeCell ? '⚙' : ''}</text>`;
+        html += `<text x="${cx}" y="${ry+10}" fill="#94a3b8" font-size="7" text-anchor="middle">1N4007</text>`;
+        html += `</g>`;
+      }
+    }
+
+    // LINEA SEPARADORA VERTICAL
+    html += `<line x1="835" y1="30" x2="835" y2="740" stroke="#334155" stroke-dasharray="4 4" stroke-width="1.5"/>`;
+
+    // ETAPA DE REFRIGERACIÓN Y COMPRESOR: EN SU PANEL DEDICADO INDEPENDIENTE (x = 870 a 1350)
+    const bx = 1110;
+    const by = 30;
+    const pWidth = 470;
+    const pHeight = 720;
+    html += `<rect x="${bx - pWidth/2}" y="${by}" width="${pWidth}" height="${pHeight}" rx="12" fill="rgba(8,47,73,0.35)" stroke="#0284c7" stroke-width="2"/>`;
+    
+    // Título del Panel de Refrigeración
+    html += `<text x="${bx}" y="${by+28}" fill="#38bdf8" font-size="13.5" font-weight="bold" text-anchor="middle">❄ SISTEMA DE REFRIGERACIÓN (CÁMARA FRÍA)</text>`;
+    html += `<text x="${bx}" y="${by+46}" fill="#94a3b8" font-size="9.5" text-anchor="middle">Compresor Hermético 1/5 HP • Relé 30A • Snubber RC • DS18B20</text>`;
+
+    // 1. Entrada de Red MAINS AC / DC (Arriba en el panel)
+    html += `<rect x="${bx-210}" y="${by+65}" width="420" height="60" rx="8" fill="#111827" stroke="#334155" stroke-width="1.2"/>`;
+    html += `<text x="${bx-195}" y="${by+85}" fill="#facc15" font-size="10" font-weight="bold">ALIMENTACIÓN MAINS (120VAC / 24VDC):</text>`;
+    html += `<circle cx="${bx-50}" cy="${by+102}" r="7" fill="#facc15"/><text x="${bx-50}" y="${by+116}" fill="#f87171" font-size="8" text-anchor="middle">L (Fase)</text>`;
+    html += `<circle cx="${bx+30}" cy="${by+102}" r="7" fill="#facc15"/><text x="${bx+30}" y="${by+116}" fill="#60a5fa" font-size="8" text-anchor="middle">N (Neutro)</text>`;
+    html += `<circle cx="${bx+110}" cy="${by+102}" r="7" fill="#facc15"/><text x="${bx+110}" y="${by+116}" fill="#34d399" font-size="8" text-anchor="middle">PE (Tierra)</text>`;
+
+    // Línea de fase hacia el relé
+    html += `<line x1="${bx-50}" y1="${by+102}" x2="${bx-50}" y2="${by+150}" stroke="#facc15" stroke-width="2.5"/>`;
+
+    // 2. Módulo de Relé de Potencia 30A (K_RELAY_COMP)
+    const relColor = compOn ? '#10b981' : '#64748b';
+    html += `<rect x="${bx-210}" y="${by+150}" width="420" height="150" rx="8" fill="#0f172a" stroke="${relColor}" stroke-width="${compOn ? 2.5 : 1.2}"/>`;
+    
+    // Título Relé
+    html += `<text x="${bx}" y="${by+175}" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">K_RELAY_COMP — RELÉ DE POTENCIA 30A / 250VAC</text>`;
+    html += `<text x="${bx}" y="${by+193}" fill="${compOn ? '#34d399' : '#94a3b8'}" font-size="10" font-weight="bold" text-anchor="middle">ESTADO DE CONTACTOS: ${compOn ? 'CERRADO (CONDUCCIÓN ACTIVA)' : 'ABIERTO (STANDBY)'}</text>`;
+
+    // Componentes del driver (Optoacoplador y Transistor)
+    html += `<rect x="${bx-190}" y="${by+210}" width="160" height="70" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1"/>`;
+    html += `<text x="${bx-110}" y="${by+230}" fill="#38bdf8" font-size="9" font-weight="bold" text-anchor="middle">AISLAMIENTO ÓPTICO</text>`;
+    html += `<text x="${bx-110}" y="${by+245}" fill="#f8fafc" font-size="8.5" text-anchor="middle">PC817C (IO2 ESP32)</text>`;
+    html += `<text x="${bx-110}" y="${by+260}" fill="#94a3b8" font-size="8" text-anchor="middle">Driver 2N2222A + 1N4007</text>`;
+
+    // Red Snubber RC en paralelo con los contactos
+    html += `<rect x="${bx+30}" y="${by+210}" width="160" height="70" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1"/>`;
+    html += `<text x="${bx+110}" y="${by+230}" fill="#f59e0b" font-size="9" font-weight="bold" text-anchor="middle">RED SNUBBER RC</text>`;
+    html += `<text x="${bx+110}" y="${by+245}" fill="#f8fafc" font-size="8.5" text-anchor="middle">100 Ω (2W) + 0.1 μF X2</text>`;
+    html += `<text x="${bx+110}" y="${by+260}" fill="#94a3b8" font-size="8" text-anchor="middle">Supresión de Arco 400V</text>`;
+
+    // Cable de potencia hacia el compresor
+    html += `<line x1="${bx}" y1="${by+300}" x2="${bx}" y2="${by+340}" class="${compOn ? 'wire-comp' : 'wire-idle'}"/>`;
+
+    // 3. Compresor de Refrigeración y Ventilador (Centro del panel)
+    html += `<rect x="${bx-210}" y="${by+340}" width="420" height="230" rx="8" fill="#111827" stroke="${compOn ? '#0284c7' : '#334155'}" stroke-width="1.5"/>`;
+    html += `<text x="${bx}" y="${by+365}" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="middle">ACTUADORES DEL SISTEMA REFRIGERADO</text>`;
+
+    // Símbolo Compresor Hermético (Izquierda)
+    const compCx = bx - 100;
+    const compCy = by + 445;
+    html += `<circle cx="${compCx}" cy="${compCy}" r="50" fill="#0f172a" stroke="${compOn ? '#38bdf8' : '#475569'}" stroke-width="${compOn ? 3 : 1.5}"/>`;
+    html += `<circle cx="${compCx}" cy="${compCy}" r="22" fill="#0284c7"/>`;
+    html += `<text x="${compCx}" y="${compCy-6}" fill="#f8fafc" font-size="11" font-weight="bold" text-anchor="middle">M_COMP</text>`;
+    html += `<text x="${compCx}" y="${compCy+8}" fill="${compOn ? '#38bdf8' : '#94a3b8'}" font-size="8.5" text-anchor="middle">1/5 HP (150W)</text>`;
+    html += `<text x="${compCx}" y="${compCy+20}" fill="${compOn ? '#34d399' : '#64748b'}" font-size="8.5" font-weight="bold" text-anchor="middle">${compOn ? '1.85A RLA' : '0.00A'}</text>`;
+    html += `<text x="${compCx}" y="${compCy+65}" fill="#f8fafc" font-size="10" font-weight="bold" text-anchor="middle">Compresor Hermético ${compOn ? '❄' : ''}</text>`;
+
+    // Ventilador de Condensador (Derecha)
+    const fanCx = bx + 100;
+    const fanCy = by + 445;
+    html += `<circle cx="${fanCx}" cy="${fanCy}" r="45" fill="#0f172a" stroke="${compOn ? '#10b981' : '#475569'}" stroke-width="${compOn ? 2.5 : 1.5}"/>`;
+    html += `<text x="${fanCx}" y="${fanCy-4}" fill="#f8fafc" font-size="10.5" font-weight="bold" text-anchor="middle">M_FAN</text>`;
+    html += `<text x="${fanCx}" y="${fanCy+10}" fill="#34d399" font-size="8.5" text-anchor="middle">24V / 0.4A</text>`;
+    html += `<text x="${fanCx}" y="${fanCy+65}" fill="#a7f3d0" font-size="10" font-weight="bold" text-anchor="middle">Ventilador Condensador</text>`;
+
+    // 4. Sensor de Temperatura Digital DS18B20 (Abajo en el panel)
+    html += `<rect x="${bx-210}" y="${by+585}" width="420" height="110" rx="8" fill="#064e3b" stroke="#34d399" stroke-width="1.5"/>`;
+    html += `<text x="${bx}" y="${by+612}" fill="#ffffff" font-size="11.5" font-weight="bold" text-anchor="middle">TERMOSTATO DIGITAL LAZO CERRADO — DS18B20</text>`;
+    html += `<text x="${bx}" y="${by+632}" fill="#a7f3d0" font-size="9.5" text-anchor="middle">Bus 1-Wire Digital (ESP32 Pin IO5) • Histéresis: ON > 5.5°C | OFF < 3.0°C</text>`;
+    html += `<text x="${bx}" y="${by+665}" fill="#fde047" font-size="18" font-weight="bold" text-anchor="middle">TEMPERATURA ACTUAL: ${currentTemp.toFixed(1)} °C</text>`;
+    html += `<text x="${bx}" y="${by+685}" fill="${compOn ? '#34d399' : '#e2e8f0'}" font-size="9" text-anchor="middle">${compOn ? 'Enfriamiento activo hacia Setpoint (4.0 °C)' : 'Temperatura óptima en rango de conservación'}</text>`;
+
+    svg.innerHTML = html;
+  }
+
+  // PCB LAYOUT: 260mm x 180mm FR4 CON ESPACIADO PERFECTO
+  function renderPCB() {
+    const svg = document.getElementById('pcbSvg');
+    let html = '';
+
+    // PCB Placa FR4 Fondo Verde Oscuro
+    html += `<rect x="25" y="25" width="1330" height="730" rx="14" fill="#08170e" stroke="#166534" stroke-width="4"/>`;
+
+    // 4 Orificios de Montaje M3
+    const holes = [[55, 55], [1325, 55], [1325, 725], [55, 725]];
+    holes.forEach(([hx, hy]) => {
+      html += `<circle cx="${hx}" cy="${hy}" r="14" fill="#1e293b" stroke="#facc15" stroke-width="3"/>`;
+      html += `<circle cx="${hx}" cy="${hy}" r="7" fill="#08170e"/>`;
+    });
+
+    // Serigrafía superior
+    html += `<text x="65" y="65" fill="#facc15" font-size="15" font-weight="bold">EXPENDEX® SMART VENDING - PCB DE POTENCIA 6x6 & REFRIGERACIÓN</text>`;
+    html += `<text x="65" y="83" fill="#a7f3d0" font-size="10.5">FIME UANL - 36 MOTORES DOSIFICADORES + RELÉ 30A COMPRESOR (260mm x 180mm FR4)</text>`;
+
+    // Barra de Disipador de Aluminio común para los 12 MOSFETs (TO-220)
+    html += `<rect x="65" y="98" width="760" height="72" rx="6" fill="rgba(250, 204, 21, 0.08)" stroke="#facc15" stroke-dasharray="6 3" stroke-width="1.5"/>`;
+    html += `<text x="80" y="115" fill="#facc15" font-size="9.5" font-weight="bold">DISIPADOR TO-220 (6x P-MOS IRF9540N + 6x N-MOS IRLZ44N)</text>`;
+
+    // 6 P-MOSFETs
+    for (let c = 0; c < 6; c++) {
+      const mx = 105 + c * 60;
+      html += `<rect x="${mx-22}" y="125" width="44" height="36" fill="#1e293b" stroke="#f87171" stroke-width="1.5"/>`;
+      html += `<circle cx="${mx-10}" cy="150" r="3.5" fill="#facc15"/>`;
+      html += `<circle cx="${mx}" cy="150" r="3.5" fill="#facc15"/>`;
+      html += `<circle cx="${mx+10}" cy="150" r="3.5" fill="#facc15"/>`;
+      html += `<text x="${mx}" y="138" fill="#f8fafc" font-size="7.5" font-weight="bold" text-anchor="middle">QC${c+1}</text>`;
+    }
+
+    // 6 N-MOSFETs
+    for (let r = 0; r < 6; r++) {
+      const mx = 495 + r * 60;
+      html += `<rect x="${mx-22}" y="125" width="44" height="36" fill="#1e293b" stroke="#60a5fa" stroke-width="1.5"/>`;
+      html += `<circle cx="${mx-10}" cy="150" r="3.5" fill="#facc15"/>`;
+      html += `<circle cx="${mx}" cy="150" r="3.5" fill="#facc15"/>`;
+      html += `<circle cx="${mx+10}" cy="150" r="3.5" fill="#facc15"/>`;
+      html += `<text x="${mx}" y="138" fill="#f8fafc" font-size="7.5" font-weight="bold" text-anchor="middle">QR${FILAS[r]}</text>`;
+    }
+
+    // 36 Conectores de Motores (Bloques 6x6 en la izquierda)
+    for (let r = 0; r < 6; r++) {
+      for (let c = 0; c < 6; c++) {
+        const cx = 85 + c * 95;
+        const cy = 205 + r * 68;
+        const slot = `${FILAS[r]}${c+1}`;
+        const isAct = (r === selRow && c === selCol);
+
+        html += `<rect x="${cx-32}" y="${cy-20}" width="64" height="40" rx="4" fill="${isAct ? '#15803d' : '#142a1a'}" stroke="${isAct ? '#4ade80' : '#166534'}" stroke-width="1.5"/>`;
+        html += `<circle cx="${cx-12}" cy="${cy+3}" r="4.5" fill="#facc15" stroke="#ca8a04" stroke-width="1.5"/>`;
+        html += `<circle cx="${cx+12}" cy="${cy+3}" r="4.5" fill="#facc15" stroke="#ca8a04" stroke-width="1.5"/>`;
+        html += `<text x="${cx}" y="${cy-7}" fill="#f8fafc" font-size="8" font-weight="bold" text-anchor="middle">M_${slot}</text>`;
+      }
+    }
+
+    // Zócalo ESP32-WROOM-32 (Abajo a la izquierda)
+    html += `<rect x="65" y="620" width="310" height="110" rx="6" fill="#0f172a" stroke="#3b82f6" stroke-width="2"/>`;
+    html += `<text x="220" y="640" fill="#38bdf8" font-size="10.5" font-weight="bold" text-anchor="middle">ESP32-WROOM-32 (38 PINES DUAL HEADER)</text>`;
+    for (let p = 0; p < 19; p++) {
+      const px = 85 + p * 15;
+      html += `<circle cx="${px}" cy="668" r="3.5" fill="#facc15"/>`;
+      html += `<circle cx="${px}" cy="708" r="3.5" fill="#facc15"/>`;
+    }
+
+    // Regulador Buck LM2596S (5V)
+    html += `<rect x="395" y="620" width="160" height="110" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>`;
+    html += `<text x="475" y="640" fill="#34d399" font-size="10" font-weight="bold" text-anchor="middle">BUCK LM2596S (5V 3A)</text>`;
+    html += `<circle cx="420" cy="675" r="5.5" fill="#facc15"/><text x="420" y="695" fill="#94a3b8" font-size="7.5" text-anchor="middle">24V IN</text>`;
+    html += `<circle cx="530" cy="675" r="5.5" fill="#facc15"/><text x="530" y="695" fill="#94a3b8" font-size="7.5" text-anchor="middle">5V OUT</text>`;
+
+    // Entrada de 24V 10A
+    html += `<rect x="575" y="620" width="120" height="110" rx="6" fill="#0f172a" stroke="#ef4444" stroke-width="1.5"/>`;
+    html += `<text x="635" y="640" fill="#ef4444" font-size="9.5" font-weight="bold" text-anchor="middle">IN +24V 10A</text>`;
+    html += `<circle cx="610" cy="675" r="6" fill="#facc15"/><text x="610" y="695" fill="#f87171" font-size="7.5" text-anchor="middle">+24V</text>`;
+    html += `<circle cx="660" cy="675" r="6" fill="#facc15"/><text x="660" y="695" fill="#60a5fa" font-size="7.5" text-anchor="middle">GND</text>`;
+
+    // RANURA DE FRESADO / AISLAMIENTO FÍSICO CREEPAGE (x = 735)
+    html += `<rect x="730" y="98" width="10" height="630" rx="5" fill="#000000" stroke="#ec4899" stroke-width="2"/>`;
+    html += `<text x="735" y="420" transform="rotate(-90 735 420)" fill="#ec4899" font-size="9" font-weight="bold" text-anchor="middle">RANURA DE AISLAMIENTO GALVÁNICO (CREEPAGE SLOT 4kV)</text>`;
+
+    // ZONA DE REFRIGERACIÓN Y COMPRESOR (A la derecha de la ranura: x = 765 a 1315)
+    html += `<rect x="765" y="98" width="550" height="630" rx="10" fill="rgba(8,47,73,0.3)" stroke="#0284c7" stroke-width="2"/>`;
+    html += `<text x="1040" y="125" fill="#38bdf8" font-size="13" font-weight="bold" text-anchor="middle">ZONA DE REFRIGERACIÓN Y COMPRESOR (ALTA CORRIENTE 30A)</text>`;
+
+    // Relé SLA-05VDC-SL-A 30A Footprint
+    html += `<rect x="800" y="160" width="220" height="150" rx="6" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>`;
+    html += `<text x="910" y="190" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">RELÉ 30A (SLA-05VDC-SL-A)</text>`;
+    html += `<text x="910" y="210" fill="#f87171" font-size="9.5" text-anchor="middle">30A 250VAC / 28VDC</text>`;
+    html += `<circle cx="835" cy="270" r="6.5" fill="#facc15"/>`;
+    html += `<circle cx="835" cy="295" r="6.5" fill="#facc15"/>`;
+    html += `<rect x="965" cy="255" width="14" height="14" fill="#facc15"/>`;
+    html += `<rect x="965" cy="285" width="14" height="14" fill="#facc15"/>`;
+
+    // Red Snubber RC (Resistor + Cap)
+    html += `<rect x="1040" y="160" width="245" height="150" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>`;
+    html += `<text x="1162" y="190" fill="#f59e0b" font-size="11" font-weight="bold" text-anchor="middle">RED SNUBBER RC</text>`;
+    html += `<text x="1162" y="210" fill="#ffffff" font-size="9.5" text-anchor="middle">100Ω 2W + 0.1μF X2 400V</text>`;
+    html += `<circle cx="1100" cy="260" r="5.5" fill="#facc15"/>`;
+    html += `<circle cx="1140" cy="260" r="5.5" fill="#facc15"/>`;
+    html += `<circle cx="1185" cy="260" r="5.5" fill="#facc15"/>`;
+    html += `<circle cx="1225" cy="260" r="5.5" fill="#facc15"/>`;
+
+    // Bornera de Red MAINS 3 Pines (L, N, PE)
+    html += `<rect x="800" y="340" width="485" height="120" rx="8" fill="#0f172a" stroke="#facc15" stroke-width="2"/>`;
+    html += `<text x="1042" y="365" fill="#facc15" font-size="11.5" font-weight="bold" text-anchor="middle">J_COMPRESOR — ENTRADA DE RED (MAINS 120VAC / 24VDC)</text>`;
+    html += `<circle cx="890" cy="415" r="9" fill="#facc15"/><text x="890" y="440" fill="#f87171" font-size="8.5" font-weight="bold" text-anchor="middle">FASE (L)</text>`;
+    html += `<circle cx="1042" cy="415" r="9" fill="#facc15"/><text x="1042" y="440" fill="#60a5fa" font-size="8.5" font-weight="bold" text-anchor="middle">NEUTRO (N)</text>`;
+    html += `<circle cx="1195" cy="415" r="9" fill="#facc15"/><text x="1195" y="440" fill="#34d399" font-size="8.5" font-weight="bold" text-anchor="middle">TIERRA (PE)</text>`;
+
+    // Conector Sonda DS18B20 y Ventilador Condensador (Abajo a la derecha)
+    html += `<rect x="800" y="490" width="230" height="120" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="1.5"/>`;
+    html += `<text x="915" y="515" fill="#34d399" font-size="10.5" font-weight="bold" text-anchor="middle">CONECTOR SONDA DS18B20</text>`;
+    html += `<circle cx="865" cy="565" r="5" fill="#facc15"/><text x="865" y="585" fill="#94a3b8" font-size="7.5" text-anchor="middle">3V3</text>`;
+    html += `<circle cx="915" cy="565" r="5" fill="#facc15"/><text x="915" y="585" fill="#38bdf8" font-size="7.5" text-anchor="middle">IO5</text>`;
+    html += `<circle cx="965" cy="565" r="5" fill="#facc15"/><text x="965" y="585" fill="#60a5fa" font-size="7.5" text-anchor="middle">GND</text>`;
+
+    html += `<rect x="1055" y="490" width="230" height="120" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>`;
+    html += `<text x="1170" y="515" fill="#34d399" font-size="10.5" font-weight="bold" text-anchor="middle">FAN CONDENSADOR (24V)</text>`;
+    html += `<circle cx="1135" cy="565" r="5.5" fill="#facc15"/><text x="1135" y="585" fill="#f87171" font-size="7.5" text-anchor="middle">+24V</text>`;
+    html += `<circle cx="1205" cy="565" r="5.5" fill="#facc15"/><text x="1205" y="585" fill="#60a5fa" font-size="7.5" text-anchor="middle">GND</text>`;
+
+    svg.innerHTML = html;
+  }
+
+  // Render inicial
+  renderCurrentView();
+</script>
+</body>
+</html>

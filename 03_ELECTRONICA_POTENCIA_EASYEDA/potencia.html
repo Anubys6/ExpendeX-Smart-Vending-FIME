@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExpendeX® — Electrónica de Potencia & Matriz MOSFET 6x6 (EasyEDA Live)</title>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --panel: #111827;
+      --border: #1e293b;
+      --accent: #10b981;
+      --power24: #ef4444;
+      --gnd: #3b82f6;
+      --gate: #f59e0b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+    header {
+      background: linear-gradient(90deg, #0f172a, #1e293b);
+      border-bottom: 1px solid #334155;
+      padding: 14px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .badge {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn {
+      background: #10b981;
+      color: #052e16;
+      font-weight: 700;
+      padding: 9px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+    }
+    .btn:hover { background: #34d399; transform: translateY(-1px); }
+    .btn-outline {
+      background: #1e293b;
+      color: #e2e8f0;
+      border: 1px solid #475569;
+    }
+    .btn-outline:hover { background: #334155; }
+    .main-grid {
+      display: grid;
+      grid-template-columns: 370px 1fr;
+      gap: 16px;
+      padding: 16px;
+      flex: 1;
+    }
+    @media (max-width: 1024px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .card h2 { font-size: 15px; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.5px; }
+    .matrix-pad {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
+    }
+    .slot-btn {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #f8fafc;
+      padding: 8px 4px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 12px;
+      text-align: center;
+      transition: 0.15s;
+    }
+    .slot-btn.giant { border-color: rgba(245, 158, 11, 0.5); color: #fcd34d; }
+    .slot-btn:hover { border-color: #38bdf8; }
+    .slot-btn.active {
+      background: #10b981;
+      color: #022c22;
+      border-color: #6ee7b7;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+    }
+    .telemetry-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      font-size: 12px;
+    }
+    .tel-item {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      padding: 8px 10px;
+      border-radius: 8px;
+    }
+    .tel-label { color: var(--muted); font-size: 11px; }
+    .tel-val { font-weight: 700; font-size: 14px; margin-top: 2px; color: #34d399; }
+    .bom-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+    }
+    .bom-table th, .bom-table td {
+      border-bottom: 1px solid #1e293b;
+      padding: 6px 4px;
+      text-align: left;
+    }
+    .bom-table th { color: #94a3b8; }
+    .code-part { color: #fbbf24; font-family: monospace; }
+    .canvas-wrap {
+      background: #090d16;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .canvas-toolbar {
+      background: #111827;
+      border-bottom: 1px solid #1e293b;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #cbd5e1;
+    }
+    svg#schSvg {
+      width: 100%;
+      height: 760px;
+      background-image: radial-gradient(#1e293b 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .wire-idle { stroke: #334155; stroke-width: 2; fill: none; }
+    .wire-24v { stroke: #ef4444; stroke-width: 3.5; fill: none; stroke-dasharray: 8 4; animation: dash 0.6s linear infinite; }
+    .wire-gnd { stroke: #3b82f6; stroke-width: 3.5; fill: none; stroke-dasharray: 8 4; animation: dash 0.6s linear infinite; }
+    @keyframes dash { to { stroke-dashoffset: -24; } }
+    .steps-box {
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div>
+      <h1 style="font-size: 18px;">ExpendeX® — Electrónica de Potencia & Matriz MOSFET 6×6 (36 Motores)</h1>
+      <div style="font-size: 12px; color: #94a3b8;">Esquemático Nativo EasyEDA Raspado de LCSC + Simulador SPICE de Conmutación High-Side / Low-Side</div>
+    </div>
+    <span class="badge">162 Componentes LCSC Reales</span>
+  </div>
+  <div class="actions">
+    <a class="btn" href="ExpendeX_Matriz_6x6_MOSFET_EasyEDA.json" download="ExpendeX_Matriz_6x6_MOSFET_EasyEDA.json">
+      ⬇ Descargar Archivo Nativo EasyEDA (.json)
+    </a>
+    <a class="btn btn-outline" href="https://easyeda.com/editor" target="_blank" rel="noopener">
+      🚀 Abrir EasyEDA Web Editor
+    </a>
+  </div>
+</header>
+
+<div class="main-grid">
+  <div class="card">
+    <h2>1. Simulador Interactivo de Conmutación 6×6</h2>
+    <p style="font-size: 12px; color: #94a3b8;">
+      Haz clic en cualquier casilla (<b>A1..F6</b>) para activar su par de MOSFETs (<b>Columna High-Side +24V</b> y <b>Fila Low-Side GND</b>) y ver la ruta real de corriente:
+    </p>
+    <div class="matrix-pad" id="matrixPad"></div>
+
+    <div class="telemetry-list">
+      <div class="tel-item">
+        <div class="tel-label">Casilla Seleccionada</div>
+        <div class="tel-val" id="telSlot">A1 (Comida Gigante)</div>
+      </div>
+      <div class="tel-item">
+        <div class="tel-label">Pines ESP32 Activos</div>
+        <div class="tel-val" id="telPins">IO33 (HIGH) / IO13 (LOW)</div>
+      </div>
+      <div class="tel-item">
+        <div class="tel-label">MOSFET High-Side (+24V)</div>
+        <div class="tel-val" id="telPmos" style="color:#f87171;">Q_COL1 (IRF9540N: ON)</div>
+      </div>
+      <div class="tel-item">
+        <div class="tel-label">MOSFET Low-Side (GND)</div>
+        <div class="tel-val" id="telNmos" style="color:#60a5fa;">Q_FILA_A (IRLZ44N: ON)</div>
+      </div>
+      <div class="tel-item">
+        <div class="tel-label">Corriente de Motor (24V)</div>
+        <div class="tel-val" id="telCurr">1.85 A (44.4 W)</div>
+      </div>
+      <div class="tel-item">
+        <div class="tel-label">Protección Back-EMF</div>
+        <div class="tel-val" id="telDiodes" style="color:#fbbf24;">D_BLK_A1 + D_FLY_A1</div>
+      </div>
+    </div>
+
+    <h2>2. Cómo Abrir en EasyEDA en 10 Segundos</h2>
+    <div class="steps-box">
+      <b>Paso 1:</b> Haz clic arriba en <b>"Descargar Archivo Nativo EasyEDA (.json)"</b>.<br>
+      <b>Paso 2:</b> Entra a <a href="https://easyeda.com/editor" target="_blank" style="color:#38bdf8;">easyeda.com/editor</a>.<br>
+      <b>Paso 3:</b> En el menú superior ve a <b>File ➔ Open ➔ EasyEDA...</b> y selecciona el archivo <code>ExpendeX_Matriz_6x6_MOSFET_EasyEDA.json</code>.<br>
+      <b>Paso 4:</b> Para pasar a la placa PCB y vista 3D, haz clic en <b>Design ➔ Convert Schematic to PCB</b>.
+    </div>
+
+    <h2>3. BOM Oficial LCSC / JLCPCB (Raspado)</h2>
+    <table class="bom-table">
+      <thead>
+        <tr><th>Ref</th><th>Componente</th><th>Encapsulado</th><th>LCSC ID</th><th>Cant</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Q_FILA_A..F</td><td>IRLZ44NPBF (N-MOS)</td><td>TO-220-3</td><td class="code-part">C20755022</td><td>6</td></tr>
+        <tr><td>Q_COL1..6</td><td>IRF9540NPBF (P-MOS)</td><td>TO-220-3</td><td class="code-part">C18187958</td><td>6</td></tr>
+        <tr><td>U_OPTO</td><td>PC817C Optoacoplador</td><td>SOP-4 / DIP-4</td><td class="code-part">C7472816</td><td>12</td></tr>
+        <tr><td>D_BLK / FLY</td><td>1N4007 (1000V 1A)</td><td>SOD-123FL</td><td class="code-part">C2988637</td><td>72</td></tr>
+        <tr><td>M_A1..F6</td><td>Bornera Motor 5.08mm</td><td>CONN-2P</td><td class="code-part">C42377752</td><td>37</td></tr>
+        <tr><td>U_BUCK_5V</td><td>LM2596S-5.0 Buck</td><td>TO-263-5</td><td class="code-part">C51820297</td><td>1</td></tr>
+        <tr><td>U1_ESP32</td><td>ESP32-WROOM-32</td><td>SMD Module</td><td class="code-part">C6191506</td><td>1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="canvas-wrap">
+    <div class="canvas-toolbar">
+      <span>⚡ <b>Diagrama Esquemático Interactivo de Potencia:</b> <span style="color:#ef4444;">■ Riel +24V High-Side</span> &nbsp;|&nbsp; <span style="color:#3b82f6;">■ Retorno Low-Side GND</span> &nbsp;|&nbsp; <span style="color:#fbbf24;">■ Columnas 1 y 6 = Espiral Gigante Comida</span></span>
+      <span id="activePathText">Ruta Activa: +24V ➔ Q_COL1 (IRF9540N) ➔ D_BLK_A1 ➔ MOTOR A1 ➔ Q_FILA_A (IRLZ44N) ➔ GND</span>
+    </div>
+    <svg id="schSvg" viewBox="0 0 1150 760"></svg>
+  </div>
+</div>
+
+<script>
+  const FILAS = ['A', 'B', 'C', 'D', 'E', 'F'];
+  const FILA_PINS = ['IO13', 'IO12', 'IO14', 'IO27', 'IO26', 'IO25'];
+  const COL_PINS  = ['IO33', 'IO32', 'IO23', 'IO19', 'IO17', 'IO16'];
+
+  let selRow = 0;
+  let selCol = 0;
+
+  const pad = document.getElementById('matrixPad');
+  FILAS.forEach((r, ri) => {
+    for (let ci = 0; ci < 6; ci++) {
+      const btn = document.createElement('button');
+      const slot = `${r}${ci+1}`;
+      const isGiant = (ci === 0 || ci === 5);
+      btn.className = 'slot-btn' + (isGiant ? ' giant' : '') + (ri === 0 && ci === 0 ? ' active' : '');
+      btn.textContent = slot;
+      btn.onclick = () => selectSlot(ri, ci);
+      btn.id = `btn_${slot}`;
+      pad.appendChild(btn);
+    }
+  });
+
+  function selectSlot(ri, ci) {
+    selRow = ri;
+    selCol = ci;
+    document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('active'));
+    const slot = `${FILAS[ri]}${ci+1}`;
+    document.getElementById(`btn_${slot}`).classList.add('active');
+
+    const isGiant = (ci === 0 || ci === 5);
+    document.getElementById('telSlot').textContent = `${slot} (${isGiant ? 'Comida Gigante' : 'Bebida'})`;
+    document.getElementById('telPins').textContent = `${COL_PINS[ci]} (HIGH) / ${FILA_PINS[ri]} (LOW)`;
+    document.getElementById('telPmos').textContent = `Q_COL${ci+1} (IRF9540N: ON)`;
+    document.getElementById('telNmos').textContent = `Q_FILA_${FILAS[ri]} (IRLZ44N: ON)`;
+    document.getElementById('telCurr').textContent = isGiant ? '1.85 A @ 24V (44.4 W)' : '0.85 A @ 24V (20.4 W)';
+    document.getElementById('telDiodes').textContent = `D_BLK_${slot} + D_FLY_${slot}`;
+    document.getElementById('activePathText').textContent =
+      `Ruta Activa: +24V ➔ Q_COL${ci+1} (IRF9540N) ➔ D_BLK_${slot} ➔ MOTOR ${slot} ➔ Q_FILA_${FILAS[ri]} (IRLZ44N) ➔ GND`;
+
+    renderSchematic();
+  }
+
+  function renderSchematic() {
+    const svg = document.getElementById('schSvg');
+    let html = '';
+
+    // Riel superior +24V DC
+    html += `<line x1="60" y1="35" x2="940" y2="35" stroke="#ef4444" stroke-width="4"/>`;
+    html += `<text x="65" y="25" fill="#ef4444" font-size="13" font-weight="bold">RIEL DE POTENCIA +24V DC (10A FUSIBLE + BUCK LM2596S-5.0)</text>`;
+
+    // Columnas High-Side P-MOSFETs (Q_COL1 .. Q_COL6)
+    for (let c = 0; c < 6; c++) {
+      const cx = 140 + c * 135;
+      const isAct = (c === selCol);
+      const colColor = isAct ? '#ef4444' : '#475569';
+
+      // Caja Q_COL P-MOSFET + PC817
+      html += `<rect x="${cx-48}" y="52" width="96" height="58" rx="6" fill="${isAct ? 'rgba(239,68,68,0.18)' : '#111827'}" stroke="${colColor}" stroke-width="${isAct ? 2.5 : 1.2}"/>`;
+      html += `<text x="${cx}" y="70" fill="#f8fafc" font-size="11" font-weight="bold" text-anchor="middle">Q_COL${c+1} (P-MOS)</text>`;
+      html += `<text x="${cx}" y="84" fill="#94a3b8" font-size="9.5" text-anchor="middle">IRF9540N + PC817</text>`;
+      html += `<text x="${cx}" y="99" fill="${isAct ? '#fde047' : '#64748b'}" font-size="9.5" font-weight="bold" text-anchor="middle">ESP32 ${COL_PINS[c]}: ${isAct ? 'HIGH' : 'LOW'}</text>`;
+
+      // Linea desde +24V a Q_COL
+      html += `<line x1="${cx}" y1="35" x2="${cx}" y2="52" stroke="#ef4444" stroke-width="2.5"/>`;
+
+      // Bus vertical de columna
+      html += `<line x1="${cx}" y1="110" x2="${cx}" y2="710" class="${isAct ? 'wire-24v' : 'wire-idle'}"/>`;
+    }
+
+    // Filas Low-Side N-MOSFETs (Q_FILA_A .. Q_FILA_F) y Celdas 6x6
+    for (let r = 0; r < 6; r++) {
+      const ry = 165 + r * 92;
+      const isRowAct = (r === selRow);
+
+      // Bus horizontal de fila
+      html += `<line x1="95" y1="${ry+24}" x2="975" y2="${ry+24}" class="${isRowAct ? 'wire-gnd' : 'wire-idle'}"/>`;
+
+      // Driver Low-Side a la derecha
+      const rx = 1045;
+      const rowColor = isRowAct ? '#3b82f6' : '#475569';
+      html += `<rect x="${rx-68}" y="${ry-16}" width="136" height="58" rx="6" fill="${isRowAct ? 'rgba(59,130,246,0.18)' : '#111827'}" stroke="${rowColor}" stroke-width="${isRowAct ? 2.5 : 1.2}"/>`;
+      html += `<text x="${rx}" y="${ry+2}" fill="#f8fafc" font-size="11" font-weight="bold" text-anchor="middle">Q_FILA_${FILAS[r]} (N-MOS)</text>`;
+      html += `<text x="${rx}" y="${ry+16}" fill="#94a3b8" font-size="9.5" text-anchor="middle">IRLZ44N + PC817 + 10k</text>`;
+      html += `<text x="${rx}" y="${ry+31}" fill="${isRowAct ? '#60a5fa' : '#64748b'}" font-size="9.5" font-weight="bold" text-anchor="middle">ESP32 ${FILA_PINS[r]}: ${isRowAct ? 'LOW (ON)' : 'HIGH'}</text>`;
+
+      // Símbolo GND en el Source del IRLZ44N
+      html += `<line x1="${rx+68}" y1="${ry+14}" x2="${rx+88}" y2="${ry+14}" stroke="${isRowAct ? '#3b82f6' : '#64748b'}" stroke-width="2.5"/>`;
+      html += `<text x="${rx+91}" y="${ry+18}" fill="#3b82f6" font-size="9" font-weight="bold">GND</text>`;
+
+      // 6 Motores de la fila
+      for (let c = 0; c < 6; c++) {
+        const cx = 140 + c * 135;
+        const slot = `${FILAS[r]}${c+1}`;
+        const activeCell = (r === selRow && c === selCol);
+        const isGiant = (c === 0 || c === 5);
+
+        const boxFill = activeCell ? 'rgba(16,185,129,0.22)' : '#0f172a';
+        const boxStroke = activeCell ? '#10b981' : (isGiant ? '#b45309' : '#334155');
+
+        html += `<g style="cursor:pointer" onclick="selectSlot(${r},${c})">`;
+        html += `<rect x="${cx-44}" y="${ry-22}" width="88" height="42" rx="6" fill="${boxFill}" stroke="${boxStroke}" stroke-width="${activeCell ? 2.5 : 1.2}"/>`;
+        html += `<text x="${cx}" y="${ry-5}" fill="${activeCell ? '#34d399' : '#f8fafc'}" font-size="11" font-weight="bold" text-anchor="middle">M_${slot} ${activeCell ? '⚙' : ''}</text>`;
+        html += `<text x="${cx}" y="${ry+10}" fill="#94a3b8" font-size="8.5" text-anchor="middle">D_BLK + D_FLY</text>`;
+        html += `</g>`;
+      }
+    }
+
+    svg.innerHTML = html;
+  }
+
+  renderSchematic();
+</script>
+</body>
+</html>

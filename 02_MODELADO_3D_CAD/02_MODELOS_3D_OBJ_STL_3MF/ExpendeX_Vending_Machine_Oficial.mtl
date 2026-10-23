@@ -1,0 +1,189 @@
+# =============================================================================
+# XpendeX Vending Machine - Material Definition File (.mtl)
+# Identidad de Marca: Obsidian Slate, Emerald Glow & Electric Cyan
+# Vitrina Panorámica 100% Transparente y Pantalla Táctil 10.1" Encendida
+# =============================================================================
+
+# Gabinete Exterior - Paredes Pintadas en Acabado Metalizado Obsidian Slate (#0d1527)
+newmtl Chassis_Dark
+Ka 0.020 0.030 0.050
+Kd 0.055 0.085 0.145
+Ks 0.450 0.500 0.600
+Ns 85.0
+d 1.000
+Tr 0.000
+illum 2
+
+# Compartimento Inferior del Compresor Hermético 1/5 HP
+newmtl Compressor_Bay
+Ka 0.020 0.020 0.020
+Kd 0.110 0.125 0.150
+Ks 0.350 0.350 0.400
+Ns 60.0
+d 1.000
+Tr 0.000
+illum 2
+
+# Marco de Entrega y Buzón Inferior
+newmtl Delivery_Frame
+Ka 0.030 0.030 0.030
+Kd 0.140 0.160 0.190
+Ks 0.400 0.420 0.480
+Ns 70.0
+d 1.000
+Tr 0.000
+illum 2
+
+# Separadores Sanitarios de Ranuras
+newmtl Divider
+Ka 0.100 0.100 0.100
+Kd 0.680 0.700 0.720
+Ks 0.500 0.500 0.550
+Ns 80.0
+d 1.000
+Tr 0.000
+illum 2
+
+# Compuerta Abatible de Entrega con Ventana Humo Traslúcida
+newmtl Drop_Flap
+Ka 0.050 0.060 0.070
+Kd 0.150 0.180 0.220
+Ks 0.600 0.650 0.700
+Ns 90.0
+d 0.280
+Tr 0.720
+illum 2
+
+# Marco Perimetral de la Vitrina en Aluminio Anodizado
+newmtl Glass_Frame
+Ka 0.100 0.100 0.100
+Kd 0.780 0.800 0.820
+Ks 0.650 0.680 0.720
+Ns 85.0
+d 1.000
+Tr 0.000
+illum 2
+
+# Rejillas de Ventilación y Flujo Térmico
+newmtl Grille_Louvers
+Ka 0.010 0.010 0.010
+Kd 0.045 0.050 0.060
+Ks 0.200 0.200 0.220
+Ns 50.0
+d 1.000
+Tr 0.000
+illum 2
+
+# Copete Superior con Iluminación LED y Branding XpendeX (Emerald Green)
+newmtl Header_Panel
+Ka 0.020 0.150 0.100
+Kd 0.060 0.720 0.520
+Ks 0.600 0.650 0.650
+Ke 0.050 0.420 0.300
+Ns 90.0
+d 1.000
+Tr 0.000
+illum 2
+
+# Rampa Interna de Deslizamiento Suave (Acero Galvanizado / Teflonado)
+newmtl Internal_Ramp
+Ka 0.100 0.100 0.100
+Kd 0.720 0.740 0.760
+Ks 0.550 0.550 0.600
+Ns 80.0
+d 1.000
+Tr 0.000
+illum 2
+
+# Motores de Accionamiento Directo (Cuerpo NEMA / Motorreductor)
+newmtl NEMA17_Motor
+Ka 0.020 0.020 0.020
+Kd 0.120 0.120 0.130
+Ks 0.350 0.350 0.350
+Ns 60.0
+d 1.000
+Tr 0.000
+illum 2
+
+# Vitrina Panorámica Frontal de Vidrio Templado Low-E (100% Transparente y Cristalina)
+newmtl Panoramic_Glass
+Ka 0.020 0.050 0.060
+Kd 0.750 0.900 0.980
+Ks 0.950 0.980 1.000
+Ns 140.0
+d 0.120
+Tr 0.880
+Ni 1.520
+illum 4
+
+# Rieles Guía y Señalización de Precios Iluminados
+newmtl Price_Rail
+Ka 0.050 0.150 0.100
+Kd 0.060 0.780 0.480
+Ks 0.600 0.700 0.650
+Ke 0.050 0.450 0.280
+Ns 95.0
+d 1.000
+Tr 0.000
+illum 2
+
+# Placa del Escáner Óptico de Código QR y Cámara
+newmtl QR_Plaque
+Ka 0.150 0.150 0.150
+Kd 0.960 0.960 0.960
+Ks 0.700 0.700 0.700
+Ns 90.0
+d 1.000
+Tr 0.000
+illum 2
+
+# Rejilla Acústica del Altavoz Guía de 5W
+newmtl Speaker_Grille
+Ka 0.020 0.020 0.020
+Kd 0.150 0.160 0.170
+Ks 0.300 0.300 0.350
+Ns 60.0
+d 1.000
+Tr 0.000
+illum 2
+
+# Espirales Centrales de Acero Cromado para Bebidas Refrescantes
+newmtl Spring_Beverage
+Ka 0.150 0.150 0.160
+Kd 0.860 0.880 0.900
+Ks 0.920 0.920 0.950
+Ns 110.0
+d 1.000
+Tr 0.000
+illum 2
+
+# Espirales Gigantes Reforzadas para Toppers de Comida Caliente (1 Izquierda y 1 Derecha)
+newmtl Spring_Giant
+Ka 0.150 0.150 0.160
+Kd 0.880 0.900 0.920
+Ks 0.940 0.940 0.960
+Ns 115.0
+d 1.000
+Tr 0.000
+illum 2
+
+# Pantalla Táctil Capacitiva IPS de 10.1" ENCENDIDA (Glowing UI Interface)
+newmtl Touchscreen_Glass
+Ka 0.050 0.250 0.350
+Kd 0.080 0.780 0.920
+Ks 0.900 0.920 0.950
+Ke 0.100 0.820 0.950
+Ns 120.0
+d 1.000
+Tr 0.000
+illum 2
+
+# Bandejas Extraíbles de Acero Inoxidable Grado Alimenticio AISI 304
+newmtl Tray_Stainless
+Ka 0.120 0.120 0.130
+Kd 0.820 0.840 0.860
+Ks 0.860 0.860 0.900
+Ns 100.0
+d 1.000
+Tr 0.000
+illum 2

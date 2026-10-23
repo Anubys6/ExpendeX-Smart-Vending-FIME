@@ -1,0 +1,33 @@
+=============================================================================
+EXPENDEX® VENDING MACHINE - SISTEMA DE POTENCIA Y REFRIGERACION
+Facultad de Ingenieria Mecanica y Electrica (FIME - UANL)
+=============================================================================
+
+ARCHIVOS ACTUALIZADOS EN ESTA CARPETA (SIN ARCHIVOS REPETIDOS):
+-----------------------------------------------------------------------------
+1. ExpendeX_Proyecto_Completo_SCH_y_PCB_EasyEDA.zip
+   -> ARCHIVO PRINCIPAL PARA IMPORTAR EN EASYEDA PRO (O STANDARD)
+   -> Contiene en un unico paquete:
+      - 1x Esquematico completo corregido (SCH): Matriz 6x6 de 36 motores, 
+        12 MOSFETs (IRF9540N / IRLZ44N), 14 optoacopladores PC817C, 74 diodos 
+        1N4007, regulador Buck LM2596S, ESP32 y etapa de refrigeracion activa
+        (Compresor Embraco 1/5 HP + Ventilador + Sensor DS18B20).
+      - 1x Placa de Circuito Impreso (PCB Layout): Huellas reales LCSC de 
+        los 176 componentes con modelos 3D (SVGNODE), pistas ortogonales, 
+        bus de +24V de columnas, bus de GND de filas y cero colisiones.
+
+2. BOM_ExpendeX_Matriz_6x6_Compresor_JLCPCB.csv
+   -> Lista oficial de materiales (176 componentes) con codigos LCSC para
+      cotizar y ensamblar directamente en JLCPCB.
+
+3. Reporte_Tecnico_Electronica_Potencia_ExpendeX.html
+   -> Informe tecnico academico completo con diagramas y boton de Imprimir a PDF.
+
+-----------------------------------------------------------------------------
+PASOS PARA ABRIR EN EASYEDA PRO:
+1. Abre EasyEDA Pro en tu navegador: https://pro.easyeda.com/editor
+2. Ve a: File (Archivo) -> Import (Importar) -> EasyEDA (Standard)...
+3. Selecciona: ExpendeX_Proyecto_Completo_SCH_y_PCB_EasyEDA.zip
+4. Al importar, EasyEDA Pro abrira tanto el Esquematico (Schematic1) como la 
+   Placa de Circuito Impreso (PCB1) con huellas reales y vista 3D habilitada.
+=============================================================================

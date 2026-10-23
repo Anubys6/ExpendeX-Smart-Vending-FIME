@@ -1,0 +1,10 @@
+{
+	"autodeskProduct":	"Fusion360",
+	"type":	"script",
+	"author":	"Samuel Tovar Mojica & Antigravity Engineering",
+	"description":	{
+		"":	"Generador 3D Paramétrico Profesional - Proyecto Expandex 5 (Tubos Doblados Continuos, Espirales Gigantes y Émbolos Embonados)"
+	},
+	"supportedOS":	"windows|mac",
+	"editEnabled":	true
+}

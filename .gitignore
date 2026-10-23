@@ -1,0 +1,9 @@
+# Dependencias y compilaciones temporales
+node_modules/
+.pio/
+.vscode/
+*.log
+active_tunnel_url.txt
+*.tmp
+.DS_Store
+Thumbs.db
