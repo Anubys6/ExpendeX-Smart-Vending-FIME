@@ -9,7 +9,7 @@
 *Coordinación General de Mecatrónica y Electrónica • Proyecto de Ingeniería Aplicada (IEA)*  
 *Semestre Agosto – Diciembre 2026 • San Nicolás de los Garza, Nuevo León*
 
-[![Repositorio Privado](https://img.shields.io/badge/Acceso-Privado%20Mente%20Colmena-red.svg)]() [![GitHub License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Acceso Directo](https://img.shields.io/badge/Acceso-P%C3%BAblico%20v%C3%ADa%20Enlace-blue.svg)](https://github.com/Anubys6/ExpendeX-Smart-Vending-FIME) [![Mente Colmena](https://img.shields.io/badge/Mente%20Colmena-Sincronizado-purple.svg)]() [![GitHub License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![UANL FIME](https://img.shields.io/badge/FIME-UANL%20IEA-006633.svg)](https://www.fime.uanl.mx)
 [![PlatformIO ESP32](https://img.shields.io/badge/ESP32-FreeRTOS%20Dual--Core-orange.svg)](04_FIRMWARE_ESP32_WOKWI/)
 [![EasyEDA Electronics](https://img.shields.io/badge/EasyEDA-Matriz%20MOSFET%206x6-red.svg)](03_ELECTRONICA_POTENCIA_EASYEDA/)
