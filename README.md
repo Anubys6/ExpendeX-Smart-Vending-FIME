@@ -2,14 +2,14 @@
 
 <div align="center">
 
-![UANL](06_RENDERS_OFICIALES_Y_COMERCIALES/ExpendeX_Hero_Promocional.png)
+![ExpendeX Oficial](06_RENDERS_OFICIALES_Y_COMERCIALES/Expendex_Render_Oficial_Definitivo.png)
 
 **UNIVERSIDAD AUTÓNOMA DE NUEVO LEÓN**  
 **FACULTAD DE INGENIERÍA MECÁNICA Y ELÉCTRICA (FIME)**  
 *Coordinación General de Mecatrónica y Electrónica • Proyecto de Ingeniería Aplicada (IEA)*  
 *Semestre Agosto – Diciembre 2026 • San Nicolás de los Garza, Nuevo León*
 
-[![GitHub License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Repositorio Privado](https://img.shields.io/badge/Acceso-Privado%20Mente%20Colmena-red.svg)]() [![GitHub License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![UANL FIME](https://img.shields.io/badge/FIME-UANL%20IEA-006633.svg)](https://www.fime.uanl.mx)
 [![PlatformIO ESP32](https://img.shields.io/badge/ESP32-FreeRTOS%20Dual--Core-orange.svg)](04_FIRMWARE_ESP32_WOKWI/)
 [![EasyEDA Electronics](https://img.shields.io/badge/EasyEDA-Matriz%20MOSFET%206x6-red.svg)](03_ELECTRONICA_POTENCIA_EASYEDA/)
