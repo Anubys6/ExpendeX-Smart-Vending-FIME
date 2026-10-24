@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExpendeX Smart Vending | FIME UANL Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090D16;
+      --card-bg: rgba(18, 24, 38, 0.7);
+      --border: rgba(255, 255, 255, 0.08);
+      --primary: #38BDF8;
+      --accent: #F59E0B;
+      --emerald: #10B981;
+      --purple: #A855F7;
+      --text: #F1F5F9;
+      --text-muted: #94A3B8;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 50% 0%, #1e293b 0%, var(--bg) 70%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    .header {
+      text-align: center;
+      max-width: 800px;
+      margin-bottom: 40px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #FFFFFF 0%, #94A3B8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+    p.subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      width: 100%;
+      max-width: 1100px;
+      margin-bottom: 50px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 30px;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(56, 189, 248, 0.4);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+    }
+    .card-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+    .card h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .card p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #0284C7, #0369A1);
+      color: #FFF;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #38BDF8, #0284C7);
+      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      width: 100%;
+      max-width: 1100px;
+    }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="badge">FIME UANL • Ingeniería Mecatrónica</div>
+    <h1>ExpendeX Smart Vending</h1>
+    <p class="subtitle">Micro-Restaurante Automatizado Desatendido. Control inteligente de pedidos, telemetría de tolvas, dosificación mediante sinfines NEMA 17 y electrónica de potencia de alta eficiencia.</p>
+  </div>
+
+  <div class="grid">
+    <!-- Kiosco -->
+    <div class="card">
+      <div class="card-icon" style="background: rgba(56, 189, 248, 0.15);">📱</div>
+      <div class="tag">05_PLATAFORMA_WEB_DUAL / KIOSCO</div>
+      <h3>Kiosco de Pedidos del Cliente</h3>
+      <p>Interfaz táctil para selección de alimentos calientes, personalización de salsas, carrito en tiempo real y pasarela simulada con Google Pay y QR.</p>
+      <a href="05_PLATAFORMA_WEB_DUAL/pagina_web_kiosco/index.html" class="btn btn-primary">Abrir Kiosco Web &rarr;</a>
+    </div>
+
+    <!-- Admin -->
+    <div class="card">
+      <div class="card-icon" style="background: rgba(16, 185, 129, 0.15);">⚙️</div>
+      <div class="tag">05_PLATAFORMA_WEB_DUAL / ADMIN</div>
+      <h3>Panel de Administración</h3>
+      <p>Dashboard de control de inventario de tolvas, monitoreo de temperatura, recetas de cocina automatizada y métricas de venta en vivo.</p>
+      <a href="05_PLATAFORMA_WEB_DUAL/user_interface_admin/index.html" class="btn btn-primary">Abrir Panel Admin &rarr;</a>
+    </div>
+
+    <!-- Electronica Potencia -->
+    <div class="card">
+      <div class="card-icon" style="background: rgba(245, 158, 11, 0.15);">⚡</div>
+      <div class="tag">03_ELECTRONICA_POTENCIA_EASYEDA</div>
+      <h3>Reporte Técnico de Potencia</h3>
+      <p>Diseño de PCB en EasyEDA, dimensionamiento de fuente conmutada 12V/24V, relevadores de estado sólido y diagrama esquemático.</p>
+      <a href="03_ELECTRONICA_POTENCIA_EASYEDA/Reporte_Tecnico_Electronica_Potencia_ExpendeX.html" class="btn btn-secondary">Ver Reporte EasyEDA &rarr;</a>
+    </div>
+
+    <!-- Presentacion Interactiva -->
+    <div class="card">
+      <div class="card-icon" style="background: rgba(168, 85, 247, 0.15);">📊</div>
+      <div class="tag">01_DOCUMENTOS_ACADEMICOS_FIME</div>
+      <h3>Presentación Interactiva</h3>
+      <p>Presentación ejecutiva del proyecto final de Instrumentación Digital (AF1 a AF5), justificación de mercado y viabilidad económica.</p>
+      <a href="01_DOCUMENTOS_ACADEMICOS_FIME/Presentacion_ExpendeX_Canva_Web_Interactiva.html" class="btn btn-secondary">Abrir Presentación &rarr;</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Proyecto desarrollado por <strong>Samuel Tovar Mujica</strong> • FIME Universidad Autónoma de Nuevo León (UANL)</p>
+    <p style="margin-top: 8px;"><a href="https://github.com/Anubys6/ExpendeX-Smart-Vending-FIME" style="color: var(--primary); text-decoration: none;">Ver Repositorio Completo en GitHub &rarr;</a></p>
+  </div>
+</body>
+</html>
