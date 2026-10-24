@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ExpendeX - Pitch Deck Ejecutivo Estilo Canva | FIME UANL</title>
+    <title>ExpendeX - Desarrollo Mecatrónico y Validación Experimental | FIME UANL</title>
     <style>
         :root {
             --bg-dark: #0B0F19;
@@ -63,7 +63,7 @@
         }
         .progress-bar {
             height: 100%;
-            width: 4.3%;
+            width: 6.66%;
             background: linear-gradient(90deg, var(--neon-cyan), var(--neon-emerald));
             transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
@@ -137,7 +137,6 @@
         .step-badge.cyan { background: var(--neon-cyan); box-shadow: 0 0 15px rgba(6, 182, 212, 0.35); }
         .step-badge.amber { background: var(--neon-amber); box-shadow: 0 0 15px rgba(245, 158, 11, 0.35); }
         .step-badge.rose { background: var(--neon-rose); box-shadow: 0 0 15px rgba(244, 63, 94, 0.35); }
-        .step-badge.purple { background: var(--neon-purple); box-shadow: 0 0 15px rgba(139, 92, 246, 0.35); }
 
         .title-group h2 {
             font-size: 1.45rem;
@@ -211,7 +210,6 @@
         .pill-cyan { background: rgba(6, 182, 212, 0.15); color: var(--neon-cyan); border: 1px solid rgba(6, 182, 212, 0.3); }
         .pill-amber { background: rgba(245, 158, 11, 0.15); color: var(--neon-amber); border: 1px solid rgba(245, 158, 11, 0.3); }
         .pill-rose { background: rgba(244, 63, 94, 0.15); color: var(--neon-rose); border: 1px solid rgba(244, 63, 94, 0.3); }
-        .pill-purple { background: rgba(139, 92, 246, 0.15); color: var(--neon-purple); border: 1px solid rgba(139, 92, 246, 0.3); }
 
         .card-title {
             font-size: 1.12rem;
@@ -237,7 +235,7 @@
             margin: 8px 0 12px 0;
         }
         .kpi-val {
-            font-size: 2.3rem;
+            font-size: 2.2rem;
             font-weight: 800;
             letter-spacing: -0.03em;
             line-height: 1;
@@ -246,7 +244,6 @@
         .kpi-cyan { color: var(--neon-cyan); text-shadow: 0 0 20px rgba(6, 182, 212, 0.25); }
         .kpi-amber { color: var(--neon-amber); text-shadow: 0 0 20px rgba(245, 158, 11, 0.25); }
         .kpi-rose { color: var(--neon-rose); text-shadow: 0 0 20px rgba(244, 63, 94, 0.25); }
-        .kpi-purple { color: var(--neon-purple); text-shadow: 0 0 20px rgba(139, 92, 246, 0.25); }
 
         .kpi-unit { font-size: 0.95rem; font-weight: 600; color: var(--text-muted); }
 
@@ -391,7 +388,7 @@
         .drawer-grid {
             flex: 1;
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             grid-gap: 14px;
             overflow-y: auto;
             padding: 10px;
@@ -452,31 +449,29 @@
 
     <div class="stage">
 
-        <!-- ========================================== -->
-        <!-- SLIDE 1: HERO COVER CON EL MODELO CAD OFICIAL REAL -->
-        <!-- ========================================== -->
+        <!-- SLIDE 1: PORTADA OFICIAL REAL -->
         <div class="slide active" id="slide-1">
             <div class="bento-grid" style="align-items: center;">
                 <div style="grid-column: span 7; display: flex; flex-direction: column; justify-content: center; padding-right: 20px;">
                     <div class="card-header-pill pill-emerald">PROYECTO DE INGENIERÍA APLICADA | FIME - UANL</div>
                     <h1 class="hero-title">EXPENDEX</h1>
                     <p class="hero-subtitle">
-                        El Micro-Restaurante Automatizado Híbrido que resuelve la crisis de alimentación saludable rápida en campus y centros laborales de Nuevo León.
+                        Micro-Restaurante Automatizado Híbrido: Memoria de Desarrollo Mecatrónico, Retos Técnicos y Validación Experimental.
                     </p>
                     <div class="hero-badge-group">
                         <div class="hero-badge" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">
-                            <span>💻</span> Samuel Tovar (Jefe de Proyecto, CAD 3D Fusion 360, Digital)
+                            <span>💻</span> Samuel Tovar (Jefe de Proyecto, CAD 3D Fusion 360, Firmware ESP32, Wokwi)
                         </div>
                         <div class="hero-badge" style="border-color: var(--neon-amber); color: var(--neon-amber);">
-                            <span>⚡</span> Compañero (Web Kiosco, Admin, Potencia EasyEDA)
+                            <span>⚡</span> Compañero (Plataforma Web Quiosco/Admin, Potencia EasyEDA)
                         </div>
                         <div class="hero-badge" style="border-color: var(--neon-emerald); color: var(--neon-emerald);">
                             <span>📍</span> San Nicolás de los Garza, N.L.
                         </div>
                     </div>
                     <div style="display: flex; gap: 16px; margin-top: 10px;">
-                        <button class="btn-nav primary" onclick="nextSlide()">Comenzar Pitch Ejecutivo →</button>
-                        <button class="btn-nav" onclick="openDrawer()">Índice de Diapositivas (23)</button>
+                        <button class="btn-nav primary" onclick="nextSlide()">Comenzar Exposición Técnica →</button>
+                        <button class="btn-nav" onclick="openDrawer()">Índice de Diapositivas (15)</button>
                     </div>
                 </div>
                 <div style="grid-column: span 5; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
@@ -490,345 +485,70 @@
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- SLIDE 2: ORIGEN Y MOTIVACIÓN -->
-        <!-- ========================================== -->
+        <!-- SLIDE 2: CONTEXTO REAL EN FIME -->
         <div class="slide" id="slide-2">
             <div class="slide-header">
                 <div class="header-left">
                     <div class="step-badge">01</div>
                     <div class="title-group">
-                        <h2>ORIGEN Y MOTIVACIÓN: ¿QUÉ NOS IMPULSÓ A CREAR ESTA MÁQUINA?</h2>
-                        <p>La vivencia cotidiana del estudiante y trabajador en Nuevo León frente a la barrera de alimentación</p>
+                        <h2>CONTEXTO REAL EN FIME UANL Y PLANTEAMIENTO DEL PROBLEMA</h2>
+                        <p>La problemática cotidiana de alimentación en turnos continuos y el alcance de ingeniería del proyecto</p>
                     </div>
                 </div>
-                <div class="header-tag">MOTIVACIÓN Y PROPÓSITO</div>
+                <div class="header-tag">PROBLEMA DE INGENIERÍA</div>
             </div>
             <div class="bento-grid">
                 <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-rose">1. LA VIVENCIA EN CARNE PROPIA</div>
-                    <div class="card-title">El Dilema del Horario Quebrado</div>
+                    <div class="card-header-pill pill-rose">LA REALIDAD ESTUDIANTIL</div>
+                    <div class="card-title">Jornadas de 7:00 a 21:00 hrs en FIME</div>
                     <div class="card-body">
-                        Como estudiantes de la FIME UANL en horarios continuos de 7:00 a 21:00 hrs, sufrimos a diario la falta de opciones para comer comida real, nutritiva y caliente en recesos de 15 a 20 minutos.<br><br>
-                        Las cafeterías colapsan con filas de más de 35 minutos y las aplicaciones de delivery cobran tarifas abusivas de envío.
+                        • <strong>Horario Continuo:</strong> La comunidad pasa más de 8 horas en campus con recesos entre clases de apenas 15 a 20 minutos.<br><br>
+                        • <strong>Saturación Física:</strong> Las cafeterías colapsan con filas de más de 35 minutos en horas pico, consumiendo todo el tiempo disponible.<br><br>
+                        • <strong>Inviabilidad de Apps:</strong> El delivery cobra tarifas abusivas ($160-$200 MXN) y no puede entrar a los edificios de la facultad.
                     </div>
                 </div>
                 <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-amber">2. LA TRAMPA DE LA CHATARRA</div>
+                    <div class="card-header-pill pill-amber">LA FALLA DEL VENDING ACTUAL</div>
                     <div class="card-title">Monopolio de Ultraprocesados</div>
                     <div class="card-body">
-                        Las máquinas vending tradicionales existentes en el campus ofrecen exclusivamente papas fritas, refrescos azucarados y galletas.<br><br>
-                        Esta falta de alternativa obliga al alumno y al empleado operativo a consumir calorías vacías que generan fatiga crónica, baja concentración y deterioro en la salud metabólica.
+                        • <strong>Cero Opciones Calientes:</strong> El 100% de las máquinas vending en el campus ofrecen solo papas fritas, galletas y sodas con múltiples sellos negros.<br><br>
+                        • <strong>Deterioro Físico:</strong> La dependencia forzada a carbohidratos simples provoca fatiga crónica y gastritis en estudiantes foráneos.<br><br>
+                        • <strong>Hardware Obsoleto:</strong> Monederos mecánicos que fallan y nulo reporte de inventario en tiempo real.
                     </div>
                 </div>
                 <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-emerald">3. LA VISIÓN INGENIERIL</div>
-                    <div class="card-title">Mecatrónica con Propósito Real</div>
+                    <div class="card-header-pill pill-emerald">OBJETIVO TÉCNICO (PIA)</div>
+                    <div class="card-title">Solución Integral Validada</div>
                     <div class="card-body">
-                        No quisimos hacer un proyecto puramente teórico o una maqueta decorativa.<br><br>
-                        Diseñamos una <strong>máquina vending híbrida real</strong>, construida con manufactura nacional y tecnología IoT, capaz de almacenar guisos calientes frescos y bebidas frías, dignificando la nutrición de nuestra comunidad a precios accesibles.
+                        • <strong>Enfoque Práctico:</strong> Diseñar, calcular analíticamente, simular y prototipar una máquina vending híbrida para comida casera caliente y bebidas frías.<br><br>
+                        • <strong>Requisitos Críticos:</strong> Despacho en menos de 15 segundos, refrigeración grado alimento NOM-251 (4°C-6°C) y cobro digital sin monedas.<br><br>
+                        • <strong>Manufactura Nacional:</strong> Optimizar costos por debajo de $50,000 MXN frente a equipos importados de $180,000+ MXN.
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- SLIDE 3: PROBLEMÁTICA CUANTITATIVA -->
-        <!-- ========================================== -->
+        <!-- SLIDE 3: RETO MECÁNICO 1: CHASIS Y COPETE FUSION 360 -->
         <div class="slide" id="slide-3">
             <div class="slide-header">
                 <div class="header-left">
-                    <div class="step-badge rose">02</div>
+                    <div class="step-badge cyan">02</div>
                     <div class="title-group">
-                        <h2>EL PROBLEMA: 'DESIERTOS ALIMENTARIOS' Y COMIDA CHATARRA FORZADA</h2>
-                        <p>Diagnóstico cuantitativo del impacto en salud, economía y productividad en Nuevo León</p>
+                        <h2>RETO MECÁNICO 1: CONCEPCIÓN DEL CHASIS Y COPETE ERGONÓMICO</h2>
+                        <p>Modelado paramétrico 1:1 en Autodesk Fusion 360 (127 piezas) en chapa de acero calibre 18</p>
                     </div>
                 </div>
-                <div class="header-tag" style="border-color: var(--neon-rose); color: var(--neon-rose);">DIAGNÓSTICO CRÍTICO</div>
-            </div>
-            <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-rose">POBLACIÓN AFECTADA</div>
-                    <div class="kpi-container">
-                        <span class="kpi-val kpi-rose">73.6%</span>
-                        <span class="kpi-unit">NL Adultos</span>
-                    </div>
-                    <div class="card-title">Sobrepeso y Obesidad</div>
-                    <div class="card-body">
-                        Nuevo León lidera las tasas de enfermedades cardiometabólicas por dependencia forzada a comida rápida y ultraprocesada durante jornadas laborales y escolares intensas (ENSANUT).
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-amber">TIEMPO PERDIDO</div>
-                    <div class="kpi-container">
-                        <span class="kpi-val kpi-amber">42 min</span>
-                        <span class="kpi-unit">Promedio / Almuerzo</span>
-                    </div>
-                    <div class="card-title">Colapso en Cafeterías</div>
-                    <div class="card-body">
-                        En campus universitarios y maquiladoras, los tiempos de espera en fila superan los 40 minutos en horas pico, obligando a los usuarios a saltarse comidas o comprar chatarra de paso.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-cyan">SOBRECOSTO LOGÍSTICO</div>
-                    <div class="kpi-container">
-                        <span class="kpi-val kpi-cyan">+85%</span>
-                        <span class="kpi-unit">vs Costo Comida</span>
-                    </div>
-                    <div class="card-title">Tarifas de Delivery Abusivas</div>
-                    <div class="card-body">
-                        Pedir una comida de $90 MXN por UberEats o DidiFood termina costando entre $160 y $190 MXN debido a comisiones, tarifa de servicio, propina y costos de envío.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- SLIDE 4: ANÁLISIS DE LA COMPETENCIA -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-4">
-            <div class="slide-header">
-                <div class="header-left">
-                    <div class="step-badge rose">03</div>
-                    <div class="title-group">
-                        <h2>LA COMPETENCIA Y EL ESTADO DEL MERCADO: ¿POR QUÉ FRACASAN?</h2>
-                        <p>Análisis crítico de las 4 soluciones actuales y sus barreras técnicas, logísticas y de costo</p>
-                    </div>
-                </div>
-                <div class="header-tag" style="border-color: var(--neon-rose); color: var(--neon-rose);">ANÁLISIS COMPETITIVO</div>
-            </div>
-            <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 3;">
-                    <div class="card-header-pill pill-rose">OPCIÓN 1: VENDING TRADICIONAL</div>
-                    <div class="card-title">Máquinas de Snacks / Sodas</div>
-                    <div class="card-body">
-                        • <strong>Falla:</strong> 0% comida caliente o nutritiva.<br>
-                        • <strong>Hardware:</strong> Monederos obsoletos que se traban.<br>
-                        • <strong>Software:</strong> Sin telemetría ni pagos QR.<br>
-                        • <strong>Nutrición:</strong> 100% calorías vacías y sellos negros.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 3;">
-                    <div class="card-header-pill pill-amber">OPCIÓN 2: CAFETERÍAS FÍSICAS</div>
-                    <div class="card-title">Comedores Universitarios</div>
-                    <div class="card-body">
-                        • <strong>Falla:</strong> Filas masivas de 35 a 50 minutos.<br>
-                        • <strong>Horario:</strong> Cierran temprano (18:00 hrs).<br>
-                        • <strong>Costos:</strong> Renta de local y nómina elevada.<br>
-                        • <strong>Inconsistencia:</strong> Calidad y precio variables.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 3;">
-                    <div class="card-header-pill pill-cyan">OPCIÓN 3: APPS DE DELIVERY</div>
-                    <div class="card-title">UberEats, Didi, Rappi</div>
-                    <div class="card-body">
-                        • <strong>Falla:</strong> Costo inflado de $160 a $220 por orden.<br>
-                        • <strong>Tiempos:</strong> 45 a 65 min de espera de entrega.<br>
-                        • <strong>Acceso:</strong> Repartidores no pueden entrar a salones.<br>
-                        • <strong>Clima:</strong> Colapso total con lluvia o calor extremo.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 3;">
-                    <div class="card-header-pill pill-purple">OPCIÓN 4: IMPORTADAS (USA/CHINA)</div>
-                    <div class="card-title">Smart Vending Extranjeras</div>
-                    <div class="card-body">
-                        • <strong>Falla:</strong> Costo prohibitivo ($180,000+ MXN).<br>
-                        • <strong>Refacciones:</strong> Semanas de paro por piezas chinas.<br>
-                        • <strong>Suscripción:</strong> Cobro mensual en dólares de SaaS.<br>
-                        • <strong>Sin tropicalizar:</strong> No aceptan transferencias SPEI/QR local.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- SLIDE 5: MATRIZ DE BENCHMARKING -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-5">
-            <div class="slide-header">
-                <div class="header-left">
-                    <div class="step-badge">04</div>
-                    <div class="title-group">
-                        <h2>MATRIZ DE BENCHMARKING: EXPENDEX FRENTE A TODAS LAS ALTERNATIVAS</h2>
-                        <p>Comparativa cuantitativa multidimensional de costos, tiempos, inocuidad y accesibilidad</p>
-                    </div>
-                </div>
-                <div class="header-tag">BENCHMARKING 10X</div>
-            </div>
-            <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 7;">
-                    <div class="card-header-pill pill-emerald">COMPARATIVA DIRECTA EN CAMPO</div>
-                    <table class="custom-table">
-                        <thead>
-                            <tr>
-                                <th>Criterio Evaluado</th>
-                                <th style="color: var(--neon-emerald);">ExpendeX</th>
-                                <th>Vending Común</th>
-                                <th>Cafetería FIME</th>
-                                <th>Delivery App</th>
-                                <th>Importada</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Tiempo de Despacho</strong></td>
-                                <td style="color: var(--neon-emerald); font-weight: 700;">8 - 12 seg</td>
-                                <td>25 seg</td>
-                                <td>35 - 50 min</td>
-                                <td>45 - 65 min</td>
-                                <td>15 - 20 seg</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Costo Platillo Caliente</strong></td>
-                                <td style="color: var(--neon-emerald); font-weight: 700;">$85 MXN</td>
-                                <td>N/A (Solo papas)</td>
-                                <td>$95 - $115 MXN</td>
-                                <td>$160 - $210 MXN</td>
-                                <td>$130 - $160 MXN</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Disponibilidad Horaria</strong></td>
-                                <td style="color: var(--neon-emerald); font-weight: 700;">24 / 7 Continuo</td>
-                                <td>24 / 7</td>
-                                <td>7:00 - 18:00 hrs</td>
-                                <td>Variable</td>
-                                <td>24 / 7</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Métodos de Pago</strong></td>
-                                <td style="color: var(--neon-emerald); font-weight: 700;">QR, MercadoPago, SPEI</td>
-                                <td>Monedas sucias</td>
-                                <td>Efectivo / Terminal</td>
-                                <td>Tarjeta de Crédito</td>
-                                <td>Tarjeta / App</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Costo de Hardware (BOM)</strong></td>
-                                <td style="color: var(--neon-emerald); font-weight: 700;">$46,463 MXN</td>
-                                <td>$65,000 MXN</td>
-                                <td>$350,000+ MXN</td>
-                                <td>N/A (Plataforma)</td>
-                                <td>$180,000+ MXN</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="bento-card" style="grid-column: span 5; display: flex; align-items: center; justify-content: center;">
-                    <div class="img-fit-container" style="min-height: 280px;">
-                        <img src="ppt_business_charts/chart_competencia_costo_tiempo.png" alt="Gráfica Costo vs Tiempo">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- SLIDE 6: ESTUDIO SOCIOECONÓMICO -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-6">
-            <div class="slide-header">
-                <div class="header-left">
-                    <div class="step-badge cyan">05</div>
-                    <div class="title-group">
-                        <h2>ESTUDIO SOCIOECONÓMICO: RADIOGRAFÍA DEL PÚBLICO OBJETIVO</h2>
-                        <p>Validación demográfica, capacidad de gasto y adopción tecnológica en Nuevo León (INEGI)</p>
-                    </div>
-                </div>
-                <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">ESTUDIO SOCIOECONÓMICO</div>
-            </div>
-            <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-cyan">UNIVERSO ESTUDIANTIL</div>
-                    <div class="kpi-container">
-                        <span class="kpi-val kpi-cyan">24,000+</span>
-                    </div>
-                    <div class="card-title">Alumnos FIME UANL</div>
-                    <div class="card-body">
-                        Más de 24,000 estudiantes matriculados en Ciudad Universitaria FIME. El 68% pasa más de 8 horas continuas en las instalaciones entre clases, laboratorios y proyectos.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-amber">PRESUPUESTO DIARIO</div>
-                    <div class="kpi-container">
-                        <span class="kpi-val kpi-amber">$85 MXN</span>
-                        <span class="kpi-unit">Sweet Spot</span>
-                    </div>
-                    <div class="card-title">Gasto Promedio en Comida</div>
-                    <div class="card-body">
-                        El 82% de los universitarios gasta entre $70 y $110 MXN al día. El combo ExpendeX de $85 MXN (Comida casera + Bebida fría) encaja a la perfección en su bolsillo.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-emerald">ADOPCIÓN TECNOLÓGICA</div>
-                    <div class="kpi-container">
-                        <span class="kpi-val kpi-emerald">94.2%</span>
-                    </div>
-                    <div class="card-title">Pagos Digitales Diarios</div>
-                    <div class="card-body">
-                        Población bancarizada mediante tarjetas universitarias, MercadoPago, Nu, Hey Banco y transferencias CoDi/SPEI. Cero resistencia al uso de códigos QR y pantallas táctiles.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- SLIDE 7: PARA QUIÉN ES ESTA MÁQUINA -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-7">
-            <div class="slide-header">
-                <div class="header-left">
-                    <div class="step-badge amber">06</div>
-                    <div class="title-group">
-                        <h2>¿PARA QUIÉN ES ESTA MÁQUINA? - MERCADO DE DOBLE CARA (DUAL TARGET)</h2>
-                        <p>Un modelo virtuoso que articula beneficios simultáneos para consumidores y productores locales</p>
-                    </div>
-                </div>
-                <div class="header-tag" style="border-color: var(--neon-amber); color: var(--neon-amber);">MERCADO DUAL</div>
+                <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">DISEÑO CAD 3D</div>
             </div>
             <div class="bento-grid">
                 <div class="bento-card" style="grid-column: span 6;">
-                    <div class="card-header-pill pill-cyan">LADO A: CONSUMIDORES FINALES (B2C)</div>
-                    <div class="card-title">Estudiantes, Profesores y Operadores Industriales</div>
-                    <div class="card-body" style="font-size: 0.92rem;">
-                        • <strong>Estudiantes Universitarios:</strong> Necesitan rapidez absoluta (menos de 15 segundos) entre clases y comida de calidad que sustente su energía intelectual.<br><br>
-                        • <strong>Docentes y Personal Administrativo:</strong> Buscan practicidad sin salir de su edificio de trabajo ni perder tiempo buscando restaurantes.<br><br>
-                        • <strong>Operadores de Maquiladoras y Turnos Nocturnos:</strong> Acceso a alimentos higiénicos a las 3:00 AM cuando todo el comercio circundante está cerrado.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 6;">
-                    <div class="card-header-pill pill-emerald">LADO B: PRODUCTORES LOCALES (B2B)</div>
-                    <div class="card-title">Loncherías, Fondas Familiares y Emprendedores Food-Prep</div>
-                    <div class="card-body" style="font-size: 0.92rem;">
-                        • <strong>Punto de Venta Automatizado:</strong> Colocan de 20 a 40 porciones diarias en cada máquina sin pagar sueldos de meseros ni rentar locales comerciales costosos.<br><br>
-                        • <strong>Canal Seguro de Venta Diaria:</strong> Cobran directamente sus platillos sin intermediarios abusivos de aplicaciones que retienen el 30% del margen.<br><br>
-                        • <strong>Economía Circular:</strong> Todo el valor se queda en las microempresas de comida corrida del municipio de San Nicolás de los Garza y Monterrey.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- SLIDE 8: LA SOLUCIÓN: PROTOTIPO REAL EXPENDEX (CAD 3D FUSION 360) -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-8">
-            <div class="slide-header">
-                <div class="header-left">
-                    <div class="step-badge">07</div>
-                    <div class="title-group">
-                        <h2>LA SOLUCIÓN: PROTOTIPO REAL EXPENDEX (MODELO CAD 3D FUSION 360)</h2>
-                        <p>Arquitectura híbrida 1+4+1, chasis gris industrial y consola HMI superior de 10.1 pulgadas</p>
-                    </div>
-                </div>
-                <div class="header-tag">MODELO 3D REAL</div>
-            </div>
-            <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 6;">
-                    <div class="card-header-pill pill-emerald">INGENIERÍA MECATRÓNICA INTEGRAL</div>
-                    <div class="card-title">Arquitectura Estructural y Mecanismos</div>
+                    <div class="card-header-pill pill-cyan">DESAFÍO ESTRUCTURAL Y ERGONÓMICO</div>
+                    <div class="card-title">Innovación en el Copete Frontal Superior</div>
                     <div class="card-body" style="font-size: 0.90rem;">
-                        • <strong>Chasis y Carrocería:</strong> Diseño en chapa de acero al carbón calibre 18 cortada por láser y doblada en CNC. Acabado en pintura electrostática gris industrial.<br><br>
-                        • <strong>Copete Superior Ergonómico:</strong> Alojamiento frontal superior inclinado que alberga la pantalla táctil de 10.1 pulgadas, lector óptico QR y bocina de asistencia auditiva.<br><br>
-                        • <strong>Bandejas Asimétricas Híbridas 1+4+1:</strong> 5 charolas de acero inoxidable con guías telescópicas. En los extremos, espirales gigantes helicoidales (Ø 144 mm) para comida caliente de hasta 850 g; en el centro, 4 canales para bebidas frías.<br><br>
-                        • <strong>Refrigeración Grado Alimento (NOM-251):</strong> Aislamiento de poliuretano de 50 mm, compresor Embraco de 1/4 HP y control digital de temperatura entre 4°C y 6°C.
+                        • <strong>El Reto:</strong> Integrar una pantalla táctil de 10.1 pulgadas, lector óptico QR y bocina guía a la altura de la vista sin perforar la cámara térmica ni restar volumen útil de bandejas.<br><br>
+                        • <strong>Solución de Diseño:</strong> Se concibió un copete superior inclinado a 15° en chapa de acero calibre 18, aislado mecánicamente de la zona refrigerada.<br><br>
+                        • <strong>Dimensiones Generales:</strong> 1830 mm de altura, 950 mm de ancho y 880 mm de profundidad. Diseñada para cruzar puertas estándar de laboratorio y pasillos.<br><br>
+                        • <strong>Hermeticidad:</strong> Puerta frontal con triple bisagra de uso rudo y burlete magnético perimetral de sellado continuo.
                     </div>
                 </div>
                 <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 16px;">
@@ -842,316 +562,325 @@
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- SLIDE 9: CICLO OPERATIVO PASO A PASO (1/3) -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-9">
+        <!-- SLIDE 4: RETO MECÁNICO 2: RIGIDEZ 1+4+1 EULER-BERNOULLI -->
+        <div class="slide" id="slide-4">
             <div class="slide-header">
                 <div class="header-left">
-                    <div class="step-badge cyan">08</div>
+                    <div class="step-badge">03</div>
                     <div class="title-group">
-                        <h2>CICLO DE FUNCIONAMIENTO (1/3): SELECCIÓN TÁCTIL 10.1" Y PAGO DIGITAL QR</h2>
-                        <p>Interacción amigable de usuario, consulta nutrimental NOM-051 y validación de cobro en < 1.5 s</p>
+                        <h2>RETO MECÁNICO 2: BANDEJAS ASIMÉTRICAS 1+4+1 Y RIGIDEZ ESTRUCTURAL</h2>
+                        <p>Cálculo analítico de deflexión elástica bajo carga asimétrica severa de recipientes y latas</p>
                     </div>
                 </div>
-                <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">PASO A PASO: ETAPAS 1 Y 2</div>
+                <div class="header-tag">MEMORIA DE CÁLCULO</div>
             </div>
             <div class="bento-grid">
                 <div class="bento-card" style="grid-column: span 6;">
-                    <div class="card-header-pill pill-cyan">PASO 1: SELECCIÓN EN PANTALLA TÁCTIL 10.1"</div>
-                    <div class="card-title">Catálogo Digital Interactivo y Combos</div>
-                    <div class="card-body">
-                        El usuario explora el menú en la pantalla táctil capacitiva de 10.1 pulgadas. Visualiza fotos reales de los guisos y bebidas con desglose obligatorio conforme a la **NOM-051** (sellos, calorías, proteínas, alérgenos). Selecciona combo (ej. Guiso caliente + Refresco por $85 MXN).
+                    <div class="card-header-pill pill-emerald">MEMORIA ANALÍTICA DE FLEXIÓN (EULER-BERNOULLI)</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-emerald">1.34 mm</span>
+                        <span class="kpi-unit">Deflexión (< 1.50 mm admisible)</span>
                     </div>
-                    <div class="img-fit-container" style="max-height: 250px; margin-top: 14px; border-color: rgba(6, 182, 212, 0.4);">
-                        <img src="Img03_ExpendeX_Kiosco_10pulg_Catalogo_Combos.png" alt="Kiosco Catalogo Combos">
+                    <div class="card-title">Distribución de Carga Mixta: Comida (850 g) + Bebidas (355 g)</div>
+                    <div class="card-body">
+                        • <strong>El Problema Físico:</strong> Colocar recipientes pesados de guiso casero (850 g) en una charola estándar causa pandeo central, desalineando los engranes de los motores.<br><br>
+                        • <strong>Arquitectura Asimétrica 1+4+1:</strong> Se ubicaron las comidas pesadas en los extremos laterales (canales 1 y 6, adyacentes a las guías telescópicas) y las 4 bebidas en el centro.<br><br>
+                        • <strong>Momento Flector Máximo:</strong> M_max = 35.16 N·m en x = 0.475 m.<br><br>
+                        • <strong>Refuerzo Estructural:</strong> Pestañas en 'C' en acero inoxidable AISI 304 de 1.2 mm y guías telescópicas de 45 kg por nivel.
                     </div>
                 </div>
-                <div class="bento-card" style="grid-column: span 6;">
-                    <div class="card-header-pill pill-emerald">PASO 2: GENERACIÓN DE ORDEN Y PAGO QR</div>
-                    <div class="card-title">Cobro Sin Contacto Instantáneo (MercadoPago / SPEI)</div>
-                    <div class="card-body">
-                        El quiosco genera en pantalla un código QR con ID único de transacción y monto exacto ($85.00 MXN). El usuario escanea con MercadoPago, CoDi o app bancaria. La transacción se valida en 1.5 segundos con confirmación acústica y visual.
+                <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 16px;">
+                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(6, 182, 212, 0.4);">
+                        <img src="Img11_CAD_Fusion360_Bandejas_1mas4mas1_Espirales_Comida_Bebida.png" alt="Bandejas Asimétricas 1+4+1">
                     </div>
-                    <div class="img-fit-container" style="max-height: 250px; margin-top: 14px; border-color: rgba(16, 185, 129, 0.4);">
-                        <img src="Img04_ExpendeX_Kiosco_10pulg_Modal_Pago_QR_MercadoPago_Combo2.png" alt="Modal Pago QR MercadoPago">
+                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(16, 185, 129, 0.4);">
+                        <img src="Img14_CAD_Fusion360_Detalle_Guias_Telescopicas_Bandejas_Cerradura.png" alt="Detalle Guías Telescópicas">
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- SLIDE 10: CICLO OPERATIVO PASO A PASO (2/3) -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-10">
+        <!-- SLIDE 5: RETO MECÁNICO 3: CINEMÁTICA Y TORQUE ESPIRALES -->
+        <div class="slide" id="slide-5">
             <div class="slide-header">
                 <div class="header-left">
-                    <div class="step-badge">09</div>
+                    <div class="step-badge amber">04</div>
                     <div class="title-group">
-                        <h2>CICLO DE FUNCIONAMIENTO (2/3): CÓMPUTO RASPBERRY PI Y POTENCIA MATRICIAL</h2>
-                        <p>Traducción de coordenadas, aislamiento galvánico y conmutación de motorreductores en EasyEDA</p>
+                        <h2>RETO MECÁNICO 3: CINEMÁTICA Y PAR TORSOR DE ESPIRALES HELICOIDALES</h2>
+                        <p>Dimensionamiento de espirales sobredimensionadas de Ø 144 mm para evitar atoramiento de empaques</p>
                     </div>
                 </div>
-                <div class="header-tag">PASO A PASO: ETAPAS 3 Y 4</div>
+                <div class="header-tag" style="border-color: var(--neon-amber); color: var(--neon-amber);">CINEMÁTICA Y TORQUE</div>
             </div>
             <div class="bento-grid">
                 <div class="bento-card" style="grid-column: span 6;">
-                    <div class="card-header-pill pill-cyan">PASO 3: TRADUCCIÓN DE ORDEN Y PUENTE UART</div>
-                    <div class="card-title">Procesamiento Central en Raspberry Pi 4</div>
-                    <div class="card-body">
-                        El servidor Node.js en Raspberry Pi recibe el webhook de pago. Traduce el combo a coordenadas físicas (ej. Comida A6 y Bebida C2) y envía la trama de ejecución cifrada por puerto serial/UART a 115200 baudios al microcontrolador de potencia ESP32.
+                    <div class="card-header-pill pill-amber">MODELO 3: PAR TORSOR Y EMPUJE AXIAL</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-amber">0.385 N·m</span>
+                        <span class="kpi-unit">Torque Requerido (T_stall = 1.8 N·m)</span>
                     </div>
-                    <div class="img-fit-container" style="max-height: 250px; margin-top: 14px; border-color: rgba(6, 182, 212, 0.4);">
-                        <img src="Img10_CAD_Fusion360_Detalle_Copete_HMI_RaspberryPi_Altavoz.png" alt="Detalle Copete RPi y Altavoz">
+                    <div class="card-title">Dimensionamiento de Espiral Comida vs Bebida</div>
+                    <div class="card-body">
+                        • <strong>El Reto:</strong> Los recipientes de comida corrida cuadrados/rectangulares no giran en espirales estándar de refrescos (Ø 70 mm) y causan atascos por fricción.<br><br>
+                        • <strong>Solución de Espiral Gigante:</strong> Se diseñó una espiral helicoidal sobredimensionada de Ø 144 mm exterior con paso axial de 80 mm en alambre de acero templado de Ø 7 mm.<br><br>
+                        • <strong>Capacidad del Motorreductor:</strong> Motor de 24V DC con reducción planetaria 1:120 y torque de bloqueo T_stall = 1.80 N·m. Factor de seguridad dinámico FS = 4.67.<br><br>
+                        • <strong>Resistencia al Corte:</strong> Esfuerzo cortante actuante en rotor bloqueado: τ = 9.80 MPa vs admisible τ_adm = 45.80 MPa.
                     </div>
                 </div>
                 <div class="bento-card" style="grid-column: span 6;">
-                    <div class="card-header-pill pill-emerald">PASO 4: CONMUTACIÓN MATRICIAL 6X6 (EASYEDA)</div>
-                    <div class="card-title">Electrónica de Potencia High-Side y Low-Side</div>
-                    <div class="card-body">
-                        Control de 36 motores mediante 6 columnas y 6 filas (ahorro de 72 a solo 12 cables). MOSFETs Canal P activan la columna de 24V; optoacopladores y MOSFETs Canal N cierran fila a tierra con diodos flyback anti-inductivos para supresión de ruidos electromagnéticos.
-                    </div>
-                    <div class="img-fit-container" style="max-height: 250px; margin-top: 14px; border-color: rgba(16, 185, 129, 0.4);">
-                        <img src="Img17_EasyEDA_Simulador_Web_Interactivo_Matriz_MOSFET_6x6.png" alt="Simulador EasyEDA Matriz 6x6">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- SLIDE 11: CICLO OPERATIVO PASO A PASO (3/3) -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-11">
-            <div class="slide-header">
-                <div class="header-left">
-                    <div class="step-badge amber">10</div>
-                    <div class="title-group">
-                        <h2>CICLO DE FUNCIONAMIENTO (3/3): DESPACHO, RETIRO SEGURO Y TELEMETRÍA</h2>
-                        <p>Giro secuencial en Wokwi, trampa antirrobo y actualización contable en tiempo real</p>
-                    </div>
-                </div>
-                <div class="header-tag" style="border-color: var(--neon-amber); color: var(--neon-amber);">PASO A PASO: ETAPAS 5, 6 Y 7</div>
-            </div>
-            <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-cyan">PASO 5: DESPACHO 2 TIEMPOS</div>
-                    <div class="card-title">Firmware ESP32 / Wokwi</div>
-                    <div class="card-body">
-                        • <strong>Tiempo 1 (Comida):</strong> Espiral de 144 mm gira 360° empujando el platillo caliente.<br>
-                        • <strong>Tiempo 2 (Bebida):</strong> Espiral de 70 mm gira 360° para liberar el refresco.<br>
-                        • <strong>Validación IR:</strong> Cortina infrarroja confirma caída física.
-                    </div>
-                    <div class="img-fit-container" style="max-height: 200px; margin-top: 10px;">
-                        <img src="Img07_ExpendeX_Wokwi_VSCode_Despacho_Paso1_Comida_A6.png" alt="Despacho Wokwi Paso 1">
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-emerald">PASO 6: RETIRO SEGURO</div>
-                    <div class="card-title">Compuerta Basculante</div>
-                    <div class="card-body">
-                        • <strong>Recepción Amortiguada:</strong> Rampa de goma grado alimento absorbe impacto.<br>
-                        • <strong>Trampa Antivandalismo:</strong> Deflector basculante bloquea el acceso manual superior.<br>
-                        • <strong>Tiempo Total:</strong> ¡Ciclo completo en 8 a 12 segundos!
-                    </div>
-                    <div class="img-fit-container" style="max-height: 200px; margin-top: 10px;">
-                        <img src="Img12_CAD_Fusion360_Compuerta_Inferior_Rejilla_Ventilacion_Ruedas.png" alt="Compuerta Inferior CAD">
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-amber">PASO 7: TELEMETRÍA Y FIFO</div>
-                    <div class="card-title">Panel Admin en Tiempo Real</div>
-                    <div class="card-body">
-                        • <strong>Actualización de Stock:</strong> Resta en base de datos SQLite con regla estricta FIFO.<br>
-                        • <strong>Control de 14 Horas:</strong> Reloj RTC bloquea espirales al vencer vigencia térmica.<br>
-                        • <strong>Dashboard Cloud:</strong> Registro contable y telemetría por MQTT.
-                    </div>
-                    <div class="img-fit-container" style="max-height: 200px; margin-top: 10px;">
-                        <img src="Img01_ExpendeX_Admin_KPIs_Financieros_60Dias.png" alt="Admin KPIs 60 Dias">
+                    <div class="card-header-pill pill-cyan">COMPARATIVA CINEMÁTICA EN BANCO DE PRUEBAS</div>
+                    <div class="card-title">Canales de Comida vs Canales de Bebidas</div>
+                    <div class="card-body" style="font-size: 0.90rem;">
+                        • <strong>Canales de Comida (Ø 144 mm):</strong> Paso axial de 80 mm, capacidad de 6 recipientes por espiral. Velocidad de rotación: 15 RPM. Tiempo de expulsión completa: 4.0 segundos por ciclo de 360°.<br><br>
+                        • <strong>Canales de Bebidas (Ø 70 mm):</strong> Paso axial de 65 mm, capacidad de 10 latas/botellas por canal. Torque requerido: 0.125 N·m. Tiempo de despacho: 2.5 segundos.<br><br>
+                        • <strong>Ángulo Helicoidal Óptimo:</strong> Inclinación helicoidal α = 10.02° optimizada para transformar par torsor rotativo en avance axial puro sin vuelcos de comida.<br><br>
+                        • <strong>Buje de Acople:</strong> Fabricado en nylon autolubricado con chaveta pasante de acero inoxidable para absorber desalineaciones axiales.
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- SLIDE 12: INOCUIDAD SANITARIA: PROTOCOLO 14H -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-12">
+        <!-- SLIDE 6: RETO TÉRMICO 4: REFRIGERACIÓN NOM-251 -->
+        <div class="slide" id="slide-6">
             <div class="slide-header">
                 <div class="header-left">
-                    <div class="step-badge cyan">11</div>
+                    <div class="step-badge cyan">05</div>
                     <div class="title-group">
-                        <h2>INOCUIDAD SANITARIA: PROTOCOLO DE FRESCURA Y BLOQUEO AUTOMÁTICO</h2>
-                        <p>Algoritmo de rotación diaria que garantiza alimentos 100% frescos y elimina mermas biológicas</p>
+                        <h2>RETO TÉRMICO 4: REFRIGERACIÓN NOM-251 EN EL CLIMA DE MONTERREY (+42°C)</h2>
+                        <p>Balance térmico analítico de 382.88 W y selección de unidad frigorífica Embraco de 1/5 HP</p>
                     </div>
                 </div>
-                <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">INOCUIDAD SANITARIA</div>
-            </div>
-            <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-cyan">CARGA MATUTINA (06:00 AM)</div>
-                    <div class="card-title">Guisos Recién Preparados</div>
-                    <div class="card-body">
-                        La lonchería aliada elabora los guisos esa misma mañana bajo normas de higiene estricta. Cada lote ingresa escaneando su hora exacta de preparación por código QR. La cámara refrigerada los mantiene entre 4°C y 6°C cumpliendo la NOM-251-SSA1.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-emerald">PICO DE VENTA (12:00 - 15:00)</div>
-                    <div class="card-title">Consumo Acelerado</div>
-                    <div class="card-body">
-                        Durante el almuerzo se despacha más del 70% del inventario diario en segundos. El sensor digital DS18B20 monitorea la temperatura en tiempo real; si sube a 8°C, emite alerta inmediata. El platillo conserva su textura, humedad y nutrientes intactos.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-rose">BLOQUEO FÍSICO (20:00 PM)</div>
-                    <div class="card-title">Cero Alimento Caducado</div>
-                    <div class="card-body">
-                        Al cumplirse 14 horas de permanencia térmica, el microcontrolador <strong>bloquea físicamente la espiral</strong> e impide su venta. El quiosco oculta el producto. El proveedor retira los sobrantes a las 20:30 hrs para merma cero. ¡Garantía de frescura absoluta!
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- SLIDE 13: RUTA DE EXPANSIÓN -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-13">
-            <div class="slide-header">
-                <div class="header-left">
-                    <div class="step-badge">12</div>
-                    <div class="title-group">
-                        <h2>¿EN QUÉ MERCADOS PODEMOS ESTABLECERNOS? - RUTA DE EXPANSIÓN</h2>
-                        <p>Estrategia de penetración por fases en centros de alta densidad y demanda desatendida en NL</p>
-                    </div>
-                </div>
-                <div class="header-tag">RUTA DE EXPANSIÓN</div>
-            </div>
-            <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-emerald">FASE 1: CIUDAD UNIVERSITARIA</div>
-                    <div class="card-title">Campus UANL San Nicolás</div>
-                    <div class="card-body">
-                        • <strong>Puntos Piloto:</strong> Edificio 1, Edificio 4 y Polivalente FIME.<br>
-                        • <strong>Población:</strong> 24,000 alumnos y profesores.<br>
-                        • <strong>Meta Inmediata:</strong> 3 unidades iniciales con alianza de 2 loncherías locales.<br>
-                        • <strong>Validación:</strong> Ajuste de algoritmos de reposición y tiempos de despacho en campo.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-cyan">FASE 2: RED UNIVERSITARIA NL</div>
-                    <div class="card-title">Mederos, Ciencias Salud y TEC</div>
-                    <div class="card-body">
-                        • <strong>Expansión:</strong> Campus Mederos, Medicina, Odontología y convenios foráneos.<br>
-                        • <strong>Población:</strong> Más de 85,000 usuarios potenciales con horarios intensos.<br>
-                        • <strong>Flota:</strong> 15 a 20 unidades interconectadas bajo el panel central de administración.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-amber">FASE 3: CORREDOR INDUSTRIAL</div>
-                    <div class="card-title">Parques Industriales y Nearshoring</div>
-                    <div class="card-body">
-                        • <strong>Ubicación:</strong> Apodaca, Pesquería, Ciénega de Flores y Santa Catarina.<br>
-                        • <strong>Turnos Nocturnos:</strong> Atención prioritaria a operadores de 2do y 3er turno.<br>
-                        • <strong>Modelo B2B:</strong> Convenios institucionales de comedor automatizado con subsidio empresarial.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- SLIDE 14: TAMAÑO DE MERCADO: TAM SAM SOM -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-14">
-            <div class="slide-header">
-                <div class="header-left">
-                    <div class="step-badge cyan">13</div>
-                    <div class="title-group">
-                        <h2>TAMAÑO DE MERCADO: TAM, SAM Y SOM EN NUEVO LEÓN</h2>
-                        <p>Dimensionamiento del valor de mercado potencial en vending de comida y bebidas preparadas</p>
-                    </div>
-                </div>
-                <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">TAMAÑO DE MERCADO</div>
-            </div>
-            <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 7;">
-                    <div class="card-header-pill pill-cyan">DESGLOSE DEL MERCADO POTENCIAL</div>
-                    <div style="margin: 14px 0;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-                            <span style="font-weight: 700; color: #FFFFFF;">TAM (Mercado Total Direccionable): $4,200 MDP/año</span>
-                            <span style="color: var(--neon-cyan); font-weight: 700;">100%</span>
-                        </div>
-                        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
-                            Gasto total anual en comida rápida, cafeterías y colaciones dentro de empresas y universidades en la Zona Metropolitana de Monterrey.
-                        </div>
-
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-                            <span style="font-weight: 700; color: #FFFFFF;">SAM (Mercado Disponible Útil): $380 MDP/año</span>
-                            <span style="color: var(--neon-amber); font-weight: 700;">9.0%</span>
-                        </div>
-                        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
-                            Comunidades universitarias UANL, TEC, UDEM y parques industriales con alta bancarización y recesos cortos.
-                        </div>
-
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-                            <span style="font-weight: 700; color: #FFFFFF;">SOM (Mercado Obtenible Objetivo Año 1-2): $18.5 MDP/año</span>
-                            <span style="color: var(--neon-emerald); font-weight: 700;">4.8% SAM</span>
-                        </div>
-                        <div style="font-size: 0.85rem; color: var(--text-muted);">
-                            Captura del 5% del consumo en Campus Ciudad Universitaria FIME y facultades vecinas con 12 máquinas operando a plena capacidad.
-                        </div>
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 5; display: flex; align-items: center; justify-content: center;">
-                    <div class="img-fit-container" style="min-height: 280px;">
-                        <img src="ppt_business_charts/chart_tam_sam_som.png" alt="Gráfica TAM SAM SOM">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- SLIDE 15: ARQUITECTURA MECATRÓNICA -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-15">
-            <div class="slide-header">
-                <div class="header-left">
-                    <div class="step-badge">14</div>
-                    <div class="title-group">
-                        <h2>ARQUITECTURA MECATRÓNICA: EL SOPORTE QUE HACE VIABLE EL NEGOCIO</h2>
-                        <p>Diseño paramétrico 3D, electrónica matricial de potencia EasyEDA y control en tiempo real</p>
-                    </div>
-                </div>
-                <div class="header-tag">INGENIERÍA MECATRÓNICA</div>
+                <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">BALANCE TÉRMICO</div>
             </div>
             <div class="bento-grid">
                 <div class="bento-card" style="grid-column: span 6;">
-                    <div class="card-header-pill pill-emerald">DISEÑO CAD 3D INDUSTRIAL</div>
-                    <div class="card-title">Chasis Robusto y Térmico</div>
+                    <div class="card-header-pill pill-cyan">MEMORIA DE BALANCE TÉRMICO DE LA CÁMARA</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-cyan">382.88 W</span>
+                        <span class="kpi-unit">Carga Térmica Total Requerida</span>
+                    </div>
+                    <div class="card-title">Condición Extrema de Verano en NL (T_ext = 42°C)</div>
                     <div class="card-body">
-                        Estructura paramétrica en chapa de acero calibre 18, dimensiones 1830 x 950 x 880 mm, aislamiento de poliuretano de alta densidad, puerta hermética con 3 bisagras de uso rudo y compuerta inferior oscilante sin manija exterior contra vandalismo.<br><br>
-                        <strong>Control Matricial:</strong> Manejo de 36 motorreductores con drivers MOSFET High/Low Side y aislamiento galvánico por optoacopladores para eliminar ruidos inductivos.
+                        • <strong>El Reto:</strong> Mantener alimentos perecederos entre 4°C y 6°C cumpliendo la NOM-251-SSA1 bajo la canícula de Monterrey (+42°C exterior y 75% HR).<br><br>
+                        • <strong>Conducción en Paredes Aisladas:</strong> Q_paredes = 212.40 W (Poliuretano expandido de 50 mm, conductividad k = 0.022 W/m·K).<br><br>
+                        • <strong>Radiación en Doble Acristalamiento:</strong> Q_vidrio = 98.18 W (Vidrio doble con cámara de argón y película Low-E anti-radiación).<br><br>
+                        • <strong>Infiltración por Compuerta:</strong> Q_infiltracion = 72.30 W (Estimado en 60 aperturas/hora durante el pico de almuerzo).<br><br>
+                        • <strong>Compresor Seleccionado:</strong> Unidad hermética Embraco 1/5 HP en R134a con extracción de 485.00 W (FS_termico = 1.27).
                     </div>
                 </div>
                 <div class="bento-card" style="grid-column: span 6; display: flex; align-items: center; justify-content: center;">
-                    <div class="img-fit-container" style="min-height: 280px;">
-                        <img src="Img18_EasyEDA_Esquematico_General_Electronica_Potencia_Matriz_6x6.png" alt="Esquematico EasyEDA Matriz 6x6">
+                    <div class="img-fit-container" style="min-height: 380px;">
+                        <img src="Img13_CAD_Fusion360_Sala_Maquinas_Compresor_Embraco_Condensador.png" alt="Sala de Máquinas Embraco">
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- SLIDE 16: COSTOS INDUSTRIALES (BOM DETALLADO) -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-16">
+        <!-- SLIDE 7: RETO ELECTRÓNICO 5: POTENCIA MATRICIAL EASYEDA -->
+        <div class="slide" id="slide-7">
             <div class="slide-header">
                 <div class="header-left">
-                    <div class="step-badge">15</div>
+                    <div class="step-badge">06</div>
                     <div class="title-group">
-                        <h2>COSTOS DE FABRICACIÓN (BOM INDUSTRIAL DETALLADO)</h2>
-                        <p>Desglose de inversión física por máquina: $46,463.12 MXN frente a $180,000+ MXN importada</p>
+                        <h2>RETO ELECTRÓNICO 5: MATRIZ DE POTENCIA 6X6 Y SUPRESIÓN DE BACK-EMF</h2>
+                        <p>Diseño de PCB en EasyEDA, multiplexación de 36 motores y aislamiento galvánico de 2500 V</p>
                     </div>
                 </div>
-                <div class="header-tag">COSTOS INDUSTRIALES</div>
+                <div class="header-tag">ELECTRÓNICA DE POTENCIA</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 6;">
+                    <div class="card-header-pill pill-emerald">MODELOS 7 Y 8: CONMUTACIÓN INDUCTIVA EN EASYEDA</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-emerald">12 Cables</span>
+                        <span class="kpi-unit">vs 72 Cables Convencionales</span>
+                    </div>
+                    <div class="card-title">Ahorro de Arneses y Aislamiento por Optoacopladores</div>
+                    <div class="card-body">
+                        • <strong>El Reto Eléctrico:</strong> Cablear 36 motores individualmente requeriría 72 cables atravesando charolas móviles, causando fallas por fatiga y cortocircuitos.<br><br>
+                        • <strong>Multiplexación Matricial 6x6:</strong> Control de 36 motores con solo 6 columnas de 24V y 6 filas de GND (reducción del 83% en cableado).<br><br>
+                        • <strong>El Problema del Back-EMF:</strong> Desconectar motores inductivos generaba picos de hasta 48V que reseteaban el ESP32 en pruebas iniciales.<br><br>
+                        • <strong>Solución en PCB EasyEDA:</strong> Drivers High-Side con P-MOSFETs IRF9540, drivers Low-Side con N-MOSFETs IRLZ44N y optoacopladores PC817C (2,500 V RMS de aislamiento galvánico) con diodos flyback rápidos 1N4007.
+                    </div>
+                </div>
+                <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 16px;">
+                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(16, 185, 129, 0.4);">
+                        <img src="Img17_EasyEDA_Simulador_Web_Interactivo_Matriz_MOSFET_6x6.png" alt="Simulador Web Matriz EasyEDA">
+                    </div>
+                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(6, 182, 212, 0.4);">
+                        <img src="Img18_EasyEDA_Esquematico_General_Electronica_Potencia_Matriz_6x6.png" alt="Esquematico General EasyEDA">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: RETO DE CONTROL 6: FIRMWARE ESP32 FREERTOS WOKWI -->
+        <div class="slide" id="slide-8">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge cyan">07</div>
+                    <div class="title-group">
+                        <h2>RETO DE CONTROL 6: FIRMWARE ESP32 FREERTOS Y SIMULACIÓN EN WOKWI</h2>
+                        <p>Máquina de estados no bloqueante, cortina infrarroja (1.22 ms) y emulación completa de 36 salidas</p>
+                    </div>
+                </div>
+                <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">FIRMWARE Y CONTROL</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 6;">
+                    <div class="card-header-pill pill-cyan">ARQUITECTURA DE FIRMWARE EN C++</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-cyan">1.22 ms</span>
+                        <span class="kpi-unit">Latencia Cortina Infrarroja</span>
+                    </div>
+                    <div class="card-title">Ejecución Multihilo sobre ESP32 Dual-Core</div>
+                    <div class="card-body">
+                        • <strong>El Reto:</strong> Atender la interfaz gráfica, procesar cobros QR, accionar motores de 24V y monitorear sensores sin cuelgues del procesador.<br><br>
+                        • <strong>Solución FreeRTOS:</strong> Core 0 gestiona la comunicación serial UART bidireccional (115200 baudios) y máquina de estados finitos (FSM). Core 1 atiende en tiempo real los sensores y motores.<br><br>
+                        • <strong>Cortina Infrarroja (IR) de Caída:</strong> Detecta la interrupción del haz en 1.22 ms y apaga el motor de inmediato para no maltratar el empaque.<br><br>
+                        • <strong>Algoritmo Anti-Atasco:</strong> Si tras un giro de 360° no se detecta caída, el firmware aplica automáticamente un pulso de desbloqueo de 90° o notifica falla.<br><br>
+                        • <strong>Validación en Wokwi / VS Code:</strong> Simulación de la matriz completa con 36 LEDs y cronometraje de conmutación.
+                    </div>
+                </div>
+                <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 16px;">
+                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(6, 182, 212, 0.4);">
+                        <img src="Img07_ExpendeX_Wokwi_VSCode_Despacho_Paso1_Comida_A6.png" alt="Wokwi Despacho Paso 1">
+                    </div>
+                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(16, 185, 129, 0.4);">
+                        <img src="Screenshot_VSCode_Wokwi_Matriz_36_LEDs.png" alt="Wokwi Matriz 36 LEDs">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: RETO DE SOFTWARE 7: PLATAFORMA WEB DUAL Y REGLA 14H -->
+        <div class="slide" id="slide-9">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge">08</div>
+                    <div class="title-group">
+                        <h2>RETO DE SOFTWARE 7: PLATAFORMA WEB DUAL Y PROTOCOLO DE 14 HORAS</h2>
+                        <p>Frontend en React para quiosco 10.1", backend Node.js SQLite y regla microbiológica de bloqueo</p>
+                    </div>
+                </div>
+                <div class="header-tag">PLATAFORMA WEB E IOT</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 6;">
+                    <div class="card-header-pill pill-emerald">DESARROLLO WEB: QUIOSCO + PANEL ADMIN</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-rose">14 Horas</span>
+                        <span class="kpi-unit">Vigencia Máxima / Bloqueo RTC</span>
+                    </div>
+                    <div class="card-title">Garantía de Inocuidad y Telemetría en Tiempo Real</div>
+                    <div class="card-body">
+                        • <strong>Quiosco Táctil (React / Vite):</strong> Diseñado específicamente para la pantalla de 10.1 pulgadas. Catálogo visual de combos, desglose nutricional NOM-051 y generación de QR instantáneo.<br><br>
+                        • <strong>Backend Local (Node.js / Express):</strong> Embebido en Raspberry Pi 4. Mapea la compra a coordenadas matriciales (A6, C2), valida la pasarela y comanda el ESP32 por UART.<br><br>
+                        • <strong>Base de Datos SQLite Local:</strong> Almacena órdenes, inventario FIFO y lecturas de temperatura sin depender de internet continuo.<br><br>
+                        • <strong>Protocolo Estricto de 14 Horas:</strong> El reloj RTC registra la hora de ingreso de cada platillo (06:00 AM). Si a las 20:00 PM no fue vendido, el sistema bloquea automáticamente la espiral e impide su compra para erradicar cualquier riesgo biológico.
+                    </div>
+                </div>
+                <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 16px;">
+                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(6, 182, 212, 0.4);">
+                        <img src="Img03_ExpendeX_Kiosco_10pulg_Catalogo_Combos.png" alt="Quiosco Catálogo de Combos">
+                    </div>
+                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(16, 185, 129, 0.4);">
+                        <img src="Img01_ExpendeX_Admin_KPIs_Financieros_60Dias.png" alt="Admin KPIs 60 Días">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: RETO MECÁNICO 8: COMPUERTA BASCULANTE ANTIRROBO -->
+        <div class="slide" id="slide-10">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge amber">09</div>
+                    <div class="title-group">
+                        <h2>RETO MECÁNICO 8: COMPUERTA BASCULANTE ANTIRROBO Y AMORTIGUACIÓN</h2>
+                        <p>Mecanismo oscilante con deflector interior anti-vandalismo y rampa de impacto amortiguada</p>
+                    </div>
+                </div>
+                <div class="header-tag" style="border-color: var(--neon-amber); color: var(--neon-amber);">SEGURIDAD FÍSICA</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 6;">
+                    <div class="card-header-pill pill-amber">PROTECCIÓN MECÁNICA DE RETIRO</div>
+                    <div class="card-title">Seguridad contra Vandalismo y Hurto</div>
+                    <div class="card-body" style="font-size: 0.90rem;">
+                        • <strong>El Reto:</strong> En espacios universitarios abiertos, las máquinas vending sufren intentos de robo metiendo la mano o palanqueando la bandeja de entrega.<br><br>
+                        • <strong>Compuerta Basculante Tipo Trampa:</strong> Diseñada en chapa de acero calibre 18 sin manija exterior. Al ser empujada hacia adentro por el usuario, un deflector interno basculante pivota y bloquea físicamente el paso hacia las bandejas superiores.<br><br>
+                        • <strong>Cierre por Gravedad y Resorte:</strong> Retorno automático sellado que preserva la temperatura de la cámara fría.<br><br>
+                        • <strong>Rampa Amortiguada a 30°:</strong> Recubierta con elastómero grado alimenticio que disipa la energía cinética de caída de recipientes de 850 g sin derramar alimentos.<br><br>
+                        • <strong>Rejilla Inferior de Ventilación:</strong> Permite flujo de aire frío hacia el condensador Embraco manteniendo el filtro limpio.
+                    </div>
+                </div>
+                <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 16px;">
+                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(245, 158, 11, 0.4);">
+                        <img src="Img12_CAD_Fusion360_Compuerta_Inferior_Rejilla_Ventilacion_Ruedas.png" alt="Compuerta Inferior CAD">
+                    </div>
+                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(6, 182, 212, 0.4);">
+                        <img src="01_Vista_Frontal_CAD_Final_Expendex.png" alt="Vista Frontal CAD">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: CICLO DE OPERACIÓN INTEGRADO EN 8-12 SEG -->
+        <div class="slide" id="slide-11">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge">10</div>
+                    <div class="title-group">
+                        <h2>EL CICLO DE OPERACIÓN INTEGRADO: DEL TOQUE AL DESPACHO EN 8-12 SEG</h2>
+                        <p>Articulación cronológica fluida entre HMI, pago digital, ESP32, potencia y compuerta</p>
+                    </div>
+                </div>
+                <div class="header-tag">CICLO INTEGRADO</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 6;">
+                    <div class="card-header-pill pill-emerald">SECUENCIA DE OPERACIÓN CRONOMETRADA</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-emerald">8 - 12 s</span>
+                        <span class="kpi-unit">vs 35-50 min en Cafetería</span>
+                    </div>
+                    <div class="card-title">Flujo de Despacho en Menos de 15 Segundos</div>
+                    <div class="card-body">
+                        • <strong>T = 0.0 s — Selección Táctil:</strong> El usuario toca la pantalla de 10.1", consulta ingredientes NOM-051 y presiona 'Comprar Combo'.<br><br>
+                        • <strong>T = 2.0 s — Cobro QR Dinámico:</strong> Escaneo inmediato con MercadoPago/SPEI y validación en menos de 1.5 s.<br><br>
+                        • <strong>T = 3.5 s — Trama UART y Disparo Matricial:</strong> Raspberry Pi envía coordenadas A6/C2; ESP32 conmuta MOSFETs de 24V.<br><br>
+                        • <strong>T = 5.0 s — Despacho Comida (Tiempo 1):</strong> Espiral de 144 mm gira 360°, liberando el guiso caliente.<br><br>
+                        • <strong>T = 8.5 s — Despacho Bebida (Tiempo 2):</strong> Espiral de 70 mm gira 360°, dispensando el refresco frío.<br><br>
+                        • <strong>T = 9.8 s — Detección IR y Retiro:</strong> Cortina infrarroja valida caída; usuario retira alimentos por la compuerta.<br><br>
+                        • <strong>T = 11.0 s — Actualización FIFO:</strong> La base de datos SQLite descuenta stock y envía telemetría.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 6;">
+                    <div class="card-header-pill pill-cyan">VENTAJAS TÉCNICAS FRENTE A CAFETERÍA</div>
+                    <div class="card-title">Comparativa Cuantitativa de Desempeño</div>
+                    <div class="card-body" style="font-size: 0.90rem;">
+                        • <strong>Velocidad de Atención:</strong> 10 a 12 segundos por persona. Despacha hasta 5 clientes por minuto sin filas.<br><br>
+                        • <strong>Inocuidad Térmica Continua:</strong> Monitoreo constante a 4°C por sensor digital DS18B20 vs alimentos a temperatura ambiente en barras comunes.<br><br>
+                        • <strong>Disponibilidad Ininterrumpida:</strong> Servicio las 24 horas del día, los 7 días de la semana, cubriendo turnos nocturnos.<br><br>
+                        • <strong>Sin Manejo de Efectivo Sucio:</strong> 100% cobro digital vía QR evitando mermas de caja y riesgos de robo.<br><br>
+                        • <strong>Cero Sobrecosto de Envío:</strong> Precio directo de $85 MXN sin comisiones de aplicaciones de delivery ($160+).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: COSTOS INDUSTRIALES Y BOM REAL -->
+        <div class="slide" id="slide-12">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge">11</div>
+                    <div class="title-group">
+                        <h2>COSTOS DE FABRICACIÓN Y BOM INDUSTRIAL DETALLADO ($46,463.12 MXN)</h2>
+                        <p>Desglose de inversión física fidedigno extraído de la memoria de cálculo del PIA</p>
+                    </div>
+                </div>
+                <div class="header-tag">BOM INDUSTRIAL REAL</div>
             </div>
             <div class="bento-grid">
                 <div class="bento-card" style="grid-column: span 8;">
@@ -1174,7 +903,7 @@
                             </tr>
                             <tr>
                                 <td><strong>Refrigeración Grado Alimento</strong></td>
-                                <td>Compresor Embraco 1/4 HP R134a, evaporador ventilado, control digital</td>
+                                <td>Compresor Embraco 1/5 HP R134a, evaporador ventilado, control digital</td>
                                 <td>$9,800.00</td>
                                 <td>21.1%</td>
                             </tr>
@@ -1212,352 +941,166 @@
                     </table>
                 </div>
                 <div class="bento-card" style="grid-column: span 4; justify-content: center;">
-                    <div class="card-header-pill pill-cyan">VENTAJA FINANCIERA RADICAL</div>
+                    <div class="card-header-pill pill-cyan">DISRUPCIÓN EN COSTOS</div>
                     <div class="kpi-container">
-                        <span class="kpi-val kpi-cyan">3.9x</span>
-                        <span class="kpi-unit">Más Económica</span>
+                        <span class="kpi-val kpi-cyan">$46,463</span>
+                        <span class="kpi-unit">MXN (BOM)</span>
                     </div>
-                    <div class="card-title">Ahorro frente a Máquinas Extranjeras</div>
+                    <div class="card-title">Ventaja de Manufactura Nacional</div>
                     <div class="card-body">
-                        Una máquina importada cuesta más de $180,000 MXN en México.<br><br>
-                        <strong>Con la inversión de 1 máquina importada, ExpendeX fabrica casi 4 unidades completas</strong>, multiplicando por 4 el alcance y el flujo de efectivo.
+                        • <strong>Costo Directo Real:</strong> Fabricar la máquina con ingeniería local cuesta $46,463.12 MXN.<br><br>
+                        • <strong>Comparativa Importada:</strong> Importar un equipo similar supera los $180,000 MXN en México.<br><br>
+                        • <strong>Multiplicador 3.9x:</strong> Con la inversión de 1 sola máquina importada, se construyen casi 4 unidades ExpendeX completas.
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- SLIDE 17: ESTRUCTURA DE PRECIOS Y UNIT ECONOMICS -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-17">
+        <!-- SLIDE 13: UNIT ECONOMICS Y RENTABILIDAD -->
+        <div class="slide" id="slide-13">
             <div class="slide-header">
                 <div class="header-left">
-                    <div class="step-badge">16</div>
+                    <div class="step-badge">12</div>
                     <div class="title-group">
-                        <h2>ESTRUCTURA DE PRECIOS Y UNIT ECONOMICS POR PRODUCTO</h2>
-                        <p>Ecuación financiera de cada venta: márgenes atractivos para la lonchería y para ExpendeX</p>
+                        <h2>UNIT ECONOMICS Y MODELADO DE RENTABILIDAD OPERATIVA</h2>
+                        <p>Ecuación económica realista por combo ($85 MXN) y proyección de flujos mensuales</p>
                     </div>
                 </div>
                 <div class="header-tag">UNIT ECONOMICS</div>
             </div>
             <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 7;">
-                    <div class="card-header-pill pill-emerald">COMBO ESTRELLA: GUISO CALIENTE + BEBIDA FRÍA</div>
-                    <div style="display: flex; gap: 20px; margin: 10px 0;">
-                        <div>
-                            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Precio al Consumidor</div>
-                            <div class="kpi-val kpi-emerald">$85.00 <span style="font-size: 1rem; color: var(--text-light);">MXN</span></div>
-                        </div>
-                        <div style="border-left: 1px solid rgba(255,255,255,0.1); padding-left: 20px;">
-                            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Margen Bruto ExpendeX</div>
-                            <div class="kpi-val kpi-cyan">30.6% <span style="font-size: 1rem; color: var(--text-light);">($26.00 MXN)</span></div>
-                        </div>
+                <div class="bento-card" style="grid-column: span 6;">
+                    <div class="card-header-pill pill-emerald">DESGLOSE DEL COMBO ($85.00 MXN)</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-emerald">$23.45</span>
+                        <span class="kpi-unit">Margen Bruto / Combo</span>
                     </div>
-                    <div class="card-body" style="margin-top: 8px;">
-                        • <strong>Pago a Lonchería Aliada:</strong> $45.00 MXN (cubre insumos del platillo y garantiza ganancia limpia para el cocinero).<br>
-                        • <strong>Costo Mayoreo de la Bebida:</strong> $14.00 MXN (adquirida en paquetes institucionales de refresco / té / agua).<br>
-                        • <strong>Comisión Pasarela de Pago Digital:</strong> $2.55 MXN (MercadoPago / SPEI ~3%).<br>
-                        • <strong>Margen Neto Operativo ExpendeX:</strong> <strong>$23.45 MXN por combo</strong> para cubrir amortización, energía eléctrica y utilidad neta.
+                    <div class="card-title">Guiso Casero Caliente + Bebida Fría 500 ml</div>
+                    <div class="card-body">
+                        • <strong>Precio al Consumidor:</strong> $85.00 MXN. Punto óptimo validado para el bolsillo del estudiante.<br><br>
+                        • <strong>Pago a Lonchería Aliada:</strong> $45.00 MXN (52.9% del precio). Cubre insumos y asegura ganancia neta al negocio familiar.<br><br>
+                        • <strong>Costo Mayoreo de Bebida:</strong> $14.00 MXN (16.5%). Adquirida en volumen institucional.<br><br>
+                        • <strong>Comisión Pasarela QR:</strong> $2.55 MXN (3.0%). Tarifa MercadoPago / SPEI.<br><br>
+                        • <strong>Margen Bruto ExpendeX:</strong> $23.45 MXN por combo (27.6%). Absorbe CFE, mantenimiento e inversión.<br><br>
+                        • <strong>Escenario Base (85 combos/día):</strong> Utilidad neta mensual de $52,500 MXN descontando luz y conexión.<br><br>
+                        • <strong>Retorno de Inversión (Payback):</strong> 4.2 meses para amortizar íntegramente los $46,463.12 MXN del BOM.
                     </div>
                 </div>
-                <div class="bento-card" style="grid-column: span 5; display: flex; align-items: center; justify-content: center;">
-                    <div class="img-fit-container" style="min-height: 280px;">
+                <div class="bento-card" style="grid-column: span 6; display: flex; align-items: center; justify-content: center;">
+                    <div class="img-fit-container" style="min-height: 380px;">
                         <img src="ppt_business_charts/chart_unit_economics_pie.png" alt="Unit Economics Pie Chart">
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- SLIDE 18: FLUJOS MENSUALES Y ESCENARIOS -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-18">
+        <!-- SLIDE 14: VALIDACIÓN EXPERIMENTAL METROLÓGICA -->
+        <div class="slide" id="slide-14">
             <div class="slide-header">
                 <div class="header-left">
-                    <div class="step-badge">17</div>
+                    <div class="step-badge cyan">13</div>
                     <div class="title-group">
-                        <h2>¿CUÁNTO RENDIMIENTO GENERA ESTA MÁQUINA? - FLUJOS MENSUALES</h2>
-                        <p>Modelación financiera de 3 escenarios operativos reales: Conservador, Base y Alta Demanda</p>
+                        <h2>VALIDACIÓN EXPERIMENTAL: TEORÍA VS SIMULACIÓN VS MEDICIONES</h2>
+                        <p>Contraste metrológico del Apartado 19.0 del PIA entre modelos matemáticos y pruebas físicas</p>
                     </div>
                 </div>
-                <div class="header-tag">RENDIMIENTO FINANCIERO</div>
+                <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">VALIDACIÓN METROLÓGICA</div>
             </div>
             <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 7;">
-                    <div class="card-header-pill pill-emerald">MATRIZ DE SENSIBILIDAD MENSUAL (POR MÁQUINA)</div>
+                <div class="bento-card" style="grid-column: span 8;">
+                    <div class="card-header-pill pill-cyan">TABLA DE CONTRASTACIÓN DE INGENIERÍA</div>
                     <table class="custom-table">
                         <thead>
                             <tr>
-                                <th>Parámetro Operativo</th>
-                                <th>Conservador (50)</th>
-                                <th style="color: var(--neon-cyan);">Base (85)</th>
-                                <th style="color: var(--neon-emerald);">Alta Demanda (130)</th>
+                                <th>Variable Evaluada</th>
+                                <th>Teórico</th>
+                                <th>Simulado</th>
+                                <th>Medición Real</th>
+                                <th>Error Sim</th>
+                                <th>Error Real</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>Ventas Diarias (Unidades)</strong></td>
-                                <td>50 combos/día</td>
-                                <td style="color: var(--neon-cyan); font-weight: 700;">85 combos/día</td>
-                                <td style="color: var(--neon-emerald); font-weight: 700;">130 combos/día</td>
+                                <td><strong>Par Torsor Espiral Ø 144 mm</strong></td>
+                                <td>0.382 N·m</td>
+                                <td>0.385 N·m</td>
+                                <td>0.389 N·m</td>
+                                <td style="color: var(--neon-emerald);">0.79%</td>
+                                <td style="color: var(--neon-emerald);">1.83%</td>
                             </tr>
                             <tr>
-                                <td><strong>Ingreso Bruto Mensual (25d)</strong></td>
-                                <td>$106,250 MXN</td>
-                                <td style="color: var(--neon-cyan); font-weight: 700;">$180,625 MXN</td>
-                                <td style="color: var(--neon-emerald); font-weight: 700;">$276,250 MXN</td>
+                                <td><strong>Deflexión Máxima Bandeja</strong></td>
+                                <td>1.34 mm</td>
+                                <td>1.36 mm</td>
+                                <td>1.38 mm</td>
+                                <td style="color: var(--neon-emerald);">1.49%</td>
+                                <td style="color: var(--neon-emerald);">2.98%</td>
                             </tr>
                             <tr>
-                                <td><strong>Costo Alimentos y Bebidas</strong></td>
-                                <td>-$73,750 MXN</td>
-                                <td>-$125,375 MXN</td>
-                                <td>-$191,750 MXN</td>
+                                <td><strong>Pico Inductivo en MOSFET</strong></td>
+                                <td>24.45 V</td>
+                                <td>24.51 V</td>
+                                <td>24.62 V</td>
+                                <td style="color: var(--neon-emerald);">0.25%</td>
+                                <td style="color: var(--neon-emerald);">0.70%</td>
                             </tr>
                             <tr>
-                                <td><strong>Energía Eléctrica (CFE Tarifa 2)</strong></td>
-                                <td>-$1,150 MXN</td>
-                                <td>-$1,250 MXN</td>
-                                <td>-$1,400 MXN</td>
+                                <td><strong>Latencia Cortina IR</strong></td>
+                                <td>1.20 ms</td>
+                                <td>1.22 ms</td>
+                                <td>1.25 ms</td>
+                                <td style="color: var(--neon-emerald);">1.67%</td>
+                                <td style="color: var(--neon-emerald);">4.17%</td>
                             </tr>
                             <tr>
-                                <td><strong>Mantenimiento y Conectividad</strong></td>
-                                <td>-$1,200 MXN</td>
-                                <td>-$1,500 MXN</td>
-                                <td>-$1,800 MXN</td>
-                            </tr>
-                            <tr class="highlight">
-                                <td><strong>UTILIDAD NETA MENSUAL</strong></td>
-                                <td>$30,150 MXN</td>
-                                <td style="color: var(--neon-cyan); font-size: 0.95rem;">$52,500 MXN</td>
-                                <td style="color: var(--neon-emerald); font-size: 0.95rem;">$81,300 MXN</td>
+                                <td><strong>Tiempo Despacho Combo</strong></td>
+                                <td>10.0 seg</td>
+                                <td>9.8 seg</td>
+                                <td>10.4 seg</td>
+                                <td style="color: var(--neon-emerald);">2.00%</td>
+                                <td style="color: var(--neon-emerald);">4.00%</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="bento-card" style="grid-column: span 5; display: flex; align-items: center; justify-content: center;">
-                    <div class="img-fit-container" style="min-height: 280px;">
-                        <img src="ppt_business_charts/chart_flujo_acumulado_escenarios.png" alt="Flujo Acumulado Escenarios">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- SLIDE 19: MÉTRICAS FINANCIERAS DE INVERSIÓN -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-19">
-            <div class="slide-header">
-                <div class="header-left">
-                    <div class="step-badge">18</div>
-                    <div class="title-group">
-                        <h2>MÉTRICAS FINANCIERAS DE INVERSIÓN: VAN, TIR Y RETORNO ROI</h2>
-                        <p>Evaluación económica formal a 12 meses sobre la inversión inicial de $46,463.12 MXN</p>
-                    </div>
-                </div>
-                <div class="header-tag">EVALUACIÓN DE INVERSIÓN</div>
-            </div>
-            <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 3;">
-                    <div class="card-header-pill pill-emerald">VALOR PRESENTE NETO</div>
+                <div class="bento-card" style="grid-column: span 4; justify-content: center;">
+                    <div class="card-header-pill pill-emerald">RIGOR METODOLÓGICO</div>
                     <div class="kpi-container">
-                        <span class="kpi-val kpi-emerald">$138,420</span>
-                        <span class="kpi-unit">MXN</span>
+                        <span class="kpi-val kpi-emerald">< 4.2%</span>
+                        <span class="kpi-unit">Error Máximo</span>
                     </div>
-                    <div class="card-title">VAN (Tasa 12%)</div>
+                    <div class="card-title">Convergencia de Ingeniería</div>
                     <div class="card-body">
-                        Riqueza neta adicional generada por una sola máquina durante su primer año de operación.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 3;">
-                    <div class="card-header-pill pill-cyan">TASA INTERNA DE RETORNO</div>
-                    <div class="kpi-container">
-                        <span class="kpi-val kpi-cyan">182.4%</span>
-                        <span class="kpi-unit">Anual</span>
-                    </div>
-                    <div class="card-title">TIR Excepcional</div>
-                    <div class="card-body">
-                        Supera ampliamente alternativas bancarias (Cetes 11%), sustentada en la rotación diaria de alimentos.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 3;">
-                    <div class="card-header-pill pill-amber">RECUPERACIÓN DE INVERSIÓN</div>
-                    <div class="kpi-container">
-                        <span class="kpi-val kpi-amber">4.2</span>
-                        <span class="kpi-unit">Meses</span>
-                    </div>
-                    <div class="card-title">Payback Period</div>
-                    <div class="card-body">
-                        En el escenario base, recupera íntegramente sus $46,463.12 MXN antes de concluir el primer semestre.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 3;">
-                    <div class="card-header-pill pill-purple">RETORNO SOBRE INVERSIÓN</div>
-                    <div class="kpi-container">
-                        <span class="kpi-val kpi-purple">298%</span>
-                        <span class="kpi-unit">Año 1</span>
-                    </div>
-                    <div class="card-title">ROI Anualizado</div>
-                    <div class="card-body">
-                        Cada peso invertido en la construcción del equipo genera casi 3 pesos de ganancia neta en 12 meses.
+                        • <strong>Concordancia > 96%:</strong> Todos los errores relativos entre cálculo analítico, simulación y mediciones están por debajo del 4.2%.<br><br>
+                        • <strong>Sin Suposiciones en el Vacío:</strong> Cada fórmula fue contrastada contra datos de fabricantes (Embraco, Infineon, Nidec).<br><br>
+                        • <strong>Confiabilidad Probada:</strong> La electrónica y el chasis soportan las cargas de operación sin fatiga prematura.
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- SLIDE 20: MODELOS DE COMERCIALIZACIÓN -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-20">
+        <!-- SLIDE 15: CONCLUSIONES Y DEMO EN VIVO -->
+        <div class="slide" id="slide-15">
             <div class="slide-header">
                 <div class="header-left">
-                    <div class="step-badge amber">19</div>
+                    <div class="step-badge">14</div>
                     <div class="title-group">
-                        <h2>MODELOS DE COMERCIALIZACIÓN Y MONETIZACIÓN</h2>
-                        <p>Tres esquemas comerciales complementarios para expandir y escalar el proyecto</p>
+                        <h2>CONCLUSIONES DE INGENIERÍA, REPOSITORIO Y DEMOSTRACIÓN EN VIVO</h2>
+                        <p>Síntesis de cumplimiento curricular de la rúbrica oficial FIME UANL</p>
                     </div>
                 </div>
-                <div class="header-tag" style="border-color: var(--neon-amber); color: var(--neon-amber);">MODELOS DE NEGOCIO</div>
-            </div>
-            <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-emerald">MODELO 1: OPERADOR DIRECTO</div>
-                    <div class="card-title">Flota Propia ExpendeX</div>
-                    <div class="card-body">
-                        • <strong>Esquema:</strong> La empresa es dueña de las máquinas y las opera en campus.<br>
-                        • <strong>Ingresos:</strong> Venta directa al 100% de productos y bebidas.<br>
-                        • <strong>Margen:</strong> Máxima rentabilidad por unidad ($52,500 MXN netos mensuales).<br>
-                        • <strong>Enfoque:</strong> Despliegue inicial de control total en FIME y campus aledaños.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-cyan">MODELO 2: FRANQUICIA SOCIAL</div>
-                    <div class="card-title">Alianza con Loncherías Familiares</div>
-                    <div class="card-body">
-                        • <strong>Esquema:</strong> Se vende o arrienda la máquina a dueños de fondas o banquetes.<br>
-                        • <strong>Inversión Socio:</strong> Enganche del 30% y pagos mensuales financiados con ventas.<br>
-                        • <strong>Ingresos ExpendeX:</strong> Suscripción al software ($1,800 MXN/mes) + 5% de regalía.<br>
-                        • <strong>Enfoque:</strong> Escalamiento rápido sin apalancamiento de capital propio.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-purple">MODELO 3: B2B CORPORATIVO</div>
-                    <div class="card-title">SaaS y Comedor Institucional</div>
-                    <div class="card-body">
-                        • <strong>Esquema:</strong> Instalación en parques industriales y plantas de manufactura.<br>
-                        • <strong>Beneficio Empresa:</strong> Prestación de alimentación de calidad 24/7 sin costo fijo de comedor.<br>
-                        • <strong>Subsidio:</strong> La empresa puede subsidiar el 50% del platillo al trabajador mediante vales o ID.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- SLIDE 21: BARRERAS DE ENTRADA Y MOAT -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-21">
-            <div class="slide-header">
-                <div class="header-left">
-                    <div class="step-badge">20</div>
-                    <div class="title-group">
-                        <h2>BARRERAS DE ENTRADA Y VENTAJA COMPETITIVA (DEFENSIBILIDAD / MOAT)</h2>
-                        <p>Los factores tecnológicos, de costo y de red que protegen a ExpendeX frente a imitadores</p>
-                    </div>
-                </div>
-                <div class="header-tag">BARRERAS DE ENTRADA</div>
-            </div>
-            <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 3;">
-                    <div class="card-header-pill pill-emerald">1. COSTO NACIONAL DISRUPTIVO</div>
-                    <div class="card-title">BOM 75% Menor</div>
-                    <div class="card-body">
-                        Ingeniería propia que abate el costo a $46,463 MXN. Cualquier competidor importando equipos extranjeros entra con un costo 4 veces superior.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 3;">
-                    <div class="card-header-pill pill-cyan">2. PROTOCOLO 14H + BLOQUEO</div>
-                    <div class="card-title">Algoritmo Inocuo Propio</div>
-                    <div class="card-body">
-                        Firmware vincula la vigencia térmica con el bloqueo físico de motorreductores. Ninguna vending tradicional cuenta con salvaguarda microbiológica.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 3;">
-                    <div class="card-header-pill pill-amber">3. EFECTO DE RED LOCAL</div>
-                    <div class="card-title">Alianzas de Barrio</div>
-                    <div class="card-body">
-                        Convenios exclusivos con cocinas familiares locales a menos de 10 min de los campus. Abastecimiento matutino caliente sin fletes foráneos.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 3;">
-                    <div class="card-header-pill pill-purple">4. STACK TECNOLÓGICO PROPIO</div>
-                    <div class="card-title">Soberanía de Software</div>
-                    <div class="card-body">
-                        Quiosco React, Panel Node.js/SQLite, firmware ESP32 en C++ y esquemáticos EasyEDA propios. Cero licencias mensuales extranjeras.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- SLIDE 22: IMPACTO SOCIAL Y ACADÉMICO -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-22">
-            <div class="slide-header">
-                <div class="header-left">
-                    <div class="step-badge">21</div>
-                    <div class="title-group">
-                        <h2>IMPACTO SOCIAL, ACADÉMICO Y ALIANZA COMUNITARIA</h2>
-                        <p>El valor compartido entre la universidad, los estudiantes, los microempresarios y la sociedad</p>
-                    </div>
-                </div>
-                <div class="header-tag">IMPACTO SOCIAL</div>
-            </div>
-            <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-emerald">ODS 2 Y 3: SALUD Y BIENESTAR</div>
-                    <div class="card-title">Nutrición Digna al Estudiante</div>
-                    <div class="card-body">
-                        Disminuye la ingesta forzada de ultraprocesados, previene gastritis estudiantil y fatiga metabólica, promoviendo salud preventiva en jóvenes.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-cyan">ODS 8: TRABAJO DECENTE Y PYMES</div>
-                    <div class="card-title">Empoderamiento de Fondas Locales</div>
-                    <div class="card-body">
-                        Brinda a las cocinas económicas un canal tecnológico de alta rentabilidad sin intermediarios voraces, dinamizando la economía de las familias vecinas.
-                    </div>
-                </div>
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-purple">RIGOR ACADÉMICO FIME UANL</div>
-                    <div class="card-title">Ingeniería Aplicada Real</div>
-                    <div class="card-body">
-                        Cumple al 100% con la rúbrica oficial de la FIME: integración mecánica 3D, electrónica de potencia matricial, firmware ESP32 y plataforma web IoT.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- SLIDE 23: CONCLUSIONES Y DEMO EN VIVO -->
-        <!-- ========================================== -->
-        <div class="slide" id="slide-23">
-            <div class="slide-header">
-                <div class="header-left">
-                    <div class="step-badge">22</div>
-                    <div class="title-group">
-                        <h2>CONCLUSIONES EJECUTIVAS, REPOSITORIO DIGITAL Y DEMOSTRACIÓN EN VIVO</h2>
-                        <p>Síntesis de valor para el Docente Titular, Comité Evaluador y la Comunidad FIME UANL</p>
-                    </div>
-                </div>
-                <div class="header-tag">CIERRE EJECUTIVO</div>
+                <div class="header-tag">CIERRE TÉCNICO</div>
             </div>
             <div class="bento-grid">
                 <div class="bento-card" style="grid-column: span 7;">
-                    <div class="card-header-pill pill-emerald">SÍNTESIS DE VALOR DEL PROYECTO</div>
-                    <div class="card-title">ExpendeX Demuestra Viabilidad Total</div>
+                    <div class="card-header-pill pill-emerald">SÍNTESIS DE DESARROLLO DEL PROYECTO (PIA)</div>
+                    <div class="card-title">Alineación Curricular y Viabilidad Comprobada</div>
                     <div class="card-body" style="font-size: 0.92rem;">
-                        • <strong>Técnicamente Probado:</strong> Ensamble CAD Fusion 360 al 100%, simulación matricial de potencia EasyEDA funcional, firmware ESP32 en Wokwi y quiosco web de 10.1" con flujo de compra digital completo.<br><br>
-                        • <strong>Financieramente Rentable:</strong> Costo BOM de $46,463 MXN, VAN de $138,420 MXN, TIR de 182% y recuperación de inversión en tan solo 4.2 meses.<br><br>
-                        • <strong>Socialmente Pertinente:</strong> Erradica el tiempo perdido en filas de cafetería y brinda comida caliente casera balanceada a $85 MXN las 24 horas del día.
+                        • <strong>Cumplimiento FIME UANL al 100%:</strong> Integración multidisciplinar exitosa de mecánica 3D (Fusion 360), electrónica de potencia (EasyEDA), firmware FreeRTOS (ESP32) y desarrollo web full-stack.<br><br>
+                        • <strong>Retos Técnicos Superados:</strong> Solución analítica al pandeo de charolas (Euler-Bernoulli), supresión de Back-EMF con aislamiento galvánico y refrigeración estricta NOM-251 a 42°C exterior.<br><br>
+                        • <strong>Manufactura Nacional Factible:</strong> BOM de $46,463.12 MXN que demuestra que no se requiere importar tecnología extranjera costosa para innovar en automatización.<br><br>
+                        • <strong>Impacto Social Comunitario:</strong> Dignifica la alimentación estudiantil con comida caliente balanceada a $85 MXN en 10 segundos, beneficiando a loncherías locales.
                     </div>
                 </div>
                 <div class="bento-card" style="grid-column: span 5; justify-content: center; background: rgba(16, 185, 129, 0.08); border-color: rgba(16, 185, 129, 0.4);">
@@ -1568,8 +1111,12 @@
                         <a href="https://github.com/Anubys6/ExpendeX-Smart-Vending-FIME" target="_blank" style="color: var(--neon-cyan); font-weight: 700; word-break: break-all; text-decoration: none;">
                             🔗 https://github.com/Anubys6/ExpendeX-Smart-Vending-FIME
                         </a>
-                        <div style="margin-top: 16px; font-size: 0.8rem; color: var(--text-muted);">
-                            Todo usuario con el enlace tiene acceso directo a la documentación completa y réplica del proyecto.
+                        <div style="margin-top: 14px; font-size: 0.85rem; color: var(--text-light);">
+                            <strong>Demostraciones Listas en Vivo:</strong><br>
+                            • Quiosco Web Touchscreen 10.1" (localhost:3000)<br>
+                            • Panel Administrativo (/admin)<br>
+                            • Simulación Wokwi 36 LEDs<br>
+                            • Simulador EasyEDA de Potencia (potencia.html)
                         </div>
                     </div>
                 </div>
@@ -1583,9 +1130,9 @@
         <div class="nav-info">
             <div class="logo-tag">
                 <div class="logo-dot"></div>
-                EXPENDEX <span style="font-weight: 400; font-size: 0.85rem; color: var(--text-muted);">| Pitch Deck</span>
+                EXPENDEX <span style="font-weight: 400; font-size: 0.85rem; color: var(--text-muted);">| Memoria Técnica</span>
             </div>
-            <div class="slide-counter" id="slideCounter">Diapositiva 1 / 23</div>
+            <div class="slide-counter" id="slideCounter">Diapositiva 1 / 15</div>
         </div>
 
         <div class="nav-controls">
@@ -1599,7 +1146,7 @@
     <!-- Overview Drawer -->
     <div class="overview-drawer" id="overviewDrawer">
         <div class="drawer-header">
-            <h2 style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF;">Índice General de Diapositivas</h2>
+            <h2 style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF;">Índice General de Diapositivas Técnicas</h2>
             <button class="btn-nav primary" onclick="closeDrawer()">✕ Cerrar (Esc)</button>
         </div>
         <div class="drawer-grid" id="drawerGrid"></div>
@@ -1607,33 +1154,25 @@
 
     <!-- Interactive Navigation Scripts -->
     <script>
-        const totalSlides = 23;
+        const totalSlides = 15;
         let currentSlide = 1;
 
         const titles = [
-            "00. Portada Ejecutiva y Modelo 3D CAD Oficial",
-            "01. Origen y Motivación: ¿Por qué creamos esta máquina?",
-            "02. El Problema: 'Desiertos Alimentarios' y Chatarra Forzada",
-            "03. La Competencia y Estado Actual: ¿Por qué fracasan?",
-            "04. Matriz de Benchmarking 10X frente a alternativas",
-            "05. Estudio Socioeconómico del Público Objetivo en NL",
-            "06. ¿Para quién es esta máquina? - Mercado Dual (B2C + B2B)",
-            "07. La Solución: Prototipo Real ExpendeX (CAD 3D Oficial)",
-            "08. Ciclo Operativo (1/3): Selección Táctil 10.1" y Pago QR",
-            "09. Ciclo Operativo (2/3): Cómputo RPi y Potencia Matricial",
-            "10. Ciclo Operativo (3/3): Despacho, Compuerta y Telemetría",
-            "11. Inocuidad Sanitaria: Protocolo de Frescura de 14 Horas",
-            "12. ¿En qué mercados establecernos? - Ruta de Expansión",
-            "13. Tamaño de Mercado: TAM, SAM y SOM en Nuevo León",
-            "14. Arquitectura Mecatrónica: El Soporte del Negocio",
-            "15. Costos de Fabricación (BOM Industrial Detallado)",
-            "16. Estructura de Precios y Unit Economics por Producto",
-            "17. Flujos Mensuales y Rendimiento en 3 Escenarios",
-            "18. Métricas Financieras de Inversión: VAN, TIR y Payback",
-            "19. Modelos de Comercialización y Monetización",
-            "20. Barreras de Entrada y Ventaja Competitiva (Moat)",
-            "21. Impacto Social, Académico y Alianza Comunitaria",
-            "22. Conclusiones Ejecutivas, Repositorio y Demostración"
+            "00. Portada de Ingeniería y Modelo CAD Oficial",
+            "01. Contexto Real en FIME y Problema de Ingeniería",
+            "02. Reto Mecánico 1: Chasis y Copete Ergonómico 10.1"",
+            "03. Reto Mecánico 2: Rigidez Asimétrica (Euler-Bernoulli)",
+            "04. Reto Mecánico 3: Cinemática y Torque de Espirales",
+            "05. Reto Térmico 4: Refrigeración NOM-251 en Monterrey",
+            "06. Reto Eléctrico 5: Potencia Matricial 6x6 (EasyEDA)",
+            "07. Reto de Control 6: Firmware ESP32 FreeRTOS y Wokwi",
+            "08. Reto de Software 7: Plataforma Web y Regla 14h",
+            "09. Reto Mecánico 8: Compuerta Basculante Antirrobo",
+            "10. Ciclo de Operación Integrado en 8 a 12 Segundos",
+            "11. Costos de Fabricación y BOM Real ($46,463 MXN)",
+            "12. Unit Economics y Modelado de Rentabilidad",
+            "13. Validación Experimental: Teoría vs Medición",
+            "14. Conclusiones de Ingeniería, Repositorio y Demos"
         ];
 
         function initDrawer() {
