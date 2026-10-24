@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExpendeX - Pitch Deck Ejecutivo Estilo Canva | FIME UANL</title>
+    <style>
+        :root {
+            --bg-dark: #0B0F19;
+            --surface-navy: #131F37;
+            --surface-card: rgba(19, 31, 55, 0.75);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --neon-emerald: #10B981;
+            --neon-cyan: #06B6D4;
+            --neon-amber: #F59E0B;
+            --neon-rose: #F43F5E;
+            --neon-purple: #8B5CF6;
+            --text-light: #F1F5F9;
+            --text-muted: #94A3B8;
+            --font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: var(--font-family);
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Ambient Glow Backgrounds */
+        .ambient-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .glow-1 { top: -150px; left: -100px; background: var(--neon-cyan); }
+        .glow-2 { bottom: -150px; right: -100px; background: var(--neon-emerald); }
+
+        /* Top Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 5%;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-emerald));
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        /* Presentation Stage */
+        .stage {
+            position: relative;
+            flex: 1;
+            width: 100%;
+            height: calc(100vh - 65px);
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 32px;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            max-width: 1560px;
+            height: 100%;
+            max-height: 880px;
+            background: var(--surface-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+            display: none;
+            flex-direction: column;
+            padding: 28px 36px;
+            opacity: 0;
+            transform: scale(0.98) translateY(12px);
+            transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        /* Slide Header */
+        .slide-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 16px;
+            position: relative;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .step-badge {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--neon-emerald);
+            color: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 800;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.35);
+        }
+        .step-badge.cyan { background: var(--neon-cyan); box-shadow: 0 0 15px rgba(6, 182, 212, 0.35); }
+        .step-badge.amber { background: var(--neon-amber); box-shadow: 0 0 15px rgba(245, 158, 11, 0.35); }
+        .step-badge.rose { background: var(--neon-rose); box-shadow: 0 0 15px rgba(244, 63, 94, 0.35); }
+        .step-badge.purple { background: var(--neon-purple); box-shadow: 0 0 15px rgba(139, 92, 246, 0.35); }
+
+        .title-group h2 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #FFFFFF;
+        }
+        .title-group p {
+            font-size: 0.88rem;
+            color: var(--neon-cyan);
+            margin-top: 2px;
+            font-weight: 500;
+        }
+        .header-tag {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--neon-emerald);
+            color: var(--text-light);
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Bento Grid Layouts */
+        .bento-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-gap: 20px;
+            min-height: 0;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        .bento-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+        .bento-grid::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .bento-card {
+            background: rgba(11, 15, 25, 0.6);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .bento-card:hover {
+            border-color: rgba(16, 185, 129, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .card-header-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            width: fit-content;
+        }
+        .pill-emerald { background: rgba(16, 185, 129, 0.15); color: var(--neon-emerald); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .pill-cyan { background: rgba(6, 182, 212, 0.15); color: var(--neon-cyan); border: 1px solid rgba(6, 182, 212, 0.3); }
+        .pill-amber { background: rgba(245, 158, 11, 0.15); color: var(--neon-amber); border: 1px solid rgba(245, 158, 11, 0.3); }
+        .pill-rose { background: rgba(244, 63, 94, 0.15); color: var(--neon-rose); border: 1px solid rgba(244, 63, 94, 0.3); }
+        .pill-purple { background: rgba(139, 92, 246, 0.15); color: var(--neon-purple); border: 1px solid rgba(139, 92, 246, 0.3); }
+
+        .card-title {
+            font-size: 1.12rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-body {
+            font-size: 0.88rem;
+            line-height: 1.55;
+            color: var(--text-muted);
+            flex: 1;
+        }
+        .card-body strong {
+            color: var(--text-light);
+        }
+
+        /* Large KPI Typography */
+        .kpi-container {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin: 8px 0 12px 0;
+        }
+        .kpi-val {
+            font-size: 2.3rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            font-feature-settings: "tnum";
+            font-variant-numeric: tabular-nums;
+        }
+        .kpi-emerald { color: var(--neon-emerald); text-shadow: 0 0 20px rgba(16, 185, 129, 0.25); }
+        .kpi-cyan { color: var(--neon-cyan); text-shadow: 0 0 20px rgba(6, 182, 212, 0.25); }
+        .kpi-amber { color: var(--neon-amber); text-shadow: 0 0 20px rgba(245, 158, 11, 0.25); }
+        .kpi-rose { color: var(--neon-rose); text-shadow: 0 0 20px rgba(244, 63, 94, 0.25); }
+
+        .kpi-unit {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        /* Tables */
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+            margin-top: 8px;
+        }
+        .custom-table th {
+            background: rgba(19, 31, 55, 0.9);
+            color: var(--neon-cyan);
+            font-weight: 700;
+            text-align: left;
+            padding: 9px 12px;
+            border-bottom: 2px solid rgba(6, 182, 212, 0.3);
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            letter-spacing: 0.04em;
+        }
+        .custom-table td {
+            padding: 9px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+        }
+        .custom-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .custom-table tr.highlight td {
+            background: rgba(16, 185, 129, 0.12);
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        /* Image Containers */
+        .img-fit-container {
+            width: 100%;
+            height: 100%;
+            min-height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            position: relative;
+        }
+        .img-fit-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: transform 0.4s ease;
+        }
+        .img-fit-container:hover img {
+            transform: scale(1.02);
+        }
+
+        /* Floating Navigation Bar */
+        .bottom-nav {
+            height: 65px;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 36px;
+            z-index: 100;
+        }
+        .nav-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .logo-tag {
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--neon-emerald);
+            box-shadow: 0 0 10px var(--neon-emerald);
+        }
+        .slide-counter {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 14px;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .btn-nav {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.88rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+        .btn-nav:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--neon-cyan);
+            color: #FFFFFF;
+            transform: translateY(-1px);
+        }
+        .btn-nav.primary {
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: #FFFFFF;
+            border: none;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+        .btn-nav.primary:hover {
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+            transform: translateY(-1px);
+        }
+
+        /* Overview Drawer */
+        .overview-drawer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(11, 15, 25, 0.95);
+            backdrop-filter: blur(25px);
+            z-index: 200;
+            display: none;
+            flex-direction: column;
+            padding: 40px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .overview-drawer.open {
+            display: flex;
+            opacity: 1;
+        }
+        .drawer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+        .drawer-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-gap: 16px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        .drawer-item {
+            background: var(--surface-navy);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 120px;
+        }
+        .drawer-item:hover, .drawer-item.active {
+            border-color: var(--neon-emerald);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+        }
+        .drawer-num {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--neon-emerald);
+        }
+        .drawer-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #FFFFFF;
+            margin-top: 8px;
+            line-height: 1.35;
+        }
+
+        /* Hero Slide 1 Specifics */
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            background: linear-gradient(135deg, #FFFFFF 40%, var(--neon-cyan) 80%, var(--neon-emerald) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            line-height: 1.5;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin-bottom: 24px;
+        }
+        .hero-badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .hero-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <!-- Top Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Main Stage Container -->
+    <div class="stage">
+
+        <!-- ========================================== -->
+        <!-- SLIDE 1: HERO COVER -->
+        <!-- ========================================== -->
+        <div class="slide active" id="slide-1">
+            <div class="bento-grid" style="align-items: center;">
+                <div style="grid-column: span 7; display: flex; flex-direction: column; justify-content: center; padding-right: 20px;">
+                    <div class="card-header-pill pill-emerald">PROYECTO DE INGENIERÍA APLICADA | FIME - UANL</div>
+                    <h1 class="hero-title">EXPENDEX</h1>
+                    <p class="hero-subtitle">
+                        El Micro-Restaurante Automatizado Híbrido que resuelve la crisis de alimentación saludable rápida en campus y centros laborales de Nuevo León.
+                    </p>
+                    <div class="hero-badge-group">
+                        <div class="hero-badge" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">
+                            <span>💻</span> Samuel (Jefe de Proyecto, CAD 3D, Digital)
+                        </div>
+                        <div class="hero-badge" style="border-color: var(--neon-amber); color: var(--neon-amber);">
+                            <span>⚡</span> Compañero (Web Kiosco, Admin, Potencia)
+                        </div>
+                        <div class="hero-badge" style="border-color: var(--neon-emerald); color: var(--neon-emerald);">
+                            <span>📍</span> San Nicolás de los Garza, N.L.
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 16px; margin-top: 10px;">
+                        <button class="btn-nav primary" onclick="nextSlide()">Comenzar Pitch Ejecutivo →</button>
+                        <button class="btn-nav" onclick="openDrawer()">Índice de Diapositivas (20)</button>
+                    </div>
+                </div>
+                <div style="grid-column: span 5; height: 100%; display: flex; align-items: center; justify-content: center;">
+                    <div class="img-fit-container" style="max-height: 700px; border-color: rgba(16, 185, 129, 0.4); box-shadow: 0 20px 50px rgba(0,0,0,0.8);">
+                        <img src="Expendex_Render_Oficial_Definitivo.png" alt="Render Oficial ExpendeX">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 2: ORIGEN Y MOTIVACIÓN -->
+        <!-- ========================================== -->
+        <div class="slide" id="slide-2">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge">01</div>
+                    <div class="title-group">
+                        <h2>ORIGEN Y MOTIVACIÓN: ¿QUÉ NOS IMPULSÓ A CREAR ESTA MÁQUINA?</h2>
+                        <p>La vivencia cotidiana del estudiante y trabajador en Nuevo León frente a la barrera de alimentación</p>
+                    </div>
+                </div>
+                <div class="header-tag">MOTIVACIÓN Y PROPÓSITO</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-rose">1. LA VIVENCIA EN CARNE PROPIA</div>
+                    <div class="card-title">El Dilema del Horario Quebrado</div>
+                    <div class="card-body">
+                        Como estudiantes de la FIME UANL en horarios continuos de 7:00 a 21:00 hrs, sufrimos a diario la falta de opciones para comer comida real, nutritiva y caliente en recesos de 15 a 20 minutos.<br><br>
+                        Las cafeterías colapsan con filas de más de 35 minutos y las aplicaciones de delivery cobran tarifas abusivas de envío.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-amber">2. LA TRAMPA DE LA CHATARRA</div>
+                    <div class="card-title">Monopolio de Ultraprocesados</div>
+                    <div class="card-body">
+                        Las máquinas vending tradicionales existentes en el campus ofrecen exclusivamente papas fritas, refrescos azucarados y galletas.<br><br>
+                        Esta falta de alternativa obliga al alumno y al empleado operativo a consumir calorías vacías que generan fatiga crónica, baja concentración y deterioro en la salud metabólica.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-emerald">3. LA VISIÓN INGENIERIL</div>
+                    <div class="card-title">Mecatrónica con Propósito Real</div>
+                    <div class="card-body">
+                        No quisimos hacer un proyecto puramente teórico o una maqueta decorativa.<br><br>
+                        Diseñamos una <strong>máquina vending híbrida real</strong>, construida con manufactura nacional y tecnología IoT, capaz de almacenar guisos calientes frescos y bebidas frías, dignificando la nutrición de nuestra comunidad a precios accesibles.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 3: PROBLEMÁTICA CUANTITATIVA -->
+        <!-- ========================================== -->
+        <div class="slide" id="slide-3">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge rose">02</div>
+                    <div class="title-group">
+                        <h2>EL PROBLEMA: "DESIERTOS ALIMENTARIOS" Y COMIDA CHATARRA FORZADA</h2>
+                        <p>Diagnóstico cuantitativo del impacto en salud, economía y productividad en Nuevo León</p>
+                    </div>
+                </div>
+                <div class="header-tag" style="border-color: var(--neon-rose); color: var(--neon-rose);">DIAGNÓSTICO CRÍTICO</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-rose">POBLACIÓN AFECTADA</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-rose">73.6%</span>
+                        <span class="kpi-unit">NL Adultos</span>
+                    </div>
+                    <div class="card-title">Sobrepeso y Obesidad</div>
+                    <div class="card-body">
+                        Nuevo León lidera las tasas de enfermedades cardiometabólicas por dependencia forzada a comida rápida y ultraprocesada durante jornadas laborales y escolares intensas (ENSANUT).
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-amber">TIEMPO PERDIDO</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-amber">42 min</span>
+                        <span class="kpi-unit">Promedio / Almuerzo</span>
+                    </div>
+                    <div class="card-title">Colapso en Cafeterías</div>
+                    <div class="card-body">
+                        En campus universitarios y maquiladoras, los tiempos de espera en fila superan los 40 minutos en horas pico, obligando a los usuarios a saltarse comidas o comprar chatarra de paso.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-cyan">SOBRECOSTO LOGÍSTICO</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-cyan">+85%</span>
+                        <span class="kpi-unit">vs Costo Comida</span>
+                    </div>
+                    <div class="card-title">Tarifas de Delivery Abusivas</div>
+                    <div class="card-body">
+                        Pedir una comida de $90 MXN por UberEats o DidiFood termina costando entre $160 y $190 MXN debido a comisiones, tarifa de servicio, propina y costos de envío.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 4: ANÁLISIS DE LA COMPETENCIA -->
+        <!-- ========================================== -->
+        <div class="slide" id="slide-4">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge rose">03</div>
+                    <div class="title-group">
+                        <h2>LA COMPETENCIA Y EL ESTADO DEL MERCADO: ¿POR QUÉ FRACASAN?</h2>
+                        <p>Análisis crítico de las 4 soluciones actuales y sus barreras técnicas, logísticas y de costo</p>
+                    </div>
+                </div>
+                <div class="header-tag" style="border-color: var(--neon-rose); color: var(--neon-rose);">ANÁLISIS COMPETITIVO</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 3;">
+                    <div class="card-header-pill pill-rose">OPCIÓN 1: VENDING TRADICIONAL</div>
+                    <div class="card-title">Máquinas de Snacks / Sodas</div>
+                    <div class="card-body">
+                        • <strong>Falla:</strong> 0% comida caliente o nutritiva.<br>
+                        • <strong>Hardware:</strong> Monederos obsoletos que se traban.<br>
+                        • <strong>Software:</strong> Sin telemetría ni pagos QR.<br>
+                        • <strong>Nutrición:</strong> 100% calorías vacías y sellos negros.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 3;">
+                    <div class="card-header-pill pill-amber">OPCIÓN 2: CAFETERÍAS FÍSICAS</div>
+                    <div class="card-title">Comedores Universitarios</div>
+                    <div class="card-body">
+                        • <strong>Falla:</strong> Filas masivas de 35 a 50 minutos.<br>
+                        • <strong>Horario:</strong> Cierran temprano (18:00 hrs).<br>
+                        • <strong>Costos:</strong> Renta de local y nómina elevada.<br>
+                        • <strong>Inconsistencia:</strong> Calidad y precio variables.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 3;">
+                    <div class="card-header-pill pill-cyan">OPCIÓN 3: APPS DE DELIVERY</div>
+                    <div class="card-title">UberEats, Didi, Rappi</div>
+                    <div class="card-body">
+                        • <strong>Falla:</strong> Costo inflado de $160 a $220 por orden.<br>
+                        • <strong>Tiempos:</strong> 45 a 65 min de espera de entrega.<br>
+                        • <strong>Acceso:</strong> Repartidores no pueden entrar a salones.<br>
+                        • <strong>Clima:</strong> Colapso total con lluvia o calor extremo.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 3;">
+                    <div class="card-header-pill pill-purple">OPCIÓN 4: IMPORTADAS (USA/CHINA)</div>
+                    <div class="card-title">Smart Vending Extranjeras</div>
+                    <div class="card-body">
+                        • <strong>Falla:</strong> Costo prohibitivo ($180,000+ MXN).<br>
+                        • <strong>Refacciones:</strong> Semanas de paro por piezas chinas.<br>
+                        • <strong>Suscripción:</strong> Cobro mensual en dólares de SaaS.<br>
+                        • <strong>Sin tropicalizar:</strong> No aceptan transferencias SPEI/QR local.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 5: MATRIZ DE BENCHMARKING -->
+        <!-- ========================================== -->
+        <div class="slide" id="slide-5">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge">04</div>
+                    <div class="title-group">
+                        <h2>MATRIZ DE BENCHMARKING: EXPENDEX FRENTE A TODAS LAS ALTERNATIVAS</h2>
+                        <p>Comparativa cuantitativa multidimensional de costos, tiempos, inocuidad y accesibilidad</p>
+                    </div>
+                </div>
+                <div class="header-tag">BENCHMARKING 10X</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 7;">
+                    <div class="card-header-pill pill-emerald">COMPARATIVA DIRECTA EN CAMPO</div>
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Criterio Evaluado</th>
+                                <th>Vending Común</th>
+                                <th>Cafetería FIME</th>
+                                <th>Delivery App</th>
+                                <th style="color: var(--neon-emerald);">ExpendeX</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Tiempo de Despacho</strong></td>
+                                <td>30 seg</td>
+                                <td>35 - 50 min</td>
+                                <td>45 - 65 min</td>
+                                <td style="color: var(--neon-emerald); font-weight: 700;">8 - 12 seg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Costo Platillo Caliente</strong></td>
+                                <td>N/A (Solo papas)</td>
+                                <td>$85 - $110 MXN</td>
+                                <td>$160 - $220 MXN</td>
+                                <td style="color: var(--neon-emerald); font-weight: 700;">$65 - $85 MXN</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Disponibilidad Horaria</strong></td>
+                                <td>24 / 7</td>
+                                <td>7:00 - 18:00 hrs</td>
+                                <td>Variable</td>
+                                <td style="color: var(--neon-emerald); font-weight: 700;">24 / 7 Continuo</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Métodos de Pago</strong></td>
+                                <td>Monedas sucias</td>
+                                <td>Efectivo / Terminal</td>
+                                <td>Tarjeta de Crédito</td>
+                                <td style="color: var(--neon-emerald); font-weight: 700;">QR, MercadoPago, Tarjeta</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Inocuidad Sanitaria</strong></td>
+                                <td>Sellado de fábrica</td>
+                                <td>Manipulación manual</td>
+                                <td>Contenedor en moto</td>
+                                <td style="color: var(--neon-emerald); font-weight: 700;">Cámara sellada 14h máx</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="bento-card" style="grid-column: span 5; display: flex; align-items: center; justify-content: center;">
+                    <div class="img-fit-container" style="min-height: 280px;">
+                        <img src="ppt_business_charts/chart_competencia_costo_tiempo.png" alt="Gráfica Costo vs Tiempo">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 6: ESTUDIO SOCIOECONÓMICO -->
+        <!-- ========================================== -->
+        <div class="slide" id="slide-6">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge cyan">05</div>
+                    <div class="title-group">
+                        <h2>ESTUDIO SOCIOECONÓMICO: RADIOGRAFÍA DEL PÚBLICO OBJETIVO</h2>
+                        <p>Validación demográfica, capacidad de gasto y adopción tecnológica en Nuevo León (INEGI)</p>
+                    </div>
+                </div>
+                <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">ESTUDIO SOCIOECONÓMICO</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-cyan">UNIVERSO ESTUDIANTIL</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-cyan">216,000+</span>
+                    </div>
+                    <div class="card-title">Alumnos UANL Activos</div>
+                    <div class="card-body">
+                        Más de 24,000 estudiantes matriculados tan solo en Ciudad Universitaria FIME. El 68% pasa más de 8 horas continuas en las instalaciones entre clases, laboratorios y proyectos.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-amber">PRESUPUESTO DIARIO</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-amber">$70 - $110</span>
+                        <span class="kpi-unit">MXN</span>
+                    </div>
+                    <div class="card-title">Gasto Promedio en Comida</div>
+                    <div class="card-body">
+                        El 82% de los universitarios y técnicos gasta exactamente este rango diario. El combo ExpendeX de $85 MXN (Comida casera + Bebida fría) encaja a la perfección en su bolsillo.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-emerald">ADOPCIÓN TECNOLÓGICA</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-emerald">94.2%</span>
+                    </div>
+                    <div class="card-title">Pagos Digitales Diarios</div>
+                    <div class="card-body">
+                        Población bancarizada mediante tarjetas universitarias, MercadoPago, Nu, Hey Banco y transferencias CoDi/SPEI. Cero resistencia al uso de códigos QR y pantallas táctiles interactivas.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 7: PARA QUIÉN ES ESTA MÁQUINA -->
+        <!-- ========================================== -->
+        <div class="slide" id="slide-7">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge amber">06</div>
+                    <div class="title-group">
+                        <h2>¿PARA QUIÉN ES ESTA MÁQUINA? - MERCADO DE DOBLE CARA (DUAL TARGET)</h2>
+                        <p>Un modelo virtuoso que articula beneficios simultáneos para consumidores y productores locales</p>
+                    </div>
+                </div>
+                <div class="header-tag" style="border-color: var(--neon-amber); color: var(--neon-amber);">MERCADO DUAL</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 6;">
+                    <div class="card-header-pill pill-cyan">LADO A: CONSUMIDORES FINALES (B2C)</div>
+                    <div class="card-title">Estudiantes, Profesores y Operadores Industriales</div>
+                    <div class="card-body" style="font-size: 0.92rem;">
+                        • <strong>Estudiantes Universitarios:</strong> Necesitan rapidez absoluta (menos de 15 segundos) entre clases y comida de calidad que sustente su energía intelectual.<br><br>
+                        • <strong>Docentes y Personal Administrativo:</strong> Buscan practicidad sin salir de su edificio de trabajo ni perder tiempo buscando restaurantes.<br><br>
+                        • <strong>Operadores de Maquiladoras y Turnos Nocturnos:</strong> Acceso a alimentos higiénicos a las 3:00 AM cuando todo el comercio circundante está cerrado.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 6;">
+                    <div class="card-header-pill pill-emerald">LADO B: PRODUCTORES LOCALES (B2B)</div>
+                    <div class="card-title">Loncherías, Fondas Familiares y Emprendedores Food-Prep</div>
+                    <div class="card-body" style="font-size: 0.92rem;">
+                        • <strong>Punto de Venta Automatizado:</strong> Colocan de 15 a 30 porciones diarias en cada máquina sin pagar sueldos de meseros ni rentar locales comerciales costosos.<br><br>
+                        • <strong>Canal Seguro de Venta Diaria:</strong> Cobran directamente sus platillos sin intermediarios abusivos de aplicaciones que retienen el 30% del margen.<br><br>
+                        • <strong>Economía Circular:</strong> Todo el valor se queda en las microempresas de comida corrida del municipio de San Nicolás de los Garza y Monterrey.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 8: LA SOLUCIÓN EXPENDEX -->
+        <!-- ========================================== -->
+        <div class="slide" id="slide-8">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge">07</div>
+                    <div class="title-group">
+                        <h2>LA SOLUCIÓN: EXPENDEX - EL MICRO-RESTAURANTE AUTOMATIZADO</h2>
+                        <p>Arquitectura híbrida 1+4+1, refrigeración estricta NOM-251 y quiosco digital de 10.1 pulgadas</p>
+                    </div>
+                </div>
+                <div class="header-tag">HARDWARE + SOFTWARE</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-emerald">BANDEJAS HÍBRIDAS 1+4+1</div>
+                    <div class="card-title">Guisos + Bebidas en Cada Nivel</div>
+                    <div class="card-body">
+                        5 charolas de acero inoxidable con guías telescópicas. En los extremos, espirales helicoidales gigantes (Ø 144 mm) para recipientes de comida caliente de hasta 850 gramos. En el centro, 4 canales para bebidas frías. Capacidad total de 180 a 240 productos.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-cyan">PANTALLA TÁCTIL 10.1" HMI</div>
+                    <div class="card-title">Experiencia de Usuario Fluida</div>
+                    <div class="card-body">
+                        Consola superior integrada en chapa de acero con pantalla táctil de 10.1 pulgadas, lector óptico de códigos QR y bocina de asistencia auditiva. Catálogo digital con fotos de alta resolución, información nutrimental NOM-051 y cobro digital instantáneo.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-amber">TELEMETRÍA EN TIEMPO REAL</div>
+                    <div class="card-title">Panel Administrativo Cloud</div>
+                    <div class="card-body">
+                        Monitoreo continuo de temperatura por sensor digital DS18B20, nivel de stock en tiempo real con sistema FIFO, registro contable automático de ventas por turnos y alertas predictivas de mantenimiento vía Wi-Fi / MQTT.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 9: PROTOCOLO DE FRESCURA DE 14 HORAS -->
+        <!-- ========================================== -->
+        <div class="slide" id="slide-9">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge cyan">08</div>
+                    <div class="title-group">
+                        <h2>INOCUIDAD SANITARIA: PROTOCOLO DE FRESCURA Y BLOQUEO AUTOMÁTICO</h2>
+                        <p>Algoritmo de rotación diaria que garantiza alimentos 100% frescos y elimina mermas biológicas</p>
+                    </div>
+                </div>
+                <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">INOCUIDAD SANITARIA</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-cyan">06:00 AM — CARGA MATUTINA</div>
+                    <div class="card-title">Guisos Recién Preparados</div>
+                    <div class="card-body">
+                        La lonchería aliada surte los platillos preparados esa misma mañana. Cada recipiente entra con código QR único que registra fecha, hora de cocción, lote y temperatura inicial.<br><br>
+                        Se valida en el sistema y se desbloquea el inventario para venta inmediata.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-emerald">12:00 PM — PICO DE VENTA</div>
+                    <div class="card-title">Consumo en Horas Pico</div>
+                    <div class="card-body">
+                        Durante el turno de 11:30 a 15:30 hrs se despacha más del 70% del inventario diario en segundos. La cámara aislada con poliuretano de 50 mm mantiene una temperatura constante y segura de 4°C a 6°C cumpliendo la NOM-251-SSA1.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-rose">20:00 PM — BLOQUEO AUTOMÁTICO</div>
+                    <div class="card-title">Cero Alimento Caducado</div>
+                    <div class="card-body">
+                        Si al cumplirse 14 horas algún platillo no fue vendido, el microcontrolador <strong>bloquea automáticamente la espiral</strong> para impedir su compra. El quiosco lo saca de catálogo. El proveedor retira el sobrante a las 20:30 hrs.<br><br>
+                        <strong>Garantía: ¡Nunca se vende comida de días anteriores!</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 10: RUTA DE EXPANSIÓN DE MERCADOS -->
+        <!-- ========================================== -->
+        <div class="slide" id="slide-10">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge">09</div>
+                    <div class="title-group">
+                        <h2>¿EN QUÉ MERCADOS PODEMOS ESTABLECERNOS? - RUTA DE EXPANSIÓN</h2>
+                        <p>Estrategia de penetración por fases en centros de alta densidad y demanda desatendida en NL</p>
+                    </div>
+                </div>
+                <div class="header-tag">RUTA DE EXPANSIÓN</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-emerald">FASE 1: CIUDAD UNIVERSITARIA</div>
+                    <div class="card-title">Campus UANL San Nicolás</div>
+                    <div class="card-body">
+                        • <strong>Ubicación Piloto:</strong> FIME (Edificios 1, 4 y Polivalente).<br>
+                        • <strong>Población:</strong> 24,000 alumnos y profesores.<br>
+                        • <strong>Meta:</strong> 3 unidades iniciales con alianza de 2 loncherías locales.<br>
+                        • <strong>Validación:</strong> Ajuste fino de algoritmos de reposición y tiempos de despacho en campo.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-cyan">FASE 2: RED UNIVERSITARIA NL</div>
+                    <div class="card-title">Mederos, Ciencias Salud y TEC</div>
+                    <div class="card-body">
+                        • <strong>Ubicación:</strong> Campus Mederos, Medicina, Odontología y convenios con facultades foráneas.<br>
+                        • <strong>Población:</strong> 85,000 usuarios potenciales.<br>
+                        • <strong>Meta:</strong> Flota de 15 a 20 unidades ExpendeX interconectadas bajo el panel central de administración.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-amber">FASE 3: CORREDOR INDUSTRIAL</div>
+                    <div class="card-title">Parques Industriales y Call Centers</div>
+                    <div class="card-body">
+                        • <strong>Ubicación:</strong> Apodaca, Pesquería, Cienega de Flores y Santa Catarina (Nearshoring).<br>
+                        • <strong>Población:</strong> Cientos de miles de operarios de 3 turnos.<br>
+                        • <strong>Meta:</strong> Esquema B2B institucional de alimentación para empresas sin comedor industrial.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 11: TAMAÑO DE MERCADO TAM SAM SOM -->
+        <!-- ========================================== -->
+        <div class="slide" id="slide-11">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge cyan">10</div>
+                    <div class="title-group">
+                        <h2>TAMAÑO DE MERCADO: TAM, SAM Y SOM EN NUEVO LEÓN</h2>
+                        <p>Dimensionamiento del valor de mercado potencial en vending de comida y bebidas preparadas</p>
+                    </div>
+                </div>
+                <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">TAMAÑO DE MERCADO</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 7;">
+                    <div class="card-header-pill pill-cyan">DESGLOSE DEL MERCADO POTENCIAL</div>
+                    <div style="margin: 14px 0;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                            <span style="font-weight: 700; color: #FFFFFF;">TAM (Mercado Total Direccionable): $4,200 MDP/año</span>
+                            <span style="color: var(--neon-cyan); font-weight: 700;">100%</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+                            Gasto total anual en comida rápida, cafeterías y colaciones dentro de empresas y universidades en la Zona Metropolitana de Monterrey.
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                            <span style="font-weight: 700; color: #FFFFFF;">SAM (Mercado Disponible Útil): $380 MDP/año</span>
+                            <span style="color: var(--neon-amber); font-weight: 700;">9.0%</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+                            Comunidades universitarias UANL, TEC, UDEM y parques industriales con alta bancarización y recesos cortos.
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                            <span style="font-weight: 700; color: #FFFFFF;">SOM (Mercado Obtenible Objetivo Año 1-2): $18.5 MDP/año</span>
+                            <span style="color: var(--neon-emerald); font-weight: 700;">4.8% SAM</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">
+                            Captura del 5% del consumo en Campus Ciudad Universitaria FIME y facultades vecinas con 12 máquinas operando a plena capacidad.
+                        </div>
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 5; display: flex; align-items: center; justify-content: center;">
+                    <div class="img-fit-container" style="min-height: 280px;">
+                        <img src="ppt_business_charts/chart_tam_sam_som.png" alt="Gráfica TAM SAM SOM">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 12: ARQUITECTURA MECATRÓNICA -->
+        <!-- ========================================== -->
+        <div class="slide" id="slide-12">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge">11</div>
+                    <div class="title-group">
+                        <h2>ARQUITECTURA MECATRÓNICA: EL SOPORTE QUE HACE VIABLE EL NEGOCIO</h2>
+                        <p>Diseño paramétrico 3D, electrónica matricial de potencia EasyEDA y control en tiempo real</p>
+                    </div>
+                </div>
+                <div class="header-tag">INGENIERÍA MECATRÓNICA</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-emerald">DISEÑO CAD 3D INDUSTRIAL</div>
+                    <div class="card-title">Chasis Robusto y Térmico</div>
+                    <div class="card-body">
+                        Estructura paramétrica en chapa de acero calibre 18, dimensiones 1830 x 950 x 880 mm, aislamiento de poliuretano de alta densidad, puerta hermética con 3 bisagras de uso rudo y compuerta inferior oscilante sin manija exterior contra vandalismo.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-cyan">ELECTRÓNICA MATRICIAL 6X6</div>
+                    <div class="card-title">Simulación EasyEDA Validada</div>
+                    <div class="card-body">
+                        Control de 36 motores de espiral reduciendo el cableado de 72 a solo 12 líneas mediante multiplexación matricial. Driver High-Side con MOSFETs canal P y Low-Side con MOSFETs canal N optoacoplados para aislamiento galvánico de ruidos inductivos.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-amber">FIRMWARE ESP32 + WOKWI</div>
+                    <div class="card-title">Control Digital Preciso</div>
+                    <div class="card-body">
+                        Firmware desarrollado en C++ sobre ESP32 Dual Core con simulación exhaustiva en Wokwi. Máquina de estados no bloqueante que gestiona pulsos de motor, lectura de sensores de temperatura y comunicación bidireccional por puerto serial y WebSockets.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 13: COSTOS INDUSTRIALES BOM -->
+        <!-- ========================================== -->
+        <div class="slide" id="slide-13">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge">12</div>
+                    <div class="title-group">
+                        <h2>COSTOS DE FABRICACIÓN (BOM INDUSTRIAL DETALLADO)</h2>
+                        <p>Desglose de inversión física por máquina: $46,463.12 MXN frente a $180,000+ MXN importada</p>
+                    </div>
+                </div>
+                <div class="header-tag">COSTOS INDUSTRIALES</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 8;">
+                    <div class="card-header-pill pill-emerald">DESGLOSE POR SUBSISTEMA DE FABRICACIÓN</div>
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Subsistema Mecatrónico</th>
+                                <th>Componentes Principales</th>
+                                <th>Costo MXN</th>
+                                <th>% Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Chasis y Carrocería</strong></td>
+                                <td>Chapa acero cal 18, corte láser, pintura electrostática, ruedas con freno</td>
+                                <td>$14,250.00</td>
+                                <td>30.7%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Refrigeración Grado Alimento</strong></td>
+                                <td>Compresor Embraco 1/4 HP R134a, evaporador ventilado, control digital</td>
+                                <td>$9,800.00</td>
+                                <td>21.1%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mecanismos de Despacho</strong></td>
+                                <td>36 motorreductores 24V, 5 bandejas inox, 36 espirales helicoidales</td>
+                                <td>$8,950.00</td>
+                                <td>19.3%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Consola HMI y Cómputo</strong></td>
+                                <td>Touchscreen 10.1", Raspberry Pi 4, lector QR óptico, bocina guía</td>
+                                <td>$7,150.00</td>
+                                <td>15.4%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Electrónica de Potencia</strong></td>
+                                <td>PCB EasyEDA matriz 6x6, fuente industrial 24V/5V, ESP32, relevadores</td>
+                                <td>$4,120.00</td>
+                                <td>8.9%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tornillería y Ensamble</strong></td>
+                                <td>Arneses automotrices, empaques magnéticos, herrajes de seguridad</td>
+                                <td>$2,193.12</td>
+                                <td>4.7%</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><strong>TOTAL BOM FABRICACIÓN</strong></td>
+                                <td>Unidad ExpendeX 100% Funcional y Lista para Despliegue</td>
+                                <td style="color: var(--neon-emerald); font-size: 0.95rem;">$46,463.12</td>
+                                <td style="color: var(--neon-emerald); font-size: 0.95rem;">100.0%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="bento-card" style="grid-column: span 4; justify-content: center;">
+                    <div class="card-header-pill pill-cyan">VENTAJA FINANCIERA RADICAL</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-cyan">3.9x</span>
+                        <span class="kpi-unit">Más Económica</span>
+                    </div>
+                    <div class="card-title">Ahorro frente a Máquinas Extranjeras</div>
+                    <div class="card-body">
+                        Una máquina importada con pantalla y refrigeración cuesta entre $175,000 y $210,000 MXN en México más gastos de importación y aranceles.<br><br>
+                        <strong>Con la misma inversión de 1 máquina importada, ExpendeX fabrica casi 4 unidades completas</strong>, multiplicando por 4 el alcance y el flujo de efectivo.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 14: ESTRUCTURA DE PRECIOS Y UNIT ECONOMICS -->
+        <!-- ========================================== -->
+        <div class="slide" id="slide-14">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge">13</div>
+                    <div class="title-group">
+                        <h2>ESTRUCTURA DE PRECIOS Y UNIT ECONOMICS POR PRODUCTO</h2>
+                        <p>Ecuación financiera de cada venta: márgenes atractivos para la lonchería y para ExpendeX</p>
+                    </div>
+                </div>
+                <div class="header-tag">UNIT ECONOMICS</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 7;">
+                    <div class="card-header-pill pill-emerald">COMBO ESTRELLA: GUISO CALIENTE + BEBIDA FRÍA</div>
+                    <div style="display: flex; gap: 20px; margin: 10px 0;">
+                        <div>
+                            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Precio al Consumidor</div>
+                            <div class="kpi-val kpi-emerald">$85.00 <span style="font-size: 1rem; color: var(--text-light);">MXN</span></div>
+                        </div>
+                        <div style="border-left: 1px solid rgba(255,255,255,0.1); padding-left: 20px;">
+                            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Margen Bruto ExpendeX</div>
+                            <div class="kpi-val kpi-cyan">30.6% <span style="font-size: 1rem; color: var(--text-light);">($26.00 MXN)</span></div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="margin-top: 8px;">
+                        • <strong>Pago a Lonchería Aliada:</strong> $45.00 MXN (cubre insumos del platillo y garantiza ganancia limpia para el cocinero).<br>
+                        • <strong>Costo Mayoreo de la Bebida:</strong> $14.00 MXN (adquirida en paquetes institucionales de refresco / té / agua).<br>
+                        • <strong>Comisión Pasarela de Pago Digital:</strong> $2.55 MXN (MercadoPago / SPEI ~3%).<br>
+                        • <strong>Margen Neto Operativo ExpendeX:</strong> <strong>$23.45 MXN por combo</strong> para cubrir amortización, energía eléctrica y utilidad neta.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 5; display: flex; align-items: center; justify-content: center;">
+                    <div class="img-fit-container" style="min-height: 280px;">
+                        <img src="ppt_business_charts/chart_unit_economics_pie.png" alt="Unit Economics Pie Chart">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 15: FLUJOS MENSUALES Y ESCENARIOS -->
+        <!-- ========================================== -->
+        <div class="slide" id="slide-15">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge">14</div>
+                    <div class="title-group">
+                        <h2>¿CUÁNTO RENDIMIENTO GENERA ESTA MÁQUINA? - FLUJOS MENSUALES</h2>
+                        <p>Modelación financiera de 3 escenarios operativos reales: Conservador, Base y Alta Demanda</p>
+                    </div>
+                </div>
+                <div class="header-tag">RENDIMIENTO FINANCIERO</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 7;">
+                    <div class="card-header-pill pill-emerald">MATRIZ DE SENSIBILIDAD MENSUAL (POR MÁQUINA)</div>
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Parámetro Operativo</th>
+                                <th>Conservador (50)</th>
+                                <th style="color: var(--neon-cyan);">Base (85)</th>
+                                <th style="color: var(--neon-emerald);">Alta Demanda (130)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Ventas Diarias (Unidades)</strong></td>
+                                <td>50 combos/día</td>
+                                <td style="color: var(--neon-cyan); font-weight: 700;">85 combos/día</td>
+                                <td style="color: var(--neon-emerald); font-weight: 700;">130 combos/día</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ingreso Bruto Mensual (25d)</strong></td>
+                                <td>$106,250 MXN</td>
+                                <td style="color: var(--neon-cyan); font-weight: 700;">$180,625 MXN</td>
+                                <td style="color: var(--neon-emerald); font-weight: 700;">$276,250 MXN</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Costo Alimentos y Bebidas</strong></td>
+                                <td>-$73,750 MXN</td>
+                                <td>-$125,375 MXN</td>
+                                <td>-$191,750 MXN</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Energía Eléctrica (CFE Tarifa 2)</strong></td>
+                                <td>-$1,150 MXN</td>
+                                <td>-$1,250 MXN</td>
+                                <td>-$1,400 MXN</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mantenimiento y Conectividad</strong></td>
+                                <td>-$1,200 MXN</td>
+                                <td>-$1,500 MXN</td>
+                                <td>-$1,800 MXN</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><strong>UTILIDAD NETA MENSUAL</strong></td>
+                                <td>$30,150 MXN</td>
+                                <td style="color: var(--neon-cyan); font-size: 0.95rem;">$52,500 MXN</td>
+                                <td style="color: var(--neon-emerald); font-size: 0.95rem;">$81,300 MXN</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="bento-card" style="grid-column: span 5; display: flex; align-items: center; justify-content: center;">
+                    <div class="img-fit-container" style="min-height: 280px;">
+                        <img src="ppt_business_charts/chart_flujo_acumulado_escenarios.png" alt="Flujo Acumulado Escenarios">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 16: MÉTRICAS FINANCIERAS VAN TIR ROI -->
+        <!-- ========================================== -->
+        <div class="slide" id="slide-16">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge">15</div>
+                    <div class="title-group">
+                        <h2>MÉTRICAS FINANCIERAS DE INVERSIÓN: VAN, TIR Y RETORNO ROI</h2>
+                        <p>Evaluación económica formal a 12 meses sobre la inversión inicial de $46,463.12 MXN</p>
+                    </div>
+                </div>
+                <div class="header-tag">EVALUACIÓN DE INVERSIÓN</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 3;">
+                    <div class="card-header-pill pill-emerald">VALOR PRESENTE NETO</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-emerald">$138,420</span>
+                        <span class="kpi-unit">MXN</span>
+                    </div>
+                    <div class="card-title">VAN (Tasa Descuento 12%)</div>
+                    <div class="card-body">
+                        Riqueza neta adicional generada por una sola máquina durante su primer año de operación, descontando el costo del capital y contingencias.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 3;">
+                    <div class="card-header-pill pill-cyan">TASA INTERNA DE RETORNO</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-cyan">182.4%</span>
+                        <span class="kpi-unit">Anual</span>
+                    </div>
+                    <div class="card-title">TIR Excepcional</div>
+                    <div class="card-body">
+                        Supera ampliamente cualquier alternativa bancaria (Cetes 11%) o fondos de inversión inmobiliaria, sustentada en la alta rotación de alimentos diarios.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 3;">
+                    <div class="card-header-pill pill-amber">RECUPERACIÓN DE INVERSIÓN</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-amber">4.2</span>
+                        <span class="kpi-unit">Meses</span>
+                    </div>
+                    <div class="card-title">Payback Period</div>
+                    <div class="card-body">
+                        En el escenario base, la máquina recupera íntegramente sus $46,463.12 MXN de costo de fabricación antes de concluir su primer semestre de vida.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 3;">
+                    <div class="card-header-pill pill-purple">RETORNO SOBRE INVERSIÓN</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-purple">298%</span>
+                        <span class="kpi-unit">Año 1</span>
+                    </div>
+                    <div class="card-title">ROI Anualizado</div>
+                    <div class="card-body">
+                        Cada peso invertido en la construcción del equipo genera casi 3 pesos de ganancia neta disponible al finalizar el ciclo operativo de 12 meses.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 17: MODELOS DE COMERCIALIZACIÓN -->
+        <!-- ========================================== -->
+        <div class="slide" id="slide-17">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge amber">16</div>
+                    <div class="title-group">
+                        <h2>MODELOS DE COMERCIALIZACIÓN Y MONETIZACIÓN</h2>
+                        <p>Tres esquemas comerciales complementarios para expandir y escalar el proyecto</p>
+                    </div>
+                </div>
+                <div class="header-tag" style="border-color: var(--neon-amber); color: var(--neon-amber);">MODELOS DE NEGOCIO</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-emerald">MODELO 1: OPERADOR DIRECTO</div>
+                    <div class="card-title">Flota Propia ExpendeX</div>
+                    <div class="card-body">
+                        • <strong>Esquema:</strong> La empresa es dueña de las máquinas y las coloca en campus universitarios.<br>
+                        • <strong>Ingresos:</strong> Venta directa al 100% de productos y bebidas.<br>
+                        • <strong>Margen:</strong> Máxima rentabilidad por unidad ($52,500 MXN netos mensuales).<br>
+                        • <strong>Enfoque:</strong> Despliegue inicial de control total en FIME y campus aledaños.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-cyan">MODELO 2: FRANQUICIA SOCIAL</div>
+                    <div class="card-title">Alianza con Loncherías Familiares</div>
+                    <div class="card-body">
+                        • <strong>Esquema:</strong> Se vende o arrienda la máquina a dueños de fondas o negocios de banquetes.<br>
+                        • <strong>Inversión Socio:</strong> Enganche del 30% y pagos mensuales financiados con el flujo de venta.<br>
+                        • <strong>Ingresos ExpendeX:</strong> Suscripción al software de telemetría ($1,800 MXN/mes) + 5% de regalía por transacción.<br>
+                        • <strong>Enfoque:</strong> Escalamiento rápido sin apalancamiento de capital.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-purple">MODELO 3: B2B CORPORATIVO</div>
+                    <div class="card-title">SaaS y Comedor Institucional</div>
+                    <div class="card-body">
+                        • <strong>Esquema:</strong> Instalación en parques industriales, plantas de manufactura y call centers.<br>
+                        • <strong>Beneficio Empresa:</strong> Prestación de alimentación de calidad 24/7 para personal sin costo fijo de comedor.<br>
+                        • <strong>Subsidio:</strong> La empresa puede subsidiar el 50% del platillo al trabajador mediante tarjetas de vales o ID de empleado.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 18: BARRERAS DE ENTRADA Y MOAT -->
+        <!-- ========================================== -->
+        <div class="slide" id="slide-18">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge">17</div>
+                    <div class="title-group">
+                        <h2>BARRERAS DE ENTRADA Y VENTAJA COMPETITIVA (DEFENSIBILIDAD / MOAT)</h2>
+                        <p>Los factores tecnológicos, de costo y de red que protegen a ExpendeX frente a imitadores</p>
+                    </div>
+                </div>
+                <div class="header-tag">BARRERAS DE ENTRADA</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 3;">
+                    <div class="card-header-pill pill-emerald">1. COSTO NACIONAL DISRUPTIVO</div>
+                    <div class="card-title">BOM 75% Menor</div>
+                    <div class="card-body">
+                        Nuestra ingeniería propia de chasis y electrónica matricial abate el costo de ensamble a $46,463 MXN. Cualquier competidor importando equipos chinos o norteamericanos entra con un costo 4 veces superior.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 3;">
+                    <div class="card-header-pill pill-cyan">2. PROTOCOLO 14H + BLOQUEO</div>
+                    <div class="card-title">Algoritmo Inocuo Propio</div>
+                    <div class="card-body">
+                        El firmware y software vinculan la vigencia microbiológica con el bloqueo físico de motorreductores. Ninguna vending tradicional cuenta con salvaguarda algorítmica para alimentos perecederos.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 3;">
+                    <div class="card-header-pill pill-amber">3. EFECTO DE RED LOCAL</div>
+                    <div class="card-title">Alianzas de Barrio</div>
+                    <div class="card-body">
+                        Convenios exclusivos con cocinas familiares locales ubicadas a menos de 10 minutos de los puntos de despacho. Esto asegura abastecimiento matutino caliente y elimina costos de fletes lejanos.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 3;">
+                    <div class="card-header-pill pill-purple">4. STACK TECNOLÓGICO PROPIO</div>
+                    <div class="card-title">Soberanía de Software</div>
+                    <div class="card-body">
+                        Quiosco React, Panel Node.js/SQLite, firmware ESP32 en C++ y esquemáticos EasyEDA desarrollados desde cero. Cero dependencia de licencias mensuales extranjeras.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 19: IMPACTO SOCIAL Y ACADÉMICO -->
+        <!-- ========================================== -->
+        <div class="slide" id="slide-19">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge">18</div>
+                    <div class="title-group">
+                        <h2>IMPACTO SOCIAL, ACADÉMICO Y ALIANZA COMUNITARIA</h2>
+                        <p>El valor compartido entre la universidad, los estudiantes, los microempresarios y la sociedad</p>
+                    </div>
+                </div>
+                <div class="header-tag">IMPACTO SOCIAL</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-emerald">ODS 2 Y 3: SALUD Y BIENESTAR</div>
+                    <div class="card-title">Nutrición Digna al Estudiante</div>
+                    <div class="card-body">
+                        Disminuye activamente la ingesta forzada de ultraprocesados, previene gastritis estudiantil y fatiga metabólica, promoviendo un mejor rendimiento académico y salud preventiva en jóvenes.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-cyan">ODS 8: TRABAJO DECENTE Y PYMES</div>
+                    <div class="card-title">Empoderamiento de Fondas Locales</div>
+                    <div class="card-body">
+                        Brinda a las cocinas económicas un canal tecnológico de alta rentabilidad sin intermediarios voraces, dinamizando la economía de las familias vecinas a los campus universitarios.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-purple">RIGOR ACADÉMICO FIME UANL</div>
+                    <div class="card-title">Ingeniería Aplicada Real</div>
+                    <div class="card-body">
+                        Cumple al 100% con los criterios de evaluación del programa de estudios: integración de diseño mecánico 3D, electrónica de potencia matricial, firmware en microcontrolador y plataforma web full-stack.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 20: CONCLUSIONES Y DEMO EN VIVO -->
+        <!-- ========================================== -->
+        <div class="slide" id="slide-20">
+            <div class="slide-header">
+                <div class="header-left">
+                    <div class="step-badge">19</div>
+                    <div class="title-group">
+                        <h2>CONCLUSIONES EJECUTIVAS, REPOSITORIO DIGITAL Y DEMOSTRACIÓN EN VIVO</h2>
+                        <p>Síntesis de valor para el Docente Titular, Comité Evaluador y la Comunidad FIME UANL</p>
+                    </div>
+                </div>
+                <div class="header-tag">CIERRE EJECUTIVO</div>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 7;">
+                    <div class="card-header-pill pill-emerald">SÍNTESIS DE VALOR DEL PROYECTO</div>
+                    <div class="card-title">ExpendeX Demuestra Viabilidad Total</div>
+                    <div class="card-body" style="font-size: 0.92rem;">
+                        • <strong>Técnicamente Probado:</strong> Ensamble CAD Fusion 360 al 100%, simulación matricial de potencia EasyEDA funcional, firmware ESP32 en Wokwi y quiosco web de 10.1" con flujo de compra digital completo.<br><br>
+                        • <strong>Financieramente Rentable:</strong> Costo BOM de $46,463 MXN, VAN de $138,420 MXN, TIR de 182% y recuperación de inversión en tan solo 4.2 meses.<br><br>
+                        • <strong>Socialmente Pertinente:</strong> Erradica el tiempo perdido en filas de cafetería y brinda comida caliente casera balanceada a $65 - $85 MXN las 24 horas del día.
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 5; justify-content: center; background: rgba(16, 185, 129, 0.08); border-color: rgba(16, 185, 129, 0.4);">
+                    <div class="card-header-pill pill-amber">REPOSITORIO DIGITAL OFICIAL</div>
+                    <div class="card-title">Acceso Abierto a Toda la Evidencia</div>
+                    <div class="card-body">
+                        Todos los archivos de diseño CAD, esquemáticos EasyEDA, códigos de firmware, plataforma web y documentos académicos están respaldados en GitHub:<br><br>
+                        <a href="https://github.com/Anubys6/ExpendeX-Smart-Vending-FIME" target="_blank" style="color: var(--neon-cyan); font-weight: 700; word-break: break-all; text-decoration: none;">
+                            🔗 https://github.com/Anubys6/ExpendeX-Smart-Vending-FIME
+                        </a>
+                        <div style="margin-top: 16px; font-size: 0.8rem; color: var(--text-muted);">
+                            Todo usuario con el enlace tiene acceso directo a la documentación completa y réplica del proyecto.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <div class="bottom-nav">
+        <div class="nav-info">
+            <div class="logo-tag">
+                <div class="logo-dot"></div>
+                EXPENDEX <span style="font-weight: 400; font-size: 0.85rem; color: var(--text-muted);">| Pitch Deck</span>
+            </div>
+            <div class="slide-counter" id="slideCounter">Diapositiva 1 / 20</div>
+        </div>
+
+        <div class="nav-controls">
+            <button class="btn-nav" onclick="prevSlide()" title="Anterior (Flecha Izquierda)">← Anterior</button>
+            <button class="btn-nav primary" onclick="nextSlide()" title="Siguiente (Flecha Derecha / Espacio)">Siguiente →</button>
+            <button class="btn-nav" onclick="openDrawer()" title="Ver todas las diapositivas (O)">📑 Diapositivas</button>
+            <button class="btn-nav" onclick="toggleFullScreen()" title="Pantalla Completa (F)">⛶ Pantalla Completa</button>
+        </div>
+    </div>
+
+    <!-- Overview Drawer -->
+    <div class="overview-drawer" id="overviewDrawer">
+        <div class="drawer-header">
+            <h2 style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF;">Índice General de Diapositivas</h2>
+            <button class="btn-nav primary" onclick="closeDrawer()">✕ Cerrar (Esc)</button>
+        </div>
+        <div class="drawer-grid" id="drawerGrid"></div>
+    </div>
+
+    <!-- Interactive Navigation Scripts -->
+    <script>
+        const totalSlides = 20;
+        let currentSlide = 1;
+
+        const titles = [
+            "00. Portada Ejecutiva y Presentación de ExpendeX",
+            "01. Origen y Motivación: ¿Por qué creamos esta máquina?",
+            "02. El Problema: 'Desiertos Alimentarios' y Chatarra Forzada",
+            "03. La Competencia y Estado Actual: ¿Por qué fracasan?",
+            "04. Matriz de Benchmarking 10X frente a alternativas",
+            "05. Estudio Socioeconómico del Público Objetivo en NL",
+            "06. ¿Para quién es esta máquina? - Mercado Dual (B2C + B2B)",
+            "07. La Solución ExpendeX: Micro-Restaurante Automatizado",
+            "08. Inocuidad Sanitaria: Protocolo de Frescura de 14 Horas",
+            "09. ¿En qué mercados establecernos? - Ruta de Expansión",
+            "10. Tamaño de Mercado: TAM, SAM y SOM en Nuevo León",
+            "11. Arquitectura Mecatrónica: El Soporte del Negocio",
+            "12. Costos de Fabricación (BOM Industrial Detallado)",
+            "13. Estructura de Precios y Unit Economics por Producto",
+            "14. Flujos Mensuales y Rendimiento en 3 Escenarios",
+            "15. Métricas Financieras de Inversión: VAN, TIR y Payback",
+            "16. Modelos de Comercialización y Monetización",
+            "17. Barreras de Entrada y Ventaja Competitiva (Moat)",
+            "18. Impacto Social, Académico y Alianza Comunitaria",
+            "19. Conclusiones Ejecutivas, Repositorio y Demostración"
+        ];
+
+        function initDrawer() {
+            const grid = document.getElementById('drawerGrid');
+            grid.innerHTML = '';
+            for (let i = 1; i <= totalSlides; i++) {
+                const item = document.createElement('div');
+                item.className = 'drawer-item' + (i === currentSlide ? ' active' : '');
+                item.onclick = () => { goToSlide(i); closeDrawer(); };
+                item.innerHTML = `
+                    <div class="drawer-num">DIAPOSITIVA ${i.toString().padStart(2, '0')}</div>
+                    <div class="drawer-title">${titles[i-1]}</div>
+                `;
+                grid.appendChild(item);
+            }
+        }
+
+        function updateSlide() {
+            document.querySelectorAll('.slide').forEach((s, idx) => {
+                s.classList.toggle('active', (idx + 1) === currentSlide);
+            });
+            document.getElementById('slideCounter').innerText = `Diapositiva ${currentSlide} / ${totalSlides}`;
+            document.getElementById('progressBar').style.width = `${(currentSlide / totalSlides) * 100}%`;
+            initDrawer();
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        function goToSlide(n) {
+            if (n >= 1 && n <= totalSlides) {
+                currentSlide = n;
+                updateSlide();
+            }
+        }
+
+        function openDrawer() {
+            document.getElementById('overviewDrawer').classList.add('open');
+        }
+
+        function closeDrawer() {
+            document.getElementById('overviewDrawer').classList.remove('open');
+        }
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => console.log(err));
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // Keyboard Shortcuts
+        document.addEventListener('keydown', (e) => {
+            const drawer = document.getElementById('overviewDrawer');
+            if (drawer.classList.contains('open')) {
+                if (e.key === 'Escape') closeDrawer();
+                return;
+            }
+
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown' || e.key === 'Enter') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'Backspace') {
+                prevSlide();
+            } else if (e.key.toLowerCase() === 'f') {
+                toggleFullScreen();
+            } else if (e.key.toLowerCase() === 'o') {
+                openDrawer();
+            } else if (e.key === 'Home') {
+                goToSlide(1);
+            } else if (e.key === 'End') {
+                goToSlide(totalSlides);
+            }
+        });
+
+        // Initialize
+        updateSlide();
+    </script>
+</body>
+</html>
