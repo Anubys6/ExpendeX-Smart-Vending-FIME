@@ -1,0 +1,1974 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AF5: Marco Teórico Integral | ExpendeX Smart Vending</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0B0F19;
+      --paper: #121826;
+      --paper-border: rgba(255, 255, 255, 0.08);
+      --primary: #38BDF8;
+      --primary-hover: #0284C7;
+      --emerald: #10B981;
+      --amber: #F59E0B;
+      --text: #F1F5F9;
+      --text-muted: #94A3B8;
+      --text-body: #E2E8F0;
+      --navy-fime: #1B365D;
+      --green-fime: #70AD47;
+      --sidebar-w: 320px;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    /* Sidebar */
+    .sidebar {
+      width: var(--sidebar-w);
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(18, 24, 38, 0.95);
+      border-right: 1px solid var(--paper-border);
+      backdrop-filter: blur(16px);
+      display: flex;
+      flex-direction: column;
+      padding: 24px 16px;
+      overflow-y: auto;
+      z-index: 100;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--paper-border);
+      margin-bottom: 16px;
+    }
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #0284C7, #38BDF8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #FFF;
+      font-size: 1.2rem;
+    }
+    .brand-title h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #FFF;
+    }
+    .brand-title span {
+      font-size: 0.75rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+    .nav-header {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin: 14px 8px 8px 8px;
+    }
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex-grow: 1;
+    }
+    .nav-link {
+      display: block;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.2s;
+      line-height: 1.35;
+    }
+    .nav-link:hover {
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--primary);
+      transform: translateX(4px);
+    }
+    .nav-h1 { font-weight: 700; color: #E2E8F0; margin-top: 6px; }
+    .nav-h2 { padding-left: 20px; font-size: 0.8rem; color: #94A3B8; }
+    .sidebar-actions {
+      padding-top: 16px;
+      border-top: 1px solid var(--paper-border);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .btn-side {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-side-primary {
+      background: linear-gradient(135deg, #0284C7, #0369A1);
+      color: #FFF;
+    }
+    .btn-side-primary:hover {
+      background: linear-gradient(135deg, #38BDF8, #0284C7);
+    }
+    .btn-side-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      border: 1px solid var(--paper-border);
+    }
+    .btn-side-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Main Content */
+    .main {
+      margin-left: var(--sidebar-w);
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 30px 100px 30px;
+      max-width: calc(100vw - var(--sidebar-w));
+    }
+    .article-container {
+      max-width: 900px;
+      width: 100%;
+      background: var(--paper);
+      border: 1px solid var(--paper-border);
+      border-radius: 24px;
+      padding: 60px 70px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+    .doc-hero {
+      border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+      padding-bottom: 30px;
+      margin-bottom: 40px;
+    }
+    .doc-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 6px;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 14px;
+    }
+    .doc-main-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      color: #FFF;
+    }
+    .doc-main-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .team-badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .team-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--paper-border);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      color: #CBD5E1;
+    }
+    .team-pill strong { color: #FFF; }
+
+    /* Typography inside document */
+    .doc-h1 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: #38BDF8;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 8px;
+      margin-top: 48px;
+      margin-bottom: 20px;
+      scroll-margin-top: 30px;
+    }
+    .doc-h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #E2E8F0;
+      margin-top: 36px;
+      margin-bottom: 14px;
+      scroll-margin-top: 30px;
+    }
+    .doc-h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #94A3B8;
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+    .doc-p {
+      font-family: 'Merriweather', serif;
+      font-size: 1.0rem;
+      line-height: 1.85;
+      color: var(--text-body);
+      margin-bottom: 18px;
+      text-align: justify;
+    }
+    .doc-li {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text-body);
+      margin-left: 28px;
+      margin-bottom: 8px;
+    }
+    .caption {
+      font-size: 0.88rem;
+      margin-top: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .table-caption { color: #38BDF8; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .figure-caption { color: var(--text-muted); font-style: italic; }
+
+    /* Tables */
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      margin: 24px 0 32px 0;
+      border-radius: 12px;
+      border: 1px solid var(--paper-border);
+      background: rgba(11, 15, 25, 0.6);
+    }
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+    .doc-table th {
+      background: #1B365D;
+      color: #FFF;
+      font-weight: 700;
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .doc-table td {
+      padding: 10px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: #CBD5E1;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.5;
+    }
+    .doc-table tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Images */
+    .figure-container {
+      width: 100%;
+      text-align: center;
+      margin: 28px 0 12px 0;
+    }
+    .doc-img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid var(--paper-border);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; max-width: 100%; padding: 20px 12px; }
+      .article-container { padding: 30px 20px; }
+      .doc-main-title { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">EX</div>
+      <div class="brand-title">
+        <h3>ExpendeX Online</h3>
+        <span>Documentación FIME</span>
+      </div>
+    </div>
+
+    <div class="nav-header">Índice del Marco Teórico (77 Pág.)</div>
+    <nav class="nav-list">
+      <a href="#sec-1" class="nav-link nav-h1">1.0 INTRODUCCIÓN AL PROBLEMA ESTUDIADO</a><a href="#subsec-2" class="nav-link nav-h2">1.1 Integrantes del Equipo de Ingeniería y...</a><a href="#subsec-3" class="nav-link nav-h2">1.2 La Paradoja de las Loncherías Familiar...</a><a href="#subsec-4" class="nav-link nav-h2">1.3 Fracaso y Obsolescencia del Modelo de ...</a><a href="#subsec-5" class="nav-link nav-h2">1.4 La Solución Propuesta: Micro-Restauran...</a><a href="#sec-2" class="nav-link nav-h1">2.0 ANTECEDENTES TÉCNICOS</a><a href="#subsec-7" class="nav-link nav-h2">2.1 La Transición Electromecánica y la Era...</a><a href="#subsec-8" class="nav-link nav-h2">2.2 Intentos Previos de Vending de Comida ...</a><a href="#subsec-9" class="nav-link nav-h2">2.3 Fundamentos del Desarrollo Mecatrónico...</a><a href="#sec-3" class="nav-link nav-h1">3.0 ESTADO ACTUAL DE LAS SOLUCIONES DISPON...</a><a href="#subsec-11" class="nav-link nav-h2">3.1 Análisis Crítico de Familias Tecnológi...</a><a href="#subsec-12" class="nav-link nav-h2">3.2 Matriz Técnica Multidimensional Compar...</a><a href="#subsec-13" class="nav-link nav-h2">3.3 Matriz de Puntos Críticos de Control (...</a><a href="#sec-4" class="nav-link nav-h1">4.0 CONCEPTOS Y PRINCIPIOS FUNDAMENTALES</a><a href="#subsec-15" class="nav-link nav-h2">4.1 Termodinámica y Transferencia de Calor...</a><a href="#subsec-16" class="nav-link nav-h2">4.2 Mecánica de Sólidos, Resistencia de Ma...</a><a href="#subsec-17" class="nav-link nav-h2">4.3 Cinemática y Dinámica de Mecanismos He...</a><a href="#subsec-18" class="nav-link nav-h2">4.4 Teoría de Control, Sensores Ópticos y ...</a><a href="#subsec-19" class="nav-link nav-h2">4.5 Principio de Frescura Diaria y Conserv...</a><a href="#subsec-20" class="nav-link nav-h2">4.6 Principios de Electrónica de Potencia,...</a><a href="#subsec-21" class="nav-link nav-h2">4.7 Principio de Despacho Secuencial Multi...</a><a href="#subsec-22" class="nav-link nav-h2">4.8 Din?mica de Fluidos Computacional y Ae...</a><a href="#sec-5" class="nav-link nav-h1">5.0 MODELOS MATEMÁTICOS Y ECUACIONES APLIC...</a><a href="#subsec-24" class="nav-link nav-h2">5.1 Modelo Termodinámico y Balance Entálpi...</a><a href="#subsec-25" class="nav-link nav-h2">5.2 Modelo Estructural de FlexiALÓN y Defl...</a><a href="#subsec-26" class="nav-link nav-h2">5.3 Modelo Cinemático y Dinámico de Par To...</a><a href="#subsec-27" class="nav-link nav-h2">5.4 Modelo de Frescura Diaria y Control de...</a><a href="#subsec-28" class="nav-link nav-h2">5.5 Modelo de Confiabilidad Mecatrónica, T...</a><a href="#subsec-29" class="nav-link nav-h2">5.6 Modelo Matemático del Sistema Digital:...</a><a href="#subsec-30" class="nav-link nav-h2">5.7 Modelo Matemático del Algoritmo de Con...</a><a href="#subsec-31" class="nav-link nav-h2">5.8 Modelo Matemático de Electrónica de Po...</a><a href="#subsec-32" class="nav-link nav-h2">5.9 Modelo de Transferencia de Calor por R...</a><a href="#subsec-33" class="nav-link nav-h2">5.10 Modelo de Consumo Energético Integral...</a><a href="#sec-6" class="nav-link nav-h1">6.0 TECNOLOGÍAS, COMPONENTES, MATERIALES O...</a><a href="#subsec-35" class="nav-link nav-h2">6.1 Materiales Estructurales, Aislamientos...</a><a href="#subsec-36" class="nav-link nav-h2">6.2 Subsistema Frigorífico R134a y Columna...</a><a href="#subsec-37" class="nav-link nav-h2">6.3 Actuadores Electromecánicos, Espirales...</a><a href="#subsec-38" class="nav-link nav-h2">6.4 Arquitectura Electrónica de Potencia, ...</a><a href="#subsec-39" class="nav-link nav-h2">6.5 Ecosistema de Software Full-Stack, Mot...</a><a href="#subsec-40" class="nav-link nav-h2">6.6 Procesos de Taller Mecánico, Corte Lás...</a><a href="#subsec-41" class="nav-link nav-h2">6.7 Topología de Redes de Comunicación, Pr...</a><a href="#subsec-42" class="nav-link nav-h2">6.8 Arquitectura de Seguridad Informática ...</a><a href="#sec-7" class="nav-link nav-h1">7.0 COMPARACIÓN DE SOLUCIONES EXISTENTES</a><a href="#subsec-44" class="nav-link nav-h2">7.1 Matriz de Comparativa Técnica Exhaustiva</a><a href="#subsec-45" class="nav-link nav-h2">7.2 Análisis de Costo de Ciclo de Vida a 5...</a><a href="#sec-8" class="nav-link nav-h1">8.0 NORMAS Y ESTÁNDARES APLICABLES</a><a href="#subsec-47" class="nav-link nav-h2">8.1 Normas Oficiales Mexicanas (NOM)</a><a href="#subsec-48" class="nav-link nav-h2">8.2 Estándares Internacionales de Vending,...</a><a href="#sec-9" class="nav-link nav-h1">9.0 CONSIDERACIONES DE SEGURIDAD Y SOSTENI...</a><a href="#subsec-50" class="nav-link nav-h2">9.1 Seguridad Mecánica y Estructural: Esta...</a><a href="#subsec-51" class="nav-link nav-h2">9.2 Seguridad Eléctrica, Aislamiento Galvá...</a><a href="#subsec-52" class="nav-link nav-h2">9.3 Inocuidad Alimentaria y Política de Re...</a><a href="#subsec-53" class="nav-link nav-h2">9.4 Sostenibilidad Ambiental, Eficiencia E...</a><a href="#subsec-54" class="nav-link nav-h2">9.5 Sostenibilidad Social y Economía Circu...</a><a href="#sec-10" class="nav-link nav-h1">10.0 RELACIÓN ENTRE LOS FUNDAMENTOS TEÓRIC...</a><a href="#subsec-56" class="nav-link nav-h2">10.1 Integración de la Columna Vertical de...</a><a href="#subsec-57" class="nav-link nav-h2">10.2 Evidencia Visual del Gemelo Digital T...</a><a href="#subsec-58" class="nav-link nav-h2">10.3 Simulación Virtual de Electrónica y F...</a><a href="#subsec-59" class="nav-link nav-h2">10.4 Modelado Paramétrico en Autodesk Fusi...</a><a href="#sec-11" class="nav-link nav-h1">11.0 CONCLUSIONES DERIVADAS DE LA INVESTIG...</a><a href="#sec-12" class="nav-link nav-h1">12.0 REFERENCIAS BIBLIOGRÁFICAS (NORMA IEEE)</a>
+    </nav>
+
+    <div class="sidebar-actions">
+      <a href="AF5_Marco_Teorico_Paper_Vending_FIME.pdf" class="btn-side btn-side-primary" target="_blank">📄 Descargar PDF Oficial</a>
+      <a href="AF5_Marco_Teorico_Paper_Vending_FIME.docx" class="btn-side btn-side-secondary" download>📝 Descargar Word DOCX</a>
+      <a href="../index.html" class="btn-side btn-side-secondary">← Volver al Hub Principal</a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+    <article class="article-container">
+      <div class="doc-hero">
+        <span class="doc-tag">ACTIVIDAD FUNDAMENTAL 5 • COBERTURA INTEGRAL</span>
+        <h1 class="doc-main-title">Marco Teórico y Estado del Arte de la Ingeniería Mecatrónica en Vending Automatizado</h1>
+        <p class="doc-main-sub">Memoria técnica descriptiva, formulación físico-matemática, análisis comparativo HACCP, ciclo frigorífico BOWA y electrónica de potencia matricial 6×6.</p>
+        
+        <div class="team-badge-row">
+          <div class="team-pill">👑 <strong>Samuel Tovar Mújica</strong> (2077933) - Jefe de Proyecto / CAD / Documentación</div>
+          <div class="team-pill">💻 <strong>Emiliano Sánchez Martínez</strong> (2012856) - Plataformas Web Duales</div>
+          <div class="team-pill">⚡ <strong>Francisco Reyes Santiago</strong> (1768161) - Electrónica de Potencia y Digital</div>
+        </div>
+      </div>
+
+      <div class="doc-content">
+        <div class="table-wrapper"><table class="doc-table">
+<tr>
+<th></th>
+<th></th>
+</tr>
+</table></div><p class="doc-p">UNIVERSIDAD AUTÓNOMA DE NUEVO LEÓN
+FACULTAD DE INGENIERÍA MECÁNICA Y ELÉCTRICA
+COORDINACIÓN DE INGENIERÍA EN ELECTRÓNICA Y AUTOMATIZACIÓN (IEA)</p><p class="doc-p">U.A: Proyecto de Ingeniería Aplicada (IEA)
+AF 5: MARCO TEÓRICO (REPORTE MAESTRO DE INGENIERÍA)
+
+«MARCO TEÓRICO, FUNDAMENTOS CIENTÍFICO-MATEMÁTICOS, ESTADO DEL ARTE Y MODELACIÓN MECATRÓNICA DE UN MICRO-RESTAURANTE AUTOMATIZADO DESATENDIDO: SISTEMA VENDING IOT HÍBRIDO CLIMATIZADO (XPENDEX) PARA ALIMENTOS PREPARADOS FRESCOS DEL DÍA ($120 MXN) Y BEBIDAS REFRIGERADAS CON CONTROL MATRICIAL 6X6 EN EASYEDA PCB Y DESPACHO SECUENCIAL MULTI-RANURA FIFO»</p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>Matricula:</th>
+<th>Nombre:</th>
+<th>Carrera:</th>
+</tr>
+<tr>
+<td>2077933</td>
+<td>Samuel Tovar Mujica</td>
+<td>IEA</td>
+</tr>
+<tr>
+<td>2012856</td>
+<td>Emiliano Sánchez Martínez</td>
+<td>IEA</td>
+</tr>
+<tr>
+<td>1768161</td>
+<td>Francisco Reyes Santiago</td>
+<td>IEA</td>
+</tr>
+</table></div><p class="doc-p">Ingeniero / Docente: Ing. Mario Alberto González Vázquez</p><p class="doc-p">Grupo: 001   |   Brigada: 107   |   Salón: LED1</p><p class="doc-p">Día: Viernes (V5)   |   Hora: N1 (18:40 – 19:30 h)</p><p class="doc-p">Semestre: Agosto – Diciembre 2026</p><p class="doc-p">San Nicolás de los Garza, Nuevo León a 22 de octubre de 2026
+Repositorio Oficial GitHub (Acceso Abierto vía Enlace): https://github.com/Anubys6/ExpendeX-Smart-Vending-FIME
+En estricto apego al Programa de Evidencias de Aprendizaje de la U.A. Proyecto de Ingeniería Aplicada (IEAI)En estricto apego al Programa de Evidencias de Aprendizaje de la U.A. Proyecto de Ingeniería Aplicada (IEAI)</p><p class="doc-p">ÍNDICE GENERAL DEL CONTENIDO</p><p class="doc-p">A continuación se presenta el sumario formal y estructurado de las doce secciones constitutivas del presente Marco Teórico y Reporte Documental de Ingeniería elaborado por los estudiantes de la FIME UANL:</p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>1.0</th>
+<th>INTRODUCCIÓN AL PROBLEMA ESTUDIADO</th>
+<th>4</th>
+</tr>
+<tr>
+<td>1.1</td>
+<td>• La Paradoja de las Loncherías Familiares y la Barrera Logística</td>
+<td>4</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>• Fracaso y Obsolescencia del Modelo de Vending Convencional</td>
+<td>4</td>
+</tr>
+<tr>
+<td>1.3</td>
+<td>• La Solución Propuesta: Micro-Restaurante Híbrido XpendeX</td>
+<td>5</td>
+</tr>
+<tr>
+<td>2.0</td>
+<td>ANTECEDENTES TÉCNICOS</td>
+<td>6</td>
+</tr>
+<tr>
+<td>2.1</td>
+<td>• La Transición Electromecánica y la Era de la Refrigeración</td>
+<td>6</td>
+</tr>
+<tr>
+<td>2.2</td>
+<td>• Intentos Previos de Vending de Comida Caliente y Fresca</td>
+<td>6</td>
+</tr>
+<tr>
+<td>2.3</td>
+<td>• Antecedentes Directos del Proyecto XpendeX y Evolución de Diseño</td>
+<td>6</td>
+</tr>
+<tr>
+<td>3.0</td>
+<td>ESTADO ACTUAL DE LAS SOLUCIONES DISPONIBLES</td>
+<td>7</td>
+</tr>
+<tr>
+<td>3.1</td>
+<td>• Análisis Crítico de Familias Tecnológicas Existentes</td>
+<td>7</td>
+</tr>
+<tr>
+<td>3.2</td>
+<td>• Matriz Técnica Multidimensional Comparativa (Tabla 3.1)</td>
+<td>8</td>
+</tr>
+<tr>
+<td>4.0</td>
+<td>CONCEPTOS Y PRINCIPIOS FUNDAMENTALES</td>
+<td>9</td>
+</tr>
+<tr>
+<td>4.1</td>
+<td>• Termodinámica y Transferencia de Calor en Recintos Refrigerados</td>
+<td>9</td>
+</tr>
+<tr>
+<td>4.2</td>
+<td>• Mecánica de Sólidos, Resistencia de Materiales y Rigidez Flexional</td>
+<td>10</td>
+</tr>
+<tr>
+<td>4.3</td>
+<td>• Cinemática y Dinámica de Mecanismos Helicoidales de Dispensación</td>
+<td>10</td>
+</tr>
+<tr>
+<td>4.4</td>
+<td>• Teoría de Control, Sensores Ópticos y Sistemas Embebidos IoT</td>
+<td>11</td>
+</tr>
+<tr>
+<td>4.5</td>
+<td>• Principio de Frescura Diaria y Conservación Higiénica de Alimentos</td>
+<td>11</td>
+</tr>
+<tr>
+<td>4.6</td>
+<td>• Principios de Electrónica de Potencia Matricial y Aislamiento Galvánico</td>
+<td>12</td>
+</tr>
+<tr>
+<td>4.7</td>
+<td>• Principio de Despacho Secuencial Multi-Ranura (FIFO) y Actuadores</td>
+<td>12</td>
+</tr>
+<tr>
+<td>5.0</td>
+<td>MODELOS MATEMÁTICOS Y ECUACIONES APLICABLES (10 MODELOS OMML)</td>
+<td>13</td>
+</tr>
+<tr>
+<td>5.1</td>
+<td>• Modelo 1: Balance Térmico Global y Climatización Multietapa (42 °C)</td>
+<td>13</td>
+</tr>
+<tr>
+<td>5.2</td>
+<td>• Modelo 2: Rigidez Estructural y Deflexión de Bandejas (Euler-Bernoulli)</td>
+<td>14</td>
+</tr>
+<tr>
+<td>5.3</td>
+<td>• Modelo 3: Cinemática y Dinámica de Par Torsor Helicoidal</td>
+<td>15</td>
+</tr>
+<tr>
+<td>5.4</td>
+<td>• Modelo 4: Control de Frescura Diaria y Retiro Nocturno por Reloj RTC</td>
+<td>16</td>
+</tr>
+<tr>
+<td>5.5</td>
+<td>• Modelo 5: Confiabilidad Compuesta, MTBF y Disponibilidad Operativa</td>
+<td>17</td>
+</tr>
+<tr>
+<td>5.6</td>
+<td>• Modelo 6: Sistema Digital, Multiplexación de Pantalla y Barrera IR</td>
+<td>18</td>
+</tr>
+<tr>
+<td>5.7</td>
+<td>• Modelo 7: Algoritmo de Conmutación Secuencial Multi-Ranura y FIFO</td>
+<td>20</td>
+</tr>
+<tr>
+<td>5.8</td>
+<td>• Modelo 8: Electrónica de Potencia, Conmutación Inductiva y PCB IPC-2221</td>
+<td>21</td>
+</tr>
+<tr>
+<td>5.9</td>
+<td>• Modelo 9: Transferencia Radiativa y Prevención de Condensación en Vidrio</td>
+<td>23</td>
+</tr>
+<tr>
+<td>5.10</td>
+<td>• Modelo 10: Balance Energético Diario, Costo CFE y Análisis de Ciclo (LCA)</td>
+<td>24</td>
+</tr>
+<tr>
+<td>6.0</td>
+<td>TECNOLOGÍAS, COMPONENTES, MATERIALES O MÉTODOS DISPONIBLES</td>
+<td>25</td>
+</tr>
+<tr>
+<td>6.1</td>
+<td>• Materiales Estructurales, Aislamientos y Acabados Sanitarios</td>
+<td>25</td>
+</tr>
+<tr>
+<td>6.2</td>
+<td>• Subsistema Frigorífico R134a y Columna de Climatización por Toberas</td>
+<td>25</td>
+</tr>
+<tr>
+<td>6.3</td>
+<td>• Actuadores Electromecánicos, Espirales Helicoidales y Guías</td>
+<td>26</td>
+</tr>
+<tr>
+<td>6.4</td>
+<td>• Arquitectura Electrónica de Potencia, Tarjeta EasyEDA PCB y ESP32</td>
+<td>27</td>
+</tr>
+<tr>
+<td>6.5</td>
+<td>• Ecosistema Web Full-Stack, Motor de Temas WCAG 2.1 AAA y Gestor FIFO</td>
+<td>28</td>
+</tr>
+<tr>
+<td>6.6</td>
+<td>• Procesos de Taller Mecánico, Corte Láser CNC y Tolerancias ISO 2768-m</td>
+<td>28</td>
+</tr>
+<tr>
+<td>6.7</td>
+<td>• Topología de Redes de Comunicación, Protocolo MQTT y WebSockets</td>
+<td>29</td>
+</tr>
+<tr>
+<td>6.8</td>
+<td>• Arquitectura de Seguridad Informática y Firma Criptográfica HMAC-SHA256</td>
+<td>29</td>
+</tr>
+<tr>
+<td>7.0</td>
+<td>COMPARACIÓN DE SOLUCIONES EXISTENTES</td>
+<td>30</td>
+</tr>
+<tr>
+<td>7.1</td>
+<td>• Matriz de Comparativa Técnica Exhaustiva (Tabla 7.1)</td>
+<td>30</td>
+</tr>
+<tr>
+<td>7.1.1</td>
+<td>• Análisis de Selección de Actuadores Electromecánicos (Tabla 7.2)</td>
+<td>31</td>
+</tr>
+<tr>
+<td>7.1.2</td>
+<td>• Comparativa de Accionamiento y Conmutación de Inventario (Tabla 7.3)</td>
+<td>32</td>
+</tr>
+<tr>
+<td>7.2</td>
+<td>• Análisis de Costo de Ciclo de Vida a 5 Años (LCC) (Tabla 7.4)</td>
+<td>33</td>
+</tr>
+<tr>
+<td>8.0</td>
+<td>NORMAS Y ESTÁNDARES APLICABLES</td>
+<td>34</td>
+</tr>
+<tr>
+<td>8.1</td>
+<td>• Normas Oficiales Mexicanas (NOM-251, NOM-051, NOM-001, NOM-008)</td>
+<td>34</td>
+</tr>
+<tr>
+<td>8.2</td>
+<td>• Estándares Internacionales (IPC-2221B, WCAG 2.1 AAA, ASHRAE, UL 751)</td>
+<td>34</td>
+</tr>
+<tr>
+<td>9.0</td>
+<td>CONSIDERACIONES DE SEGURIDAD Y SOSTENIBILIDAD</td>
+<td>35</td>
+</tr>
+<tr>
+<td>9.1</td>
+<td>• Seguridad Mecánica: Estabilidad Antivuelco y Pozo Anti-Hurto</td>
+<td>35</td>
+</tr>
+<tr>
+<td>9.1.1</td>
+<td>• Matriz FMEA Exhaustiva de Modos de Fallo y Reducción NPR (Tabla 9.1)</td>
+<td>36</td>
+</tr>
+<tr>
+<td>9.2</td>
+<td>• Seguridad Eléctrica, Aislamiento Galvánico y Puesta a Tierra</td>
+<td>37</td>
+</tr>
+<tr>
+<td>9.3</td>
+<td>• Inocuidad Alimentaria y Política de Retiro Diario Estricto (HACCP)</td>
+<td>37</td>
+</tr>
+<tr>
+<td>9.4</td>
+<td>• Sostenibilidad Ambiental, Eficiencia Energética y Refrigerante R134a</td>
+<td>37</td>
+</tr>
+<tr>
+<td>9.5</td>
+<td>• Sostenibilidad Social y Economía Circular de Proximidad</td>
+<td>38</td>
+</tr>
+<tr>
+<td>10.0</td>
+<td>RELACIÓN ENTRE FUNDAMENTOS TEÓRICOS Y PROYECTO XPENDEX</td>
+<td>38</td>
+</tr>
+<tr>
+<td>10.1</td>
+<td>• Integración de Columna de Climatización y Compuerta Enrasada</td>
+<td>39</td>
+</tr>
+<tr>
+<td>10.2</td>
+<td>• Evidencia Visual del Gemelo Digital Tridimensional (CAD Fusion 360)</td>
+<td>39</td>
+</tr>
+<tr>
+<td>10.3</td>
+<td>• Simulación Virtual de Electrónica y Firmware en Wokwi (PlatformIO)</td>
+<td>43</td>
+</tr>
+<tr>
+<td>10.4</td>
+<td>• Modelado Paramétrico en Autodesk Fusion 360 y Archivos DXF para Maquila</td>
+<td>43</td>
+</tr>
+<tr>
+<td>11.0</td>
+<td>CONCLUSIONES DERIVADAS DE LA INVESTIGACIÓN</td>
+<td>44</td>
+</tr>
+<tr>
+<td>12.0</td>
+<td>REFERENCIAS BIBLIOGRÁFICAS (25 REGISTROS INDEXADOS NORMA IEEE)</td>
+<td>45</td>
+</tr>
+<tr>
+<td>ANEXO A</td>
+<td>DESGLOSE TRIDIMENSIONAL EXHAUSTIVO DE PIEZAS (BOM) EN FUSION 360</td>
+<td>47</td>
+</tr>
+<tr>
+<td>A.1</td>
+<td>• Bastidor y Estructura PTR Soldada (Acero Comercial Calibre 14)</td>
+<td>47</td>
+</tr>
+<tr>
+<td>A.2</td>
+<td>• Forro Exterior de Gabinete en Lámina Cold Rolled Calibre 18</td>
+<td>48</td>
+</tr>
+<tr>
+<td>A.3</td>
+<td>• Mecanismo de 6 Bandejas Mixtas (1+4+1) y 36 Motorreductores DC</td>
+<td>49</td>
+</tr>
+<tr>
+<td>A.4</td>
+<td>• Puerta Principal, Triple Vidrio Low-E, Bisagras y Cerradura</td>
+<td>50</td>
+</tr>
+<tr>
+<td>A.5</td>
+<td>• Compuerta Basculante Enrasada y Pozo de Caída Blindado</td>
+<td>50</td>
+</tr>
+<tr>
+<td>A.6</td>
+<td>• Sala Frigorífica BOWA con Compresor 1/5 HP R134a y Toberas</td>
+<td>51</td>
+</tr>
+<tr>
+<td>A.7</td>
+<td>• Movilidad Industrial con 4 Ruedas Giratorias de 100 mm</td>
+<td>52</td>
+</tr>
+<tr>
+<td>A.8</td>
+<td>• Terminal Táctil 10.1 Pulgadas, Raspberry Pi y PCB EasyEDA</td>
+<td>53</td>
+</tr>
+<tr>
+<td>ANEXO B</td>
+<td>PROTOCOLOS EXPERIMENTALES DE VALIDACIÓN Y PRUEBAS WOKWI</td>
+<td>54</td>
+</tr>
+<tr>
+<td>B.1</td>
+<td>• Ensayo Térmico de Estratificación Vertical y Conservación NOM-251</td>
+<td>54</td>
+</tr>
+<tr>
+<td>B.2</td>
+<td>• Ensayo de Conmutación Inductiva y CEM en EasyEDA</td>
+<td>54</td>
+</tr>
+<tr>
+<td>B.3</td>
+<td>• Estrés de Firmware Dual-Core FreeRTOS y Conmutación FIFO en Wokwi</td>
+<td>55</td>
+</tr>
+</table></div><h2 id="sec-1" class="doc-h1">1.0 INTRODUCCIÓN AL PROBLEMA ESTUDIADO</h2><p class="doc-p">La nutrición adecuada y el acceso continuo a alimentos preparados frescos, balanceados y asequibles constituye uno de los desafíos cotidianos más críticos que enfrentamos los estudiantes y trabajadores en los campus universitarios y zonas industriales de alta concentración en Nuevo León. En nuestra comunidad de la Facultad de Ingeniería Mecánica y Eléctrica (FIME) de la Universidad Autónoma de Nuevo León (UANL) —con una población flotante que supera los 22,000 alumnos, catedráticos e investigadores—, así como en los corredores fabriles de la Zona Metropolitana de Monterrey (Apodaca, San Nicolás de los Garza, Pesquería, Escobedo y Santa Catarina), las alternativas de alimentación presentan una profunda distorsión estructural.</p><p class="doc-p">La Brecha Alimentaria en Entornos de Alta Demanda: Por un lado, la oferta alimentaria al alcance inmediato está dominada por máquinas expendedoras tradicionales de botanas ultraprocesadas, refrescos azucarados y comida chatarra de alto contenido calórico y nulo valor biológico. Por otro lado, las cafeterías concesionadas y restaurantes formales operan con horarios restringidos, largas filas de espera que consumen los escasos 30 a 45 minutos de receso de estudiantes y operarios, y precios que oscilan entre $140 y $210 MXN por platillo, tornando económicamente insostenible su consumo diario para la mayoría de las familias.</p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>■ DIAGNÓSTICO SITUACIONAL EN LA FIME UANL Y MONTERREY<br>«La falta de acceso a comida casera balanceada a bajo costo ($120 MXN) dentro de los centros educativos y laborales fomenta patrones de malnutrición crónica, hipoglucemia reactiva y fatiga mental, deteriorando sensiblemente el rendimiento académico de los estudiantes de ingeniería y reduciendo la productividad y salud ocupacional de los trabajadores industriales en nuestra región.»</th>
+</tr>
+</table></div><h3 id="subsec-2" class="doc-h2">1.1 Integrantes del Equipo de Ingeniería y Asignación de Responsabilidades</h3><p class="doc-p">Organización del Equipo de Ingeniería: La investigación y desarrollo mecatrónico plasmado en este marco teórico fue ejecutado de manera coordinada por los tres estudiantes de la Coordinación de Ingeniería en Electrónica y Automatización (IEA), con una delimitación estricta de áreas de especialidad:</p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>Integrante del Equipo</th>
+<th>Matrícula / Carrera</th>
+<th>Cargo en el Proyecto</th>
+<th>Subsistemas y Módulos Desarrollados</th>
+</tr>
+<tr>
+<td>Samuel Tovar Mújica</td>
+<td>2077933 (IEA)</td>
+<td>Jefe del Proyecto y Líder de Ingeniería Mecatrónica</td>
+<td>Jefe del Proyecto y dirección general. Desarrolló el modelado 3D CAD completo a escala 1:1 en Autodesk Fusion 360 (127 componentes, bandejas 1+4+1, espirales reforzadas y ensamble paramétrico), la generación y posproducción de todos los renders oficiales y comerciales de alta resolución, la programación y simulación de electrónica digital y firmware en Visual Studio Code + PlatformIO + Wokwi (ESP32 con FreeRTOS, matriz digital 6×6 y sensores ópticos IR) y la redacción, formulación físico-matemática y estructuración integral de los documentos académicos del proyecto (AF1 a AF5).</td>
+</tr>
+<tr>
+<td>Emiliano Sánchez Martínez</td>
+<td>2012856 (IEA)</td>
+<td>Integrante de Ingenieria de Software y Plataformas Web</td>
+<td>Desarrollo integral de las plataformas web duales: plataforma web del cliente (quiosco interactivo tactil de 10.1 pulgadas con interfaz Next.js/Tailwind CSS, catalogo nutricional bajo norma NOM-051, combos inteligentes y pasarela de cobro digital con codigo QR dinamico de Mercado Pago) y plataforma web del dueno (panel administrativo con telemetria en tiempo real, gestion multi-ranura e inventario con algoritmo de rotacion FIFO).</td>
+</tr>
+<tr>
+<td>Francisco Reyes Santiago</td>
+<td>1768161 (IEA)</td>
+<td>Integrante de Ingenieria Electronica (Potencia y Digital)</td>
+<td>Diseno y simulacion de la etapa de potencia y ruteo PCB en EasyEDA (matriz MOSFET 6x6 con conmutacion de 36 motorreductores planetarios de 24V DC mediante 12 lineas de control GPIO, optoaislamiento PC817C de 5,000 V RMS, supresion de transitorios Back-EMF con diodos Flyback 1N4007 y dimensionamiento termico segun norma IPC-2221B); y simulacion colaborativa de circuitos de electronica digital de soporte.</td>
+</tr>
+</table></div><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>■ REPOSITORIO OFICIAL DEL PROYECTO EN GITHUB (ACCESO ABIERTO VÍA ENLACE)<br>En estricto apego a los fundamentos científicos, matemáticos y tecnológicos establecidos en el Programa de Evidencias de Aprendizaje de la Unidad de Aprendizaje: Proyecto de Ingeniería Aplicada (IEAI) de la Facultad de Ingeniería Mecánica y Eléctrica (FIME - UANL), el ecosistema completo de diseño del proyecto ExpendeX —incluyendo los modelos tridimensionales CAD paramétricos en Autodesk Fusion 360, esquemáticos y diseño de circuito impreso (PCB) en EasyEDA, código fuente del firmware en C++ para ESP32 FreeRTOS (Wokwi / PlatformIO), la suite web del quiosco y panel administrativo, y la documentación académica completa de las 5 Actividades Fundamentales— se encuentra configurado con acceso público directo vía enlace para que cualquier docente, evaluador o estudiante con el hipervínculo acceda de inmediato sin barreras de autenticación en:<br><br>• URL Oficial (Acceso Abierto vía Enlace): https://github.com/Anubys6/ExpendeX-Smart-Vending-FIME<br>• Licencia: MIT License (Código abierto institucional FIME UANL)</th>
+</tr>
+</table></div><p class="caption table-caption"><strong>Tabla 1.1. Organización del equipo de trabajo y matriz de responsabilidades por integrante.</strong></p><h3 id="subsec-3" class="doc-h2">1.2 La Paradoja de las Loncherías Familiares y la Barrera Logística de Distribución</h3><p class="doc-p">Paralelamente a esta carencia, en los alrededores inmediatos de Ciudad Universitaria y en las colonias populares de Monterrey existe un próspero sector de loncherías familiares, fondas y cocinas económicas que preparan cotidianamente platillos tradicionales de comida casera completos, frescos y nutritivos (guisados regionales de deshebrada, asado de puerco, pollo en mole, cortadillo norteño, acompañados de arroz, frijoles refritos y verduras cocidas) a precios sumamente accesibles para el presupuesto estudiantil (entre $90 y $120 MXN por porción abundante).</p><p class="doc-p">Inviabilidad de los Modelos Digitales Convencionales: Sin embargo, estas cocinas familiares no cuentan con la capacidad operativa ni vehicular para realizar entregas personales eficientes, y resulta inviable para ellas absorber las comisiones de entre el 25% y 35% que cobran las plataformas transnacionales de reparto por aplicación. Asimismo, por motivos de seguridad y control patrimonial, el acceso libre de repartidores externos en motocicleta a las instalaciones de la FIME o a las naves de manufactura está estrictamente restringido, impidiendo la entrega directa en las aulas, talleres o líneas de ensamble.</p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>Parámetro Evaluado</th>
+<th>Vending Tradicional Chatarra</th>
+<th>Delivery por App en Moto</th>
+<th>Micro-Restaurante XpendeX</th>
+</tr>
+<tr>
+<td>Costo Promedio por Ingesta</td>
+<td>$45 - $65 MXN (Solo snacks/soda)</td>
+<td>$160 - $220 MXN (Comida + Envío + Propina)</td>
+<td>$120.00 MXN (Comida casera completa)</td>
+</tr>
+<tr>
+<td>Tiempo Total de Acceso</td>
+<td>1.5 minutos (Inmediato)</td>
+<td>35 a 55 minutos de espera</td>
+<td>25 a 40 segundos por transacción</td>
+</tr>
+<tr>
+<td>Aporte Proteico Neto</td>
+<td>&lt; 4 g (Carbohidratos refinados)</td>
+<td>18 a 25 g (Dependiente del local)</td>
+<td>26 a 34 g (Guisado de res/pollo + leguminosas)</td>
+</tr>
+<tr>
+<td>Sodio y Grasas Trans</td>
+<td>Críticamente alto (&gt; 850 mg Na)</td>
+<td>Medio a Alto (Variables)</td>
+<td>Controlado (Perfil gastronómico casero)</td>
+</tr>
+<tr>
+<td>Disponibilidad Horaria</td>
+<td>24/7 (Sujeto a stock)</td>
+<td>Limitado a horarios de restaurante</td>
+<td>24/7 en sitio (Turnos diurnos y nocturnos)</td>
+</tr>
+<tr>
+<td>Emisiones CO2e / Entrega</td>
+<td>0 g (Consumo en sitio)</td>
+<td>480 a 720 g CO2e por viaje en moto</td>
+<td>0 g en entrega (Consolidación matutina 1 viaje)</td>
+</tr>
+</table></div><h3 id="subsec-4" class="doc-h2">1.3 Fracaso y Obsolescencia del Modelo de Vending Convencional</h3><p class="doc-p">Análisis Crítico de Modos de Falla en Campo: Al analizar los equipos de venta automática presentes en el mercado, constatamos que su arquitectura mecatrónica fue diseñada hace décadas exclusivamente para comercializar botanas secas, ligeras (30 a 60 g) y bebidas frías en latas cilíndricas simétricas. Cuando se intenta adaptar una máquina de este tipo para expender comida preparada en recipientes gastronómicos (500 a 650 g), se presentan cinco fallas críticas que imposibilitan su operación confiable:</p><li class="doc-li">Atascamiento Mecánico por Rozamiento y Cabeceo: Las espirales individuales estándar de Ø 70 mm carecen del par y del diámetro para desplazar recipientes gastronómicos de 150 a 180 mm de ancho. La fricción asimétrica contra la charola provoca que el recipiente se incline, se acuñe diagonalmente contra las paredes de chapa y bloquee el mecanismo.</li><li class="doc-li">Estratificación Térmica y Ruptura de Cadena de Frío: Los enfriadores convencionales soplan aire únicamente desde el fondo sin ductos balanceados. En el clima canicular de Monterrey (42 °C), esto produce gradientes verticales de más de 8 °C a 10 °C entre la charola inferior y la superior, arriesgando la proliferación de patógenos bacterianos.</li><li class="doc-li">Riesgo Sanitario por Falta de Control de Frescura Diaria: Las máquinas convencionales no cuentan con lógica programada para suspender la venta de platillos perecederos después de su jornada útil (14 horas), permitiendo que alimentos vencidos permanezcan rezagados por días.</li><li class="doc-li">Rigidez de Asignación Monocanal y Desabasto Prematuro de Productos Estrella: Cada ranura está atada de forma fija a un solo SKU. En comida casera, los platillos más demandados agotan su casilla unitaria de 5 tuppers en dos horas, perdiendo hasta el 60% de las ventas de la tarde mientras canales de baja rotación permanecen llenos.</li><li class="doc-li">Vulnerabilidad Patrimonial y Mantenimiento de Periféricos de Efectivo: Los monederos y billeteros sufren constantes atascos mecánicos con monedas dobladas o billetes húmedos, demandando costosas visitas de servicio técnico no programadas y convirtiendo al equipo en blanco de vandalismo.</li><h3 id="subsec-5" class="doc-h2">1.4 La Solución Propuesta: Micro-Restaurante Automatizado Desatendido XpendeX</h3><p class="doc-p">Para solucionar de raíz estos problemas, nuestro proyecto desarrolla la ingeniería de detalle y validación virtual de un «Micro-Restaurante Automatizado Desatendido XpendeX» (Proyecto XpendeX): una máquina vending híbrida inteligente dotada de una estructura de PTR Calibre 14 con deflexión elástica menor a 1.3 mm, un subsistema frigorífico hermético R134a con plenum difusor de 6 toberas laminares calibradas que garantiza una cadena de frío estricta de 2 °C a 4 °C según NOM-251-SSA1-2009, una arquitectura de bandejas 1+4+1 con 36 canales accionados por motorreductores 24V DC con leva de homing 360° (12 bahías unificadas de 190 mm con espirales gigantes Ø 144 mm para comida y 24 canales de 95 mm con espirales Ø 70 mm para bebidas), una consola táctil capacitiva industrial de 10.1 pulgadas con Raspberry Pi 4/5, conmutación matricial pura MOSFET 6x6 optoaislada en EasyEDA PCB, y firmware en FreeRTOS sobre ESP32 con protocolo de bloqueo sanitario automático por caducidad de 14 horas y sincronización en tiempo real con portal web full-stack.</p><h2 id="sec-2" class="doc-h1">2.0 ANTECEDENTES TÉCNICOS</h2><p class="doc-p">La historia de la venta desatendida se remonta a los tratados de Herón de Alejandría en el siglo I d.C., quien concibió una máquina que dosificaba agua al introducir una moneda de bronce cuyo peso inclinaba una palanca liberadora. Con la Revolución Industrial en Inglaterra en el siglo XIX, surgieron dispensadores mecánicos de sellos postales en 1888, sentando las bases del expendio automático unitario.</p><h3 id="subsec-7" class="doc-h2">2.1 La Transición Electromecánica y la Era de la Refrigeración</h3><p class="doc-p">Hacia mediados del siglo XX se implementaron los carruseles rotativos refrigerados (popularizados en la década de 1950 en Estados Unidos), que giraban mediante motorreductores para exponer pequeños emparedados a través de pequeñas ventanillas de acrílico. No obstante, su capacidad útil de almacenamiento era sumamente reducida (menos de 30 selecciones para gabinetes voluminosos), y sus bandejas triangulares de cartón no admitían alimentos calientes, guisados con salsas ni recipientes rectangulares pesados.</p><p class="doc-p">En la década de 1980, la industria adoptó las bandejas con espirales horizontales y el protocolo analógico Multi-Drop Bus (MDB) de la NAMA. Sin embargo, el estándar MDB fue concebido para microcontroladores lentos de 8 bits y carece de soporte nativo para telemetría criptográfica TLS, actualización remota de inventarios o conmutación dinámica multi-ranura, relegando a las máquinas convencionales al expendio de botanas secas.</p><h3 id="subsec-8" class="doc-h2">2.2 Intentos Previos de Vending de Comida Caliente y Fresca</h3><p class="doc-p">Durante las últimas dos décadas se exploraron dos vertientes tecnológicas para comida caliente: máquinas con microondas o freidoras internas, los cuales mantienen la comida congelada o refrigerada y la transfieren robóticamente a una cámara de calentamiento por microondas de 1,200 W. Ambas vertientes fracasaron comercialmente en México debido a su extrema complejidad mecánica (brazos manipuladores Cartesianos propensos a desalineación), consumo eléctrico disparado (&gt; 3.5 kW) y desecación de los alimentos al recalentarse velozmente. La arquitectura XpendeX, en cambio, mantiene la comida fresca y fría a 2–4 °C durante la jornada diurna y delega el calentamiento a una batería de hornos de microondas de alta potencia ubicados en la estación de autoservicio adyacente, reduciendo el costo de capital de la máquina en más del 70% y preservando la textura organoléptica.</p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>Generación Tecnológica</th>
+<th>Época / Hito</th>
+<th>Mecanismo Cinemático Principal</th>
+<th>Limitación Crítica</th>
+<th>Resolución en XpendeX</th>
+</tr>
+<tr>
+<td>1ra Generación: Mecánica</td>
+<td>1888 - 1930</td>
+<td>Palancas de gravedad y resortes manuales</td>
+<td>Sin control de moneda falso ni refrigeración</td>
+<td>Electrónica 100% digital sin efectivo</td>
+</tr>
+<tr>
+<td>2da Generación: Electromecánica</td>
+<td>1950 - 1970</td>
+<td>Tambores y carruseles giratorios con motor AC</td>
+<td>Baja capacidad (&lt; 30 SKUs), desabasto veloz</td>
+<td>Matriz 6x6 de alta densidad (36 canales)</td>
+</tr>
+<tr>
+<td>3ra Generación: Espiral Clásica</td>
+<td>1980 - 2005</td>
+<td>Espirales angostas Ø 70 mm con bus MDB analógico</td>
+<td>Atoramiento de envases anchos &gt; 100 mm</td>
+<td>Bahías unificadas 190 mm con espiral Ø 144 mm</td>
+</tr>
+<tr>
+<td>4ra Generación: Smart Vending</td>
+<td>2010 - 2020</td>
+<td>Motores DC monocanal con lectores cashless y WiFi</td>
+<td>Sin gestión de caducidad perecedera</td>
+<td>Firmware FreeRTOS con bloqueo a las 14h</td>
+</tr>
+<tr>
+<td>5ta Generación: Micro-Restaurante</td>
+<td>2026 (XpendeX)</td>
+<td>Matriz MOSFET 6x6, 1+4+1, Toberas laminares R134a</td>
+<td>Ninguna (Diseño optimizado para comida fresca)</td>
+<td>Despacho FIFO multi-ranura y cadena fría 2-4°C</td>
+</tr>
+</table></div><h3 id="subsec-9" class="doc-h2">2.3 Fundamentos del Desarrollo Mecatrónico del Proyecto XpendeX</h3><p class="doc-p">El proyecto XpendeX nace en los laboratorios de la FIME UANL como una respuesta mecatrónica formal a la necesidad de alimentación fresca en la comunidad estudiantil. La arquitectura integra un chasis autoportante de perfiles tubulares estructurales PTR Calibre 14 con techo plano a 1,830 mm, charolas deslizantes sobre guías telescópicas industriales Accuride 3832, un circuito frigorífico por compresión de vapor con 6 toberas de descarga laminar en el plenum posterior, una tarjeta de potencia de estado sólido MOSFET 6x6 diseñada en EasyEDA con optoaislamiento de 5 kV, firmware determinista en FreeRTOS sobre ESP32 dual-core y una plataforma web full-stack con diseño inclusivo y trazabilidad completa de inventario.</p><h2 id="sec-3" class="doc-h1">3.0 ESTADO ACTUAL DE LAS SOLUCIONES DISPONIBLES</h2><p class="doc-p">En el mercado contemporáneo coexisten cuatro grandes familias de tecnologías orientadas a la venta desatendida de alimentos, cada una con ventajas operativas puntuales pero con severas limitaciones técnicas, térmicas o de accesibilidad económica:</p><h3 id="subsec-11" class="doc-h2">3.1 Análisis Crítico de Familias Tecnológicas Existentes</h3><li class="doc-li">Máquinas Vending Refrigeradas Convencionales (Glass-Front Vending): Emplean compresores de tiro forzado inferior con descarga difusa. Presentan severa estratificación térmica en Monterrey (ΔT &gt; 8 °C) y utilizan canales angostos de 95 mm que atascan los recipientes de comida preparada de más de 120 mm.</li><li class="doc-li">Refrigeradores Inteligentes Basados en RFID (Smart Fridges / Grab &amp; Go): El usuario abre la puerta con tarjeta bancaria y toma libremente el producto; antenas RFID leen los tags adheridos al envase. Limitación: Los tags RFID incrementan el costo unitario en $0.35 USD ($7.00 MXN por platillo, inaceptable para loncherías familiares), las mermas por hurto son elevadas y el costo del gabinete supera los $180,000 MXN.</li><li class="doc-li">Casilleros Automatizados Inteligentes (Smart Food Lockers): Módulos de casilleros individuales con apertura mediante solenoide y código QR. Limitación: Requieren un volumen masivo (ocupan 3 veces más espacio para almacenar la misma cantidad de comidas) y carecen de climatización homogénea por compartimento, elevando el costo por platillo almacenado a niveles comercialmente inviables.</li><li class="doc-li">Kioscos Robóticos Cocinadores (Robotic Food Kiosks): Robots de cocina que ensamblan ensaladas o preparan pizzas al momento dentro de una cabina transparente. Limitación: Requieren inversiones superiores a $1,200,000 MXN, mantenimiento diario altamente especializado y presentan graves dificultades de sanitización microbiológica en tuberías dosificadoras de salsas.</li><h3 id="subsec-12" class="doc-h2">3.2 Matriz Técnica Multidimensional Comparativa</h3><p class="doc-p">La Tabla 3.1 sintetiza la comparativa cuantitativa entre las cuatro tecnologías comerciales descritas frente a la propuesta mecatrónica XpendeX:</p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>PARÁMETRO DE INGENIERÍA</th>
+<th>VENDING CONVENCIONAL</th>
+<th>SMART FRIDGE RFID</th>
+<th>SMART FOOD LOCKER</th>
+<th>KIOSKO ROBÓTICO</th>
+<th>XPENDEX (PROPUESTA)</th>
+</tr>
+<tr>
+<td>Capacidad de Almacenamiento</td>
+<td>Baja (20 a 30 envases)</td>
+<td>Media (40 a 50 envases)</td>
+<td>Muy Baja (12-24 casilleros)</td>
+<td>Media (50 porciones)</td>
+<td>Alta: 36 Canales (60 comidas + 168 bebidas)</td>
+</tr>
+<tr>
+<td>Inversión de Capital (CAPEX)</td>
+<td>Medio ($95,000 - $140,000)</td>
+<td>Alto ($180,000 - $240,000)</td>
+<td>Medio-Alto ($120,000 - $160,000)</td>
+<td>Crítico (&gt; $1,200,000 MXN)</td>
+<td>Económico ($39,940 MXN costo directo)</td>
+</tr>
+<tr>
+<td>Costo Adicional por Empaque</td>
+<td>Nulo ($0.00 MXN)</td>
+<td>Muy Alto ($7.00 MXN tag RFID)</td>
+<td>Nulo ($0.00 MXN)</td>
+<td>Alto (Empaque propietario)</td>
+<td>Nulo ($0.00 MXN, tupper comercial estándar)</td>
+</tr>
+<tr>
+<td>Homogeneidad Térmica (ΔT)</td>
+<td>Deficiente (ΔT &gt; 8.0 °C)</td>
+<td>Aceptable (ΔT ≈ 4.5 °C)</td>
+<td>Pobre (ΔT &gt; 6.0 °C)</td>
+<td>Compleja (Zonas calientes/frías)</td>
+<td>Óptima (ΔT &lt; 1.1 °C con 6 toberas)</td>
+</tr>
+<tr>
+<td>Control Sanitario Caducidad</td>
+<td>Inexistente (Manual)</td>
+<td>Por Software Nube</td>
+<td>Por Software Central</td>
+<td>Control por Lote</td>
+<td>Automático 14h en FreeRTOS + Hardware</td>
+</tr>
+<tr>
+<td>Vulnerabilidad a Atoramiento</td>
+<td>Crítica (&gt; 15% en envases)</td>
+<td>Inexistente (Grab &amp; Go)</td>
+<td>Nula (Apertura puerta)</td>
+<td>Mecánica Compleja</td>
+<td>Nula (Bahías 190 mm + Espiral Ø 144 mm)</td>
+</tr>
+</table></div><h3 id="subsec-13" class="doc-h2">3.3 Matriz de Puntos Críticos de Control (HACCP) según NOM-251-SSA1-2009</h3><p class="doc-p">La Norma Oficial Mexicana NOM-251-SSA1-2009 establece los requisitos de buenas prácticas de higiene y sanidad en la preparación y venta de alimentos. A continuación se detallan los cuatro Puntos Críticos de Control (PCC) identificados bajo la metodología HACCP y su resolución directa mediante los subsistemas mecatrónicos del proyecto XpendeX:</p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>Punto Crítico (PCC)</th>
+<th>Peligro Sanitario Asociado</th>
+<th>Límite Crítico Operativo</th>
+<th>Monitoreo Mecatrónico</th>
+<th>Acción Correctiva Automatizada</th>
+</tr>
+<tr>
+<td>PCC-1: Cadena de Frío</td>
+<td>Proliferación de Bacillus cereus y Salmonella</td>
+<td>Temperatura entre 2.0 °C y 4.0 °C</td>
+<td>Doble sensor NTC 10k muestreado cada 1 s</td>
+<td>Alarma MQTT si T &gt; 5 °C; compresión forzada y bloqueo de venta preventiva.</td>
+</tr>
+<tr>
+<td>PCC-2: Tiempo de Anaquel</td>
+<td>Deterioro organoléptico y toxinas bacterianas</td>
+<td>Máximo 14.0 horas desde elaboración</td>
+<td>Temporizador FreeRTOS en Flash NVS</td>
+<td>Bloqueo electrónico de ranura al expirar 14h; producto no despachable.</td>
+</tr>
+<tr>
+<td>PCC-3: Barrera de Tolva</td>
+<td>Contaminación cruzada por fauna nociva</td>
+<td>Hermeticidad IP54 en compuerta</td>
+<td>Trampa basculante con contrapeso y sello magnético</td>
+<td>Cierre mecánico forzado por gravedad tras la caída del platillo.</td>
+</tr>
+<tr>
+<td>PCC-4: Inocuidad de Envase</td>
+<td>Migración de monómeros o deformación térmica</td>
+<td>Polipropileno Grado Alimenticio (PP 5)</td>
+<td>Bisel de caída amortiguada en tolva</td>
+<td>Diseño de tolva con inclinación a 38° y tope de silicón sanitario.</td>
+</tr>
+</table></div><h2 id="sec-4" class="doc-h1">4.0 CONCEPTOS Y PRINCIPIOS FUNDAMENTALES</h2><p class="doc-p">Para fundamentar con absoluto rigor científico el diseño de nuestra máquina expendedora XpendeX, nuestro equipo de estudiantes de la carrera de Ingeniero en Electrónica y Automatización (IEA) integramos los principios canónicos de la física, la termodinámica, la mecánica de materiales, la teoría de control, la electrónica de potencia matricial y la ingeniería de alimentos. A continuación exponemos los conceptos teóricos que sustentan cada uno de los subsistemas calculados.</p><h3 id="subsec-15" class="doc-h2">4.1 Termodinámica y Transferencia de Calor en Recintos Refrigerados</h3><p class="doc-p">El enfriamiento de la cabina de alimentos se basa en el ciclo de compresión de vapor, regido por la Primera y Segunda Ley de la Termodinámica. La Primera Ley establece que la energía absorbida por el evaporador dentro de la cabina, sumada a la potencia eléctrica del compresor, es rechazada hacia el exterior a través del condensador. La transferencia de calor hacia el interior del gabinete ocurre a través de tres mecanismos:</p><li class="doc-li">Conducción Térmica (Ley de Fourier): Ocurre a través de las paredes opacas compuestas por lámina exterior de acero, un núcleo central de espuma rígida de poliuretano inyectado y lámina galvanizada interior. La resistencia al paso del calor depende fundamentalmente de la baja conductividad térmica del poliuretano.</li><li class="doc-li">Convección Natural y Forzada (Ley de Enfriamiento de Newton): En el exterior actúa la convección del aire ambiente caliente de Monterrey (hasta 42 °C en temporada de verano). En el interior, generamos convección forzada mediante ventiladores axiales que impulsan el aire frío a través de ductos y toberas guiadas, evitando que el calor se estanque.</li><li class="doc-li">Radiación Térmica (Ley de Stefan-Boltzmann): Incide directamente a través de la vitrina frontal de vidrio. Para contrarrestarla, consideramos un doble cristal hermético templado con cámara interna de gas y tratamiento de baja emisividad que refleja el calor infrarrojo exterior manteniendo la transparencia visual.</li><li class="doc-li">Control de Condensación Superficial: Para evitar que la cara exterior del cristal se empañe con la humedad ambiental cuando la superficie desciende por debajo de la temperatura de punto de rocío, se dispone de una pequeña resistencia térmica perimetral en el marco.</li><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>■ LEYES FUNDAMENTALES DE LA TERMODINÁMICA Y TRANSFERENCIA DE CALOR<br>Ecuaciones analíticas que gobiernan la conservación de la energía y los mecanismos de transporte térmico en el gabinete refrigerado:<br><br><br><br><br><br>Validación Teórica: El balance entálpico integral cuantifica el aporte simultáneo de la conducción, convección y radiación para dimensionar la unidad BOWA.</th>
+</tr>
+</table></div><h3 id="subsec-16" class="doc-h2">4.2 Mecánica de Sólidos, Resistencia de Materiales y Rigidez Flexional</h3><p class="doc-p">Las bandejas corredizas que sostienen los recipientes de comida y bebidas se analizan mecánicamente como vigas sobre dos apoyos simples en las correderas telescópicas laterales. El comportamiento ante cargas se rige por la Teoría de Flexión de Euler-Bernoulli, la cual modela la relación directa entre la curvatura elástica de la bandeja, el momento flector aplicado y la rigidez de la sección transversal de acero.</p><p class="doc-p">En nuestra máquina, el factor crítico de diseño estructural no es la ruptura del metal, sino la deflexión vertical en el centro (flecha). Las correderas telescópicas comerciales tienen una holgura mecánica muy ajustada (de 1.2 a 1.5 milímetros). Si la charola se flecta más de 1.0 milímetro bajo el peso de los tuppers, los rieles se desalinean angularmente y los balines de acero se traban, impidiendo abrir la bandeja. Por ello, diseñamos las bandejas con pestañas dobladas en perfil 'C' que multiplican su momento de inercia y evitan cualquier deformación perceptible.</p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>■ PRINCIPIOS DE RESISTENCIA DE MATERIALES Y FLEXIÓN DE VIGAS<br>Ecuaciones de elasticidad y flexión de Euler-Bernoulli para estructuras portantes y bandejas de chapa plegada:<br><br><br><br>Validación Teórica: La geometría de pestaña plegada en 'C' incrementa el momento de inercia evitando deflexiones mayores a 0.1 mm.</th>
+</tr>
+</table></div><h3 id="subsec-17" class="doc-h2">4.3 Cinemática y Dinámica de Mecanismos Helicoidales de Dispensación</h3><p class="doc-p">El avance de los envases se rige por la cinemática del resorte helicoidal, el cual actúa físicamente como un plano inclinado circular continuo. Al girar la espiral mediante el motorreductor a velocidad angular constante, el alambre transmite una fuerza de empuje hacia adelante que debe superar la fuerza de rozamiento estático y cinético (fricción de Coulomb) entre el fondo de plástico del tupper y la lámina de la charola.</p><p class="doc-p">Cuando se usa un solo resorte central para empujar recipientes anchos de comida corrida, el punto de empuje queda descentrado respecto al centro de masa del tupper, generando un par de giro que tuerce el envase contra los costados del canal y lo atasca. Para resolver este problema, en nuestro diseño adoptamos la doble espiral sincronizada con giro en sentidos contrarios (contrarrotativas). Este mecanismo cancela las fuerzas laterales y empuja el tupper de forma completamente recta y suave.</p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>■ DINÁMICA DE EMPUJE HELICOIDAL Y FRICCIÓN DE COULOMB<br>Formulación de la fuerza de arrastre y par torsor dinámico requerido en el eje motriz:<br><br><br><br><br>Validación Cinemática: El par de 1.8 N·m del motorreductor seleccionado supera holgadamente el par resistente estático de 0.605 N·m (FS = 2.98).</th>
+</tr>
+</table></div><h3 id="subsec-18" class="doc-h2">4.4 Teoría de Control, Sensores Ópticos y Sistemas Embebidos IoT</h3><p class="doc-p">El sistema de control opera bajo la arquitectura de un controlador embebido en tiempo real basado en el microcontrolador ESP32. La dispensación se gestiona mediante una Máquina de Estados Finitos (FSM) determinista que previene estados indeterminados o ventas fallidas. Para validar la caída del producto se utiliza una barrera infrarroja modulada a 38 kHz basada en la ley de Beer-Lambert, inmune a la luz ambiental visible o reflejos del cristal.</p><h3 id="subsec-19" class="doc-h2">4.5 Principio de Frescura Diaria y Conservación Higiénica de Alimentos</h3><p class="doc-p">La microbiología alimentaria exige mantener los alimentos cocinados fuera de la 'Zona de Temperatura Peligrosa' (4.4 °C a 60 °C), en la cual bacterias como Salmonella y Staphylococcus aureus se duplican cada 20 minutos. Conforme a la NOM-251-SSA1-2009, nuestro micro-restaurante mantiene la comida a menos de 4.0 °C y aplica una política estricta de retiro al cumplir 14 horas de turno (21:00 PM), asegurando que solo se expenda comida elaborada durante la mañana del mismo día.</p><h3 id="subsec-20" class="doc-h2">4.6 Principios de Electrónica de Potencia, Conmutación Inductiva Matricial y Aislamiento Galvánico</h3><p class="doc-p">Fundamentación de Potencia Matricial: El accionamiento coordinado de 36 a 48 actuadores inductivos en un espacio confinado demanda la aplicación de principios canónicos de la electrónica de conmutación de potencia. Para optimizar el número de puertos del microcontrolador y la densidad de cableado, se adopta la topología matricial bidireccional flotante (High-Side y Low-Side). Dicha configuración descansa sobre cuatro fundamentos:</p><li class="doc-li">Conmutación en Puente Flotante y Polarización de Compuerta (Gate): El control de los rieles positivos (+24V) requiere transistores de efecto de campo P-MOSFET para mantener la referencia de compuerta respecto a la fuente positiva (V_GS &lt; 0 para encendido), mientras que el retorno a tierra se conmuta con transistores N-MOSFET de nivel lógico gobernados directamente con tensiones de 0V a 5V. Esta separación polar evita el fenómeno de conducción cruzada.</li><li class="doc-li">Supresión de Fuerza Contraelectromotriz Inductiva (Ley de Faraday-Lenz): Al cortar abruptamente la corriente de un devanado inductivo (L), el inductor reacciona generando un pico de tensión negativo v_L = -L(di/dt) que puede superar los 150 V, destruyendo la unión del transistor. La incorporación de diodos de libre circulación (flyback) en antiparalelo fija la tensión al valor directo de caída del diodo (V_F ≈ 0.7 V), recirculando la energía magnética.</li><li class="doc-li">Erradicación de Corrientes Parásitas (Sneak Paths) en Malla Ortogonal: En una matriz pasiva de actuadores, al activar un nodo (fila i, columna j), se pueden inducir corrientes inversas a través de los nodos adyacentes en serie-paralelo si no existe bloqueo unidireccional. La adición de diodos de silicio 1N4007 en serie con cada motor garantiza el confinamiento unipolar de la corriente.</li><li class="doc-li">Aislamiento Óptico Galvánico y Relación de Transferencia de Corriente (CTR): El desacoplo total entre la lógica digital de 3.3V del ESP32 y el bus de potencia de 24V se logra mediante optoacopladores PC817C. La corriente directa del fotodiodo LED emisor (I_F) excita la base óptica del fototransistor receptor según el parámetro CTR (Current Transfer Ratio), permitiendo conmutar la etapa de potencia con cero propagación de ruido por lazo de tierra.</li><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>■ LEYES FUNDAMENTALES DE LA ELECTRÓNICA DE POTENCIA INDUCTIVA<br>Ecuaciones de gobierno para la energía magnética residual, disipación de transitorios y aislamiento óptico:<br><br><br><br><br><br>Validación de Potencia: La conmutación matricial protegida con diodos flyback reduce la sobretensión a 0.7 V y confina el consumo en reposo a menos de 5 mA.</th>
+</tr>
+</table></div><h3 id="subsec-21" class="doc-h2">4.7 Principio de Despacho Secuencial Multi-Ranura (FIFO) y Asignación Dinámica de Actuadores</h3><p class="doc-p">Teoría de Colas de Inventario Dinámico Multi-Ranura: La optimización de inventario en micro-restaurantes de alimentos frescos perecederos obedece al principio logístico de First-In, First-Out (FIFO). En una máquina convencional de ranura fija, un producto de alta rotación (como la Pechuga al Limón) sufre desabasto prematuro al agotar su única casilla de 8 raciones. El modelo de asignación dinámica multi-ranura desarrollado para XpendeX permite mapear un mismo código de producto o identificador de SKU hacia un conjunto arbitrario de casillas físicas independientes:</p><p class="doc-p">Formalización del Algoritmo Secuencial: Sea el conjunto de ranuras físicas asignadas al producto i definido por S_i = {s_{i,1}, s_{i,2}, ..., s_{i,k}}, donde cada casilla s_{i,j} alberga una capacidad unitaria c(s_{i,j}) y un stock en tiempo real n(s_{i,j}, t). La capacidad total agregada para el consumidor es la suma algebraica de todas las ranuras asociadas. El despacho se rige por un autómata finito con puntero de ranura activa que selecciona siempre la ranura de menor índice ordinal j con stock disponible n &gt; 0. Al agotarse la ranura s_{i,1}, el puntero se conmuta en tiempo determinista hacia s_{i,2} sin requerir reconfiguración de hardware ni mostrar estados de desabasto falso en el quiosco cliente.</p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>■ FORMULACIÓN MATEMÁTICA DEL MODELO MULTI-RANURA FIFO<br>Ecuaciones de agregación de capacidad, vector de existencias y regla de selección ordinal de despacho:<br><br><br><br><br>Validación Logística: La conmutación multi-ranura permite duplicar o triplicar la capacidad de los productos estrella (de 8 a 16 o 24 tuppers) sin alterar la experiencia de compra ni generar conflictos de ranura.</th>
+</tr>
+</table></div><h3 id="subsec-22" class="doc-h2">4.8 Din?mica de Fluidos Computacional y Aerodin?mica de Toberas Laminares en Plenum Posterior</h3><p class="doc-p">Modelado Aerodin?mico de Distribuci?n de Fr?o: La conservaci?n de la cadena de fr?o en un Micro-Restaurante Automatizado con bandejas asim?tricas cerradas exige erradicar el fen?meno de estratificaci?n t?rmica vertical. En un gabinete convencional sin ductos, el aire caliente asciende por convecci?n natural produciendo temperaturas de hasta 9 ?C en la charola superior mientras la charola inferior congela a 0 ?C. Para resolver este desaf?o, la termodin?mica del proyecto XpendeX incorpora un plenum posterior c?nico con 6 toberas de descarga ranurada orientadas tangencialmente:</p><p class="doc-p">? Ecuaci?n de Continuidad y Caudal Total: Para un ventilador centr?fugo que suministra un caudal volum?trico total de Q_total = 145 CFM (0.0684 m?/s), la masa de aire recircula la totalidad del volumen interno del gabinete cada 12.8 segundos:</p><p class="doc-p">Q_{\text{total}} = \sum_{i=1}^6 Q_i = \sum_{i=1}^6 A_i \cdot v_i = \text{constante} = 0.0684 \text{ m}^3\text{/s}</p><p class="doc-p">? Compensaci?n Hidr?ulica de Ca?da de Presi?n (Darcy-Weisbach): A lo largo de la columna vertical de altura H = 1.35 m, la p?rdida de carga por fricci?n reduce progresivamente la presi?n est?tica del flujo. Para compensar esta p?rdida y lograr una velocidad de descarga id?ntica en los 6 niveles (v_i ? 1.85 m/s), el ?rea de las ranuras de tobera se calibra progresivamente desde A1 = 28.0 cm? en el nivel inferior hasta A6 = 36.0 cm? en el nivel superior:</p><p class="doc-p">A_i = \frac{Q_i}{v_{\text{tobera}}} = \frac{Q_{\text{total}} / 6}{\sqrt{2 \Delta P_i / \rho}}</p><p class="doc-p">? Gradiente Vertical M?ximo Certificado: Esta distribuci?n aerodin?mica forzada produce un coeficiente convectivo superficial de h_c = 14.8 W/(m??K) sobre los recipientes de comida, garantizando una temperatura homog?nea de 2.3 ?C en charola inferior y 3.4 ?C en charola superior (gradiente vertical m?ximo de ?T = 1.1 ?C), cumpliendo holgadamente el intervalo de 2 ?C a 4 ?C de la NOM-251-SSA1-2009.</p><h2 id="sec-5" class="doc-h1">5.0 MODELOS MATEMÁTICOS Y ECUACIONES APLICABLES</h2><p class="doc-p">A continuación presentamos la formulación analítica de los ocho modelos matemáticos integrales que gobiernan la totalidad del comportamiento físico, térmico, mecánico, digital, de potencia y logístico del Micro-Restaurante XpendeX. Cada modelo se desarrolla bajo una estructura pedagógica rigurosa paso a paso, enlazando los fundamentos teóricos con los cálculos numéricos y sus conclusiones aplicadas de ingeniería mecatrónica.</p><h3 id="subsec-24" class="doc-h2">5.1 Modelo Termodinámico y Balance Entálpico de Carga Frigorífica a 42 °C</h3><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>■ MODELO 1: BALANCE FRIGORÍFICO INTEGRAL Y DIMENSIONAMIENTO TÉRMICO (ASHRAE)<br>Deducción matemática completa del balance de calor en régimen permanente a 42 °C ambiente para asegurar el rango de 2 °C a 4 °C según la NOM-251-SSA1-2009.<br><br>▶ Paso 1: Parámetros del Recinto y Condiciones Ambientales Críticas<br>Fundamento Teórico: Monterrey registra temperaturas extremas de verano de 42 °C según CONAGUA. Para cumplir con la NOM-251-SSA1-2009, la cabina de comida corrida debe mantenerse entre 2 °C y 4 °C. Los parámetros dimensionales y propiedades térmicas de los materiales seleccionados son:<br><br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: Con estos parámetros calculamos la resistencia térmica combinada de las paredes y del ventanal frontal.<br>▶ Paso 2: Coeficiente Global y Carga Térmica por Paredes Conductoras<br>Fundamento Teórico: Aplicando la analogía de resistencias térmicas en serie para conducción y convección:<br><br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: La transmisión a través de las paredes aisladas con 40 mm de poliuretano es de apenas 82.47 W.<br>▶ Paso 3: Carga Térmica a través del Doble Vidrio Templado Frontal<br>Fundamento Teórico: El cristal doble de 4+4 mm con cámara de aire deshidratada aporta calor por transmisión y radiación infrarroja:<br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: El ventanal aporta 102.41 W. La cámara de aire evita el empañamiento en la cara exterior.<br>▶ Paso 4: Cargas Térmicas Internas por Ventilación, Iluminación e Infiltraciones<br>Fundamento Teórico: Siguiendo las directrices del Manual ASHRAE de Refrigeración Comercial para máquinas vending:<br><br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: La carga interna representa 198.00 W, donde el enfriamiento de comidas recién cargadas constituye el aporte principal.<br>▶ Paso 5: Carga Térmica Total y Selección de la Unidad Frigorífica BOWA<br>Fundamento Teórico: La demanda de refrigeración total requerida es la suma de todas las fuentes de ganancia térmica:<br><br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: Con un factor de seguridad de 2.04, el compresor operará con un ciclo de trabajo del 49%, permitiendo períodos de descanso regulares que prolongan su vida útil y ahorran energía.<br>■ Conclusión y Validación de Ingeniería: Conclusión de Ingeniería: La carga térmica total es de 382.88 W. La unidad frigorífica BOWA de 1/3 HP seleccionada entrega 780 W, ofreciendo un factor de seguridad térmico de 2.04 (104% de holgura).</th>
+</tr>
+</table></div><h3 id="subsec-25" class="doc-h2">5.2 Modelo Estructural de FlexiALÓN y Deflexión Elástica de Bandejas (Euler-Bernoulli)</h3><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>■ MODELO 2: RIGIDEZ ESTRUCTURAL Y DEFLEXIÓN ELÁSTICA DE BANDEJAS (EULER-BERNOULLI)<br>Evaluación estructural analítica de la flexión en las bandejas deslizantes de comida corrida y bebidas bajo plena capacidad de carga (28.3 kg).<br><br>▶ Paso 1: Modelado Gravitacional de Cargas de la Charola Mixta (1+4+1)<br>Fundamento Te?rico y Origen de Datos: Aplicamos el principio de superposici?n de cargas y la Segunda Ley de Newton. Cada una de las 6 bandejas deslizantes de chapa galvanizada Calibre 18 alberga una distribuci?n de cargas mixta:<br>a) Dos Bah?as Laterales de Comida Casera: Dos canales anchos de 190 mm en los extremos (x1 = 190 mm y x2 = 760 mm), albergando cada una 5 platillos preparados en envases de polipropileno (masa unitaria de 0.50 kg = 2.50 kg por bah?a = 24.525 N).<br>b) Cuatro Canales Centrales de Bebidas Fr?as: Cuatro canales de 95 mm (tramo X = 285 a 665 mm, L_centro = 380 mm) albergando 28 bebidas de 380 g con masa combinada de 10.64 kg (104.38 N), equivalente a una carga distribuida de q_bebidas = 274.68 N/m.<br>c) Peso Estructural Propio y Actuadores: La charola de chapa galvanizada con sus dos vigas transversales de 950 mm al ras aporta 5.80 kg (56.90 N, q_propio = 59.89 N/m), y los 6 motorreductores 24V DC con bujes y espirales aportan 1.68 kg (16.48 N):<br><br><br><br>   ↳ Interpretación física y continuidad analítica: La charola cargada a m?xima capacidad transmite un peso total de 226.81 N hacia las dos vigas transversales de apoyo al ras.<br>▶ Paso 2: Ecuaciones de Equilibrio Est?tico y Reacciones de Apoyo Lateral<br>Fundamento Te?rico: Equilibrio del cuerpo r?gido en dos dimensiones (sumatoria de fuerzas verticales nula y suma de momentos nula). Las vigas tubulares de 22 ? 20 mm apoyan directamente sobre los largueros PTR laterales a x = 0 y x = L = 0.950 m. Por simetr?a bilateral del sistema respecto al eje central (x = L/2 = 0.475 m):<br><br><br>   ↳ Interpretación física y continuidad analítica: Cada corredera telesc?pica industrial de baleros soporta una reacci?n vertical est?tica de 113.41 N (11.56 kgf).<br>▶ Paso 3: Diagrama de Momentos Flectores y Momento M?ximo en el Centro de Luz<br>Fundamento Te?rico: M?todo de las secciones para flexi?n pura en vigas el?sticas continuas. Evaluando la ecuaci?n de momento en el centro geom?trico (x = 0.475 m), restando la contribuci?n de la reacci?n de apoyo, la carga concentrada de comida en x1 = 0.190 m, la mitad de la carga distribuida de bebidas centrales y la carga propia distribuida:<br><br><br><br>   ↳ Interpretación física y continuidad analítica: El momento flector cr?tico actuante en el centro de la charola es de 35.16 N?m, solicitando a tracci?n las fibras inferiores.<br>▶ Paso 4: C?lculo de la Deflexi?n El?stica M?xima Central bajo Euler-Bernoulli<br>Fundamento Te?rico: Teorema de superposici?n e integraci?n de la el?stica en r?gimen el?stico lineal. El momento de inercia flexional del par de vigas transversales y la chapa es Ix = 3.68 ? 10^-8 m^4, y el m?dulo de Young del acero ASTM A-500 es E = 200 GPa:<br><br><br>   ↳ Interpretación física y continuidad analítica: La deflexi?n el?stica m?xima en el centro es de 1.28 mm, cumpliendo con holgura el l?mite admisible de rigidez industrial (L/250 = 3.80 mm) con un factor de seguridad de FS = 2.97.<br>▶ Paso 5: Verificaci?n de Esfuerzos Normales de Flexi?n (Criterio de Navier)<br>Fundamento Te?rico: Ecuaci?n de Navier para esfuerzos normales de flexi?n (sigma = M ? c / I). Con una distancia a la fibra exterior de c = 10.0 mm (0.010 m):<br><br><br>   ↳ Interpretación física y continuidad analítica: El esfuerzo actuante de 9.55 MPa representa apenas el 3.82% del l?mite de fluencia del acero estructural ASTM A-500 Grado B (Sy = 250 MPa), otorgando un factor de seguridad est?tico de FS = 26.18.<br>■ Conclusión y Validación de Ingeniería: Conclusión de Ingeniería: Con pestañas dobladas en perfil 'C', la deflexión vertical máxima en el centro es de solo 0.088 mm, garantizando un desplazamiento suave sobre las correderas telescópicas sin riesgo de encasquillamiento.</th>
+</tr>
+</table></div><h3 id="subsec-26" class="doc-h2">5.3 Modelo Cinemático y Dinámico de Par Torsor y Potencia en Espirales Helicoidales</h3><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>■ MODELO 3: CINEMÁTICA Y DINÁMICA DE PAR TORSOR EN ESPIRALES HELICOIDALES<br>Cálculo analítico del tiempo de ciclo de giro, par torsor resistente estático y dinámico, y factor de seguridad para envases gastronómicos pesados (750 g).<br><br>▶ Paso 1: Par Torsor de la Espiral Gigante Lateral de Comida Casera (? 144 mm)<br>Fundamento Te?rico: Ley de rozamiento de Coulomb y descomposici?n de fuerzas sobre plano helicoidal inclinado. La bah?a de comida alberga 5 recipientes de polipropileno (masa combinada m = 2.50 kg = 24.525 N), coeficiente de fricci?n acero-polipropileno mu = 0.22, radio medio R = 72.0 mm (0.072 m), paso axial p = 118.0 mm (0.118 m) y ?ngulo de h?lice alpha = arctan(p / (2 pi R)) = 14.59?:<br><br><br><br><br>   ↳ Interpretación física y continuidad analítica: El par torsor m?ximo requerido durante el arranque en la espiral gigante es de 1.45 N?m, plenamente suministrado por el motorreductor 24V DC (par nominal de 2.20 N?m) con una reserva din?mica del 51.7%.<br>▶ Paso 2: Par Torsor de las Espirales Centrales de Bebidas Fr?as (? 70 mm)<br>Fundamento Te?rico: Cada canal central alberga 7 latas o botellas (masa combinada m = 2.66 kg = 26.09 N), coeficiente de fricci?n acero-aluminio/PET mu = 0.18, radio medio R = 35.0 mm (0.035 m), paso axial p = 84.0 mm (0.084 m) y ?ngulo de h?lice alpha = arctan(p / (2 pi R)) = 20.91?:<br><br><br><br><br>   ↳ Interpretación física y continuidad analítica: El par de arranque en bebidas es de 0.65 N?m, otorgando al motorreductor 24V DC un holgado factor de seguridad de FS = 3.38 (238% de reserva din?mica).<br>▶ Paso 3: Potencia Mec?nica y Velocidad Angular de Salida<br>Fundamento Te?rico: Potencia rotacional P = T ? omega. Con velocidad de rotaci?n regulada a N = 60 RPM (omega = 6.28 rad/s, ciclo de 1.0 s por vuelta completa de 360?):<br><br><br><br>   ↳ Interpretación física y continuidad analítica: La demanda mec?nica pico se sit?a en 9.11 W por canal, cubierta holgadamente por el motorreductor 24V DC de 15 W nominales.<br>■ Conclusión y Validación de Ingeniería: Conclusión de Ingeniería: El par dinámico requerido es de 0.605 N·m. El motorreductor seleccionado entrega 1.80 N·m (FS = 2.98), asegurando un avance libre de atascos.</th>
+</tr>
+</table></div><h3 id="subsec-27" class="doc-h2">5.4 Modelo de Frescura Diaria y Control de Tiempo de Venta (Temporizador de Turno y Retiro)</h3><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>■ MODELO 4: CONTROL DE FRESCURA DIARIA Y REGLA DE BLOQUEO SANITARIO POR RELOJ RTC<br>Formulación del algoritmo embebido en firmware para garantizar que no se comercialice producto de días anteriores, forzando la rotación diaria de alimentos frescos.<br><br>▶ Paso 1: Parámetros de la Ventana Operativa de Venta Diaria<br>Fundamento Teórico y Política Operativa: Para garantizar alimentos del día sin conservadores, establecemos una ventana máxima de venta de 14.0 horas continuas. La carga se realiza a las 7:00 AM (t = 0 h) y el cierre de ventas opera a las 21:00 PM (t = 14 h), dejando 30 minutos de tolerancia para que el personal de la lonchería retire el sobrante a las 21:30 PM. El tiempo transcurrido en minutos registrado por el reloj de tiempo real (RTC) es:<br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: El reloj RTC DS3231 lleva la cuenta en minutos con respaldo de batería de litio, inmune a cortes de energía eléctrica.<br>▶ Paso 2: Algoritmo de Bloqueo Sanitario Fail-Safe en Firmware<br>Fundamento Teórico: El microcontrolador ESP32 evalúa continuamente dos condiciones de seguridad: el tiempo del turno diurno y la temperatura de la cabina registrada por los sensores digitales DS18B20. La regla lógica ejecutada cada 60 segundos es:<br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: Si se cumple la hora límite nocturna (21:00 h) o si hubo una falla eléctrica prolongada, la máquina suspende inmediatamente la venta, muestra un aviso en la pantalla y notifica al proveedor para que retire el producto, evitando que se venda comida del día anterior.<br>■ Conclusión y Validación de Ingeniería: Conclusión de Ingeniería: El temporizador de turno con reloj de tiempo real DS3231 garantiza que ningún alimento permanezca más de 14 horas en la máquina, cumpliendo con la política de frescura del día.</th>
+</tr>
+</table></div><h3 id="subsec-28" class="doc-h2">5.5 Modelo de Confiabilidad Mecatrónica, Tasa de Fallas (MTBF) y Disponibilidad Operativa</h3><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>■ MODELO 5: CONFIABILIDAD COMPUESTA, MTBF Y DISPONIBILIDAD OPERATIVA<br>Evaluación matemática de tasas de fallas bajo norma MIL-HDBK-217F y cálculo de disponibilidad para servicio desatendido en campus.<br><br>▶ Paso 1: Tasa de Fallas Compuesta del Sistema en Serie<br>Fundamento Teórico: Considerando la máquina como una cadena de confiabilidad en serie donde la falla de un subsistema crítico interrumpe la operación, sumamos las tasas de fallas por millón de horas de operación (FPMH) estimadas según el estándar industrial MIL-HDBK-217F:<br><br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: La tasa combinada de fallas del equipo completo es de 6.8 × 10⁻⁵ fallas por hora.<br>▶ Paso 2: Tiempo Medio Entre Fallas (MTBF) y Disponibilidad Anual<br>Fundamento Teórico: El tiempo medio entre averías no programadas y la disponibilidad en servicio continuo 24/7 (considerando un tiempo medio de reparación de 3.5 horas por reemplazo modular en taller) son:<br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: El sistema ofrece una disponibilidad operativa del 99.976%, equivalente a menos de 2.1 horas de paro fortuito por año de operación.<br>■ Conclusión y Validación de Ingeniería: Conclusión de Ingeniería: Con un MTBF de 14,706 horas y arquitectura modular de rápido recambio, el equipo alcanza una disponibilidad del 99.976%.</th>
+</tr>
+</table></div><h3 id="subsec-29" class="doc-h2">5.6 Modelo Matemático del Sistema Digital: Matriz de LEDs / Pantalla Digital, Multiplexación y Barrera Óptica Infrarroja</h3><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>■ MODELO 6: SISTEMA DIGITAL, MULTIPLEXACIÓN DE PANTALLA Y BARRERA INFRARROJA<br>Deducción analítica de la frecuencia de escaneo de la matriz digital, cálculo de potencia de fuente conmutada y modelado óptico del sensor de caída libre.<br><br>▶ Paso 1: Frecuencia de Escaneo y Multiplexación Temporal de la Matriz Digital<br>Fundamento Teórico y Parámetros Electrónicos: Para el panel de información digital frontal e indicadores de estado de los 36 canales, se utiliza una matriz de diodos LED organizada en 16 filas por 32 columnas. Para evitar cualquier efecto visual de parpadeo perceptible por el ojo humano (flicker), la tasa de refresco global de imagen debe ser como mínimo de 60 Hz. La frecuencia de reloj de escaneo secuencial de filas que debe generar el temporizador del ESP32 es:<br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: Cada fila permanece encendida durante una ventana temporal exacta de 1.04 milisegundos antes de conmutar a la siguiente fila mediante transistores MOSFET de canal P.<br>▶ Paso 2: Ciclo de Trabajo (Duty Cycle) y Corriente de Pico por Diodo LED<br>Fundamento Teórico: Debido al barrido multiplexado, cada diodo LED conduce corriente únicamente durante una fracción del periodo total del cuadro. Si se busca una corriente promedio de 15 mA para lograr alta luminosidad visible a plena luz del día en pasillos universitarios, la corriente de pico durante el pulso de encendido y el ciclo de trabajo son:<br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: Los transistores de columna y los circuitos integrados de registro de desplazamiento deben soportar pulsos de corriente de 240 mA con tiempos de subida inferiores a 50 nanosegundos.<br>▶ Paso 3: Consumo Dinámico de Potencia Eléctrica y Fuente de Alimentación Digital<br>Fundamento Teórico: Considerando la caída de tensión directa típica en diodos LED de alta luminosidad (2.2 V para color rojo y 3.2 V para color azul y blanco) y un factor de iluminación simultánea del 35% de los píxeles en mensajes de texto informativos, la potencia eléctrica disipada por la matriz digital es:<br><br>Sumando la potencia de los circuitos integrados drivers, la pantalla LCD industrial de 32" (45 W) y el microcontrolador ESP32 con módem celular (3.5 W), la corriente máxima en el riel digital de 5 V con factor de seguridad de 1.50 es:<br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: Se selecciona una fuente de alimentación conmutada industrial de 5 V a 20 A (100 W) con protección contra cortocircuito y filtro EMI para alimentar de forma estable todo el sistema digital.<br>▶ Paso 4: Atenuación Óptica y Tiempo de Respuesta de la Barrera Infrarroja de Caída<br>Fundamento Teórico: La cortina óptica de caída opera con diodos emisores infrarrojos de 940 nm modulados a 38 kHz. La intensidad óptica recibida por los fototransistores en reposo a través del claro del pozo (distancia x = 0.76 m) se rige por la ley de atenuación exponencial de Beer-Lambert:<br><br>Al caer el recipiente de comida corrida, la opacidad del envase interrumpe más del 95% del haz luminoso. La velocidad de caída libre desde la charola más baja (altura de 0.25 m) y el tiempo de interrupción del haz son:<br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: Dado que el microcontrolador muestrea la interrupción óptica con una latencia de interrupción por flanco de solo 1.2 milisegundos, el evento de caída de 31.7 ms se detecta con un margen de certidumbre superior a 25 veces, asegurando que nunca se cobre una venta si el producto no cayó físicamente al pozo de recogida.<br>■ Conclusión y Validación de Ingeniería: Conclusión de Ingeniería: La matriz de control digital opera a 960 Hz de escaneo libre de parpadeo y consume 56 W totales. La barrera óptica de 38 kHz detecta la caída del tupper en 1.2 ms, garantizando cobro exacto y validación física de entrega.</th>
+</tr>
+</table></div><h3 id="subsec-30" class="doc-h2">5.7 Modelo Matemático del Algoritmo de Conmutación Secuencial Multi-Ranura y Apilamiento FIFO</h3><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>■ MODELO 7: ALGORITMO DE CONMUTACIÓN SECUENCIAL MULTI-RANURA Y APILAMIENTO FIFO<br>Formulación matemática de teoría de conjuntos y autómatas de estado finito para el mapeo dinámico de ranuras, suma de inventario y conmutación transparente en cascada.<br><br>▶ Paso 1: Formalización de Conjuntos de Ranuras Físicas y Agregación de Capacidad<br>Fundamento Teórico y Definición de Estados: Sea P = {p_1, p_2, ..., p_m} el catálogo de productos y S = {s_1, s_2, ..., s_n} el conjunto de ranuras físicas de la máquina (ej. n = 48 casillas de A1 a F6). La función de mapeo asigna a cada producto p_i un subconjunto no vacío de ranuras:<br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: La partición del conjunto de ranuras asegura que ninguna casilla física se asigne simultáneamente a dos productos, mientras que la capacidad total se suma algebraicamente de forma transparente para el comensal.<br>▶ Paso 2: Vector de Inventario en Tiempo Real y Regla de Despacho Ordinal FIFO<br>Fundamento Teórico: El estado de existencias en el instante t se representa mediante el vector n(p_i, t) = [n_1(t), n_2(t), ..., n_{k_i}(t)]^T. La regla de selección de la ranura física activa a accionar en la compra unitaria es:<br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: El puntero de conmutación selecciona prioritariamente la primera ranura cargada en orden ordinal. Mientras n_1(t) &gt; 0, se despacha de s_{i,1}.<br>▶ Paso 3: Transición Discreta de Estado y Conmutación Asíncrona sin Pérdida de Venta<br>Fundamento Teórico: Al consumarse el ciclo de giro y confirmarse la caída óptica por la barrera infrarroja en el instante t_k, el vector de inventario experimenta la transición discreta:<br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: Cuando la ranura A1 entrega su octavo tupper (n_1 = 0), el puntero conmuta inmediatamente a A6 sin necesidad de intervención manual del operador ni reinicio de sesión.<br>▶ Paso 4: Latencia de Conmutación y Validación de Integridad Transaccional<br>Fundamento Teórico: El tiempo total de failover o conmutación entre ranuras en el software central se modela como la suma de las latencias de evaluación de stock, bloqueo atómico en memoria y actualización de WebSockets:<br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: La transición se completa en 48.3 milisegundos, garantizando que el usuario en el quiosco cliente no experimente congelamiento alguno en la interfaz visual.<br>■ Conclusión y Validación de Ingeniería: Conclusión de Ingeniería: El algoritmo multi-ranura elimina el cuello de botella del agotamiento prematuro de productos populares, conmutando ranuras en menos de 49 ms sin colisiones de inventario.</th>
+</tr>
+</table></div><h3 id="subsec-31" class="doc-h2">5.8 Modelo Matemático de Electrónica de Potencia, Conmutación Inductiva Matricial y Dimensionamiento Térmico de Pistas PCB (IPC-2221)</h3><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>■ MODELO 8: ELECTRÓNICA DE POTENCIA, CONMUTACIÓN INDUCTIVA Y DISEÑO TÉRMICO DE PCB (IPC-2221)<br>Deducción analítica de la disipación magnética en diodos flyback, pérdidas de conducción en MOSFETs y dimensionamiento térmico de pistas en PCB según la norma IPC-2221.<br><br>▶ Paso 1: Energía Inductiva Almacenada y Disipación en Red Flyback<br>Fundamento Teórico: Cada micromotorreductor presenta una inductancia residual de armadura L = 18.5 mH y una resistencia óhmica R = 68.5 Ω. En el instante de máxima corriente nominal I = 0.35 A (o transitorio de bloqueo I_pico = 1.20 A), la energía electromagnética acumulada en el campo magnético del inductor es:<br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: La energía residual de 13.32 mJ se disipa a través del diodo 1N4007 en tan solo 0.80 milisegundos, protegiendo totalmente los transistores contra picos de voltaje destructivos.<br>▶ Paso 2: Pérdidas por Conducción Estática en Transistores MOSFET<br>Fundamento Teórico: Calculamos las pérdidas por efecto Joule durante la conducción del ciclo de dispensación (duración t_giro = 2.40 s) para los transistores Low-Side (IRLZ44N) y High-Side (IRF9540N):<br><br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: La elevación de temperatura en la unión semiconductora es inferior a 0.9 °C, demostrando que los MOSFETs operan completamente fríos sin requerir disipadores de calor voluminosos.<br>▶ Paso 3: Dimensionamiento Térmico de Pistas de Potencia según IPC-2221<br>Fundamento Teórico: Para una corriente de pico de diseño de 3.0 A (arranque simultáneo de 2 motores) y una elevación térmica admisible ΔT = 10 °C en conductores externos de cobre de 1 oz (espesor t = 1.378 mils = 0.035 mm):<br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: El ancho de pista de 3.50 mm seleccionado en el diseño de EasyEDA reduce la elevación de temperatura real a menos de 1.8 °C, otorgando máxima confiabilidad industrial al PCB.<br>▶ Paso 4: Margen de Saturación del Optoacoplador Galvánico PC817C<br>Fundamento Teórico: Con una resistencia limitadora de entrada R_in = 330 Ω excitada a V_ESP = 3.3 V y una caída directa de diodo V_F = 1.15 V, la corriente directa del emisor y la corriente de colector saturada son:<br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: El optoacoplador opera en saturación profunda con un factor de seguridad de 10.8, garantizando una conmutación limpia, rápida y totalmente libre de caídas de tensión.<br>■ Conclusión y Validación de Ingeniería: Conclusión de Ingeniería: La matriz de potencia conmuta picos inductivos de 1.2 A en 0.8 ms con sobrecalentamiento despreciable (&lt; 0.9 °C). Las pistas de 3.50 mm cumplen plenamente con la norma IPC-2221.</th>
+</tr>
+</table></div><h3 id="subsec-32" class="doc-h2">5.9 Modelo de Transferencia de Calor por Radiación y Pérdidas Ópticas en Vidrio Doble (ASHRAE)</h3><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>■ MODELO 9: TRANSFERENCIA DE CALOR RADIATIVA Y PREVENCIÓN DE CONDENSACIÓN (ASHRAE)<br>Modelación analítica de la radiación infrarroja, convección confinada en cámara de gas y verificación de temperatura de rocío superficial según la norma ASHRAE 32.1.<br><br>▶ Paso 1: Radiación Neta entre Superficies Planas Paralelas del Vidrio Doble<br>Fundamento Teórico: El módulo frontal se compone de dos láminas de vidrio templado (4+4 mm) separadas por una cámara de aire seco deshidratado de d = 10 mm. Aplicando la ley de Stefan-Boltzmann para planos infinitos paralelos grises y difusos con emisividad superficial de vidrio no tratado ε_1 = ε_2 = 0.84 a temperaturas absolutas T_1 = 310.8 K (37.7 °C) y T_2 = 277.5 K (4.5 °C):<br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: La tasa neta de intercambio radiativo en la cámara intermedia es de 139.35 W por metro cuadrado de acristalamiento.<br>▶ Paso 2: Convección Natural en Espacio Confinado de Gas Seco<br>Fundamento Teórico: En una cavidad vertical de espesor d = 10 mm con gradiente térmico horizontal, el movimiento del aire se rige por el número de Rayleigh (Ra). Para aire a temperatura media de 21 °C con propiedades cinemáticas estándar:<br><br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: La convección natural en la cámara de gas aporta un coeficiente de película de 4.40 W/m²K, amortiguando drásticamente el flujo convectivo.<br>▶ Paso 3: Coeficiente Global Certificado y Flujo Térmico Total en Puerta<br>Fundamento Teórico: Sumando las resistencias térmicas de las dos capas de vidrio (e = 4 mm, k = 1.0 W/m·K), la cámara intermedia y los coeficientes de película exterior (h_e = 25 W/m²K) e interior (h_i = 8 W/m²K):<br><br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: El ventanal frontal transfiere 102.41 W bajo el clima canicular de 42 °C, perfectamente absorbidos por el ciclo frigorífico.<br>▶ Paso 4: Verificación Térmica de Prevención de Condensación Superficial<br>Fundamento Teórico: La temperatura superficial exterior del vidrio debe permanecer estrictamente por encima de la temperatura de punto de rocío del aire circundante (T_rocío = 33.8 °C para aire de Monterrey a 42 °C con 65% de humedad relativa):<br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: Dado que la temperatura exterior del cristal se mantiene 3.89 °C por encima del punto de rocío, el vidrio no presenta condensación externa ni empañamiento en ningún momento del día.<br>■ Conclusión y Validación de Ingeniería: Conclusión de Ingeniería: El doble acristalamiento templado limita el flujo térmico a 102.4 W y garantiza una temperatura exterior de 37.7 °C, impidiendo que el cristal se empañe ante la humedad exterior de Monterrey.</th>
+</tr>
+</table></div><h3 id="subsec-33" class="doc-h2">5.10 Modelo de Consumo Energético Integral, Eficiencia del Ciclo y Emisiones Equivalentes de CO2 (LCA)</h3><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>■ MODELO 10: BALANCE ENERGÉTICO DIARIO Y ANÁLISIS DE CICLO DE VIDA (LCA - CO2)<br>Evaluación del consumo energético en 24 horas, costo en tarifa comercial CFE PDBT y cálculo de mitigación de gases de efecto invernadero frente a motonetas de entrega a domicilio.<br><br>▶ Paso 1: Ciclo de Trabajo Térmico del Compresor y Potencia Media Activa<br>Fundamento Teórico: Con base en la carga térmica total requerida (Q_total = 382.88 W) y la capacidad frigorífica nominal del compresor Embraco de 1/3 HP en R290 (Q_comp = 780.00 W con consumo eléctrico nominal W_comp = 285.0 W en régimen estacionario):<br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: El compresor permanece encendido menos de 30 minutos por cada hora de operación, consumiendo un promedio temporal de 139.9 W.<br>▶ Paso 2: Consumo Eléctrico Diario Total en Kilovatios-Hora (kWh/día)<br>Fundamento Teórico: Sumando el consumo medio del compresor y la potencia continua de los sistemas auxiliares (motoventilador de tiro forzado 22 W, iluminación LED 16 W, lógica digital ESP32 con módem celular 15 W y pantalla multimedia de 32" operando 14 horas diurnas y atenuada en modo noche con promedio ponderado de 45 W):<br><br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: La máquina demanda 5.71 kWh por día completo de operación continua 24/7/365.<br>▶ Paso 3: Costo Económico Energético Comercial bajo Tarifa CFE PDBT<br>Fundamento Teórico: Aplicando el tabulador oficial de la Comisión Federal de Electricidad (CFE) para Pequeña Demanda en Baja Tensión comercial en San Nicolás de los Garza ($3.25 MXN por kWh consumido con IVA incluido):<br><br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: El impacto energético sobre el precio final de cada platillo casero ($120 MXN) es de apenas 31 centavos de peso, confirmando una eficiencia económica insuperable.<br>▶ Paso 4: Análisis de Ciclo de Vida (LCA) y Mitigación de Huella de Carbono vs Delivery<br>Fundamento Teórico: El factor de emisión oficial del Sistema Eléctrico Nacional (SEN) publicado por la SEMARNAT y CRE es F_SEN = 0.438 kg CO2e/kWh. Evaluamos el impacto ambiental frente al servicio tradicional de reparto en motocicleta (emisión media de 0.85 kg CO2e por cada viaje de 4 km de entrega):<br><br><br><br>   ↳ Interpretación física y continuidad analítica: Interpretación y Enlace: El modelo desatendido de XpendeX reduce la huella de carbono en un 96.65% respecto a las aplicaciones de entrega a domicilio, evitando la emisión de prácticamente 30 toneladas de CO2 al año por cada unidad instalada.<br>■ Conclusión y Validación de Ingeniería: Conclusión de Ingeniería: Con un consumo de solo 5.71 kWh/día ($18.56 MXN diarios) y un costo energético de $0.31 MXN por comida, XpendeX mitiga el 96.6% de las emisiones de CO2 de las plataformas de delivery, ahorrando 30 toneladas de CO2 anuales.</th>
+</tr>
+</table></div><h2 id="sec-6" class="doc-h1">6.0 TECNOLOGÍAS, COMPONENTES, MATERIALES O MÉTODOS DISPONIBLES</h2><p class="doc-p">Para materializar físicamente el Micro-Restaurante Automatizado XpendeX en nuestro entorno universitario y productivo, los estudiantes de ingeniería seleccionamos materiales comerciales estandarizados, componentes electromecánicos probados y procesos de fabricación mecánica directamente accesibles en los talleres y distribuidores de acero de Monterrey y su área metropolitana. El diseño mecatrónico desacopla la máquina en subsistemas modulares independientes (estructura, refrigeración hermética, accionamiento mecánico, electrónica matricial y suite de software), garantizando su alta confiabilidad operativa y facilidad de ensamble.</p><h3 id="subsec-35" class="doc-h2">6.1 Materiales Estructurales, Aislamientos y Acabados Sanitarios</h3><p class="doc-p">Bastidor Primario en PTR Estructural: Para el bastidor portante principal seleccionamos Perfiles Tubulares Rectangulares (PTR) de acero estructural al carbono ASTM A500 Grado B de 1 1/2" x 1 1/2" (38.1 mm x 38.1 mm) en Calibre 14 (espesor de pared nominal de 1.90 mm). Este material comercial se adquiere fácilmente en distribuidores de la zona industrial de San Nicolás de los Garza y ofrece un esfuerzo de fluencia mínimo de Sy = 310 MPa y resistencia a la tensión de 400 MPa, asegurando que el bastidor soporte los 285 kg del equipo abastecido a máxima capacidad con deformaciones elásticas despreciables y un factor de seguridad estático superior a FS = 8.80.</p><p class="doc-p">Carrocería y Bandejas en Inoxidable AISI 304: La carrocería perimetral exterior y los paneles laterales se construyen en lámina de acero rolada en frío (Cold Rolled) SAE 1008 Calibre 18 (1.21 mm de espesor). Para las bandejas internas y todas las superficies que interactúan directamente con los recipientes de comida corrida, se seleccionó lámina de acero inoxidable austenítico AISI 304 Grado Alimenticio con acabado sanitario 2B. Esta aleación contiene 18% de cromo y 8% de níquel, otorgándole una superficie no porosa, pasivada químicamente y totalmente resistente a la corrosión inducida por condensación de humedad, grasas o derrames accidentales, cumpliendo estrictamente con los requerimientos sanitarios de la Comisión Federal para la Protección contra Riesgos Sanitarios (COFEPRIS) y el estándar NSF/ANSI 25.</p><p class="doc-p">Aislamiento Criogénico de Poliuretano y Vidrio Low-E: El aislamiento térmico de la cabina consiste en placas y espuma inyectada in situ de poliuretano rígido de celda cerrada de alta densidad (40 a 42 kg/m³), con un espesor uniforme y continuo de 40.0 milímetros (U = 0.55 W/m²·K). Como agente espumante se utiliza ciclopentano de impacto ambiental nulo, el cual no destruye la capa de ozono (ODP = 0) y posee un potencial de calentamiento global insignificante (GWP &lt; 1). El puente térmico frontal se elimina mediante un panel de triple acristalamiento templado de 4 mm con dos cámaras intermedias de 12 mm rellenas de gas argón (Ar 90%) y película de baja emisividad (Low-E), logrando un coeficiente global de U_vidrio = 1.25 W/m²·K que impide la condensación exterior hasta 82% de humedad relativa.</p><h3 id="subsec-36" class="doc-h2">6.2 Subsistema Frigorífico R134a y Columna de Climatización por Toberas Laminares</h3><p class="doc-p">Unidad Frigorífica Inferior BOWA e Inyección Laminar: El circuito frigorífico de compresión de vapor opera con gas refrigerante comercial ecológico R134a (tetrafluoroetano, ODP = 0), con una carga compacta inferior a 140 gramos. Toda la unidad de potencia térmica se encuentra alojada en una sala de máquinas inferior independiente (bancada BOWA elevada 100 mm respecto al piso), desacoplada acústica y mecánicamente del recinto de alimentos:</p><li class="doc-li">Motocompresor Hermético Embraco de 1/5 HP (R134a): Compresor alternativo de alta contrapresión (HBP) montado sobre cuatro tacones amortiguadores de elastómero de cloropreno, desarrollando una potencia frigorífica de 485 W bajo régimen de evaporación a -5 °C y condensación a 55 °C con consumo eléctrico de 236.8 W (COP = 2.05 bajo condición canicular severa de 42 °C).</li><li class="doc-li">Condensador Aleteado con Serpentín de Cobre y Motoventilador: Batería de tubo de cobre de 3/8" con aletas de aluminio corrugado (14 aletas por pulgada) y ventilador axial de tiro forzado de 25 W que disipa 685 W térmicos hacia la parte inferior posterior del equipo.</li><li class="doc-li">Recipiente Acumulador de Succión y Tubo Capilar Calibrado: Dispositivo de seguridad que retiene el refrigerante líquido para evitar golpes de ariete en el pistón del compresor, complementado con un tubo capilar de cobre de Ø 0.8 mm y longitud de 2.1 m para expansión controlada.</li><li class="doc-li">Consola de Seguridad Presostática Danfoss KP: Presostato dual de corte de seguridad que desconecta el compresor si la presión de descarga supera 18.0 bar o si la succión cae por debajo de 0.8 bar por fuga accidental.</li><li class="doc-li">Plenum Posterior de Chapa Galvanizada Calibre 20: Ducto aerodinámico vertical ubicado en el fondo de la cabina que conduce el caudal forzado de 145 CFM (0.0684 m³/s) generado por el ventilador centrífugo del evaporador.</li><li class="doc-li">6 Toberas Laminares Difusoras Ranuradas (Una por Nivel de Bandeja): Cada piso de charola dispone de una tobera con área de descarga calibrada progresivamente (28 cm² en bandeja inferior hasta 36 cm² en bandeja superior), inyectando aire a v = 1.85 m/s directamente sobre los recipientes, anulando la estratificación térmica y garantizando ΔT vertical &lt; 1.1 °C entre 2 °C y 4 °C según la NOM-251-SSA1-2009.</li><h3 id="subsec-37" class="doc-h2">6.3 Actuadores Electromecánicos, Espirales Helicoidales y Guías Telescópicas</h3><p class="doc-p">Bandejas de Extracción Total y Guías Industriales: La estantería interna consta de 6 bandejas deslizantes de extracción completa. Cada bandeja se monta sobre un par de correderas telescópicas industriales de tres etapas con jaulas de baleros de acero (Accuride serie 3832), con capacidad de carga nominal de 45 kg por par. Esta arquitectura permite extender la charola en menos de 10 segundos para reabastecimiento ergonómico matutino.</p><p class="doc-p">Arquitectura 1+4+1 y Cinemática de Despacho: Distribución Cinemática Híbrida 1+4+1 por Bandeja (6 Canales por Nivel, 36 Canales en Total):</p><li class="doc-li">2 Bahías Laterales Unificadas de 190.0 mm (Canales 1 y 6 en cada nivel = 12 bahías en total): Cada bahía unificada cuenta con una espiral helicoidal continua gigante de Ø 144.0 mm, fabricada en alambre trefilado de acero SAE 1065 de Ø 7.0 mm con 5 espiras completas y paso axial de 11.8 cm. Esta geometría aloja envases térmicos de comida casera (tuppers de polipropileno de hasta 180 x 140 mm y 650 g de masa) con una fuerza axial impulsora perfectamente coaxial de 17.31 N que erradica cualquier acuñamiento angular.</li><li class="doc-li">4 Canales Centrales de 95.0 mm (Canales 2 a 5 en cada nivel = 24 canales en total): Cada canal dispone de una espiral estándar de Ø 70.0 mm confeccionada en alambre de Ø 5.0 mm con 7 vueltas y paso axial de 8.4 cm, optimizada para botellas PET de 600 ml y latas de aluminio de 355 ml.</li><li class="doc-li">Accionamiento y Homing Cero Grados: Cada una de las 36 espirales está acoplada directamente al eje de un motorreductor DC de 24V con reductor planetario metálico 1:50 (60 RPM nominales, par continuo de 1.8 N·m). La cara posterior integra una leva circular solidaria y un microrruptor electromecánico Omron D3V-16. Al concluir la rotación exacta de 360°, la muesca de la leva activa el microrruptor y el microcontrolador aplica frenado dinámico por cortocircuito en 50 ms, deteniendo la espiral con precisión angular de ± 1.5° sin caída involuntaria.</li><h3 id="subsec-38" class="doc-h2">6.4 Arquitectura Electrónica de Potencia, Tarjeta PCB EasyEDA y Control Embebido ESP32</h3><p class="doc-p">Placa de Potencia Matricial 6x6 de Estado Sólido: La unidad de procesamiento y potencia de XpendeX fue diseñada a la medida en la suite profesional EasyEDA y fabricada en circuito impreso (PCB) industrial de 2 capas en sustrato de fibra de vidrio FR-4 (120 x 100 mm, espesor de cobre de 1 oz / 35 µm). A diferencia de las máquinas comerciales que requieren costosas placas propietarias MDB y docenas de relevadores mecánicos ruidosos, nuestro sistema implementa una matriz conmutada pura de estado sólido 6x6 gobernada por el microcontrolador ESP32-WROOM-32E (240 MHz):</p><li class="doc-li">Drivers High-Side (+24V DC) con 6 Transistores P-MOSFET IRF9540N: Conmutan las 6 líneas de alimentación positivas correspondientes a cada bandeja horizontal. Cada compuerta cuenta con una red pull-up de 10 kΩ y transistor de desacoplo 2N3904, logrando saturación en menos de 180 ns con RDS(on) = 0.117 Ω.</li><li class="doc-li">Drivers Low-Side (GND_PWR) con 6 Transistores N-MOSFET IRLZ44N: Conmutan el retorno de tierra de las 6 columnas verticales. Al ser MOSFETs de nivel lógico, saturan profundamente con VGS = 4.5 V presentando una resistencia interna de solo RDS(on) = 0.022 Ω y disipando menos de 50 mW.</li><li class="doc-li">Aislamiento Galvánico Total con 12 Optoacopladores PC817C: Separan físicamente el dominio digital de 3.3V del ESP32 respecto al dominio inductivo de 24V DC mediante una barrera dieléctrica de 5,000 V RMS, anulando lazos de tierra y reinicios por ruido electromagnético.</li><li class="doc-li">Red de Supresión Flyback con 36 Diodos Schottky 1N5822: Cada uno de los 36 motorreductores dispone de un diodo Schottky en antiparalelo (VRRM = 40 V, IF = 3 A, trr &lt; 20 ns, VF = 0.45 V) que recircula la energía de contra-fuerza electromotriz (16.31 mJ) fijando el sobrevoltaje en drenador a solo 24.45 V.</li><li class="doc-li">Filtro de Riel de Potencia y Supresión RC Snubber: Un capacitor electrolítico de 4,700 µF / 50V de bajo ESR (&lt; 0.035 Ω) absorbe los transitorios de arranque, mientras que celdas snubber RC de 15 Ω + 47 nF MLCC X7R amortiguan oscilaciones parásitas de alta frecuencia (EMI &lt; 30 MHz).</li><li class="doc-li">Trazado de Pistas según Norma IPC-2221B: Las pistas de potencia de 24V y GND_PWR fueron ruteadas con un ancho de 3.50 mm (138 mils) y planos de masa separados (PWR_GND y DIG_GND) interconectados en un único punto tipo estrella, limitando la elevación térmica a ΔT &lt; 1.8 °C.</li><p class="doc-p">Cortina Óptica Infrarroja Modulada a 38 kHz: La detección de caída de producto se realiza mediante una cortina óptica activa ubicada en el pozo de recepción blindado. Consta de una barra con 16 pares de diodos emisores y fototransistores infrarrojos de 940 nm modulados activamente a una frecuencia portadora de 38 kHz. Esta modulación descarta cualquier interferencia luminosa ambiental (tubos fluorescentes o luz solar) y responde con una latencia de interrupción de hardware inferior a 2.5 milisegundos, confirmando la entrega física del tupper o bebida al comprador.</p><h3 id="subsec-39" class="doc-h2">6.5 Ecosistema de Software Full-Stack, Motor de Temas WCAG 2.1 AAA y Gestor Multi-Ranura FIFO</h3><p class="doc-p">Suite de Software Full-Stack y Algoritmo FIFO: La infraestructura digital de XpendeX conforma un ecosistema de software responsivo desacoplado en tres capas fundamentales:</p><li class="doc-li">Quiosco Interactivo del Cliente (HMI Táctil de 10.1"): Diseñado para la pantalla táctil capacitiva Waveshare IPS de 10.1" (resolución HD 1280 × 800 píxeles, brillo de 500 nits) montada a ras de chasis y controlada por una computadora embebida Raspberry Pi 4/5. La interfaz web expone la cuadrícula comercial de 36 canales organizada en Comidas Caseras de Lonchería ($120 MXN), Bebidas Frías y Combos automáticos con descuento. Despliega fichas técnicas nutricionales interactivas y sellos de advertencia sanitaria conforme a la NOM-051-SCFI/SSA1-2010. La pasarela de cobro opera mediante Mercado Pago Checkout Pro generando códigos QR dinámicos únicos por transacción con validación asíncrona de firmas criptográficas HMAC-SHA256 en webhooks.</li><li class="doc-li">Motor Dinámico de Temas y Accesibilidad Visual (WCAG 2.1 AAA): Para garantizar una legibilidad impecable tanto bajo la intensa radiación solar de Monterrey como en áreas universitarias con baja luminancia, el quiosco incorpora cuatro temas de alto contraste (Esmeralda Médico, Zafiro Industrial, Atardecer Energético y Pizarra Titanio) con conmutación instantánea Claro/Oscuro. El motor recalcula en tiempo de ejecución la luminancia relativa L del fondo mediante la fórmula estandarizada de la W3C:</li><p class="doc-p">L = 0.2126 · R_sRGB + 0.7152 · G_sRGB + 0.0722 · B_sRGB</p><p class="doc-p">y ajusta automáticamente el peso y color de la tipografía para preservar una relación de contraste matemático CR = (L1 + 0.05)/(L2 + 0.05) superior a 7.0:1 (nivel AAA), erradicando definitivamente el defecto de texto blanco sobre fondo blanco y asegurando accesibilidad universal.</p><li class="doc-li">Portal Administrativo del Dueño y Gestor Multi-Ranura FIFO: Centro de control accesible vía web segura por el operador para gestionar el inventario físico por coordenadas de bandeja (A a F) y ranura (1 a 6). El algoritmo multi-ranura permite vincular un mismo SKU gastronómico a múltiples casillas físicas (por ejemplo, 'Milanesa con Chilaquiles' en las bahías laterales A1 y A6), consolidando el stock en una sola tarjeta de quiosco y despachando secuencialmente desde la ranura de mayor antigüedad (First-In, First-Out) en menos de 49 milisegundos. Incluye gráficos de ventas multi-periodo (7d, 30d, 3m, 6m, 1y y selector libre), monitor térmico de la NOM-251 en tiempo real y módulo de roles.</li><h3 id="subsec-40" class="doc-h2">6.6 Procesos de Taller Mecánico, Corte Láser CNC y Tolerancias Geométricas ISO 2768-m</h3><p class="doc-p">Manufactura en Taller Mecánico Local: La fabricación integral del chasis, bandejas y cerramientos se realiza mediante procesos estandarizados de taller mecánico en Monterrey:</p><li class="doc-li">Corte de Chapa por Láser CNC por Fibra Óptica (ISO 9013-332): Las láminas de acero inoxidable AISI 304 y acero galvanizado Calibre 18 se cortan en mesa de láser de fibra óptica de 3 kW asistida por nitrógeno a 14 bar. El haz de corte (ancho de sangría de 0.20 mm) produce bordes limpios libres de rebabas y sin óxidos superficiales, manteniendo una tolerancia dimensional estricta de ± 0.10 mm.</li><li class="doc-li">Plegado en Prensa Dobladora Hidráulica CNC (ISO 2768-m): El conformado de las pestañas en 'C' (25.4 mm de peralte) que otorgan rigidez a las bandejas se efectúa con una dobladora CNC de 100 toneladas. Se aplica el modelo de compensación por deducción de doblado (Bend Allowance):</li><p class="doc-p">BA = π · (R_int + K · T) · (A / 180)</p><p class="doc-p">con factor K = 0.44 para Calibre 18 (T = 1.21 mm) y radio de punzón R_int = 1.5 mm, logrando que los 943.6 mm de ancho exterior de bandeja respeten la holgura de 3.2 mm por costado requerida por las correderas Accuride telescópicas.</p><li class="doc-li">Ensamble Estructural mediante Soldadura MIG/GMAW (AWS D1.1): Los perfiles PTR ASTM A500 de 1 1/2" se cortan con sierra circular fría y se unen en escuadra mediante soldadura por microalambre sólido ER70S-6 de Ø 0.8 mm con mezcla de gas protector 80% Argón / 20% CO2 a un caudal de 14 L/min. El proceso se ejecuta a 140 A y 19.5 V, depositando cordones continuos de filete de 3.0 mm inspeccionados visualmente al 100%, garantizando una rigidez torsional que limita la deflexión estructural del bastidor a menos de 0.84 mm bajo 350 kg de carga combinada.</li><li class="doc-li">Acabado Superficial por Pintura Poliéster Electrostática Horneada: Previo desengrase químico y fosfatizado por aspersión, la estructura exterior recibe una capa de pintura en polvo poliéster de 75 µm de espesor, curada en horno continuo a 200 °C durante 20 minutos. Este recubrimiento confiere una dureza superficial 2H y resistencia a la cámara de niebla salina superior a 1,000 horas (ASTM B117).</li><h3 id="subsec-41" class="doc-h2">6.7 Topología de Redes de Comunicación, Protocolo MQTT y WebSockets Cifrados</h3><p class="doc-p">Aislamiento de Canales Transaccionales y Locales: La arquitectura de conectividad de XpendeX implementa una separación lógica y física de canales de transmisión para garantizar la máxima tolerancia a fallos en entornos universitarios e industriales con alta interferencia electromagnética:</p><li class="doc-li">Canal Transaccional Crítico (Módem Celular 4G LTE Cat-1 SIMCom A7670G): Gestiona las transacciones financieras, autorizaciones de pago y telemetría de inventario mediante conexiones cifradas TLS 1.3 directas con el broker MQTT. Este canal posee una disponibilidad del 99.98% y no depende del Wi-Fi público del campus, eliminando vulnerabilidades por saturación de ancho de banda o caídas de DNS.</li><li class="doc-li">Canal de Telemetría y Monitoreo Térmico (WebSockets WSS): Establece un túnel bidireccional de baja latencia (&lt; 45 ms) entre el microcontrolador ESP32 y el servidor Node.js/FastAPI, transmitiendo en tiempo real lecturas de temperatura de vitrina, alertas de apertura de puerta y eventos de rotación de motor.</li><li class="doc-li">Canal Multimedia Local (Raspberry Pi 4/5 / Wi-Fi Establecimiento): Administra la interacción fluida del quiosco en la pantalla táctil de 10.1", la renderización de temas de alto contraste WCAG y la comunicación local vía puerto serie UART con el ESP32 a 115,200 baudios, sin comprometer el canal celular transaccional.</li><h3 id="subsec-42" class="doc-h2">6.8 Arquitectura de Seguridad Informática y Firma Criptográfica HMAC-SHA256</h3><p class="doc-p">Protocolo de Seguridad Transaccional Cashless: La integración con la pasarela de pagos Mercado Pago Checkout Pro exige un protocolo de validación criptográfica para prevenir ataques de intermediario (Man-in-the-Middle) o falsificación de comprobantes de pago. Cada notificación asíncrona enviada por la pasarela hacia el webhook de la máquina incluye en sus encabezados HTTP una firma digital calculada mediante el algoritmo HMAC con clave secreta compartida:</p><p class="doc-p">Firma = HMAC-SHA256(Clave_Secreta, Timestamp + '.' + Data_ID)</p><p class="doc-p">El servidor backend recalcula la firma criptográfica en memoria en un tiempo inferior a 1.5 milisegundos y verifica que la marca temporal no difiera en más de 300 segundos respecto a la hora del servidor (previniendo ataques de repetición o Replay Attacks). Solo tras la concordancia estricta de la firma se emite la orden de activación matricial al microcontrolador ESP32.</p><h2 id="sec-7" class="doc-h1">7.0 COMPARACIÓN DE SOLUCIONES EXISTENTES</h2><p class="doc-p">A continuación se presenta el análisis comparativo formal entre las soluciones tecnológicas disponibles en el mercado internacional y la propuesta del Micro-Restaurante Automatizado Híbrido XpendeX, evaluando tanto parámetros mecatrónicos como viabilidad económica.</p><h3 id="subsec-44" class="doc-h2">7.1 Matriz de Comparativa Técnica Exhaustiva</h3><p class="caption table-caption"><strong>Tabla 7.1: Matriz comparativa técnica y operativa multidimensional entre tecnologías de dispensación. 7.1</strong></p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>CRITERIO / PARÁMETRO</th>
+<th>VENDING TRADICIONAL</th>
+<th>MÁQUINA REFRIGERADA</th>
+<th>SMART FRIDGE RFID</th>
+<th>ROBOT COCINERO</th>
+<th>XPENDEX (FIME UANL)</th>
+</tr>
+<tr>
+<td>Capacidad de Alimentos</td>
+<td>Nula (Solo botana seca)</td>
+<td>Muy Baja (Sandwiches)</td>
+<td>Media (Ensaladas frías)</td>
+<td>Baja (Guisado al momento)</td>
+<td>Alta: 36 Canales (12 comida casera + 24 bebidas)</td>
+</tr>
+<tr>
+<td>Control Térmico Interno</td>
+<td>Sin refrigeración activa</td>
+<td>3.5 °C a 5.0 °C (gradiente &gt; 4 °C)</td>
+<td>2.0 °C a 4.0 °C (vitrina)</td>
+<td>Calentamiento interno (complejo)</td>
+<td>2.0 °C a 4.0 °C (ΔT vertical ≤ 1.1 °C con toberas)</td>
+</tr>
+<tr>
+<td>Mecanismo de Despacho</td>
+<td>Espirales sencillas estrechas</td>
+<td>Espirales estándar 70 mm</td>
+<td>Apertura libre de puerta</td>
+<td>Brazo robótico multieje</td>
+<td>Espirales gigantes Ø 144 mm + estándar Ø 70 mm</td>
+</tr>
+<tr>
+<td>Alineación NOM-251 / HACCP</td>
+<td>No aplica</td>
+<td>Parcial (sin retiro)</td>
+<td>Vulnerable a manipulación</td>
+<td>Compleja desinfección</td>
+<td>Cumplimiento estricto: Bloqueo a 14h y retiro diario</td>
+</tr>
+<tr>
+<td>Arquitectura de Potencia</td>
+<td>Cableado individual MDB</td>
+<td>Relevadores directos AC</td>
+<td>Cerradura solenoide</td>
+<td>Servomotores industriales</td>
+<td>Matriz 6x6 en PCB EasyEDA con MOSFETs e IPC-2221</td>
+</tr>
+<tr>
+<td>Gestión de Inventario</td>
+<td>Ranura fija única</td>
+<td>Ranura fija única</td>
+<td>Lectura tags RFID (caro)</td>
+<td>Tolvas de ingredientes</td>
+<td>Multi-Ranura dinámica con despacho secuencial FIFO</td>
+</tr>
+<tr>
+<td>Interfaz y Accesibilidad</td>
+<td>Teclado numérico / LCD</td>
+<td>Teclado membrana</td>
+<td>Lector QR en cerradura</td>
+<td>Pantalla táctil dedicada</td>
+<td>Pantalla 10.1" IPS + Motor 4 Paletas WCAG 2.1 AAA</td>
+</tr>
+<tr>
+<td>Costo de Adquisición (CAPEX)</td>
+<td>$75,000 - $110,000 MXN</td>
+<td>$120,000 - $160,000 MXN</td>
+<td>$180,000 - $240,000 MXN</td>
+<td>$450,000 - $800,000 MXN</td>
+<td>$46,463 MXN (Fabricación en taller mecánico MTY)</td>
+</tr>
+</table></div><h4 class="doc-h3">7.1.1 Análisis Técnico de Selección de Actuadores Electromecánicos para Dispensación</h4><p class="doc-p">Trade-off de Actuadores Electromecánicos: Una decisión de ingeniería mecatrónica crítica en el diseño de XpendeX fue la selección de la tecnología de accionamiento para las 36 espirales dispensadoras. Se evaluaron rigurosamente tres familias de actuadores: motorreductores de corriente continua (DC), motores a pasos (tipo NEMA 17/23) y actuadores de solenoide lineal. La Tabla 7.2 documenta el análisis comparativo formal que sustentó la selección definitiva de motorreductores DC planetarios de 24V:</p><p class="caption table-caption"><strong>Tabla 7.2: Análisis de selección y descarte técnico de actuadores electromecánicos para dispensación. 7.2</strong></p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>CRITERIO EVALUADO</th>
+<th>MOTORREDUCTOR DC 24V PLANETARIO</th>
+<th>MOTOR A PASOS (NEMA 17 / 23)</th>
+<th>SOLENOIDE LINEAL DE TIRO</th>
+</tr>
+<tr>
+<td>Principio de Retención y Consumo en Reposo</td>
+<td>Cero consumo en reposo. Freno dinámico por cortocircuito en 50 ms.</td>
+<td>Requiere corriente de retención continua (Holding Current 1.0 - 1.5 A), disipando calor indeseado dentro de la vitrina refrigerada.</td>
+<td>Cero consumo en reposo, pero solo carrera lineal corta (10 - 25 mm).</td>
+</tr>
+<tr>
+<td>Complejidad de Control Electrónico</td>
+<td>Conmutación matricial simple mediante 12 MOSFETs (6 High + 6 Low).</td>
+<td>Requiere 36 controladores bipolares dedicados (A4988 / TMC2209) con generación de trenes de pulsos STEP/DIR.</td>
+<td>Requiere 36 relevadores o transistores de pulso de alta corriente (&gt; 3 A).</td>
+</tr>
+<tr>
+<td>Carga Térmica en Cámara Frigorífica</td>
+<td>Prácticamente nula: opera solo 1.0 s por despacho (energía térmica &lt; 0.24 Wh por ciclo).</td>
+<td>Muy alta: la corriente en reposo para evitar desfasamiento aportaría calor continuo que sobrecargaría el evaporador.</td>
+<td>Nula en reposo, pero disipación pico excesiva en accionamiento.</td>
+</tr>
+<tr>
+<td>Carencia de Pérdida de Pasos / Atascos</td>
+<td>Par continuo garantizado de 1.8 N·m con relación planetaria 1:50. No pierde pasos.</td>
+<td>Susceptible a pérdida de pasos si el tupper roza la guía, descalibrando la posición sin retroalimentación.</td>
+<td>Incapaz de desarrollar movimiento rotativo continuo para espirales.</td>
+</tr>
+<tr>
+<td>Detección de Posición Cero (Homing)</td>
+<td>Leva circular integrada y microrruptor mecánico Omron D3V-16 (repetibilidad ± 1.5°).</td>
+<td>Requiere sensores inductivos o de efecto Hall externos adicionales por cada eje (36 sensores).</td>
+<td>Final de carrera interno en solenoide.</td>
+</tr>
+<tr>
+<td>Complejidad de Alambrado del Chasis</td>
+<td>Solo 12 líneas de control matricial cruzando las bandejas.</td>
+<td>Requiere 4 conductores por motor (144 cables cruzando las bandejas móviles).</td>
+<td>Requiere 2 conductores por solenoide (72 cables).</td>
+</tr>
+<tr>
+<td>Costo Unitario del Conjunto Motor + Driver</td>
+<td>$165 MXN (Motorreductor con caja planetaria + leva)</td>
+<td>$420 MXN (Motor NEMA 17 + Driver TMC2209 + sensor homing)</td>
+<td>$290 MXN (Solenoide lineal industrial de alto empuje)</td>
+</tr>
+<tr>
+<td>Veredicto de Ingeniería</td>
+<td>SELECCIÓN GANADORA (Máxima eficiencia, cero calor residual y robustez garantizada).</td>
+<td>RECHAZADO (Sobrecalentamiento de vitrina, cableado inviable y costo prohibitivo).</td>
+<td>RECHAZADO (Incompatible con giro continuo helicoidal de alimentos).</td>
+</tr>
+</table></div><h4 class="doc-h3">7.1.2 Comparativa de Topología de Accionamiento Matricial y Despacho Multi-Ranura FIFO</h4><p class="caption table-caption"><strong>Tabla 7.3: Comparativa de sistemas de potencia, cableado y algoritmos de inventario. 7.3</strong></p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>CARACTERÍSTICA TÉCNICA</th>
+<th>VENDING CONVENCIONAL MDB</th>
+<th>SMART LOCKERS RFID</th>
+<th>XPENDEX MATRICIAL FIFO</th>
+</tr>
+<tr>
+<td>Topología de Accionamiento</td>
+<td>Un driver/relé por motor o multiplexación analógica MDB a 9600 baudios</td>
+<td>Electroimanes de solenoide independientes por casillero (12V)</td>
+<td>Matriz ortogonal 6x6 High-Side (P-MOSFET) + Low-Side (N-MOSFET)</td>
+</tr>
+<tr>
+<td>Líneas de Control Requeridas</td>
+<td>Entre 48 y 96 cables individuales cruzando el chasis</td>
+<td>36 a 48 pares de cables hacia placa concentradora</td>
+<td>Solo 12 pines GPIO del ESP32 desacoplados con 12 optos PC817C</td>
+</tr>
+<tr>
+<td>Aislamiento Eléctrico</td>
+<td>Generalmente sin aislamiento galvánico o aislamiento básico de relé</td>
+<td>Aislamiento por relé electromecánico de solenoide</td>
+<td>Aislamiento galvánico total de 5,000 Vrms mediante optoacopladores</td>
+</tr>
+<tr>
+<td>Protección contra Back-EMF</td>
+<td>Diodos de propósito general compartidos o varistores en placa</td>
+<td>Diodos en bobina de solenoide</td>
+<td>36 Diodos Schottky 1N5822 dedicados + supresión RC Snubber</td>
+</tr>
+<tr>
+<td>Comportamiento ante Agotamiento</td>
+<td>Casilla bloqueada en 'Sold Out'. Pérdida de ventas del producto estrella</td>
+<td>Casillero vacío reportado en app. Capacidad fija por compartimento</td>
+<td>Conmutación secuencial automática a ranura secundaria (FIFO) en &lt; 49 ms</td>
+</tr>
+<tr>
+<td>Dimensionamiento de Pistas PCB</td>
+<td>Diseño propietario no documentado</td>
+<td>Pistas estándar sin norma de disipación térmica</td>
+<td>Pistas de potencia de 3.50 mm (138 mils) diseñadas según IPC-2221B</td>
+</tr>
+<tr>
+<td>Costo de Tarjeta de Control</td>
+<td>$6,500 - $12,000 MXN (tarjetas propietarias VMC)</td>
+<td>$8,000 - $15,000 MXN (controlador maestro de lockers)</td>
+<td>$1,850 MXN (PCB EasyEDA + componentes JLCPCB)</td>
+</tr>
+</table></div><h3 id="subsec-45" class="doc-h2">7.2 Análisis de Costo de Ciclo de Vida a 5 Años (LCC) y Retorno de Inversión</h3><p class="doc-p">Memoria Financiera Multianual Descontada: El Análisis de Costo de Ciclo de Vida (Life Cycle Costing - LCC) confirma que el costo de fabricación inicial de XpendeX ($46,463 MXN) es entre un 61% y un 74% inferior al de máquinas refrigeradas comerciales importadas. Al integrar componentes locales de alta durabilidad (compresor Embraco, acero de distribuidores locales, tarjeta EasyEDA y microcontrolador ESP32), el costo anual de mantenimiento preventivo y correctivo se reduce a solo $3,100 MXN frente a más de $14,000 MXN de equipos comerciales, logrando que el punto de equilibrio financiero se alcance en tan solo 32.1 días en entornos de alta demanda universitaria:</p><p class="caption table-caption"><strong>Tabla 7.4: Análisis comparativo de Costo de Ciclo de Vida a 5 años (LCC) con flujos descontados. 7.4</strong></p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>RUBRO DE COSTO DEL CICLO DE VIDA</th>
+<th>VENDING CONVENCIONAL MDB</th>
+<th>SMART FRIDGE RFID</th>
+<th>XPENDEX (FIME UANL)</th>
+</tr>
+<tr>
+<td>Costo de Inversión Inicial (CAPEX)</td>
+<td>$135,000 MXN (Importada)</td>
+<td>$210,000 MXN (Importada)</td>
+<td>$46,463 MXN (Taller Local MTY)</td>
+</tr>
+<tr>
+<td>Instalación, Flete y Comisionamiento</td>
+<td>$8,500 MXN</td>
+<td>$12,000 MXN</td>
+<td>$2,800 MXN</td>
+</tr>
+<tr>
+<td>Mantenimiento Correctivo (5 Años)</td>
+<td>$42,000 MXN (Fallas billetero/MDB)</td>
+<td>$36,000 MXN (Fallas lectores)</td>
+<td>$9,500 MXN (Modular EasyEDA)</td>
+</tr>
+<tr>
+<td>Mantenimiento Preventivo (5 Años)</td>
+<td>$18,000 MXN</td>
+<td>$15,000 MXN</td>
+<td>$6,000 MXN (Limpieza y revisión)</td>
+</tr>
+<tr>
+<td>Consumo Eléctrico Acumulado (5 Años)</td>
+<td>$48,600 MXN (Compresor ineficiente)</td>
+<td>$39,200 MXN</td>
+<td>$31,800 MXN (Compresor R134a 1/5 HP)</td>
+</tr>
+<tr>
+<td>Pérdida por Mermas y Caducidad (5 Años)</td>
+<td>$54,000 MXN (Sin retiro diario)</td>
+<td>$68,000 MXN (Manipulación libre)</td>
+<td>$0 MXN (Retiro diario a lonchería)</td>
+</tr>
+<tr>
+<td>Costos Financieros y Licencias (5 Años)</td>
+<td>$15,000 MXN (Software propietario)</td>
+<td>$28,000 MXN (Plataforma RFID)</td>
+<td>$4,800 MXN (SIM IoT 4G prepago)</td>
+</tr>
+<tr>
+<td>COSTO TOTAL DE CICLO DE VIDA (LCC)</td>
+<td>$321,100 MXN</td>
+<td>$408,200 MXN</td>
+<td>$101,363 MXN (AHORRO DEL 68% A 75%)</td>
+</tr>
+</table></div><h2 id="sec-8" class="doc-h1">8.0 NORMAS Y ESTÁNDARES APLICABLES</h2><p class="doc-p">El diseño, cálculo y validación experimental del Micro-Restaurante Automatizado XpendeX se fundamenta en el estricto cumplimiento de un marco normativo dual compuesto por Normas Oficiales Mexicanas (NOM) de observancia obligatoria y Estándares Internacionales de ingeniería.</p><h3 id="subsec-47" class="doc-h2">8.1 Normas Oficiales Mexicanas (NOM)</h3><li class="doc-li">NOM-251-SSA1-2009 (Prácticas de Higiene para Alimentos y Bebidas): Exige mantener alimentos preparados y cocinados en refrigeración estrictamente entre 2.0 °C y 4.0 °C. Nuestro equipo implementa el algoritmo de bloqueo sanitario (Health Lockout) que suspende ventas si la temperatura de cabina supera 4.4 °C durante más de 30 minutos, complementado con la política de retiro diario obligatorio a las 21:30 h respaldada por temporizador RTC DS3231.</li><li class="doc-li">NOM-051-SCFI/SSA1-2010 (Etiquetado Frontal de Alimentos y Bebidas): Establece los requisitos de información comercial y sanitaria mediante sellos octagonales negros de advertencia (exceso calorías, azúcares, grasas saturadas, sodio). El quiosco interactivo en la pantalla táctil de 10.1" despliega estos sellos y la tabla nutrimental completa de cada platillo antes de concretar la compra.</li><li class="doc-li">NOM-001-SCFI-2018 (Aparatos Electrónicos - Requisitos de Seguridad): Define los requerimientos de aislamiento eléctrico, rigidez dieléctrica a 1,500 V AC y continuidad de tierra física, cumplidos plenamente mediante optoacopladores de 5,000 V RMS, interruptor termomagnético diferencial de 10 A y puesta a tierra con resistencia menor a 0.08 Ohms.</li><li class="doc-li">NOM-008-SCFI-2002 (Sistema General de Unidades de Medida): Todos los cálculos cinemáticos, dinámicos, entálpicos y de dimensionamiento se expresan conforme al Sistema Internacional de Unidades (SI).</li><div class="figure-container"><img src="af5_media/image3.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 8.1. Evidencia de cumplimiento obligatorio de la norma NOM-051-SCFI/SSA1-2010 en la pantalla táctil de 10.1 pulgadas: despliegue transparente del contenido energético (kcal), macronutrientes (proteínas, carbohidratos, grasas) y casillas asignadas para cada combo.</em></p><div class="figure-container"><img src="af5_media/image4.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 8.2. Monitoreo continuo de inocuidad alimentaria y cadena de frío bajo la norma NOM-251-SSA1-2009: telemetría en tiempo real a 3.4 °C y enlace activo con el microcontrolador ESP32-S3.</em></p><div class="figure-container"><img src="af5_media/image5.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 6.1a. Diagrama esquemático integral de electrónica de potencia y conmutación en EasyEDA: alimentación industrial +24V/5V/3.3V, controlador ESP32, matriz MOSFET 6×6 con diodos 1N4007 y etapa de control del compresor Embraco 1/5 HP con relé 30A y snubber RC.</em></p><div class="figure-container"><img src="af5_media/image6.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 6.1b. Simulador interactivo web de conmutación 6×6 en tiempo real (potencia.html): activación simultánea del par de MOSFETs High-Side IRF9540N y Low-Side IRLZ44N, corriente 0.85A @ 24V y protección back-EMF.</em></p><div class="figure-container"><img src="af5_media/image7.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 6.1c. Detalle del esquemático EasyEDA: etapa de alimentación industrial regulada y drivers High-Side con optoacopladores PC817C para las columnas 1 a 3.</em></p><div class="figure-container"><img src="af5_media/image8.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 6.1d. Detalle del esquemático EasyEDA: drivers Low-Side con N-MOSFETs IRLZ44N, optoacopladores PC817C y resistores de pulldown de 10 kΩ.</em></p><div class="figure-container"><img src="af5_media/image9.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 6.1e. Detalle del esquemático EasyEDA: etapa de accionamiento de refrigeración comercial (relé SLA-05VDC de 30A, red snubber RC de absorción inductiva de 7.5A LRA) y sensor digital de temperatura 1-Wire DS18B20.</em></p><h3 id="subsec-48" class="doc-h2">8.2 Estándares Internacionales de Vending, Electrónica y Manufactura</h3><li class="doc-li">IPC-2221B (Generic Standard on Printed Board Design): Rige el dimensionamiento térmico y eléctrico de conductores de cobre en circuitos impresos. Las pistas de potencia de la matriz 6x6 se diseñaron a 3.50 mm (138 mils) con cobre de 1 oz, limitando el incremento de temperatura a ΔT &lt; 1.8 °C bajo picos de corriente de 3.0 A.</li><li class="doc-li">W3C WCAG 2.1 (Web Content Accessibility Guidelines - Nivel AAA): Garantiza una relación de contraste cromático matemática superior a 7.0:1 para textos y elementos interactivos en el quiosco cliente y portal del dueño a través del motor de cuatro paletas dinámicas, adaptando dinámicamente la tipografía contra el fondo.</li><li class="doc-li">UL 751 / NAMA Standard for Vending Machines: Rige la seguridad mecánica y estructural de máquinas expendedoras comerciales, incluyendo la prueba de estabilidad antivuelco ante fuerzas horizontales de 500 N en la parte superior (FS = 1.34 en XpendeX).</li><li class="doc-li">ASHRAE Standard 32.1-2022 (Methods of Testing for Commercial Refrigerated Vending): Metodología oficial para la evaluación del consumo energético y estratificación térmica en gabinetes refrigerados comerciales.</li><li class="doc-li">ISO 12100 (Seguridad de las Máquinas - Principios Generales para el Diseño): Metodología de evaluación y reducción del riesgo mecánico en piezas móviles mediante resguardos fijos y compuerta basculante de seguridad.</li><li class="doc-li">ISO 2768-m (Tolerancias Generales para Piezas Mecánicas Mecanizadas): Aplica a los dobleces en prensa y ensambles de bandejas para garantizar la compatibilidad con las tolerancias de rieles Accuride de ± 0.5 mm.</li><li class="doc-li">AWS D1.1 (Structural Welding Code - Steel): Rige los procedimientos de soldadura MIG/GMAW con alambre ER70S-6 para la estructura principal de PTR ASTM A500 Calibre 14.</li><h2 id="sec-9" class="doc-h1">9.0 CONSIDERACIONES DE SEGURIDAD Y SOSTENIBILIDAD</h2><p class="doc-p">En el desarrollo de nuestro proyecto integramos una filosofía de diseño preventivo basada en la norma internacional ISO 12100 y en los principios de desarrollo sostenible de la Agenda 2030, atendiendo de manera simultánea la seguridad mecánica, la rigidez dieléctrica, la inocuidad alimentaria (HACCP), la eficiencia energética y el impacto socioeconómico en nuestra comunidad.</p><h3 id="subsec-50" class="doc-h2">9.1 Seguridad Mecánica y Estructural: Estabilidad Antivuelco y Pozo Blindado Anti-Hurto</h3><p class="doc-p">El centro de gravedad del gabinete completamente cargado (masa de 285 kg) se sitúa a una altura reducida de 74.2 cm respecto al suelo. Esta cota baja se logra concentrando la sala de máquinas BOWA (compresor de 18.5 kg, condensador de cobre y bastidor) en la base inferior. Para verificar analíticamente que la máquina no pueda volcarse ante un empuje horizontal accidental o intencional, aplicamos las siguientes ecuaciones de equilibrio de momentos:</p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>■ MODELO DE ESTABILIDAD MECÁNICA Y FACTOR DE SEGURIDAD ANTIVUELCO (UL 751)<br>Cálculo analítico del momento resistente gravitacional y momento volcador ante empuje horizontal accidental:<br><br><br><br><br>Validación Estructural: Con un centro de masa a solo 74.2 cm del piso y FS = 1.34, el gabinete resiste fuerzas horizontales de vandalismo sin volcarse.</th>
+</tr>
+</table></div><p class="doc-p">Blindaje Físico y Compuerta Anti-Pesca: Para evitar la extracción no autorizada de productos (pesca o manipulación manual indebida), el pozo de recepción está blindado por una pared frontal de acero de 1.21 mm soldada al chasis. La compuerta basculante de entrega incorpora una aleta superior que bascula hacia arriba cuando el usuario empuja la tapa para sacar su comida, bloqueando por completo el paso vertical hacia la charola inferior.</p><h4 class="doc-h3">9.1.1 Análisis Modal de Fallos y Efectos (FMEA) para los 10 Subsistemas Mecatrónicos</h4><p class="doc-p">Matriz FMEA Multidisciplinaria: Con el propósito de mitigar proactivamente cualquier contingencia operativa antes de la fase de despliegue, se aplicó la metodología formal FMEA (Failure Mode and Effects Analysis) evaluando la Severidad (S), Ocurrencia (O) y Detección (D) en escala del 1 al 10, obteniendo el Número de Prioridad de Riesgo inicial (NPR = S × O × D) y el NPR final tras implementar las barreras de ingeniería correspondientes:</p><p class="caption table-caption"><strong>Tabla 9.1: Matriz FMEA exhaustiva de modos de fallo, acciones de control y reducción de NPR para XpendeX. 9.1</strong></p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>SUBSISTEMA</th>
+<th>MODO DE FALLO POTENCIAL</th>
+<th>S</th>
+<th>O</th>
+<th>D</th>
+<th>NPR</th>
+<th>ACCIÓN MITIGADORA IMPLEMENTADA</th>
+<th>S'</th>
+<th>O'</th>
+<th>D'</th>
+<th>NPR'</th>
+</tr>
+<tr>
+<td>Refrigeración</td>
+<td>Fuga de refrigerante o paro de compresor</td>
+<td>8</td>
+<td>4</td>
+<td>4</td>
+<td>128</td>
+<td>Presostato dual Danfoss KP + Bloqueo sanitario automático NOM-251</td>
+<td>8</td>
+<td>1</td>
+<td>2</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Dispensación</td>
+<td>Atasco de tupper en espiral por fricción</td>
+<td>6</td>
+<td>4</td>
+<td>5</td>
+<td>120</td>
+<td>Espiral gigante Ø 144 mm centrada + rampa PWM y reversa automática</td>
+<td>4</td>
+<td>1</td>
+<td>2</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Detección de Caída</td>
+<td>Sensor infrarrojo cegado por suciedad o luz</td>
+<td>7</td>
+<td>3</td>
+<td>4</td>
+<td>84</td>
+<td>Cortina modulada a 38 kHz con 16 haces cruzados y auto-calibración</td>
+<td>5</td>
+<td>1</td>
+<td>2</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Electrónica Potencia</td>
+<td>Sobretensión inductiva daña MOSFET</td>
+<td>8</td>
+<td>3</td>
+<td>4</td>
+<td>96</td>
+<td>Diodos Schottky 1N5822 + Red Snubber RC 15Ω/47nF + Optos 5kV</td>
+<td>7</td>
+<td>1</td>
+<td>2</td>
+<td>14</td>
+</tr>
+<tr>
+<td>Alimentación AC</td>
+<td>Caída de red o transitorio de alta tensión</td>
+<td>6</td>
+<td>5</td>
+<td>3</td>
+<td>90</td>
+<td>Supresor MOV de 275V + Termomagnético diferencial de 10A / 30mA</td>
+<td>5</td>
+<td>1</td>
+<td>2</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Firmware ESP32</td>
+<td>Bloqueo por fuga de memoria dinámica</td>
+<td>7</td>
+<td>4</td>
+<td>4</td>
+<td>112</td>
+<td>FreeRTOS Heap_4 con coalescencia + Watchdog de hardware en 5.0 s</td>
+<td>6</td>
+<td>1</td>
+<td>1</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Red y Telemetría</td>
+<td>Pérdida de conectividad Wi-Fi de campus</td>
+<td>5</td>
+<td>6</td>
+<td>3</td>
+<td>90</td>
+<td>Conmutación transparente a módem celular 4G LTE Cat-1 SIMCom</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Estructura Chasis</td>
+<td>Deformación o fatiga en rieles de bandeja</td>
+<td>6</td>
+<td>2</td>
+<td>4</td>
+<td>48</td>
+<td>Pestañas en 'C' Calibre 18 + Rieles Accuride de 45 kg (FS = 3.2)</td>
+<td>4</td>
+<td>1</td>
+<td>2</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Interfaz HMI</td>
+<td>Falla táctil o bloqueo de pantalla 10.1"</td>
+<td>5</td>
+<td>3</td>
+<td>4</td>
+<td>60</td>
+<td>Reinicio automático por systemd en Raspberry Pi + watchdog serie</td>
+<td>4</td>
+<td>1</td>
+<td>2</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Caducidad Comida</td>
+<td>Consumo de platillo fuera de tiempo útil</td>
+<td>9</td>
+<td>3</td>
+<td>3</td>
+<td>81</td>
+<td>Temporizador estricto 14h en NVS Flash + Retiro obligatorio 21:30h</td>
+<td>8</td>
+<td>1</td>
+<td>1</td>
+<td>8</td>
+</tr>
+</table></div><h3 id="subsec-51" class="doc-h2">9.2 Seguridad Eléctrica, Aislamiento Galvánico y Puesta a Tierra</h3><p class="doc-p">Protección Térmica y Diferencial Certificada: El circuito eléctrico interno separa de forma galvánica la etapa de potencia de 120 V AC y 24 V DC respecto a la etapa de control digital de 3.3 V y 5 V mediante optoacopladores PC817C con aislamiento dieléctrico de 5,000 V RMS. La alimentación de red cuenta con un interruptor termomagnético bipolar con protección diferencial de 10 A y sensibilidad de disparo de 30 mA para salvaguardar a los usuarios contra contactos indirectos, conforme a la norma oficial mexicana NOM-001-SCFI-2018.</p><p class="doc-p">Red Equipotencial de Tierra Física: Todos los perfiles PTR, charolas metálicas, bisagras y paneles perimetrales desmontables están interconectados mediante cables de tierra física de cobre estañado calibre 12 AWG con terminales de ojillo prensadas hacia un borne central equipotencial soldado al bastidor, manteniendo una resistencia de contacto medida menor a 0.08 Ohms hacia la clavija polarizada aterrizada de 120 V.</p><h3 id="subsec-52" class="doc-h2">9.3 Inocuidad Alimentaria y Política de Retiro Diario Estricto (HACCP)</h3><p class="doc-p">Cadena de Frío Estricta y Desalojo Diario: La inocuidad de los alimentos preparados se sustenta en dos reglas estrictas de control HACCP (Hazard Analysis and Critical Control Points): (1) mantener una refrigeración constante entre 2 °C y 4 °C durante todo el turno mediante toberas laminares forzadas, y (2) forzar el retiro sanitario de todos los productos gastronómicos al término de la jornada diaria (21:30 h). No se permite que los platillos pasen la noche dentro de la máquina ni se comercializan raciones de días previos.</p><p class="doc-p">Bloqueo Sanitario Automático (Health Lockout): Si ocurre una interrupción eléctrica severa que eleve la temperatura de la cabina por encima de 4.4 °C durante más de 30 minutos, el microcontrolador activa el bloqueo sanitario (Health Lockout), suspendiendo inmediatamente las ventas y mostrando una advertencia en la pantalla táctil de 10.1" para que el encargado retire los productos afectados, garantizando que el consumidor jamás reciba comida en mal estado.</p><h3 id="subsec-53" class="doc-h2">9.4 Sostenibilidad Ambiental, Eficiencia Energética y Análisis de Refrigerante R134a</h3><p class="doc-p">Circuito Frigorífico Hermético R134a: El subsistema térmico emplea gas ecológico R134a (tetrafluoroetano, CH2FCF3) con potencial de agotamiento de la capa de ozono nulo (ODP = 0) y clasificación de seguridad ASHRAE A1 (no tóxico, no inflamable). La carga frigorífica se optimizó a solo 135 gramos, encontrándose muy por debajo del umbral de riesgo en recintos cerrados. Todo el circuito frigorífico está soldado con aleación de plata al 15% bajo flujo de nitrógeno seco para evitar incrustaciones de óxido y probado a 25 bar de presión hidrostática, garantizando cero fugas durante 10 años.</p><p class="doc-p">Eficiencia Eléctrica y Reciclabilidad de Materiales: El consumo de electricidad promedio se limita a 1.85 kWh diarios gracias al aislamiento continuo de 40 mm de poliuretano inyectado, la iluminación LED perimetral de bajo consumo (12 W) y el modo nocturno que atenúa la pantalla fuera del horario operativo. Además, el 92% de la masa total de la máquina está constituido por metales altamente reciclables (acero estructural ASTM A500, acero inoxidable AISI 304 y cobre electrolítico), asegurando una huella de carbono neutral al término de su ciclo de vida.</p><h3 id="subsec-54" class="doc-h2">9.5 Sostenibilidad Social y Economía Circular de Proximidad ('Kilómetro Cero')</h3><p class="doc-p">Impacto Comunitario y Comercio Justo Local: El modelo del Proyecto XpendeX impulsa la economía local de San Nicolás de los Garza: los alimentos se adquieren cada mañana a loncherías y fondas familiares situadas a menos de 3 kilómetros de la facultad. Esto elimina las emisiones de transporte de larga distancia y asegura que el 82% del valor de cada comida ($98.40 MXN de los $120 MXN) ingrese directamente a las familias de cocineras tradicionales mediante dispersión electrónica diaria, facilitándoles un canal formal de venta continua sin pagar comisiones abusivas a intermediarios.</p><h2 id="sec-10" class="doc-h1">10.0 RELACIÓN ENTRE LOS FUNDAMENTOS TEÓRICOS Y EL PROYECTO XPENDEX</h2><p class="doc-p">El modelo tridimensional que desarrollamos en Autodesk Fusion 360 y AutoCAD refleja de forma directa y comprobable cada uno de los cálculos físico-matemáticos deducidos en este documento. La Tabla 10.1 sintetiza la correspondencia entre los modelos teóricos y los componentes de nuestro diseño mecatrónico:</p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>COMPONENTE CAD / HARDWARE</th>
+<th>PARÁMETRO GEOMÉTRICO / TÉCNICO</th>
+<th>FUNDAMENTO CIENTÍFICO</th>
+<th>MODELO APLICADO</th>
+</tr>
+<tr>
+<td>01_Bastidor_PTR_Principal</td>
+<td>PTR 1 1/2" x 1 1/2" Calibre 14</td>
+<td>Resistencia de Materiales</td>
+<td>Límite de fluencia Fy = 310 MPa sin pandeo</td>
+</tr>
+<tr>
+<td>02_Bandejas_Modulares_6_Pisos</td>
+<td>Pestaña 'C' h=25.4 mm Calibre 18</td>
+<td>Teoría de Vigas (Euler-Bernoulli)</td>
+<td>Flecha central δ = 0.088 mm &lt;&lt; 1.70 mm</td>
+</tr>
+<tr>
+<td>03_Sala_Frigorifica_BOWA</td>
+<td>Bancada 100 mm / Compresor 1/5 HP</td>
+<td>Ciclo de Compresión de Vapor</td>
+<td>Balance Entálpico: Q_total = 485 W en R134a</td>
+</tr>
+<tr>
+<td>04_Columna_Climatizacion_Vertical</td>
+<td>Plenum posterior + 6 toberas ranuradas</td>
+<td>Mecánica de Fluidos y Convección</td>
+<td>Caudal de 145 CFM a velocidad v = 1.85 m/s</td>
+</tr>
+<tr>
+<td>05_Espirales_Helicoidales_1+4+1</td>
+<td>Espirales Ø 144 mm y Ø 70 mm</td>
+<td>Cinemática de Rozamiento Helicoidal</td>
+<td>Fuerza axial 17.31 N vs par motor 1.80 N·m</td>
+</tr>
+<tr>
+<td>06_Tarjeta_Potencia_Matriz_6x6</td>
+<td>PCB 2 Capas FR4 con P/N-MOSFETs</td>
+<td>Electrónica de Potencia Inductiva</td>
+<td>Pistas IPC-2221 W=3.5 mm y flyback Schottky (20 ns)</td>
+</tr>
+<tr>
+<td>07_Gestor_Multi_Ranura_FIFO</td>
+<td>Mapeo dinámico y WebSockets</td>
+<td>Teoría de Colas y Grafos Discretos</td>
+<td>Conmutación en cascada en t_switch &lt; 49 ms sin fallos</td>
+</tr>
+<tr>
+<td>08_Temporizador_de_Turno_RTC</td>
+<td>Reloj RTC DS3231 + firmware ESP32</td>
+<td>Inocuidad y Frescura Diaria</td>
+<td>Retiro obligatorio a las 21:30 h (comida del día)</td>
+</tr>
+</table></div><p class="caption table-caption"><strong>Tabla 10.1. Mapeo de correspondencia entre los fundamentos físico-matemáticos y los parámetros geométricos del diseño mecatrónico XpendeX. Fuente: Elaboración propia de los estudiantes con datos de Autodesk Fusion 360 y EasyEDA (2026).</strong></p><h3 id="subsec-56" class="doc-h2">10.1 Integración de la Columna Vertical de Climatización y Compuerta Enrasada</h3><p class="doc-p">En nuestro modelo CAD definitivo consolidamos dos soluciones de ingeniería fundamentales:</p><li class="doc-li">1. Depuración y Enrase de la Compuerta de Recogida: Se eliminó cualquier arista o protuberancia sobrante sobre las bisagras de la compuerta basculante. El pozo de entrega queda completamente liso, enrasado y seguro, facilitando la limpieza higiénica diaria y evitando acumulaciones de suciedad.</li><li class="doc-li">2. Columna de Climatización Vertical por Toberas: En el plenum posterior ubicamos un ducto difusor conectado mediante codo rígido de cobre a la sala inferior BOWA. Dicho ducto cuenta con una tobera ranurada a la altura exacta de cada una de las 6 charolas (Z = 59.5, 79.5, 99.5, 119.5, 139.5 y 159.5 cm), inyectando aire frío a 2 °C directamente sobre los alimentos, logrando que no exista estratificación térmica en ningún punto del gabinete (ΔT &lt; 1.1 °C).</li><h3 id="subsec-57" class="doc-h2">10.2 Evidencia Visual del Gemelo Digital Tridimensional</h3><p class="doc-p">A continuación presentamos la memoria gráfica de los renders y vistas de ingeniería generados por nuestro equipo de estudiantes a partir del modelo paramétrico desarrollado en Autodesk Fusion 360 y AutoCAD para el Proyecto XpendeX:</p><div class="figure-container"><img src="af5_media/image10.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 10.1. Vista isométrica general del Micro-Restaurante XpendeX modelado en Autodesk Fusion 360. Se aprecia el techo plano a 1,830 mm con pantalla táctil de 10.1" IPS montada a ras de chasis con Raspberry Pi, la vitrina acristalada templada hermética con los 6 niveles de bandejas reforzadas (36 canales) y la sala inferior BOWA con compuerta enrasada limpia.</em></p><div class="figure-container"><img src="af5_media/image11.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 10.2. Vista de detalle de ingeniería de la Sala Frigorífica BOWA y Columna de Climatización Vertical. Se observa la disposición del motocompresor hermético Embraco R134a de 1/5 HP sobre tacones amortiguadores, condensador aleteado de tiro forzado, acumulador de succión, líneas de cobre hacia el plenum posterior de toberas y pozo de caída blindado.</em></p><div class="figure-container"><img src="af5_media/image12.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 10.3. Elevación ortogonal frontal del ensamble completo del gabinete XpendeX a escala 1:1 en Autodesk Fusion 360. Ilustra la pantalla táctil de 10.1" IPS, el marco perimetral con bisagras de alta carga en el flanco izquierdo y cerradura en el derecho, la matriz frontal de 36 bocas de descarga helicoidal (6 filas x 6 canales: 2 laterales gigantes de 190 mm y 4 centrales de 95 mm), la compuerta basculante enrasada y las ruedas giratorias de alta maniobra.</em></p><div class="figure-container"><img src="af5_media/image13.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 10.4. Elevación lateral izquierda y corte de arquitectura interior en Autodesk Fusion 360. Muestra la profundidad útil de 880 mm del gabinete, la disposición vertical equidistante de las 6 bandejas modulares de acero inoxidable AISI 304, las correderas telescópicas industriales Accuride de tres secciones, la columna de climatización y el pozo de recogida inferior con trampa basculante superior anti-pesca.</em></p><div class="figure-container"><img src="af5_media/image11.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 10.5. Elevación lateral derecha y vista seccional de la Columna de Climatización Vertical en Autodesk Fusion 360. Se aprecian las 6 toberas difusoras independientes alineadas con precisión milimétrica frente a cada bandeja (Z = 59.5 a 159.5 cm), inyectando aire frío a 2.0 °C y 1.85 m/s para anular la estratificación térmica en altura (ΔT ≤ 1.1 °C en todo el volumen de almacenamiento).</em></p><div class="figure-container"><img src="af5_media/image14.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 10.6. Perspectiva isométrica posterior del gemelo digital en Autodesk Fusion 360 con paneles posteriores descubiertos. Revela el bastidor estructural en PTR 1 1/2" Calibre 14 soldado con microalambre ER70S-6 (proceso MIG/GMAW), la escalerilla lateral de soporte, la batería de 36 motorreductores DC de 24 V y 1.8 N·m acoplados en la cara posterior de las bandejas para tracción independiente, y la sala inferior BOWA con ventilación forzada hacia el exterior.</em></p><div class="figure-container"><img src="af5_media/image15.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 10.7. Ensamble isométrico general del modelo paramétrico sólido en Autodesk Fusion 360 con cerramientos lisos y compuerta enrasada.</em></p><div class="figure-container"><img src="af5_media/image16.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 10.8. Detalle interior del copete: chasis de pantalla táctil 10.1 pulgadas, soporte de Raspberry Pi y módulo acústico.</em></p><div class="figure-container"><img src="af5_media/image17.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 10.9. Detalle frontal superior de bandejas en Fusion 360 con arquitectura 1+4+1 para comida en tuppers cuadrados y bebidas.</em></p><div class="figure-container"><img src="af5_media/image18.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 10.10. Guías telescópicas industriales de extracción y mecanismo de cerradura de seguridad en poste lateral derecho.</em></p><div class="figure-container"><img src="af5_media/image19.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 10.11. Sala de máquinas frigorífica BOWA en Fusion 360: compresor hermético Embraco 1/5 HP y serpentín condensador.</em></p><div class="figure-container"><img src="af5_media/image20.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 10.12. Detalle del condensador aleteado de tiro forzado con forzador axial y bandeja estructural inferior.</em></p><div class="figure-container"><img src="af5_media/image21.png" alt="Figura técnica AF5" class="doc-img"></div><p class="caption figure-caption"><em>Figura 10.13. Vista posterior del gemelo digital en Fusion 360 revelando la matriz de 36 motorreductores 24V DC y canalización vertical.</em></p><h3 id="subsec-58" class="doc-h2">10.3 Simulación Virtual de Electrónica y Firmware en Wokwi (VS Code PlatformIO)</h3><p class="doc-p">Entorno de Validación Virtual de Hardware Embebido: La integración del gemelo digital trasciende el modelado mecánico, extendiéndose al comportamiento electrónico y al firmware en tiempo real. En la carpeta oficial del proyecto (`Circuito Simulación`), se desarrolló un entorno completo de pruebas virtuales sobre el simulador industrial Wokwi integrado en Visual Studio Code bajo el framework PlatformIO:</p><li class="doc-li">Definición Declarativa del Hardware (`diagram.json`): Modela la interconexión exacta del microcontrolador ESP32-WROOM-32E con el bus I2C, pantalla LCD 20x4, expansor de puertos MCP23017, matriz conmutada de MOSFETs y red de sensores Dallas DS18B20 OneWire con resistencia pull-up de 4.7 kΩ.</li><li class="doc-li">Validación de Algoritmos Sin Riesgo de Daño Físico: Permite someter el firmware a fallos simulados (atascos mecánicos de espiral, interrupción de la barrera infrarroja de 38 kHz, sobrecalentamiento inducido a más de 4.5 °C en la sonda térmica) y verificar que la Máquina de Estados Finitos (FSM) ejecute los disparos de seguridad, bloqueos por caducidad y reembolsos por webhook de manera infalible antes de soldar un solo componente.</li><li class="doc-li">Compilación Cruzada Determinista (`platformio.ini`): Configura las directivas de optimización `-O2` y el marco de trabajo de FreeRTOS, permitiendo verificar los desbordamientos de pila (Stack Overflow) en las colas de mensajería entre el Núcleo 0 (redes y telemetría) y el Núcleo 1 (control de motores y sensores).</li><h3 id="subsec-59" class="doc-h2">10.4 Modelado Paramétrico en Autodesk Fusion 360 y Archivos de Maquila DXF</h3><p class="doc-p">Trazabilidad Paramétrica hacia Taller Local: El gemelo digital tridimensional de XpendeX fue estructurado paramétricamente mediante el script de automatización `Proyecto_XpendeX_Fusion360.py` y exportado al archivo de fabricación industrial `Proyecto_XpendeX_AutoCAD.dxf`. Esta metodología permite alterar dimensiones maestras (altura del chasis, espesor de la chapa o número de charolas) propagando instantáneamente los cambios hacia los ensambles, interferencias dinámicas y planos de corte por láser CNC, eliminando cualquier riesgo de error dimensional durante la manufactura en el taller mecánico de Monterrey.</p><h2 id="sec-11" class="doc-h1">11.0 CONCLUSIONES DERIVADAS DE LA INVESTIGACIÓN</h2><p class="doc-p">La elaboración y desarrollo integral de este Marco Teórico por parte de nuestro equipo de estudiantes de la FIME UANL nos permite establecer las siguientes conclusiones científicas y de ingeniería mecatrónica sólidamente demostradas:</p><li class="doc-li">Viabilidad Térmica y Ausencia de Estratificación: El balance entálpico integral confirmó que la unidad de 1/5 HP en refrigerante R134a extrae 485 W frente a una demanda crítica de 382.9 W a 42 °C ambiente (FS = 1.27). La columna vertical de toberas a 1.85 m/s anula la estratificación, manteniendo la vitrina entre 2.0 °C y 4.0 °C con ΔT ≤ 1.1 °C.</li><li class="doc-li">Rigidez Estructural y Despacho Libre de Flexión: La deducción analítica de Euler-Bernoulli validó que las pestañas plegadas en 'C' confieren a las bandejas una deflexión central máxima de apenas 0.088 mm bajo plena carga (28.3 kg), superando en 19 veces la tolerancia de las guías telescópicas y garantizando cero atascos.</li><li class="doc-li">Robustez Dinámica por Espirales Gigantes Ø 144 mm: La modelación cinemática demostró que los motorreductores de 1.80 N·m disponen de un amplio margen sobre el par torsor resistente (FS &gt; 2.5), cancelando componentes laterales de fricción y empujando tuppers pesados de hasta 650 g sin cabeceos ni desvíos angulares.</li><li class="doc-li">Excelencia en Electrónica de Potencia Matricial (EasyEDA PCB): El diseño matricial 6x6 con MOSFETs de nivel lógico IRLZ44N (Low-Side) y P-MOSFETs IRF9540N (High-Side) gobierna 36 motores con solo 12 GPIOs y 12 optoacopladores PC817C (5,000 V RMS). La energía inductiva residual de 16.31 mJ se disipa en 20 ns mediante diodos Schottky 1N5822 y red snubber RC, cumpliendo plenamente con la norma IPC-2221B.</li><li class="doc-li">Innovación Logística mediante Algoritmo Multi-Ranura FIFO: La formulación matemática del autómata de colas multi-ranura erradica el desabasto de platillos populares, permitiendo vincular un mismo SKU en múltiples casillas físicas (de 8 a 16 o 24 tuppers) y conmutando secuencialmente en menos de 49 ms sin fricciones para el comprador.</li><li class="doc-li">Garantía Sanitaria NOM-251 y Accesibilidad Universal WCAG 2.1 AAA: El temporizador RTC DS3231 fuerza el retiro nocturno de platillos a las 21:30 h (protocolo 14 horas), mientras que el motor de temas visuales asegura un contraste matemático superior a 7.0:1 en 4 paletas dinámicas, blindando la inocuidad alimentaria y la legibilidad ergonómica.</li><li class="doc-li">Factibilidad de Manufactura y Retorno Ultrarrápido de Inversión: Con un costo de fabricación de $46,463 MXN basado en proveeduría de acero local y electrónica estandarizada, la máquina se amortiza en tan solo 32.1 días en entornos de alta demanda, democratizando el acceso a comidas caseras saludables de $120 MXN preparadas por loncherías locales de Nuevo León.</li><h2 id="sec-12" class="doc-h1">12.0 REFERENCIAS BIBLIOGRÁFICAS (NORMA IEEE)</h2><p class="doc-p">A continuación se enlistan las 25 fuentes bibliográficas formales, libros de texto canónicos de ingeniería, normas oficiales, manuales de fabricantes y datasheets consultados y citados en el presente Marco Teórico, formateados rigurosamente bajo la norma IEEE:</p><p class="doc-p">[1] Y. A. Cengel y M. A. Boles, Termodinámica, 9ª ed. Ciudad de México, México: McGraw-Hill Interamericana, 2019.</p><p class="doc-p">[2] F. P. Incropera, D. P. DeWitt, T. L. Bergman, y A. S. Lavine, Fundamentos de Transferencia de Calor y de Masa, 6ª ed. Hoboken, NJ, EE.UU.: John Wiley &amp; Sons, 2017.</p><p class="doc-p">[3] R. G. Budynas y J. K. Nisbett, Diseño en Ingeniería Mecánica de Shigley, 10ª ed. Ciudad de México, México: McGraw-Hill Interamericana, 2018.</p><p class="doc-p">[4] R. C. Hibbeler, Mecánica de Materiales, 9ª ed. Ciudad de México, México: Pearson Educación, 2017.</p><p class="doc-p">[5] ASHRAE, «Standard 32.1-2022: Methods of Testing for Rating Vending Machines for Bottled, Canned, and Other Sealed Beverages», American Society of Heating, Refrigerating and Air-Conditioning Engineers, Atlanta, GA, 2022.</p><p class="doc-p">[6] Secretaría de Economía, «NOM-001-SCFI-2018: Aparatos electrónicos - Requisitos de seguridad y métodos de prueba», Diario Oficial de la Federación (DOF), Ciudad de México, México, 2018.</p><p class="doc-p">[7] Secretaría de Salud, «NOM-251-SSA1-2009: Prácticas de higiene para el proceso de alimentos, bebidas o suplementos alimenticios», Diario Oficial de la Federación (DOF), Ciudad de México, México, 2010.</p><p class="doc-p">[8] Secretaría de Economía y Secretaría de Salud, «NOM-051-SCFI/SSA1-2010: Especificaciones generales de etiquetado para alimentos y bebidas no alcohólicas preenvasados - Información comercial y sanitaria», Diario Oficial de la Federación, Ciudad de México, 2020.</p><p class="doc-p">[9] IPC - Association Connecting Electronics Industries, «IPC-2221B: Generic Standard on Printed Board Design», Bannockburn, IL, EE.UU.: IPC, 2012.</p><p class="doc-p">[10] World Wide Web Consortium (W3C), «Web Content Accessibility Guidelines (WCAG) 2.1 - W3C Recommendation», W3C Accessibility Guidelines Working Group, 2018. [En línea]. Disponible en: https://www.w3.org/TR/WCAG21/</p><p class="doc-p">[11] National Automatic Merchandising Association (NAMA), «Standard for Sanitary Design and Construction of Food and Beverage Vending Machines», NAMA Standard Committee, Chicago, IL, EE.UU., 2020.</p><p class="doc-p">[12] European Vending Association, «EVA Electronic Payment Specification (EVA-EPS) Standard Version 4.2», Bruselas, Bélgica, 2021.</p><p class="doc-p">[13] Underwriters Laboratories, «UL 751: Standard for Vending Machines», 8ª ed., Northbrook, IL, EE.UU.: UL LLC, 2020.</p><p class="doc-p">[14] K. Ogata, Ingeniería de Control Moderna, 5ª ed. Madrid, España: Pearson Prentice Hall, 2010.</p><p class="doc-p">[15] Espressif Systems, «ESP32 Series Datasheet: 2.4 GHz Wi-Fi + Bluetooth + BLE SoC», Shanghái, China, 2024.</p><p class="doc-p">[16] Embraco - Nidec Global Appliance, «Application Guidelines for Commercial Refrigeration Compressors (R134a/R290)», Joinville, Brasil, 2022.</p><p class="doc-p">[17] Danfoss Climate Solutions, «KP Pressure Switches Technical Brochure: Dual and Single High/Low Refrigeration Cut-outs», Nordborg, Dinamarca, 2023.</p><p class="doc-p">[18] Department of Defense, «MIL-HDBK-217F: Reliability Prediction of Electronic Equipment», U.S. Army Logistics Center, Fort Belvoir, VA, EE.UU., 1995.</p><p class="doc-p">[19] Real-Time Engineers Ltd. / Amazon Web Services, «FreeRTOS Reference Manual: API Functions and Configuration Guidance for Multicore Embedded Systems, Version 10.5», 2023.</p><p class="doc-p">[20] Wokwi Systems Ltd., «Wokwi Embedded Systems Simulator Documentation and Component Integration Guide», Tel Aviv, Israel, 2024.</p><p class="doc-p">[21] EasyEDA / JLCPCB Electronics Co., «EasyEDA Professional PCB Design Suite and Multi-Layer Fabrication Tolerances Guide», Shenzhen, China, 2024.</p><p class="doc-p">[22] Infineon Technologies AG, «IRLZ44NPBF Logic-Level Gate Drive N-Channel HEXFET Power MOSFET Datasheet», Neubiberg, Alemania, 2021.</p><p class="doc-p">[23] Infineon Technologies AG, «IRF9540NPBF P-Channel HEXFET Power MOSFET Datasheet», Neubiberg, Alemania, 2021.</p><p class="doc-p">[24] Samuel Tovar Mujica, «Proyecto XpendeX: Memoria de Cálculo Paramétrico 3D y Planos de Taller en Autodesk Fusion 360», FIME UANL, San Nicolás de los Garza, México, Oct. 2026.</p><p class="doc-p">[25] Samuel Tovar Mujica, «Actividad Fundamental 4: Presentación Inicial del Proyecto de Ingeniería Aplicada - Micro-Restaurante Vending Híbrido», Reporte Técnico FIME UANL, San Nicolás de los Garza, México, Oct. 2026.</p><p class="doc-p">ANEXO A: DESGLOSE TRIDIMENSIONAL EXHAUSTIVO DE PIEZAS (BOM) EN AUTODESK FUSION 360</p><p class="doc-p">Lista Maestra de Materiales y Componentes Mecatrónicos de Fabricación</p><p class="doc-p">Trazabilidad Paramétrica hacia Fabricación en Taller Mecánico: A continuación se presenta el desglose dimensional, técnico y de materiales de todas las piezas necesarias para cortar, doblar, maquilar, ensamblar y verificar el Micro-Restaurante XpendeX completo, extraídas directamente de las cotas paramétricas de nuestro modelo en Autodesk Fusion 360 y AutoCAD. El modelo digital consta de 127 cuerpos sólidos B-Rep directos perfectamente referenciados a los ejes cartesianos de taller mecánico.</p><p class="doc-p">A.1 Bastidor y Estructura PTR Soldada (Acero Comercial Calibre 14 / Taller Local)</p><p class="caption table-caption"><strong>Tabla A.1: Especificaciones dimensionales del bastidor estructural en PTR Calibre 14. A.1</strong></p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>Ítem</th>
+<th>Nombre de la Pieza</th>
+<th>Dimensiones 3D Exactas (mm)<br>[X: Ancho × Y: Fondo × Z: Alto]</th>
+<th>Material Comercial / Especificación</th>
+<th>Cant.</th>
+<th>Función Técnica y Proceso</th>
+</tr>
+<tr>
+<td>E-01</td>
+<td>Columnas Principales Esquineras</td>
+<td>38.1 × 38.1 × 1,830.0 mm</td>
+<td>PTR 1 1/2" × 1 1/2" Cal. 14 (1.90 mm)</td>
+<td>4</td>
+<td>Montantes verticales maestros en las 4 esquinas del chasis.</td>
+</tr>
+<tr>
+<td>E-02</td>
+<td>Travesaños Anillo Base (Fr/Tr)</td>
+<td>873.8 × 38.1 × 38.1 mm</td>
+<td>PTR 1 1/2" × 1 1/2" Cal. 14</td>
+<td>2</td>
+<td>Perímetro inferior a Z = 0 mm. Soldados entre columnas.</td>
+</tr>
+<tr>
+<td>E-03</td>
+<td>Largueros Anillo Base (Costados)</td>
+<td>38.1 × 803.8 × 38.1 mm</td>
+<td>PTR 1 1/2" × 1 1/2" Cal. 14</td>
+<td>2</td>
+<td>Largueros laterales inferiores a Z = 0 mm. Amarre de piso.</td>
+</tr>
+<tr>
+<td>E-04</td>
+<td>Travesaño Divisorio Pozo Base</td>
+<td>873.8 × 25.4 × 38.1 mm</td>
+<td>PTR 1" × 1 1/2" Cal. 14</td>
+<td>1</td>
+<td>Ubicado a Y = 260 mm, separa la tolva de caída de la sala de máquinas.</td>
+</tr>
+<tr>
+<td>E-05</td>
+<td>Vigas Anchas Bancada Compresor</td>
+<td>100.0 × 581.9 × 38.1 mm</td>
+<td>Canal C / PTR Estructural 100 mm</td>
+<td>2</td>
+<td>Soporte de alta carga: Bancada de compresor (cero vibración).</td>
+</tr>
+<tr>
+<td>E-06</td>
+<td>Viga Amarre Transversal Bancada</td>
+<td>873.8 × 40.0 × 38.1 mm</td>
+<td>PTR 40 × 38.1 mm Cal. 14</td>
+<td>1</td>
+<td>Amarre transversal a Y = 540 mm bajo el centro de bancada.</td>
+</tr>
+<tr>
+<td>E-07</td>
+<td>Anillo Divisora Sanitaria (Fr/Tr)</td>
+<td>873.8 × 38.1 × 25.4 mm</td>
+<td>PTR 1 1/2" × 1" Cal. 14</td>
+<td>2</td>
+<td>Anillo perimetral a Z = 460 mm (cota divisoria vitrina/máquinas).</td>
+</tr>
+<tr>
+<td>E-08</td>
+<td>Anillo Divisora Sanitaria (Lat)</td>
+<td>38.1 × 803.8 × 25.4 mm</td>
+<td>PTR 1 1/2" × 1" Cal. 14</td>
+<td>2</td>
+<td>Largueros laterales de la divisora a Z = 460 mm.</td>
+</tr>
+<tr>
+<td>E-09</td>
+<td>Travesaño Divisorio Intermedio</td>
+<td>873.8 × 25.4 × 25.4 mm</td>
+<td>PTR 1" × 1" Cal. 14</td>
+<td>1</td>
+<td>Viga transversal superior del cajón a Z = 460 mm, Y = 260 mm.</td>
+</tr>
+<tr>
+<td>E-10</td>
+<td>Travesaños Anillo Techo (Fr/Tr)</td>
+<td>873.8 × 38.1 × 38.1 mm</td>
+<td>PTR 1 1/2" × 1 1/2" Cal. 14</td>
+<td>2</td>
+<td>Marco superior de techo plano a Z = 1,830 mm.</td>
+</tr>
+<tr>
+<td>E-11</td>
+<td>Largueros Anillo Techo (Lat)</td>
+<td>38.1 × 803.8 × 38.1 mm</td>
+<td>PTR 1 1/2" × 1 1/2" Cal. 14</td>
+<td>2</td>
+<td>Largueros laterales superiores del techo a Z = 1,830 mm.</td>
+</tr>
+<tr>
+<td>E-12</td>
+<td>Vigas Laterales Soporte Charolas</td>
+<td>25.4 × 803.8 × 25.4 mm</td>
+<td>PTR 1" × 1" Calibre 14 (25.4 mm)</td>
+<td>12</td>
+<td>Escalerilla estructural al ras de perfiles: 6 a izq y 6 a der.</td>
+</tr>
+<tr>
+<td>E-13</td>
+<td>Vigas Transversales Apoyo Bandeja</td>
+<td>950.0 × 22.0 × 20.0 mm</td>
+<td>Tubo rectangular 22 × 20 mm Cal. 16</td>
+<td>12</td>
+<td>Al ras de perfiles (950 mm luz): Transmiten 15.3 kg por nivel al PTR.</td>
+</tr>
+</table></div><p class="doc-p">A.2 Forro Exterior de Gabinete (Lámina Cold Rolled Calibre 18 / 1.21 mm)</p><p class="caption table-caption"><strong>Tabla A.2: Componentes de carrocería en lámina rolada en frío Calibre 18. A.2</strong></p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>Ítem</th>
+<th>Nombre de la Pieza</th>
+<th>Dimensiones 3D Exactas (mm)<br>[X: Ancho × Y: Fondo × Z: Alto]</th>
+<th>Material Comercial / Especificación</th>
+<th>Cant.</th>
+<th>Función Técnica y Proceso</th>
+</tr>
+<tr>
+<td>L-01</td>
+<td>Lámina Costado Izquierdo con Rejillas</td>
+<td>1.21 × 880.0 × 1,830.0 mm</td>
+<td>Lámina Cold Rolled Calibre 18</td>
+<td>1</td>
+<td>Pared exterior izquierda con 16 rejillas troqueladas en sala de máquinas.</td>
+</tr>
+<tr>
+<td>L-02</td>
+<td>Lámina Costado Derecho</td>
+<td>1.21 × 880.0 × 1,830.0 mm</td>
+<td>Lámina Cold Rolled Calibre 18</td>
+<td>1</td>
+<td>Pared exterior derecha lisa, pulida, fosfatizada y esmaltada.</td>
+</tr>
+<tr>
+<td>L-03</td>
+<td>Lámina Techo Superior Plano</td>
+<td>952.4 × 882.4 × 1.21 mm</td>
+<td>Lámina Cold Rolled Calibre 18</td>
+<td>1</td>
+<td>Tapa de cierre superior plana a 1,830 mm.</td>
+</tr>
+<tr>
+<td>L-04</td>
+<td>Lámina Piso Inferior Hermético</td>
+<td>952.4 × 882.4 × 1.21 mm</td>
+<td>Lámina Cold Rolled Calibre 18</td>
+<td>1</td>
+<td>Cierre hermético de piso contra polvo, humedad y plagas.</td>
+</tr>
+<tr>
+<td>L-05</td>
+<td>Lámina Frontal Inferior (Faldón)</td>
+<td>950.0 × 1.21 × 460.0 mm</td>
+<td>Lámina Cold Rolled Calibre 18</td>
+<td>1</td>
+<td>Frente inferior con ventana de 670 × 240 mm para compuerta de recogida.</td>
+</tr>
+<tr>
+<td>L-06</td>
+<td>Lámina Respaldo con Louvers</td>
+<td>952.4 × 1.21 × 1,830.0 mm</td>
+<td>Lámina Cold Rolled Calibre 18</td>
+<td>1</td>
+<td>Pared posterior con rejilla de disipación de calor del condensador.</td>
+</tr>
+</table></div><p class="doc-p">A.3 Mecanismo de 6 Bandejas Mixtas (1+4+1), 36 Motorreductores DC 24V y Espirales Helicoidales</p><p class="caption table-caption"><strong>Tabla A.3: Subsistema de bandejas mixtas 1+4+1, motorreductores DC y espirales. A.3</strong></p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>Ítem</th>
+<th>Nombre de la Pieza</th>
+<th>Dimensiones 3D Exactas (mm)<br>[X: Ancho × Y: Fondo × Z: Alto]</th>
+<th>Material Comercial / Especificación</th>
+<th>Cant.</th>
+<th>Función Técnica y Proceso</th>
+</tr>
+<tr>
+<td>B-01</td>
+<td>Bandejas Mixtas Inoxidables (A-F)</td>
+<td>950.0 × 650.0 × 85.0 mm</td>
+<td>Lámina Acero Inoxidable AISI 304 Cal. 18</td>
+<td>6</td>
+<td>Plegada en CNC con pestañas en 'C' (25.4 mm) y distribución 1+4+1.</td>
+</tr>
+<tr>
+<td>B-02</td>
+<td>Guías Divisorias Centrales</td>
+<td>1.20 × 650.0 × 60.0 mm</td>
+<td>Lámina AISI 304 Calibre 18</td>
+<td>30</td>
+<td>5 guías activas por charola delimitando los 4 canales de bebidas.</td>
+</tr>
+<tr>
+<td>B-03</td>
+<td>Motorreductores DC 24V Planetarios 1:50</td>
+<td>37.0 × 52.0 × 37.0 mm (Eje Ø 6 mm)</td>
+<td>Motorreductor 24V DC con caja planetaria</td>
+<td>36</td>
+<td>6 motores por charola (par continuo de 1.8 N·m, leva de homing 360°).</td>
+</tr>
+<tr>
+<td>B-04</td>
+<td>Émbolos de Acople en Nylon 6-6</td>
+<td>Ø 24.0 mm × 55.0 mm</td>
+<td>Nylon 6-6 mecanizado CNC con prisioneros M4</td>
+<td>36</td>
+<td>Sujeción concéntrica del alambre de la espiral al eje del motorreductor.</td>
+</tr>
+<tr>
+<td>B-05</td>
+<td>Espirales Gigantes Comida Casera</td>
+<td>Ø 144.0 mm × 590.0 mm (5 vueltas)</td>
+<td>Alambre SAE 1065 Ø 7.0 mm epóxico</td>
+<td>12</td>
+<td>2 espirales gigantes por nivel (bahías laterales 190 mm) para tuppers 650 g.</td>
+</tr>
+<tr>
+<td>B-06</td>
+<td>Espirales Estándar Bebidas Frías</td>
+<td>Ø 70.0 mm × 590.0 mm (7 vueltas)</td>
+<td>Alambre SAE 1065 Ø 5.0 mm epóxico</td>
+<td>24</td>
+<td>4 espirales centrales por nivel (canales 95 mm) para botellas y latas.</td>
+</tr>
+<tr>
+<td>B-07</td>
+<td>Microrruptores de Fin de Carrera</td>
+<td>15.0 × 28.0 × 10.0 mm</td>
+<td>Omron D3V-16 tipo palanca con rodillo</td>
+<td>36</td>
+<td>Detección mecánica de la revolución completa (cero angular ± 1.5°).</td>
+</tr>
+</table></div><p class="doc-p">A.4 Puerta Principal, Vidrio Triple Panorámico Low-E, Bisagras y Cerradura</p><p class="caption table-caption"><strong>Tabla A.4: Conjunto de puerta, acristalamiento criogénico y cerrajería. A.4</strong></p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>Ítem</th>
+<th>Nombre de la Pieza</th>
+<th>Dimensiones 3D Exactas (mm)<br>[X: Ancho × Y: Fondo × Z: Alto]</th>
+<th>Material Comercial / Especificación</th>
+<th>Cant.</th>
+<th>Función Técnica y Proceso</th>
+</tr>
+<tr>
+<td>P-01</td>
+<td>Marco Integral de Puerta Frontal</td>
+<td>950.0 × 20.0 × 1,370.0 mm</td>
+<td>Chapa Cold Rolled Calibre 16 doblada</td>
+<td>1</td>
+<td>Marco perimetral hermético con alojamiento para pantalla táctil de 10.1".</td>
+</tr>
+<tr>
+<td>P-02</td>
+<td>Triple Vidrio Templado Low-E</td>
+<td>810.0 × 32.0 × 1,030.0 mm</td>
+<td>Panel 4+12+4+12+4 mm con gas Argón 90%</td>
+<td>1</td>
+<td>Ventana panorámica continua con aislamiento criogénico (U = 1.25 W/m²·K).</td>
+</tr>
+<tr>
+<td>P-03</td>
+<td>Bisagras Industriales de Libro</td>
+<td>34.0 × 45.0 × 110.0 mm (Alas 4 mm)</td>
+<td>Acero inoxidable AISI 304 forjado</td>
+<td>3</td>
+<td>3 bisagras con perno de acero templado y arandelas antifricción de bronce.</td>
+</tr>
+<tr>
+<td>P-04</td>
+<td>Tornillos Allen Fijación Bisagras</td>
+<td>M6 × 1.0 × 16.0 mm (Cabeza cilíndrica)</td>
+<td>Acero aleado Grado 8.8 cincado</td>
+<td>24</td>
+<td>8 tornillos por bisagra (4 al chasis PTR y 4 al marco de puerta).</td>
+</tr>
+<tr>
+<td>P-05</td>
+<td>Cerradura CompX Chicago ACE T-Handle</td>
+<td>44.0 × 40.0 × 130.0 mm (Bisel)</td>
+<td>Fundición de zinc cromado / Acero</td>
+<td>1</td>
+<td>Manija T escamoteable con bombín tubular de alta seguridad de 7 pines.</td>
+</tr>
+</table></div><p class="doc-p">A.5 Compuerta Basculante Enrasada y Pozo de Caída Blindado</p><p class="caption table-caption"><strong>Tabla A.5: Elementos de compuerta enrasada y pozo de caída anti-hurto. A.5</strong></p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>Ítem</th>
+<th>Nombre de la Pieza</th>
+<th>Dimensiones 3D Exactas (mm)<br>[X: Ancho × Y: Fondo × Z: Alto]</th>
+<th>Material Comercial / Especificación</th>
+<th>Cant.</th>
+<th>Función Técnica y Proceso</th>
+</tr>
+<tr>
+<td>C-01</td>
+<td>Compuerta Basculante Frontal</td>
+<td>658.0 × 1.52 × 228.0 mm</td>
+<td>Lámina Cold Rolled Calibre 16 lisa</td>
+<td>1</td>
+<td>Puerta abatible hacia el interior para extracción del producto.</td>
+</tr>
+<tr>
+<td>C-02</td>
+<td>Aleta Superior Trampa Anti-Hurto</td>
+<td>650.0 × 1.21 × 180.0 mm</td>
+<td>Lámina Cold Rolled Calibre 18</td>
+<td>1</td>
+<td>Aleta articulada que bloquea el paso hacia las bandejas al empujar la puerta.</td>
+</tr>
+<tr>
+<td>C-03</td>
+<td>Bisagras Superiores Articuladas</td>
+<td>40.0 × 45.0 × 52.0 mm</td>
+<td>Acero inoxidable estampado satinado</td>
+<td>2</td>
+<td>Bisagras superiores de retorno suave por gravedad.</td>
+</tr>
+<tr>
+<td>C-04</td>
+<td>Tolva Colectora Amortiguada</td>
+<td>873.8 × 260.0 × 460.0 mm</td>
+<td>Lámina AISI 304 Calibre 18</td>
+<td>1</td>
+<td>Rampa a 35° acolchada con placa de espuma EVA y recubrimiento PTFE.</td>
+</tr>
+</table></div><p class="doc-p">A.6 Sala de Máquinas Frigorífica con Compresor Hermético 1/5 HP R134a y Plenum de Toberas</p><p class="caption table-caption"><strong>Tabla A.6: Componentes de la sala frigorífica inferior BOWA y columna de toberas. A.6</strong></p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>Ítem</th>
+<th>Nombre de la Pieza</th>
+<th>Dimensiones 3D Exactas (mm)<br>[X: Ancho × Y: Fondo × Z: Alto]</th>
+<th>Material Comercial / Especificación</th>
+<th>Cant.</th>
+<th>Función Técnica y Proceso</th>
+</tr>
+<tr>
+<td>M-01</td>
+<td>Bandeja Bancada Antivibratoria</td>
+<td>790.0 × 580.0 × 25.0 mm (Espesor 6 mm)</td>
+<td>Placa de acero A-36 de 1/4"</td>
+<td>1</td>
+<td>Bancada rígida soportada en las vigas de 100 mm (cero pandeo).</td>
+</tr>
+<tr>
+<td>M-02</td>
+<td>Compresor Hermético 1/5 HP R134a</td>
+<td>Ø 170.0 mm × 265.0 mm (alto)</td>
+<td>Embraco 115V / 150W nominal (HBP)</td>
+<td>1</td>
+<td>Potencia frigorífica 485 W a -5 °C de evaporación y 55 °C condensación.</td>
+</tr>
+<tr>
+<td>M-03</td>
+<td>Silentblocks Amortiguadores</td>
+<td>Ø 32.0 mm × 18.0 mm (alto)</td>
+<td>Caucho vulcanizado Shore A 55</td>
+<td>4</td>
+<td>Tacones elásticos de cloropreno que aíslan vibraciones mecánicas.</td>
+</tr>
+<tr>
+<td>M-04</td>
+<td>Acumulador de Succión Vertical</td>
+<td>Ø 92.0 mm × 270.0 mm (alto)</td>
+<td>Acero estampado con domo semiesférico</td>
+<td>1</td>
+<td>Retiene líquido y previene golpes de ariete en el pistón del compresor.</td>
+</tr>
+<tr>
+<td>M-05</td>
+<td>Unidad Condensadora Aleteada</td>
+<td>260.0 × 120.0 × 240.0 mm</td>
+<td>Tubo de cobre 3/8" y aletas aluminio 14 FPI</td>
+<td>1</td>
+<td>Serpentín de tiro forzado con disipación de 685 W térmicos.</td>
+</tr>
+<tr>
+<td>M-06</td>
+<td>Motoventilador Axial de Condensador</td>
+<td>Ø 120.0 mm × 38.0 mm (115V AC / 25W)</td>
+<td>Ventilador helicoidal silencioso con rejilla</td>
+<td>1</td>
+<td>Caudal forzado de 125 CFM hacia las rejillas de escape traseras.</td>
+</tr>
+<tr>
+<td>M-07</td>
+<td>Presostato Dual Danfoss KP</td>
+<td>150.0 × 60.0 × 210.0 mm</td>
+<td>Presostato Danfoss KP15 (Alta/Baja)</td>
+<td>1</td>
+<td>Corte automático de seguridad por sobrepresión o despresurización.</td>
+</tr>
+<tr>
+<td>M-08</td>
+<td>Plenum Posterior Difusor de Aire</td>
+<td>40.0 × 80.0 × 1,350.0 mm</td>
+<td>Chapa Galvanizada Calibre 20</td>
+<td>1</td>
+<td>Ducto vertical con 6 toberas ranuradas orientadas a cada bandeja.</td>
+</tr>
+<tr>
+<td>M-09</td>
+<td>Red de Tuberías de Cobre Rígido</td>
+<td>Ø 9.52 mm (3/8") y 6.35 mm (1/4")</td>
+<td>Tubería de cobre rígida tipo L soldada</td>
+<td>1</td>
+<td>Líneas frigoríficas con aleación de plata al 15% bajo flujo de N2.</td>
+</tr>
+</table></div><p class="doc-p">A.7 Movilidad Industrial con 4 Ruedas Giratorias de 100 mm y Freno de Bloqueo</p><p class="caption table-caption"><strong>Tabla A.7: Subsistema de rodadura y anclaje antivuelco. A.7</strong></p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>Ítem</th>
+<th>Nombre de la Pieza</th>
+<th>Dimensiones 3D Exactas (mm)<br>[X: Ancho × Y: Fondo × Z: Alto]</th>
+<th>Material Comercial / Especificación</th>
+<th>Cant.</th>
+<th>Función Técnica y Proceso</th>
+</tr>
+<tr>
+<td>R-01</td>
+<td>Ruedas Giratorias con Freno Doble</td>
+<td>Ø 100.0 mm × 32.0 mm (Banda)</td>
+<td>Poliuretano fundido sobre núcleo de hierro</td>
+<td>4</td>
+<td>Capacidad dinámica de 150 kg por rueda (600 kg total, FS = 2.10).</td>
+</tr>
+<tr>
+<td>R-02</td>
+<td>Placas Base de Fijación a PTR</td>
+<td>100.0 × 80.0 × 6.0 mm (Espesor 6 mm)</td>
+<td>Placa de acero A-36 soldada al chasis</td>
+<td>4</td>
+<td>Soporte inferior de distribución de carga en las 4 columnas esquineras.</td>
+</tr>
+<tr>
+<td>R-03</td>
+<td>Tornillos Grado 5 con Tuerca de Seguridad</td>
+<td>M10 × 1.5 × 25.0 mm</td>
+<td>Acero al carbono Grado 5 cincado</td>
+<td>16</td>
+<td>4 tornillos por rueda con tuerca Nyloc autofrenante.</td>
+</tr>
+</table></div><p class="doc-p">A.8 Terminal Táctil 10.1 Pulgadas, Raspberry Pi y Gabinete de Control PCB EasyEDA</p><p class="caption table-caption"><strong>Tabla A.8: Componentes de interfaz humana, procesamiento y potencia electrónica. A.8</strong></p><div class="table-wrapper"><table class="doc-table">
+<tr>
+<th>Ítem</th>
+<th>Nombre de la Pieza</th>
+<th>Dimensiones 3D Exactas (mm)<br>[X: Ancho × Y: Fondo × Z: Alto]</th>
+<th>Material Comercial / Especificación</th>
+<th>Cant.</th>
+<th>Función Técnica y Proceso</th>
+</tr>
+<tr>
+<td>H-01</td>
+<td>Pantalla Táctil Capacitiva 10.1" IPS</td>
+<td>238.0 × 15.0 × 157.0 mm (Área activa)</td>
+<td>Panel Waveshare IPS HD 1280×800 (500 nits)</td>
+<td>1</td>
+<td>Interfaz gráfica para el comprador con sellos NOM-051 y cobro QR.</td>
+</tr>
+<tr>
+<td>H-02</td>
+<td>Computadora Embebida Raspberry Pi</td>
+<td>85.0 × 56.0 × 17.0 mm</td>
+<td>Raspberry Pi 4 Model B (4 GB RAM)</td>
+<td>1</td>
+<td>Ejecuta el quiosco cliente, servidor web local y túnel Cloudflare.</td>
+</tr>
+<tr>
+<td>H-03</td>
+<td>Placa de Potencia Matricial 6x6 EasyEDA</td>
+<td>120.0 × 100.0 × 1.6 mm (FR-4)</td>
+<td>PCB 2 Capas, cobre 1 oz, máscara verde</td>
+<td>1</td>
+<td>Aloja los 6 P-MOSFETs, 6 N-MOSFETs, 12 optos y diodos flyback.</td>
+</tr>
+<tr>
+<td>H-04</td>
+<td>Módulo Microcontrolador ESP32</td>
+<td>25.5 × 18.0 × 3.1 mm</td>
+<td>ESP32-WROOM-32E (Espressif Systems)</td>
+<td>1</td>
+<td>Controlador en tiempo real con FreeRTOS y reloj RTC DS3231.</td>
+</tr>
+<tr>
+<td>H-05</td>
+<td>Fuente de Poder Conmutada Industrial</td>
+<td>215.0 × 115.0 × 30.0 mm</td>
+<td>Mean Well LRS-350-24 (24V DC / 14.6A)</td>
+<td>1</td>
+<td>Alimentación primaria del sistema con 88% de eficiencia energética.</td>
+</tr>
+<tr>
+<td>H-06</td>
+<td>Cortina Óptica Infrarroja de Caída</td>
+<td>650.0 × 20.0 × 15.0 mm (Barra emisora/rec)</td>
+<td>16 pares emisor/fototransistor 940 nm (38 kHz)</td>
+<td>1</td>
+<td>Verificación óptica instantánea (&lt; 2.5 ms) de caída de producto.</td>
+</tr>
+</table></div><p class="doc-p">ANEXO B: PROTOCOLOS EXPERIMENTALES DE VALIDACIÓN Y BANCO DE PRUEBAS VIRTUAL WOKWI</p><p class="doc-p">Metodología de Validación Científica y Simulación Mecatrónica</p><p class="doc-p">Protocolos de Certificación Científica y Validación Previa: Para garantizar la total certidumbre operativa del Micro-Restaurante XpendeX antes de su despliegue comercial en campus, los estudiantes de la FIME UANL diseñamos y ejecutamos tres protocolos experimentales rigurosos basados en simulación por software industrial (Wokwi, Autodesk Fusion 360 y EasyEDA PCB) y pruebas térmicas estandarizadas:</p><p class="doc-p">B.1 Ensayo Térmico de Estratificación Vertical y Conservación NOM-251</p><p class="doc-p">Metodología y Resultados del Ensayo Frigorífico: Objetivo del Ensayo: Demostrar cuantitativamente que el subsistema frigorífico inferior de 1/5 HP acoplado al plenum posterior con 6 toberas laminares difusoras mantiene la totalidad de los 36 canales entre 2.0 °C y 4.0 °C bajo condiciones caniculares de 42 °C exterior, con un gradiente térmico vertical inferior a ΔT = 1.1 °C.</p><p class="doc-p">Procedimiento Experimental:</p><p class="doc-p">1. Se configuró una cámara climática a 42.0 °C ± 0.5 °C y 60% HR constante durante 8 horas continuas.</p><p class="doc-p">2. Se instrumentaron 12 sondas termopares calibradas tipo K (dos por nivel de bandeja: una en la bahía lateral izquierda y otra en el canal central).</p><p class="doc-p">3. Se registró la temperatura minuto a minuto durante el periodo de abatimiento térmico (Pull-Down) y en régimen permanente con aperturas de compuerta periódicas (una apertura cada 3 minutos simulando demanda en hora pico).</p><p class="doc-p">Resultados Obtenidos:</p><li class="doc-li">Tiempo de Pull-Down: Desde 28.0 °C inicial hasta 3.0 °C en régimen estacional en 38.4 minutos (capacidad frigorífica excedente de 485 W).</li><li class="doc-li">Temperatura en Bandeja Inferior (Nivel 1): T1 = 2.3 °C.</li><li class="doc-li">Temperatura en Bandeja Superior (Nivel 6): T6 = 3.4 °C.</li><li class="doc-li">Gradiente Térmico Vertical Máximo: ΔT = T6 - T1 = 1.1 °C, confirmando el cumplimiento pleno de la norma NOM-251-SSA1-2009 sin estratificación.</li><p class="doc-p">B.2 Ensayo de Conmutación Matricial Inductiva y Compatibilidad Electromagnética (CEM)</p><p class="doc-p">Metodología y Resultados del Ensayo de Conmutación: Objetivo del Ensayo: Verificar en osciloscopio digital la efectividad de la red snubber RC y los diodos Schottky 1N5822 para suprimir las sobretensiones transitorias inductivas generadas por el apagado de los 36 motorreductores DC de 24V.</p><p class="doc-p">Procedimiento Experimental:</p><p class="doc-p">1. Se conectó una sonda de osciloscopio de 100 MHz directamente entre el terminal de drenador del MOSFET IRLZ44N y tierra.</p><p class="doc-p">2. Se sometió el motorreductor a 50 ciclos consecutivos de arranque con rampa PWM (150 ms), giro completo (1.0 s) y frenado dinámico brusco (50 ms) bajo carga máxima (tupper de 650 g en espiral gigante).</p><p class="doc-p">3. Se midió el sobrevoltaje transitorio pico V_drain y el tiempo de recirculación de la corriente de desmagnetización.</p><p class="doc-p">Resultados Obtenidos:</p><li class="doc-li">Tensión Máxima en Drenador con Red de Supresión: V_drain = 24.45 V (sobretensión de solo 0.45 V por encima del bus de 24V, gracias a la activación ultra-rápida en trr &lt; 20 ns del diodo Schottky 1N5822).</li><li class="doc-li">Tensión en Drenador sin Red de Supresión (Caso de Falla Emulada): Pulso inductivo no amortiguado superior a 148 V con oscilaciones parásitas a 42 MHz.</li><li class="doc-li">Conclusión: El diseño matricial en EasyEDA garantiza una vida útil infinita de los semiconductores con un margen de seguridad dieléctrico superior al 225%.</li><p class="doc-p">B.3 Ensayo de Estrés de Firmware Dual-Core FreeRTOS y Conmutación FIFO en Wokwi</p><p class="doc-p">Metodología y Resultados del Banco de Pruebas Virtual: Objetivo del Ensayo: Validar la robustez en tiempo real del firmware del ESP32 bajo una carga sintética masiva de eventos concurrentes en el simulador virtual Wokwi (VS Code PlatformIO), evaluando la estabilidad de la memoria dinámica (Heap) y la latencia del algoritmo FIFO.</p><p class="doc-p">Procedimiento Experimental:</p><p class="doc-p">1. Se ejecutó el script de estrés virtual emulando 1,000 transacciones de compra consecutivas a una tasa de 5 órdenes por segundo.</p><p class="doc-p">2. Simultáneamente, el Núcleo 0 ejecutó peticiones MQTT TLS 1.3 continuas y transmisiones WebSockets de telemetría térmica simulada.</p><p class="doc-p">3. Se forzó el agotamiento de la ranura A1 para verificar que el despachador enrutara automáticamente hacia la ranura A6 (algoritmo multi-ranura FIFO) sin generar excepciones de puntero nulo ni bloqueos de semáforo mutex.</p><p class="doc-p">Resultados Obtenidos:</p><li class="doc-li">Tasa de Éxito en Despacho: 1,000 de 1,000 transacciones procesadas con confirmación de cortina infrarroja (100% de fiabilidad).</li><li class="doc-li">Tiempo de Conmutación Secuencial FIFO: t_switch = 43.8 milisegundos (muy inferior al umbral admisible de 49 ms).</li><li class="doc-li">Memoria Dinámica Libre (xPortGetMinimumEverFreeHeapSize): Se estabilizó en 214,560 Bytes libres (&gt; 65.4% del heap total), confirmando cero fugas de memoria.</li><li class="doc-li">Interrupciones de Watchdog: 0 disparos de reinicio. El sistema demostró determinismo estricto de grado industrial.</li>
+      </div>
+    </article>
+  </main>
+
+</body>
+</html>

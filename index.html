@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ExpendeX Smart Vending | FIME UANL Hub</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <title>ExpendeX Smart Vending | FIME UANL Hub Global</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #090D16;
-      --card-bg: rgba(18, 24, 38, 0.7);
+      --card-bg: rgba(18, 24, 38, 0.75);
       --border: rgba(255, 255, 255, 0.08);
       --primary: #38BDF8;
+      --primary-glow: rgba(56, 189, 248, 0.35);
       --accent: #F59E0B;
       --emerald: #10B981;
       --purple: #A855F7;
@@ -26,11 +27,11 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 40px 20px;
+      padding: 40px 20px 80px 20px;
     }
     .header {
       text-align: center;
-      max-width: 800px;
+      max-width: 900px;
       margin-bottom: 40px;
     }
     .badge {
@@ -60,12 +61,28 @@
       color: var(--text-muted);
       line-height: 1.6;
     }
+    .team-badge-group {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .team-badge {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      color: #CBD5E1;
+    }
+    .team-badge strong { color: #FFF; }
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 24px;
       width: 100%;
-      max-width: 1100px;
+      max-width: 1150px;
       margin-bottom: 50px;
     }
     .card {
@@ -137,6 +154,13 @@
       background: rgba(255, 255, 255, 0.1);
       border-color: rgba(255, 255, 255, 0.2);
     }
+    .btn-emerald {
+      background: linear-gradient(135deg, #059669, #047857);
+      color: #FFF;
+    }
+    .btn-emerald:hover {
+      background: linear-gradient(135deg, #10B981, #059669);
+    }
     .footer {
       text-align: center;
       font-size: 0.9rem;
@@ -144,7 +168,7 @@
       border-top: 1px solid var(--border);
       padding-top: 24px;
       width: 100%;
-      max-width: 1100px;
+      max-width: 1150px;
     }
     .tag {
       font-family: 'JetBrains Mono', monospace;
@@ -162,25 +186,58 @@
   <div class="header">
     <div class="badge">FIME UANL • Ingeniería Mecatrónica</div>
     <h1>ExpendeX Smart Vending</h1>
-    <p class="subtitle">Micro-Restaurante Automatizado Desatendido. Control inteligente de pedidos, telemetría de tolvas, dosificación mediante sinfines NEMA 17 y electrónica de potencia de alta eficiencia.</p>
+    <p class="subtitle">Micro-Restaurante Automatizado Híbrido (36 Canales 1+4+1). Memoria técnica, plataforma web dual, simulación de potencia EasyEDA y repositorio de titulación completo.</p>
+    
+    <div class="team-badge-group">
+      <div class="team-badge">👑 <strong>Samuel Tovar Mújica</strong> (2077933) • Jefe de Proyecto / CAD / Firmware / Docs</div>
+      <div class="team-badge">💻 <strong>Emiliano Sánchez Martínez</strong> (2012856) • Plataformas Web Duales</div>
+      <div class="team-badge">⚡ <strong>Francisco Reyes Santiago</strong> (1768161) • Electrónica de Potencia / Digital</div>
+    </div>
   </div>
 
   <div class="grid">
+    <!-- Portal de Documentacion Academica COMPLETA -->
+    <div class="card" style="border-color: rgba(56, 189, 248, 0.4); background: rgba(18, 24, 38, 0.9);">
+      <div class="card-icon" style="background: rgba(56, 189, 248, 0.15);">📚</div>
+      <div class="tag">01_DOCUMENTOS_ACADEMICOS_FIME</div>
+      <h3>Portal Académico (AF1 a AF5 + PIA)</h3>
+      <p>Biblioteca digital completa con las 5 Actividades Fundamentales y el Reporte Final de Titulación en formatos PDF y Word, con visor interactivo para AF5.</p>
+      <a href="01_DOCUMENTOS_ACADEMICOS_FIME/index.html" class="btn btn-primary">Abrir Portal de Documentos &rarr;</a>
+    </div>
+
+    <!-- AF5 Lector Web Online -->
+    <div class="card" style="border-color: rgba(16, 185, 129, 0.4);">
+      <div class="card-icon" style="background: rgba(16, 185, 129, 0.15);">📖</div>
+      <div class="tag">AF5_MARCO_TEORICO_ONLINE</div>
+      <h3>Marco Teórico Online (77 Págs.)</h3>
+      <p>Lector web interactivo con navegación lateral por secciones, visualización de las 40 tablas estructuradas y 21 figuras analíticas de ingeniería.</p>
+      <a href="01_DOCUMENTOS_ACADEMICOS_FIME/AF5_Marco_Teorico_Online.html" class="btn btn-emerald">Leer AF5 en Línea &rarr;</a>
+    </div>
+
+    <!-- Presentacion Interactiva 60 FPS -->
+    <div class="card">
+      <div class="card-icon" style="background: rgba(168, 85, 247, 0.15);">📊</div>
+      <div class="tag">EXPOSICION_TECNICA_60FPS</div>
+      <h3>Presentación Interactiva Web</h3>
+      <p>Diapositivas animadas a 60 FPS basadas exclusivamente en los 8 retos técnicos de ingeniería, ciclo de operación (8-12 s) y validación empírica.</p>
+      <a href="01_DOCUMENTOS_ACADEMICOS_FIME/Presentacion_ExpendeX_Canva_Web_Interactiva.html" class="btn btn-secondary">Abrir Presentación 60 FPS &rarr;</a>
+    </div>
+
     <!-- Kiosco -->
     <div class="card">
       <div class="card-icon" style="background: rgba(56, 189, 248, 0.15);">📱</div>
       <div class="tag">05_PLATAFORMA_WEB_DUAL / KIOSCO</div>
-      <h3>Kiosco de Pedidos del Cliente</h3>
-      <p>Interfaz táctil para selección de alimentos calientes, personalización de salsas, carrito en tiempo real y pasarela simulada con Google Pay y QR.</p>
-      <a href="05_PLATAFORMA_WEB_DUAL/pagina_web_kiosco/index.html" class="btn btn-primary">Abrir Kiosco Web &rarr;</a>
+      <h3>Quiosco Táctil del Cliente (10.1")</h3>
+      <p>Interfaz web para clientes con catálogo de combos, desglose nutricional bajo NOM-051 y simulación de cobro QR dinámico de Mercado Pago.</p>
+      <a href="05_PLATAFORMA_WEB_DUAL/pagina_web_kiosco/index.html" class="btn btn-primary">Abrir Quiosco Web &rarr;</a>
     </div>
 
     <!-- Admin -->
     <div class="card">
       <div class="card-icon" style="background: rgba(16, 185, 129, 0.15);">⚙️</div>
       <div class="tag">05_PLATAFORMA_WEB_DUAL / ADMIN</div>
-      <h3>Panel de Administración</h3>
-      <p>Dashboard de control de inventario de tolvas, monitoreo de temperatura, recetas de cocina automatizada y métricas de venta en vivo.</p>
+      <h3>Panel Administrativo del Dueño</h3>
+      <p>Dashboard de telemetría de tolvas, monitoreo de temperatura, recetas de cocina automatizada y métricas de venta en vivo.</p>
       <a href="05_PLATAFORMA_WEB_DUAL/user_interface_admin/index.html" class="btn btn-primary">Abrir Panel Admin &rarr;</a>
     </div>
 
@@ -188,24 +245,16 @@
     <div class="card">
       <div class="card-icon" style="background: rgba(245, 158, 11, 0.15);">⚡</div>
       <div class="tag">03_ELECTRONICA_POTENCIA_EASYEDA</div>
-      <h3>Reporte Técnico de Potencia</h3>
-      <p>Diseño de PCB en EasyEDA, dimensionamiento de fuente conmutada 12V/24V, relevadores de estado sólido y diagrama esquemático.</p>
+      <h3>Reporte de Electrónica de Potencia</h3>
+      <p>Diseño de PCB en EasyEDA, matriz MOSFET 6×6, aislamiento óptico PC817C, relevadores y dimensionamiento térmico bajo norma IPC-2221B.</p>
       <a href="03_ELECTRONICA_POTENCIA_EASYEDA/Reporte_Tecnico_Electronica_Potencia_ExpendeX.html" class="btn btn-secondary">Ver Reporte EasyEDA &rarr;</a>
-    </div>
-
-    <!-- Presentacion Interactiva -->
-    <div class="card">
-      <div class="card-icon" style="background: rgba(168, 85, 247, 0.15);">📊</div>
-      <div class="tag">01_DOCUMENTOS_ACADEMICOS_FIME</div>
-      <h3>Presentación Interactiva</h3>
-      <p>Presentación ejecutiva del proyecto final de Instrumentación Digital (AF1 a AF5), justificación de mercado y viabilidad económica.</p>
-      <a href="01_DOCUMENTOS_ACADEMICOS_FIME/Presentacion_ExpendeX_Canva_Web_Interactiva.html" class="btn btn-secondary">Abrir Presentación &rarr;</a>
     </div>
   </div>
 
   <div class="footer">
-    <p>Proyecto desarrollado por <strong>Samuel Tovar Mujica</strong> • FIME Universidad Autónoma de Nuevo León (UANL)</p>
-    <p style="margin-top: 8px;"><a href="https://github.com/Anubys6/ExpendeX-Smart-Vending-FIME" style="color: var(--primary); text-decoration: none;">Ver Repositorio Completo en GitHub &rarr;</a></p>
+    <p>Proyecto de Titulación desarrollado por <strong>Samuel Tovar Mújica</strong>, <strong>Emiliano Sánchez Martínez</strong> y <strong>Francisco Reyes Santiago</strong>.</p>
+    <p style="margin-top: 6px;">Facultad de Ingeniería Mecánica y Eléctrica (FIME) • Universidad Autónoma de Nuevo León (UANL)</p>
+    <p style="margin-top: 10px;"><a href="https://github.com/Anubys6/ExpendeX-Smart-Vending-FIME" style="color: var(--primary); text-decoration: none;">Ver Repositorio Completo en GitHub &rarr;</a></p>
   </div>
 </body>
 </html>
