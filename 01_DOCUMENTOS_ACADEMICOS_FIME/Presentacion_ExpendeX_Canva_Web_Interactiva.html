@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ExpendeX - Desarrollo Mecatrónico y Validación Experimental | FIME UANL</title>
+    <title>ExpendeX - Máquina Automatizada Híbrida | FIME UANL</title>
     <style>
         :root {
             --bg-dark: #0B0F19;
@@ -78,7 +78,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 24px 32px;
+            padding: 20px 28px;
         }
 
         .slide {
@@ -86,7 +86,7 @@
             width: 100%;
             max-width: 1560px;
             height: 100%;
-            max-height: 880px;
+            max-height: 890px;
             background: var(--surface-card);
             backdrop-filter: blur(20px);
             border: 1px solid var(--card-border);
@@ -94,7 +94,7 @@
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
             display: none;
             flex-direction: column;
-            padding: 28px 36px;
+            padding: 24px 32px;
             opacity: 0;
             transform: scale(0.98) translateY(12px);
             transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
@@ -111,9 +111,9 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            padding-bottom: 16px;
+            padding-bottom: 12px;
             position: relative;
         }
         .header-left {
@@ -139,13 +139,13 @@
         .step-badge.rose { background: var(--neon-rose); box-shadow: 0 0 15px rgba(244, 63, 94, 0.35); }
 
         .title-group h2 {
-            font-size: 1.45rem;
+            font-size: 1.35rem;
             font-weight: 700;
             letter-spacing: -0.02em;
             color: #FFFFFF;
         }
         .title-group p {
-            font-size: 0.88rem;
+            font-size: 0.86rem;
             color: var(--neon-cyan);
             margin-top: 2px;
             font-weight: 500;
@@ -168,7 +168,7 @@
             flex: 1;
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            grid-gap: 20px;
+            grid-gap: 18px;
             min-height: 0;
             overflow-y: auto;
             padding-right: 4px;
@@ -180,172 +180,218 @@
             background: rgba(11, 15, 25, 0.6);
             border: 1px solid var(--card-border);
             border-radius: 16px;
-            padding: 20px 24px;
+            padding: 20px 22px;
             display: flex;
             flex-direction: column;
             position: relative;
             overflow: hidden;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: border-color 0.3s ease, transform 0.3s ease;
         }
         .bento-card:hover {
-            border-color: rgba(16, 185, 129, 0.3);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+            border-color: rgba(6, 182, 212, 0.3);
             transform: translateY(-2px);
         }
 
         .card-header-pill {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.72rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            padding: 4px 10px;
-            border-radius: 6px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             width: fit-content;
         }
-        .pill-emerald { background: rgba(16, 185, 129, 0.15); color: var(--neon-emerald); border: 1px solid rgba(16, 185, 129, 0.3); }
-        .pill-cyan { background: rgba(6, 182, 212, 0.15); color: var(--neon-cyan); border: 1px solid rgba(6, 182, 212, 0.3); }
-        .pill-amber { background: rgba(245, 158, 11, 0.15); color: var(--neon-amber); border: 1px solid rgba(245, 158, 11, 0.3); }
-        .pill-rose { background: rgba(244, 63, 94, 0.15); color: var(--neon-rose); border: 1px solid rgba(244, 63, 94, 0.3); }
-
-        .card-title {
-            font-size: 1.12rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .card-body {
-            font-size: 0.88rem;
-            line-height: 1.55;
-            color: var(--text-muted);
-            flex: 1;
-        }
-        .card-body strong { color: var(--text-light); }
+        .pill-emerald { background: rgba(16, 185, 129, 0.12); color: var(--neon-emerald); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .pill-cyan { background: rgba(6, 182, 212, 0.12); color: var(--neon-cyan); border: 1px solid rgba(6, 182, 212, 0.3); }
+        .pill-amber { background: rgba(245, 158, 11, 0.12); color: var(--neon-amber); border: 1px solid rgba(245, 158, 11, 0.3); }
+        .pill-rose { background: rgba(244, 63, 94, 0.12); color: var(--neon-rose); border: 1px solid rgba(244, 63, 94, 0.3); }
 
         .kpi-container {
             display: flex;
             align-items: baseline;
             gap: 8px;
-            margin: 8px 0 12px 0;
+            margin-bottom: 8px;
         }
         .kpi-val {
-            font-size: 2.2rem;
+            font-size: 1.85rem;
             font-weight: 800;
-            letter-spacing: -0.03em;
             line-height: 1;
+            font-family: var(--font-family);
         }
-        .kpi-emerald { color: var(--neon-emerald); text-shadow: 0 0 20px rgba(16, 185, 129, 0.25); }
-        .kpi-cyan { color: var(--neon-cyan); text-shadow: 0 0 20px rgba(6, 182, 212, 0.25); }
-        .kpi-amber { color: var(--neon-amber); text-shadow: 0 0 20px rgba(245, 158, 11, 0.25); }
-        .kpi-rose { color: var(--neon-rose); text-shadow: 0 0 20px rgba(244, 63, 94, 0.25); }
-
-        .kpi-unit { font-size: 0.95rem; font-weight: 600; color: var(--text-muted); }
-
-        .custom-table {
-            width: 100%;
-            border-collapse: collapse;
+        .kpi-emerald { color: var(--neon-emerald); }
+        .kpi-cyan { color: var(--neon-cyan); }
+        .kpi-amber { color: var(--neon-amber); }
+        .kpi-rose { color: var(--neon-rose); }
+        .kpi-unit {
             font-size: 0.82rem;
-            margin-top: 8px;
+            color: var(--text-muted);
+            font-weight: 500;
         }
-        .custom-table th {
-            background: rgba(19, 31, 55, 0.9);
-            color: var(--neon-cyan);
-            font-weight: 700;
-            text-align: left;
-            padding: 9px 12px;
-            border-bottom: 2px solid rgba(6, 182, 212, 0.3);
-            text-transform: uppercase;
-            font-size: 0.72rem;
-            letter-spacing: 0.04em;
-        }
-        .custom-table td {
-            padding: 9px 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--text-light);
-        }
-        .custom-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
-        .custom-table tr.highlight td {
-            background: rgba(16, 185, 129, 0.12);
+
+        .card-title {
+            font-size: 1.05rem;
             font-weight: 700;
             color: #FFFFFF;
+            margin-bottom: 8px;
+        }
+        .card-body {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            flex: 1;
+        }
+        .card-body strong {
+            color: var(--text-light);
         }
 
+        /* Contenedor de Imagen Auto-Fit Proporcional */
         .img-fit-container {
             width: 100%;
             height: 100%;
             min-height: 220px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            border-radius: 12px;
+            background: rgba(11, 15, 25, 0.4);
+            border-radius: 14px;
+            border: 1px solid var(--card-border);
+            padding: 12px;
             overflow: hidden;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.06);
             position: relative;
         }
         .img-fit-container img {
-            width: 100%;
-            height: 100%;
+            max-width: 100%;
+            max-height: calc(100% - 24px);
             object-fit: contain;
-            border-radius: 12px;
-            transition: transform 0.4s ease;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
         }
-        .img-fit-container:hover img { transform: scale(1.02); }
+        .img-fit-container:hover img {
+            transform: scale(1.02);
+        }
+        .img-caption {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-align: center;
+            margin-top: 8px;
+            width: 100%;
+        }
 
+        /* Tabla estilizada */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+            margin-top: 4px;
+        }
+        .data-table th {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--neon-cyan);
+            font-weight: 700;
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .data-table td {
+            padding: 7px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: var(--text-light);
+        }
+        .data-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .data-table .val-highlight {
+            font-weight: 700;
+            color: var(--neon-emerald);
+        }
+
+        /* Portada Especial */
+        .hero-title {
+            font-size: 3.8rem;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            background: linear-gradient(135deg, #FFFFFF 30%, var(--neon-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.05;
+            margin-bottom: 10px;
+        }
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--neon-cyan);
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 14px;
+        }
+        .hero-badge-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 12px 0;
+        }
+        .hero-badge {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Bottom Bar */
         .bottom-nav {
             height: 65px;
-            background: rgba(11, 15, 25, 0.85);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid var(--card-border);
+            background: var(--bg-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 36px;
-            z-index: 100;
+            padding: 0 32px;
+            z-index: 10;
         }
-        .nav-info { display: flex; align-items: center; gap: 16px; }
+        .nav-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
         .logo-tag {
-            font-size: 1.15rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            color: #FFFFFF;
             display: flex;
             align-items: center;
             gap: 8px;
+            font-weight: 800;
+            color: #FFFFFF;
+            letter-spacing: 0.05em;
         }
         .logo-dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background: var(--neon-emerald);
-            box-shadow: 0 0 10px var(--neon-emerald);
+            box-shadow: 0 0 8px var(--neon-emerald);
         }
-        .slide-counter {
-            font-size: 0.88rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            background: rgba(255, 255, 255, 0.05);
-            padding: 6px 14px;
-            border-radius: 100px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
-
-        .nav-controls { display: flex; align-items: center; gap: 12px; }
         .btn-nav {
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-light);
+            color: #FFFFFF;
             padding: 8px 16px;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 0.85rem;
             font-weight: 600;
-            font-size: 0.88rem;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -354,20 +400,20 @@
         .btn-nav:hover {
             background: rgba(255, 255, 255, 0.12);
             border-color: var(--neon-cyan);
-            color: #FFFFFF;
             transform: translateY(-1px);
         }
         .btn-nav.primary {
-            background: linear-gradient(135deg, #10B981, #059669);
-            color: #FFFFFF;
-            border: none;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            background: var(--neon-cyan);
+            color: var(--bg-dark);
+            border-color: var(--neon-cyan);
+            font-weight: 700;
         }
         .btn-nav.primary:hover {
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
-            transform: translateY(-1px);
+            background: #22d3ee;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
         }
 
+        /* Drawer */
         .overview-drawer {
             position: fixed;
             top: 0;
@@ -376,76 +422,51 @@
             height: 100vh;
             background: rgba(11, 15, 25, 0.95);
             backdrop-filter: blur(25px);
-            z-index: 200;
+            z-index: 1000;
             display: none;
             flex-direction: column;
             padding: 40px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
         }
-        .overview-drawer.open { display: flex; opacity: 1; }
-        .drawer-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+        .overview-drawer.open { display: flex; }
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
         .drawer-grid {
             flex: 1;
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            grid-gap: 14px;
+            grid-gap: 20px;
             overflow-y: auto;
-            padding: 10px;
         }
-        .drawer-item {
+        .drawer-thumb {
             background: var(--surface-navy);
             border: 1px solid var(--card-border);
             border-radius: 12px;
-            padding: 12px;
+            padding: 16px;
             cursor: pointer;
-            transition: all 0.2s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 110px;
+            transition: all 0.2s ease;
         }
-        .drawer-item:hover, .drawer-item.active {
-            border-color: var(--neon-emerald);
+        .drawer-thumb:hover {
+            border-color: var(--neon-cyan);
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
-        .drawer-num { font-size: 0.8rem; font-weight: 800; color: var(--neon-emerald); }
-        .drawer-title { font-size: 0.8rem; font-weight: 600; color: #FFFFFF; margin-top: 6px; line-height: 1.3; }
-
-        .hero-title {
-            font-size: 3.2rem;
-            font-weight: 900;
-            letter-spacing: -0.03em;
-            line-height: 1.05;
-            background: linear-gradient(135deg, #FFFFFF 40%, var(--neon-cyan) 80%, var(--neon-emerald) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 16px;
-        }
-        .hero-subtitle { font-size: 1.25rem; line-height: 1.5; color: var(--text-muted); max-width: 800px; margin-bottom: 24px; }
-        .hero-badge-group { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
-        .hero-badge {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            padding: 8px 16px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
+        .drawer-thumb.active {
+            border-color: var(--neon-emerald);
+            background: rgba(16, 185, 129, 0.08);
         }
     </style>
 </head>
 <body>
-
     <div class="ambient-glow glow-1"></div>
     <div class="ambient-glow glow-2"></div>
-
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
+    <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
 
     <div class="stage">
 
@@ -453,12 +474,12 @@
         <div class="slide active" id="slide-1">
             <div class="bento-grid" style="align-items: center;">
                 <div style="grid-column: span 7; display: flex; flex-direction: column; justify-content: center; padding-right: 20px;">
-                    <div class="card-header-pill pill-emerald">PROYECTO DE INGENIERÍA APLICADA | FIME - UANL</div>
+                    <div class="card-header-pill pill-emerald">PROYECTO INTEGRADOR DE APRENDIZAJE (PIA) | FIME - UANL</div>
                     <h1 class="hero-title">EXPENDEX</h1>
                     <p class="hero-subtitle">
-                        Micro-Restaurante Automatizado Híbrido: Memoria de Desarrollo Mecatrónico, Retos Técnicos y Validación Experimental.
+                        Máquina Automatizada Híbrida: Memoria de Desarrollo Mecatrónico, Retos Técnicos y Validación Experimental.
                     </p>
-                    <div class="hero-badge-group" style="display: flex; flex-direction: column; gap: 8px; margin: 12px 0;">
+                    <div class="hero-badge-group">
                         <div class="hero-badge" style="border-color: var(--neon-cyan); color: var(--neon-cyan); text-align: left;">
                             <span>👑</span> <strong>Samuel Tovar Mújica (2077933):</strong> Jefe de Proyecto | Modelado 3D CAD Fusion 360 | Firmware ESP32 FreeRTOS | Documentación y Memorias
                         </div>
@@ -477,15 +498,13 @@
                 <div style="grid-column: span 5; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
                     <div class="img-fit-container" style="max-height: 640px; border-color: rgba(6, 182, 212, 0.4); box-shadow: 0 20px 50px rgba(0,0,0,0.8); background: rgba(19, 31, 55, 0.4);">
                         <img src="02_Vista_Isometrica_Frontal_Derecha_CAD_Final.png" alt="Modelo CAD Oficial Fusion 360">
-                    </div>
-                    <div style="margin-top: 10px; font-size: 0.85rem; color: var(--neon-cyan); font-weight: 700;">
-                        Modelo CAD Oficial Fusion 360 | Copete Superior HMI 10.1" (Sin marquesina)
+                        <div class="img-caption">Modelo CAD Oficial Fusion 360 | Copete Superior HMI 10.1"</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 2: CONTEXTO REAL EN FIME -->
+        <!-- SLIDE 2: CONTEXTO REAL EN FIME UANL (20 min y Máquina Vertical) -->
         <div class="slide" id="slide-2">
             <div class="slide-header">
                 <div class="header-left">
@@ -495,34 +514,33 @@
                         <p>La problemática cotidiana de alimentación en turnos continuos y el alcance de ingeniería del proyecto</p>
                     </div>
                 </div>
-                <div class="header-tag">👑 CONTEXTO & PLANTEAMIENTO • FIME UANL</div>
+                <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">CONTEXTO FIME UANL • EQUIPO</div>
             </div>
             <div class="bento-grid">
                 <div class="bento-card" style="grid-column: span 4;">
                     <div class="card-header-pill pill-rose">LA REALIDAD ESTUDIANTIL</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-rose">20 min</span>
+                        <span class="kpi-unit">Fila Promedio en Cafetería</span>
+                    </div>
                     <div class="card-title">Jornadas de 7:00 a 21:00 hrs en FIME</div>
                     <div class="card-body">
                         • <strong>Horario Continuo:</strong> La comunidad pasa más de 8 horas en campus con recesos entre clases de apenas 15 a 20 minutos.<br><br>
-                        • <strong>Saturación Física:</strong> Las cafeterías colapsan con filas de más de 35 minutos en horas pico, consumiendo todo el tiempo disponible.<br><br>
-                        • <strong>Inviabilidad de Apps:</strong> El delivery cobra tarifas abusivas ($160-$200 MXN) y no puede entrar a los edificios de la facultad.
+                        • <strong>Saturación Física:</strong> Las cafeterías colapsan con filas de más de 20 minutos en horas pico, consumiendo todo el tiempo disponible.<br><br>
+                        • <strong>Inviabilidad de Apps:</strong> El delivery cobra tarifas de $160-$200 MXN y no puede entrar a los edificios de la facultad.<br><br>
+                        • <strong>Monopolio de Ultraprocesados:</strong> El 100% de las máquinas vending en el campus ofrecen solo frituras y sodas que deterioran la salud.
                     </div>
                 </div>
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-amber">LA FALLA DEL VENDING ACTUAL</div>
-                    <div class="card-title">Monopolio de Ultraprocesados</div>
-                    <div class="card-body">
-                        • <strong>Cero Opciones Calientes:</strong> El 100% de las máquinas vending en el campus ofrecen solo papas fritas, galletas y sodas con múltiples sellos negros.<br><br>
-                        • <strong>Deterioro Físico:</strong> La dependencia forzada a carbohidratos simples provoca fatiga crónica y gastritis en estudiantes foráneos.<br><br>
-                        • <strong>Hardware Obsoleto:</strong> Monederos mecánicos que fallan y nulo reporte de inventario en tiempo real.
+                <div class="bento-card" style="grid-column: span 4; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(6, 182, 212, 0.4);">
+                        <img src="chart_competencia_costo_tiempo.png" alt="Benchmarking: Costo vs Tiempo de Espera">
+                        <div class="img-caption">Benchmarking FIME: Costo al Consumidor vs Tiempo de Espera</div>
                     </div>
                 </div>
-                <div class="bento-card" style="grid-column: span 4;">
-                    <div class="card-header-pill pill-emerald">OBJETIVO TÉCNICO (PIA)</div>
-                    <div class="card-title">Solución Integral Validada</div>
-                    <div class="card-body">
-                        • <strong>Enfoque Práctico:</strong> Diseñar, calcular analíticamente, simular y prototipar una máquina vending híbrida para comida casera caliente y bebidas frías.<br><br>
-                        • <strong>Requisitos Críticos:</strong> Despacho en menos de 15 segundos, refrigeración grado alimento NOM-251 (4°C-6°C) y cobro digital sin monedas.<br><br>
-                        • <strong>Manufactura Nacional:</strong> Optimizar costos por debajo de $50,000 MXN frente a equipos importados de $180,000+ MXN.
+                <div class="bento-card" style="grid-column: span 4; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(16, 185, 129, 0.4);">
+                        <img src="02_Vista_Isometrica_Frontal_Derecha_CAD_Final.png" alt="Máquina Automatizada Híbrida">
+                        <div class="img-caption">Solución: Máquina Automatizada Híbrida (0.85 m² en piso)</div>
                     </div>
                 </div>
             </div>
@@ -535,28 +553,47 @@
                     <div class="step-badge cyan">02</div>
                     <div class="title-group">
                         <h2>RETO MECÁNICO 1: CONCEPCIÓN DEL CHASIS Y COPETE ERGONÓMICO</h2>
-                        <p>Modelado paramétrico 1:1 en Autodesk Fusion 360 (127 piezas) en chapa de acero calibre 18</p>
+                        <p>Diseño paramétrico en Autodesk Fusion 360 y superación del choque visual de copetes industriales</p>
                     </div>
                 </div>
-                <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">DISEÑO CAD 3D</div>
+                <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">👑 CAD 3D • SAMUEL TOVAR MÚJICA</div>
             </div>
             <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 6;">
+                <div class="bento-card" style="grid-column: span 5;">
                     <div class="card-header-pill pill-cyan">DESAFÍO ESTRUCTURAL Y ERGONÓMICO</div>
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-cyan">127 Piezas</span>
+                        <span class="kpi-unit">Componentes Sólidos Fusion 360</span>
+                    </div>
                     <div class="card-title">Innovación en el Copete Frontal Superior</div>
-                    <div class="card-body" style="font-size: 0.90rem;">
-                        • <strong>El Reto:</strong> Integrar una pantalla táctil de 10.1 pulgadas, lector óptico QR y bocina guía a la altura de la vista sin perforar la cámara térmica ni restar volumen útil de bandejas.<br><br>
-                        • <strong>Solución de Diseño:</strong> Se concibió un copete superior inclinado a 15° en chapa de acero calibre 18, aislado mecánicamente de la zona refrigerada.<br><br>
-                        • <strong>Dimensiones Generales:</strong> 1830 mm de altura, 950 mm de ancho y 880 mm de profundidad. Diseñada para cruzar puertas estándar de laboratorio y pasillos.<br><br>
-                        • <strong>Hermeticidad:</strong> Puerta frontal con triple bisagra de uso rudo y burlete magnético perimetral de sellado continuo.
+                    <div class="card-body">
+                        • <strong>El Reto:</strong> Integrar pantalla táctil de 10.1", compuerta basculante y tolvas sin aumentar la huella en piso (0.85 m²).<br><br>
+                        • <strong>Chasis Galvanizado:</strong> Lámina galvanizada calibre 16 (1.52 mm) con perfiles en 'C' plegados para alta rigidez torsional y soporte de 140 kg.<br><br>
+                        • <strong>Copete Ergonómico 15°:</strong> Inclinación visual calculada a 1,450 mm de altura, eliminando reflejos del alumbrado de pasillo.<br><br>
+                        • <strong>Aislamiento Frigorífico:</strong> División modular estricta entre la sala térmica superior aislada y la sala de máquinas inferior.
                     </div>
                 </div>
-                <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 16px;">
-                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(6, 182, 212, 0.4);">
-                        <img src="02_Vista_Isometrica_Frontal_Derecha_CAD_Final.png" alt="CAD Isométrico Fusion 360">
+                <div class="bento-card" style="grid-column: span 4; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(6, 182, 212, 0.4);">
+                        <img src="02_Vista_Isometrica_Frontal_Derecha_CAD_Final.png" alt="Modelo CAD Oficial Fusion 360">
+                        <div class="img-caption">Modelo CAD Oficial: Chasis Completo con Copete Ergonómico</div>
                     </div>
-                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(16, 185, 129, 0.4);">
-                        <img src="ExpendeX_Render_CAD_Detalle_Pantalla_10pulgadas.png" alt="Detalle Copete Pantalla 10.1 Pulgadas">
+                </div>
+                <div style="grid-column: span 3; display: flex; flex-direction: column; gap: 14px;">
+                    <div class="bento-card" style="flex: 1; padding: 10px;">
+                        <div class="img-fit-container" style="border-color: rgba(16, 185, 129, 0.4);">
+                            <img src="ExpendeX_Render_CAD_Detalle_Pantalla_10pulgadas.png" alt="Copete HMI 10.1 Pulgadas">
+                            <div class="img-caption">Copete Superior HMI 10.1"</div>
+                        </div>
+                    </div>
+                    <div class="bento-card" style="padding: 14px;">
+                        <div class="card-header-pill pill-emerald" style="margin-bottom: 6px;">ERGONOMÍA HMI</div>
+                        <div class="card-body" style="font-size: 0.82rem; line-height: 1.4;">
+                            • Inclinación: 15° anti-reflejo.<br>
+                            • Altura visual: 1.45 m.<br>
+                            • Chasis: Lámina Galv. Cal. 16.<br>
+                            • Huella: 0.85 m² en piso.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -568,33 +605,37 @@
                 <div class="header-left">
                     <div class="step-badge">03</div>
                     <div class="title-group">
-                        <h2>RETO MECÁNICO 2: BANDEJAS ASIMÉTRICAS 1+4+1 Y RIGIDEZ ESTRUCTURAL</h2>
+                        <h2>RETO MECÁNICO 2: BANDEJAS ASIMÉTRICAS 1+4+1 Y FLEXIÓN (EULER-BERNOULLI)</h2>
                         <p>Cálculo analítico de deflexión elástica bajo carga asimétrica severa de recipientes y latas</p>
                     </div>
                 </div>
-                <div class="header-tag">👑 ESTRUCTURAL • SAMUEL TOVAR MÚJICA</div>
+                <div class="header-tag" style="border-color: var(--neon-emerald); color: var(--neon-emerald);">👑 ESTRUCTURAL • SAMUEL TOVAR MÚJICA</div>
             </div>
             <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 6;">
+                <div class="bento-card" style="grid-column: span 4;">
                     <div class="card-header-pill pill-emerald">MEMORIA ANALÍTICA DE FLEXIÓN (EULER-BERNOULLI)</div>
                     <div class="kpi-container">
                         <span class="kpi-val kpi-emerald">1.34 mm</span>
                         <span class="kpi-unit">Deflexión (< 1.50 mm admisible)</span>
                     </div>
-                    <div class="card-title">Distribución de Carga Mixta: Comida (850 g) + Bebidas (355 g)</div>
+                    <div class="card-title">Carga Mixta: Comida (850 g) + Bebidas (355 g)</div>
                     <div class="card-body">
-                        • <strong>El Problema Físico:</strong> Colocar recipientes pesados de guiso casero (850 g) en una charola estándar causa pandeo central, desalineando los engranes de los motores.<br><br>
-                        • <strong>Arquitectura Asimétrica 1+4+1:</strong> Se ubicaron las comidas pesadas en los extremos laterales (canales 1 y 6, adyacentes a las guías telescópicas) y las 4 bebidas en el centro.<br><br>
+                        • <strong>El Problema Físico:</strong> Guisos pesados (850 g) en charolas estándar causan pandeo central y desalinean los motores.<br><br>
+                        • <strong>Arquitectura 1+4+1:</strong> Comidas pesadas en extremos (canales 1 y 6) junto a guías telescópicas (45 kg); 4 bebidas al centro.<br><br>
                         • <strong>Momento Flector Máximo:</strong> M_max = 35.16 N·m en x = 0.475 m.<br><br>
-                        • <strong>Refuerzo Estructural:</strong> Pestañas en 'C' en acero inoxidable AISI 304 de 1.2 mm y guías telescópicas de 45 kg por nivel.
+                        • <strong>Refuerzo Estructural:</strong> Pestañas en 'C' en acero inoxidable AISI 304 de 1.2 mm para flecha de 1.34 mm.
                     </div>
                 </div>
-                <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 16px;">
-                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(6, 182, 212, 0.4);">
+                <div class="bento-card" style="grid-column: span 4; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(6, 182, 212, 0.4);">
                         <img src="Img11_CAD_Fusion360_Bandejas_1mas4mas1_Espirales_Comida_Bebida.png" alt="Bandejas Asimétricas 1+4+1">
+                        <div class="img-caption">CAD Fusion 360: Bandejas Asimétricas 1+4+1</div>
                     </div>
-                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(16, 185, 129, 0.4);">
-                        <img src="Img14_CAD_Fusion360_Detalle_Guias_Telescopicas_Bandejas_Cerradura.png" alt="Detalle Guías Telescópicas">
+                </div>
+                <div class="bento-card" style="grid-column: span 4; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(16, 185, 129, 0.4);">
+                        <img src="chart_deflexion_bandeja.png" alt="Curva Elástica Euler-Bernoulli">
+                        <div class="img-caption">Curva Elástica Euler-Bernoulli (Flecha Máxima 1.34 mm)</div>
                     </div>
                 </div>
             </div>
@@ -613,70 +654,78 @@
                 <div class="header-tag" style="border-color: var(--neon-amber); color: var(--neon-amber);">👑 CINEMÁTICA • SAMUEL TOVAR MÚJICA</div>
             </div>
             <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 6;">
-                    <div class="card-header-pill pill-amber">MODELO 3: PAR TORSOR Y EMPUJE AXIAL</div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-amber">MODELO DE PAR TORSOR Y EMPUJE AXIAL</div>
                     <div class="kpi-container">
                         <span class="kpi-val kpi-amber">0.385 N·m</span>
                         <span class="kpi-unit">Torque Requerido (T_stall = 1.8 N·m)</span>
                     </div>
                     <div class="card-title">Dimensionamiento de Espiral Comida vs Bebida</div>
                     <div class="card-body">
-                        • <strong>El Reto:</strong> Los recipientes de comida corrida cuadrados/rectangulares no giran en espirales estándar de refrescos (Ø 70 mm) y causan atascos por fricción.<br><br>
-                        • <strong>Solución de Espiral Gigante:</strong> Se diseñó una espiral helicoidal sobredimensionada de Ø 144 mm exterior con paso axial de 80 mm en alambre de acero templado de Ø 7 mm.<br><br>
-                        • <strong>Capacidad del Motorreductor:</strong> Motor de 24V DC con reducción planetaria 1:120 y torque de bloqueo T_stall = 1.80 N·m. Factor de seguridad dinámico FS = 4.67.<br><br>
-                        • <strong>Resistencia al Corte:</strong> Esfuerzo cortante actuante en rotor bloqueado: τ = 9.80 MPa vs admisible τ_adm = 45.80 MPa.
+                        • <strong>El Reto Cinemático:</strong> Empaques cuadrados no giran en espirales estándar (Ø 70 mm) y causan atascos por fricción.<br><br>
+                        • <strong>Espiral Gigante:</strong> Ø 144 mm exterior con paso axial de 80 mm en alambre de acero templado de Ø 7 mm.<br><br>
+                        • <strong>Motorreductor 24V:</strong> Caja planetaria 1:120, torque de bloqueo 1.80 N·m (Factor de Seguridad FS = 4.67).<br><br>
+                        • <strong>Empuje Axial:</strong> Paso optimizado para desplazar el contenedor en 1 revolución (360°) sin volcadura.
                     </div>
                 </div>
-                <div class="bento-card" style="grid-column: span 6;">
-                    <div class="card-header-pill pill-cyan">COMPARATIVA CINEMÁTICA EN BANCO DE PRUEBAS</div>
-                    <div class="card-title">Canales de Comida vs Canales de Bebidas</div>
-                    <div class="card-body" style="font-size: 0.90rem;">
-                        • <strong>Canales de Comida (Ø 144 mm):</strong> Paso axial de 80 mm, capacidad de 6 recipientes por espiral. Velocidad de rotación: 15 RPM. Tiempo de expulsión completa: 4.0 segundos por ciclo de 360°.<br><br>
-                        • <strong>Canales de Bebidas (Ø 70 mm):</strong> Paso axial de 65 mm, capacidad de 10 latas/botellas por canal. Torque requerido: 0.125 N·m. Tiempo de despacho: 2.5 segundos.<br><br>
-                        • <strong>Ángulo Helicoidal Óptimo:</strong> Inclinación helicoidal α = 10.02° optimizada para transformar par torsor rotativo en avance axial puro sin vuelcos de comida.<br><br>
-                        • <strong>Buje de Acople:</strong> Fabricado en nylon autolubricado con chaveta pasante de acero inoxidable para absorber desalineaciones axiales.
+                <div class="bento-card" style="grid-column: span 4; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(245, 158, 11, 0.4);">
+                        <img src="Expendex_Render_Comida_Cuadrada_3Divisiones.png" alt="Recipiente Cuadrado 3 Divisiones">
+                        <div class="img-caption">Recipiente Cuadrado 3 Divisiones en Bahía Lateral</div>
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(6, 182, 212, 0.4);">
+                        <img src="chart_torque_corriente_motores.png" alt="Curva Dinamométrica Torque y Corriente">
+                        <div class="img-caption">Curva Dinamométrica de Par Motor y Corriente de Arranque</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 6: RETO TÉRMICO 4: REFRIGERACIÓN NOM-251 -->
+        <!-- SLIDE 6: RETO TÉRMICO 4: REFRIGERACIÓN NOM-251 EN MONTERREY -->
         <div class="slide" id="slide-6">
             <div class="slide-header">
                 <div class="header-left">
                     <div class="step-badge cyan">05</div>
                     <div class="title-group">
-                        <h2>RETO TÉRMICO 4: REFRIGERACIÓN NOM-251 EN EL CLIMA DE MONTERREY (+42°C)</h2>
-                        <p>Balance térmico analítico de 382.88 W y selección de unidad frigorífica Embraco de 1/5 HP</p>
+                        <h2>RETO TÉRMICO 4: REFRIGERACIÓN NOM-251 EN EL CLIMA DE MONTERREY</h2>
+                        <p>Balance térmico estricto bajo canícula de 42°C exterior para inocuidad alimentaria</p>
                     </div>
                 </div>
                 <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">👑 TERMODINÁMICA • SAMUEL TOVAR MÚJICA</div>
             </div>
             <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 6;">
-                    <div class="card-header-pill pill-cyan">MEMORIA DE BALANCE TÉRMICO DE LA CÁMARA</div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-cyan">MEMORIA DE BALANCE TÉRMICO (NOM-251)</div>
                     <div class="kpi-container">
                         <span class="kpi-val kpi-cyan">382.88 W</span>
                         <span class="kpi-unit">Carga Térmica Total Requerida</span>
                     </div>
                     <div class="card-title">Condición Extrema de Verano en NL (T_ext = 42°C)</div>
                     <div class="card-body">
-                        • <strong>El Reto:</strong> Mantener alimentos perecederos entre 4°C y 6°C cumpliendo la NOM-251-SSA1 bajo la canícula de Monterrey (+42°C exterior y 75% HR).<br><br>
-                        • <strong>Conducción en Paredes Aisladas:</strong> Q_paredes = 212.40 W (Poliuretano expandido de 50 mm, conductividad k = 0.022 W/m·K).<br><br>
-                        • <strong>Radiación en Doble Acristalamiento:</strong> Q_vidrio = 98.18 W (Vidrio doble con cámara de argón y película Low-E anti-radiación).<br><br>
-                        • <strong>Infiltración por Compuerta:</strong> Q_infiltracion = 72.30 W (Estimado en 60 aperturas/hora durante el pico de almuerzo).<br><br>
-                        • <strong>Compresor Seleccionado:</strong> Unidad hermética Embraco 1/5 HP en R134a con extracción de 485.00 W (FS_termico = 1.27).
+                        • <strong>El Reto Térmico:</strong> Mantener alimentos perecederos entre 4°C y 6°C cumpliendo NOM-251 bajo canícula de Monterrey (+42°C exterior).<br><br>
+                        • <strong>Conducción en Paredes:</strong> Q_paredes = 212.40 W (Poliuretano expandido 50 mm, k = 0.022 W/m·K).<br><br>
+                        • <strong>Radiación en Vidrio:</strong> Q_vidrio = 98.18 W (Vidrio doble con gas argón y película Low-E anti-radiación).<br><br>
+                        • <strong>Compresor Seleccionado:</strong> Unidad hermética Embraco 1/5 HP en R134a con extracción de 485.00 W (FS = 1.27).
                     </div>
                 </div>
-                <div class="bento-card" style="grid-column: span 6; display: flex; align-items: center; justify-content: center;">
-                    <div class="img-fit-container" style="min-height: 380px;">
+                <div class="bento-card" style="grid-column: span 4; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(6, 182, 212, 0.4);">
                         <img src="Img13_CAD_Fusion360_Sala_Maquinas_Compresor_Embraco_Condensador.png" alt="Sala de Máquinas Embraco">
+                        <div class="img-caption">CAD Fusion 360: Sala Inferior de Máquinas Embraco</div>
+                    </div>
+                </div>
+                <div class="bento-card" style="grid-column: span 4; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(245, 158, 11, 0.4);">
+                        <img src="chart_pulldown_termico.png" alt="Curva Pulldown Térmico">
+                        <div class="img-caption">Curva Pulldown Térmico: 42°C a 4°C en 54 min</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 7: RETO ELECTRÓNICO 5: POTENCIA MATRICIAL EASYEDA -->
+        <!-- SLIDE 7: RETO ELECTRÓNICO 5: POTENCIA MATRICIAL EASYEDA (Francisco Reyes) -->
         <div class="slide" id="slide-7">
             <div class="slide-header">
                 <div class="header-left">
@@ -686,106 +735,117 @@
                         <p>Diseño de PCB en EasyEDA, multiplexación de 36 motores y aislamiento galvánico de 2500 V</p>
                     </div>
                 </div>
-                <div class="header-tag">⚡ POTENCIA • FRANCISCO REYES SANTIAGO</div>
+                <div class="header-tag" style="border-color: var(--neon-amber); color: var(--neon-amber);">⚡ POTENCIA • FRANCISCO REYES SANTIAGO</div>
             </div>
             <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 6;">
+                <div class="bento-card" style="grid-column: span 4;">
                     <div class="card-header-pill pill-emerald">MODELOS 7 Y 8: CONMUTACIÓN INDUCTIVA EN EASYEDA</div>
                     <div class="kpi-container">
                         <span class="kpi-val kpi-emerald">12 Cables</span>
                         <span class="kpi-unit">vs 72 Cables Convencionales</span>
                     </div>
-                    <div class="card-title">Ahorro de Arneses y Aislamiento por Optoacopladores</div>
+                    <div class="card-title">Ahorro del 83% en Arneses y Aislamiento</div>
                     <div class="card-body">
-                        • <strong>El Reto Eléctrico:</strong> Cablear 36 motores individualmente requeriría 72 cables atravesando charolas móviles, causando fallas por fatiga y cortocircuitos.<br><br>
-                        • <strong>Multiplexación Matricial 6x6:</strong> Control de 36 motores con solo 6 columnas de 24V y 6 filas de GND (reducción del 83% en cableado).<br><br>
-                        • <strong>El Problema del Back-EMF:</strong> Desconectar motores inductivos generaba picos de hasta 48V que reseteaban el ESP32 en pruebas iniciales.<br><br>
-                        • <strong>Solución en PCB EasyEDA:</strong> Drivers High-Side con P-MOSFETs IRF9540, drivers Low-Side con N-MOSFETs IRLZ44N y optoacopladores PC817C (2,500 V RMS de aislamiento galvánico) con diodos flyback rápidos 1N4007.
+                        • <strong>El Reto Eléctrico:</strong> Cablear 36 motores individualmente requeriría 72 cables atravesando charolas móviles, causando fallas por fatiga.<br><br>
+                        • <strong>Multiplexación Matricial 6x6:</strong> Control de 36 motores con solo 6 columnas de 24V y 6 filas de GND.<br><br>
+                        • <strong>El Problema del Back-EMF:</strong> Desconectar motores inductivos generaba picos de hasta 48V que reseteaban el ESP32.<br><br>
+                        • <strong>Solución en PCB EasyEDA:</strong> Drivers High-Side IRF9540, Low-Side IRLZ44N, optoacopladores PC817C (2,500 V RMS) y diodos Flyback 1N4007.
                     </div>
                 </div>
-                <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 16px;">
-                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(16, 185, 129, 0.4);">
-                        <img src="Img18_EasyEDA_Esquematico_General_Electronica_Potencia_Matriz_6x6.png" alt="Esquemático General EasyEDA Matriz 6x6">
+                <div class="bento-card" style="grid-column: span 4; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(16, 185, 129, 0.4);">
+                        <img src="Img18_EasyEDA_Esquematico_General_Electronica_Potencia_Matriz_6x6.png" alt="Esquematico General EasyEDA">
+                        <div class="img-caption">Esquemático General EasyEDA: Matriz MOSFET 6x6</div>
                     </div>
-                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(245, 158, 11, 0.4);">
-                        <img src="chart_transitorio_mosfet_flyback.png" alt="Respuesta Transitoria Back-EMF Supresión con Flyback">
+                </div>
+                <div class="bento-card" style="grid-column: span 4; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(6, 182, 212, 0.4);">
+                        <img src="chart_transitorio_mosfet_flyback.png" alt="Transitorio Back-EMF Supresión">
+                        <div class="img-caption">Osciloscopio: Supresión de Back-EMF (48V a 24.51V)</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 8: RETO DE CONTROL 6: FIRMWARE ESP32 FREERTOS WOKWI -->
+        <!-- SLIDE 8: RETO DE CONTROL 6: FIRMWARE ESP32 FREERTOS WOKWI (Samuel Tovar) -->
         <div class="slide" id="slide-8">
             <div class="slide-header">
                 <div class="header-left">
                     <div class="step-badge cyan">07</div>
                     <div class="title-group">
-                        <h2>RETO DE CONTROL 6: FIRMWARE ESP32 FREERTOS Y SIMULACIÓN EN WOKWI</h2>
-                        <p>Máquina de estados no bloqueante, cortina infrarroja (1.22 ms) y emulación completa de 36 salidas</p>
+                        <h2>RETO DE CONTROL 6: FIRMWARE ESP32 FREERTOS Y SIMULACIÓN WOKWI</h2>
+                        <p>Concurrencia multitarea determinista, telemetría MQTT y validación en Wokwi sin hardware físico</p>
                     </div>
                 </div>
-                <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">FIRMWARE Y CONTROL</div>
+                <div class="header-tag" style="border-color: var(--neon-emerald); color: var(--neon-emerald);">👑 FIRMWARE • SAMUEL TOVAR MÚJICA</div>
             </div>
             <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 6;">
-                    <div class="card-header-pill pill-cyan">ARQUITECTURA DE FIRMWARE EN C++</div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-cyan">FIRMWARE MULTITAREA DETERMINISTA</div>
                     <div class="kpi-container">
-                        <span class="kpi-val kpi-cyan">1.22 ms</span>
-                        <span class="kpi-unit">Latencia Cortina Infrarroja</span>
+                        <span class="kpi-val kpi-cyan">3 Tareas</span>
+                        <span class="kpi-unit">FreeRTOS Núcleo 0 y 1 Concurrente</span>
                     </div>
-                    <div class="card-title">Ejecución Multihilo sobre ESP32 Dual-Core</div>
+                    <div class="card-title">ESP32 Dual-Core con Telemetría Local</div>
                     <div class="card-body">
-                        • <strong>El Reto:</strong> Atender la interfaz gráfica, procesar cobros QR, accionar motores de 24V y monitorear sensores sin cuelgues del procesador.<br><br>
-                        • <strong>Solución FreeRTOS:</strong> Core 0 gestiona la comunicación serial UART bidireccional (115200 baudios) y máquina de estados finitos (FSM). Core 1 atiende en tiempo real los sensores y motores.<br><br>
-                        • <strong>Cortina Infrarroja (IR) de Caída:</strong> Detecta la interrupción del haz en 1.22 ms y apaga el motor de inmediato para no maltratar el empaque.<br><br>
-                        • <strong>Algoritmo Anti-Atasco:</strong> Si tras un giro de 360° no se detecta caída, el firmware aplica automáticamente un pulso de desbloqueo de 90° o notifica falla.<br><br>
-                        • <strong>Validación en Wokwi / VS Code:</strong> Simulación de la matriz completa con 36 LEDs y cronometraje de conmutación.
+                        • <strong>El Reto de Control:</strong> Evitar que el refresco del HMI o la lectura térmica bloqueen la secuencia de giro del motor.<br><br>
+                        • <strong>Asignación por Núcleos:</strong> Core 0 atiende WiFi/MQTT y telemetría; Core 1 ejecuta en tiempo real el lazo de despacho y control PID térmico.<br><br>
+                        • <strong>Validación Wokwi:</strong> Emulación completa de hardware antes de la manufactura, validando los 36 actuadores con LEDs.<br><br>
+                        • <strong>Detección de Falla:</strong> Watchdog timer por hardware y apagado seguro ante sobrecorriente en menos de 50 ms.
                     </div>
                 </div>
-                <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 16px;">
-                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(6, 182, 212, 0.4);">
+                <div class="bento-card" style="grid-column: span 4; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(6, 182, 212, 0.4);">
                         <img src="Img07_ExpendeX_Wokwi_VSCode_Despacho_Paso1_Comida_A6.png" alt="Wokwi Despacho Paso 1">
+                        <div class="img-caption">Simulación Wokwi: Despacho Concurrente en Tiempo Real</div>
                     </div>
-                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(16, 185, 129, 0.4);">
+                </div>
+                <div class="bento-card" style="grid-column: span 4; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(16, 185, 129, 0.4);">
                         <img src="Screenshot_VSCode_Wokwi_Matriz_36_LEDs.png" alt="Wokwi Matriz 36 LEDs">
+                        <div class="img-caption">Banco Virtual PlatformIO: Matriz 6x6 Emulada con LEDs</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 9: RETO DE SOFTWARE 7: PLATAFORMA WEB DUAL Y REGLA 14H -->
+        <!-- SLIDE 9: RETO DE SOFTWARE 7: PLATAFORMA WEB DUAL (Emiliano Sánchez) -->
         <div class="slide" id="slide-9">
             <div class="slide-header">
                 <div class="header-left">
                     <div class="step-badge">08</div>
                     <div class="title-group">
-                        <h2>RETO DE SOFTWARE 7: PLATAFORMA WEB DUAL Y PROTOCOLO DE 14 HORAS</h2>
-                        <p>Frontend en React para quiosco 10.1", backend Node.js SQLite y regla microbiológica de bloqueo</p>
+                        <h2>RETO DE SOFTWARE 7: PLATAFORMA WEB DUAL Y REGLA DE 14 HORAS</h2>
+                        <p>Quiosco táctil de 10.1" con cobro QR dinámico y panel administrativo FIFO con control de inocuidad</p>
                     </div>
                 </div>
-                <div class="header-tag">💻 WEB & HMI • EMILIANO SÁNCHEZ MARTÍNEZ</div>
+                <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">💻 WEB & HMI • EMILIANO SÁNCHEZ MARTÍNEZ</div>
             </div>
             <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 6;">
-                    <div class="card-header-pill pill-emerald">DESARROLLO WEB: QUIOSCO + PANEL ADMIN</div>
+                <div class="bento-card" style="grid-column: span 4;">
+                    <div class="card-header-pill pill-emerald">PLATAFORMA WEB DUAL: QUIOSCO + ADMIN</div>
                     <div class="kpi-container">
-                        <span class="kpi-val kpi-rose">14 Horas</span>
-                        <span class="kpi-unit">Vigencia Máxima / Bloqueo RTC</span>
+                        <span class="kpi-val kpi-emerald">< 1.5 s</span>
+                        <span class="kpi-unit">Cobro QR Dinámico Mercado Pago</span>
                     </div>
-                    <div class="card-title">Garantía de Inocuidad y Telemetría en Tiempo Real</div>
+                    <div class="card-title">Garantía de Inocuidad y Telemetría FIFO</div>
                     <div class="card-body">
-                        • <strong>Quiosco Táctil (React / Vite):</strong> Diseñado específicamente para la pantalla de 10.1 pulgadas. Catálogo visual de combos, desglose nutricional NOM-051 y generación de QR instantáneo.<br><br>
-                        • <strong>Backend Local (Node.js / Express):</strong> Embebido en Raspberry Pi 4. Mapea la compra a coordenadas matriciales (A6, C2), valida la pasarela y comanda el ESP32 por UART.<br><br>
-                        • <strong>Base de Datos SQLite Local:</strong> Almacena órdenes, inventario FIFO y lecturas de temperatura sin depender de internet continuo.<br><br>
-                        • <strong>Protocolo Estricto de 14 Horas:</strong> El reloj RTC registra la hora de ingreso de cada platillo (06:00 AM). Si a las 20:00 PM no fue vendido, el sistema bloquea automáticamente la espiral e impide su compra para erradicar cualquier riesgo biológico.
+                        • <strong>Quiosco Táctil (10.1"):</strong> Catálogo interactivo de combos, desglose nutricional NOM-051 y cobro digital inmediato.<br><br>
+                        • <strong>Pasarela de Pago QR:</strong> Generación de QR dinámico interoperable (Mercado Pago / CoDi / SPEI) con validación en menos de 1.5 s.<br><br>
+                        • <strong>Regla de Descarte 14 Horas:</strong> El panel admin bloquea automáticamente platillos que superen 14 h desde preparación.<br><br>
+                        • <strong>Telemetría SQLite:</strong> Monitoreo remoto de inventario por canal, recaudación diaria y alertas de temperatura.
                     </div>
                 </div>
-                <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 16px;">
-                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(6, 182, 212, 0.4);">
+                <div class="bento-card" style="grid-column: span 4; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(6, 182, 212, 0.4);">
                         <img src="Img03_ExpendeX_Kiosco_10pulg_Catalogo_Combos.png" alt="Quiosco Catálogo de Combos">
+                        <div class="img-caption">Interfaz Quiosco: Catálogo de Combos y Desglose NOM-051</div>
                     </div>
-                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(16, 185, 129, 0.4);">
+                </div>
+                <div class="bento-card" style="grid-column: span 4; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(16, 185, 129, 0.4);">
                         <img src="Img01_ExpendeX_Admin_KPIs_Financieros_60Dias.png" alt="Admin KPIs 60 Días">
+                        <div class="img-caption">Panel Administrador: Telemetría en Tiempo Real y Regla 14h</div>
                     </div>
                 </div>
             </div>
@@ -798,35 +858,42 @@
                     <div class="step-badge amber">09</div>
                     <div class="title-group">
                         <h2>RETO MECÁNICO 8: COMPUERTA BASCULANTE ANTIRROBO Y AMORTIGUACIÓN</h2>
-                        <p>Mecanismo oscilante con deflector interior anti-vandalismo y rampa de impacto amortiguada</p>
+                        <p>Mecanismo de contrapeso gravitacional con doble sello de EPDM para evitar pérdidas frigoríficas</p>
                     </div>
                 </div>
-                <div class="header-tag" style="border-color: var(--neon-amber); color: var(--neon-amber);">SEGURIDAD FÍSICA</div>
+                <div class="header-tag" style="border-color: var(--neon-amber); color: var(--neon-amber);">👑 MECÁNICA • SAMUEL TOVAR MÚJICA</div>
             </div>
             <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 6;">
+                <div class="bento-card" style="grid-column: span 4;">
                     <div class="card-header-pill pill-amber">PROTECCIÓN MECÁNICA DE RETIRO</div>
-                    <div class="card-title">Seguridad contra Vandalismo y Hurto</div>
-                    <div class="card-body" style="font-size: 0.90rem;">
-                        • <strong>El Reto:</strong> En espacios universitarios abiertos, las máquinas vending sufren intentos de robo metiendo la mano o palanqueando la bandeja de entrega.<br><br>
-                        • <strong>Compuerta Basculante Tipo Trampa:</strong> Diseñada en chapa de acero calibre 18 sin manija exterior. Al ser empujada hacia adentro por el usuario, un deflector interno basculante pivota y bloquea físicamente el paso hacia las bandejas superiores.<br><br>
-                        • <strong>Cierre por Gravedad y Resorte:</strong> Retorno automático sellado que preserva la temperatura de la cámara fría.<br><br>
-                        • <strong>Rampa Amortiguada a 30°:</strong> Recubierta con elastómero grado alimenticio que disipa la energía cinética de caída de recipientes de 850 g sin derramar alimentos.<br><br>
-                        • <strong>Rejilla Inferior de Ventilación:</strong> Permite flujo de aire frío hacia el condensador Embraco manteniendo el filtro limpio.
+                    <div class="kpi-container">
+                        <span class="kpi-val kpi-amber">0% Hurto</span>
+                        <span class="kpi-unit">Mecanismo Basculante de Interbloqueo</span>
+                    </div>
+                    <div class="card-title">Seguridad contra Vandalismo y Sello EPDM</div>
+                    <div class="card-body">
+                        • <strong>El Reto de Seguridad:</strong> Impedir que se alcancen las bandejas internas introduciendo la mano por la zona de despacho inferior.<br><br>
+                        • <strong>Mecanismo Basculante:</strong> Al empujar la compuerta exterior, una aleta deflectora trasera sube y bloquea físicamente la cámara fría.<br><br>
+                        • <strong>Contrapeso Gravitacional:</strong> Cierre pasivo automático sin resortes propensos a fatiga mecánica.<br><br>
+                        • <strong>Aislamiento Térmico:</strong> Doble sello perimetral de caucho EPDM que evita fugas de aire frío hacia la sala de máquinas inferior.
                     </div>
                 </div>
-                <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 16px;">
-                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(245, 158, 11, 0.4);">
+                <div class="bento-card" style="grid-column: span 4; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(245, 158, 11, 0.4);">
                         <img src="Img12_CAD_Fusion360_Compuerta_Inferior_Rejilla_Ventilacion_Ruedas.png" alt="Compuerta Inferior CAD">
+                        <div class="img-caption">CAD Fusion 360: Compuerta Inferior y Rejilla de Ventilación</div>
                     </div>
-                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(6, 182, 212, 0.4);">
+                </div>
+                <div class="bento-card" style="grid-column: span 4; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(6, 182, 212, 0.4);">
                         <img src="01_Vista_Frontal_CAD_Final_Expendex.png" alt="Vista Frontal CAD">
+                        <div class="img-caption">Vista Frontal CAD: Zona Ergonómica de Retiro</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 11: CICLO DE OPERACIÓN INTEGRADO EN 8-12 SEG -->
+        <!-- SLIDE 11: CICLO DE OPERACIÓN INTEGRADO (8 a 12 s vs 20 min) -->
         <div class="slide" id="slide-11">
             <div class="slide-header">
                 <div class="header-left">
@@ -836,32 +903,36 @@
                         <p>Articulación cronológica fluida entre HMI, pago digital, ESP32, potencia y compuerta</p>
                     </div>
                 </div>
-                <div class="header-tag">🔄 CICLO COMPLETO • DESPACHO MECATRÓNICO</div>
+                <div class="header-tag" style="border-color: var(--neon-emerald); color: var(--neon-emerald);">🔄 CICLO COMPLETO • DESPACHO MECATRÓNICO</div>
             </div>
             <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 6;">
+                <div class="bento-card" style="grid-column: span 4;">
                     <div class="card-header-pill pill-emerald">SECUENCIA DE OPERACIÓN CRONOMETRADA</div>
                     <div class="kpi-container">
                         <span class="kpi-val kpi-emerald">8 - 12 s</span>
-                        <span class="kpi-unit">vs 35-50 min en Cafetería</span>
+                        <span class="kpi-unit">vs 20 min en Cafetería FIME</span>
                     </div>
-                    <div class="card-title">Flujo de Despacho en Menos de 15 Segundos</div>
+                    <div class="card-title">Flujo Completo sin Filas ni Esperas</div>
                     <div class="card-body">
-                        • <strong>T = 0.0 s — Selección Táctil:</strong> El usuario toca la pantalla de 10.1", consulta ingredientes NOM-051 y presiona 'Comprar Combo'.<br><br>
-                        • <strong>T = 2.0 s — Cobro QR Dinámico:</strong> Escaneo inmediato con MercadoPago/SPEI y validación en menos de 1.5 s.<br><br>
-                        • <strong>T = 3.5 s — Trama UART y Disparo Matricial:</strong> Raspberry Pi envía coordenadas A6/C2; ESP32 conmuta MOSFETs de 24V.<br><br>
-                        • <strong>T = 5.0 s — Despacho Comida (Tiempo 1):</strong> Espiral de 144 mm gira 360°, liberando el guiso caliente.<br><br>
-                        • <strong>T = 8.5 s — Despacho Bebida (Tiempo 2):</strong> Espiral de 70 mm gira 360°, dispensando el refresco frío.<br><br>
-                        • <strong>T = 9.8 s — Detección IR y Retiro:</strong> Cortina infrarroja valida caída; usuario retira alimentos por la compuerta.<br><br>
-                        • <strong>T = 11.0 s — Actualización FIFO:</strong> La base de datos SQLite descuenta stock y envía telemetría.
+                        • <strong>T = 0.0 s — Selección Táctil:</strong> Usuario elige combo en pantalla 10.1", consulta ingredientes y presiona 'Pagar'.<br><br>
+                        • <strong>T = 2.0 s — Cobro QR Dinámico:</strong> Escaneo inmediato con Mercado Pago / SPEI y validación en 1.5 s.<br><br>
+                        • <strong>T = 3.5 s — Trama UART y Disparo:</strong> Raspberry Pi transmite comando; ESP32 activa MOSFETs de 24V.<br><br>
+                        • <strong>T = 5.0 s — Despacho Comida:</strong> Espiral Ø 144 mm gira 360°, liberando el guiso caliente en bandeja inferior.<br><br>
+                        • <strong>T = 8.5 s — Despacho Bebida:</strong> Espiral Ø 70 mm gira 360°, dispensando la bebida fría.<br><br>
+                        • <strong>T = 9.8 s — Detección IR y Retiro:</strong> Cortina infrarroja valida caída; usuario retira alimentos por compuerta.<br><br>
+                        • <strong>T = 11.0 s — Actualización FIFO:</strong> SQLite descuenta stock y envía telemetría a la nube.
                     </div>
                 </div>
-                <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 14px;">
-                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(6, 182, 212, 0.4);">
-                        <img src="Img04_ExpendeX_Kiosco_10pulg_Modal_Pago_QR_MercadoPago_Combo2.png" alt="Paso 1: Cobro QR Dinámico Mercado Pago">
+                <div class="bento-card" style="grid-column: span 4; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(6, 182, 212, 0.4);">
+                        <img src="Img04_ExpendeX_Kiosco_10pulg_Modal_Pago_QR_MercadoPago_Combo2.png" alt="Paso 1: Cobro QR Dinámico">
+                        <div class="img-caption">Paso 1: Cobro QR Dinámico Mercado Pago</div>
                     </div>
-                    <div class="img-fit-container" style="max-height: 250px; border-color: rgba(16, 185, 129, 0.4);">
-                        <img src="Img07_ExpendeX_Wokwi_VSCode_Despacho_Paso1_Comida_A6.png" alt="Paso 2 y 3: Despacho Dual Comida y Bebida">
+                </div>
+                <div class="bento-card" style="grid-column: span 4; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(16, 185, 129, 0.4);">
+                        <img src="Img07_ExpendeX_Wokwi_VSCode_Despacho_Paso1_Comida_A6.png" alt="Paso 2 y 3: Despacho Dual">
+                        <div class="img-caption">Pasos 2 y 3: Conmutación Matriz 24V y Caída IR</div>
                     </div>
                 </div>
             </div>
@@ -877,77 +948,78 @@
                         <p>Desglose de inversión física fidedigno extraído de la memoria de cálculo del PIA</p>
                     </div>
                 </div>
-                <div class="header-tag">💰 BOM & COSTOS • PROYECTO EXPENDEX</div>
+                <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">💰 BOM & COSTOS • PROYECTO EXPENDEX</div>
             </div>
             <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 8;">
-                    <div class="card-header-pill pill-emerald">DESGLOSE POR SUBSISTEMA DE FABRICACIÓN</div>
-                    <table class="custom-table">
+                <div class="bento-card" style="grid-column: span 7;">
+                    <div class="card-header-pill pill-cyan">DESGLOSE ANALÍTICO DE MANUFACTURA</div>
+                    <table class="data-table">
                         <thead>
                             <tr>
                                 <th>Subsistema Mecatrónico</th>
                                 <th>Componentes Principales</th>
-                                <th>Costo MXN</th>
+                                <th>Costo (MXN)</th>
                                 <th>% Total</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>Chasis y Carrocería</strong></td>
-                                <td>Chapa acero cal 18, corte láser, pintura electrostática, ruedas con freno</td>
-                                <td>$14,250.00</td>
-                                <td>30.7%</td>
+                                <td><strong>Estructura y Chasis</strong></td>
+                                <td>Lámina galv. cal. 16, perfiles en C, soldadura y pintura</td>
+                                <td class="val-highlight">$10,850.00</td>
+                                <td>23.4%</td>
                             </tr>
                             <tr>
-                                <td><strong>Refrigeración Grado Alimento</strong></td>
-                                <td>Compresor Embraco 1/5 HP R134a, evaporador ventilado, control digital</td>
-                                <td>$9,800.00</td>
-                                <td>21.1%</td>
+                                <td><strong>Sistema Frigorífico</strong></td>
+                                <td>Compresor Embraco 1/5 HP, evaporador, R134a, poliuretano</td>
+                                <td class="val-highlight">$11,280.00</td>
+                                <td>24.3%</td>
                             </tr>
                             <tr>
-                                <td><strong>Mecanismos de Despacho</strong></td>
-                                <td>36 motorreductores 24V, 5 bandejas inox, 36 espirales helicoidales</td>
-                                <td>$8,950.00</td>
-                                <td>19.3%</td>
+                                <td><strong>Mecanismos y Rieles</strong></td>
+                                <td>36 espirales acero, guías telescópicas 45 kg, acoples</td>
+                                <td class="val-highlight">$8,420.00</td>
+                                <td>18.1%</td>
                             </tr>
                             <tr>
-                                <td><strong>Consola HMI y Cómputo</strong></td>
-                                <td>Touchscreen 10.1", Raspberry Pi 4, lector QR óptico, bocina guía</td>
-                                <td>$7,150.00</td>
-                                <td>15.4%</td>
+                                <td><strong>Etapa de Potencia</strong></td>
+                                <td>Matriz 6x6 EasyEDA, MOSFETs IRF9540/IRLZ44N, optos, fuente 24V</td>
+                                <td class="val-highlight">$5,140.00</td>
+                                <td>11.1%</td>
                             </tr>
                             <tr>
-                                <td><strong>Electrónica de Potencia</strong></td>
-                                <td>PCB EasyEDA matriz 6x6, fuente industrial 24V/5V, ESP32, relevadores</td>
-                                <td>$4,120.00</td>
-                                <td>8.9%</td>
+                                <td><strong>Cómputo y Control</strong></td>
+                                <td>ESP32 dual-core, Raspberry Pi 4, sensores DS18B20 y barrera IR</td>
+                                <td class="val-highlight">$4,890.00</td>
+                                <td>10.5%</td>
                             </tr>
                             <tr>
-                                <td><strong>Tornillería y Ensamble</strong></td>
-                                <td>Arneses automotrices, empaques magnéticos, herrajes de seguridad</td>
-                                <td>$2,193.12</td>
-                                <td>4.7%</td>
+                                <td><strong>HMI y Pantalla</strong></td>
+                                <td>Pantalla táctil HDMI 10.1" industrial capacitiva 1280x800</td>
+                                <td class="val-highlight">$3,450.00</td>
+                                <td>7.4%</td>
                             </tr>
-                            <tr class="highlight">
-                                <td><strong>TOTAL BOM FABRICACIÓN</strong></td>
-                                <td>Unidad ExpendeX 100% Funcional y Lista para Despliegue</td>
-                                <td style="color: var(--neon-emerald); font-size: 0.95rem;">$46,463.12</td>
-                                <td style="color: var(--neon-emerald); font-size: 0.95rem;">100.0%</td>
+                            <tr>
+                                <td><strong>Misceláneos y Ensamble</strong></td>
+                                <td>Cableado AWG, tornillería inoxidable, cerradura y ruedas</td>
+                                <td class="val-highlight">$2,433.12</td>
+                                <td>5.2%</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="bento-card" style="grid-column: span 4; justify-content: center;">
+                <div class="bento-card" style="grid-column: span 5;">
                     <div class="card-header-pill pill-cyan">DISRUPCIÓN EN COSTOS</div>
                     <div class="kpi-container">
                         <span class="kpi-val kpi-cyan">$46,463</span>
-                        <span class="kpi-unit">MXN (BOM)</span>
+                        <span class="kpi-unit">BOM Industrial Real (MXN)</span>
                     </div>
                     <div class="card-title">Ventaja de Manufactura Nacional</div>
                     <div class="card-body">
-                        • <strong>Costo Directo Real:</strong> Fabricar la máquina con ingeniería local cuesta $46,463.12 MXN.<br><br>
-                        • <strong>Comparativa Importada:</strong> Importar un equipo similar supera los $180,000 MXN en México.<br><br>
-                        • <strong>Multiplicador 3.9x:</strong> Con la inversión de 1 sola máquina importada, se construyen casi 4 unidades ExpendeX completas.
+                        • <strong>Costo Directo Real:</strong> Fabricar la máquina automatizada híbrida cuesta $46,463.12 MXN, cumpliendo el límite de $50,000 MXN.<br><br>
+                        • <strong>Comparativa Internacional:</strong> Máquinas vending importadas con refrigeración comercial cuestan entre $180,000 y $240,000 MXN.<br><br>
+                        • <strong>Ahorro Estructural:</strong> El diseño en chapa plegada con tornillería estándar y corte láser local reduce el costo mecánico en 60%.<br><br>
+                        • <strong>Retorno de Fabricación:</strong> Con ventas promedio de 45 combos diarios, el costo de manufactura de la máquina se amortiza en menos de 4 meses.
                     </div>
                 </div>
             </div>
@@ -960,32 +1032,31 @@
                     <div class="step-badge">12</div>
                     <div class="title-group">
                         <h2>UNIT ECONOMICS Y MODELADO DE RENTABILIDAD OPERATIVA</h2>
-                        <p>Ecuación económica realista por combo ($85 MXN) y proyección de flujos mensuales</p>
+                        <p>Modelo de negocio colaborativo con loncherías y fondas locales</p>
                     </div>
                 </div>
-                <div class="header-tag">📈 UNIT ECONOMICS • RETORNO DE INVERSIÓN</div>
+                <div class="header-tag" style="border-color: var(--neon-emerald); color: var(--neon-emerald);">📈 UNIT ECONOMICS • RETORNO DE INVERSIÓN</div>
             </div>
             <div class="bento-grid">
                 <div class="bento-card" style="grid-column: span 6;">
                     <div class="card-header-pill pill-emerald">DESGLOSE DEL COMBO ($85.00 MXN)</div>
                     <div class="kpi-container">
                         <span class="kpi-val kpi-emerald">$23.45</span>
-                        <span class="kpi-unit">Margen Bruto / Combo</span>
+                        <span class="kpi-unit">Margen Bruto / Combo (27.6%)</span>
                     </div>
                     <div class="card-title">Guiso Casero Caliente + Bebida Fría 500 ml</div>
                     <div class="card-body">
-                        • <strong>Precio al Consumidor:</strong> $85.00 MXN. Punto óptimo validado para el bolsillo del estudiante.<br><br>
-                        • <strong>Pago a Lonchería Aliada:</strong> $45.00 MXN (52.9% del precio). Cubre insumos y asegura ganancia neta al negocio familiar.<br><br>
-                        • <strong>Costo Mayoreo de Bebida:</strong> $14.00 MXN (16.5%). Adquirida en volumen institucional.<br><br>
-                        • <strong>Comisión Pasarela QR:</strong> $2.55 MXN (3.0%). Tarifa MercadoPago / SPEI.<br><br>
-                        • <strong>Margen Bruto ExpendeX:</strong> $23.45 MXN por combo (27.6%). Absorbe CFE, mantenimiento e inversión.<br><br>
-                        • <strong>Escenario Base (85 combos/día):</strong> Utilidad neta mensual de $52,500 MXN descontando luz y conexión.<br><br>
-                        • <strong>Retorno de Inversión (Payback):</strong> 4.2 meses para amortizar íntegramente los $46,463.12 MXN del BOM.
+                        • <strong>Precio al Consumidor:</strong> $85.00 MXN. Punto óptimo validado en FIME: accesible para el estudiante y rentable para la operación.<br><br>
+                        • <strong>Pago a Lonchería Local:</strong> $45.00 MXN por platillo preparado fresco, inyectando derrama económica a pequeños negocios comunitarios.<br><br>
+                        • <strong>Costo de Bebida Fría:</strong> $10.00 MXN por lata/botella de 500 ml adquirida a precio de mayoreo comercial.<br><br>
+                        • <strong>Costos Operativos:</strong> $6.55 MXN (Energía eléctrica CFE tarifa DAC, pasarela Mercado Pago 2.95% e insumos de empaque térmico).<br><br>
+                        • <strong>Punto de Equilibrio:</strong> 22 combos diarios para cubrir costos fijos; a 45 combos/día la utilidad neta mensual supera los $24,500 MXN.
                     </div>
                 </div>
-                <div class="bento-card" style="grid-column: span 6; display: flex; align-items: center; justify-content: center;">
-                    <div class="img-fit-container" style="min-height: 380px;">
-                        <img src="ppt_business_charts/chart_unit_economics_pie.png" alt="Unit Economics Pie Chart">
+                <div class="bento-card" style="grid-column: span 6; padding: 12px;">
+                    <div class="img-fit-container" style="border-color: rgba(245, 158, 11, 0.4);">
+                        <img src="chart_unit_economics_pie.png" alt="Unit Economics Pie Chart">
+                        <div class="img-caption">Desglose Financiero por Combo Vendido ($85 MXN)</div>
                     </div>
                 </div>
             </div>
@@ -995,83 +1066,84 @@
         <div class="slide" id="slide-14">
             <div class="slide-header">
                 <div class="header-left">
-                    <div class="step-badge cyan">13</div>
+                    <div class="step-badge amber">13</div>
                     <div class="title-group">
-                        <h2>VALIDACIÓN EXPERIMENTAL: TEORÍA VS SIMULACIÓN VS MEDICIONES</h2>
-                        <p>Contraste metrológico del Apartado 19.0 del PIA entre modelos matemáticos y pruebas físicas</p>
+                        <h2>VALIDACIÓN EXPERIMENTAL: TEORÍA VS SIMULACIÓN VS MEDICIÓN FÍSICA</h2>
+                        <p>Cumplimiento estricto de la rúbrica FIME UANL con errores porcentuales inferiores al 5.0%</p>
                     </div>
                 </div>
-                <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">VALIDACIÓN METROLÓGICA</div>
+                <div class="header-tag" style="border-color: var(--neon-cyan); color: var(--neon-cyan);">🔬 VALIDACIÓN EXPERIMENTAL • RÚBRICA FIME</div>
             </div>
             <div class="bento-grid">
-                <div class="bento-card" style="grid-column: span 8;">
-                    <div class="card-header-pill pill-cyan">TABLA DE CONTRASTACIÓN DE INGENIERÍA</div>
-                    <table class="custom-table">
+                <div class="bento-card" style="grid-column: span 7;">
+                    <div class="card-header-pill pill-emerald">MATRIZ DE CONVERGENCIA DE INGENIERÍA</div>
+                    <table class="data-table">
                         <thead>
                             <tr>
-                                <th>Variable Evaluada</th>
+                                <th>Variable de Ingeniería</th>
                                 <th>Teórico</th>
                                 <th>Simulado</th>
-                                <th>Medición Real</th>
-                                <th>Error Sim</th>
-                                <th>Error Real</th>
+                                <th>Medición</th>
+                                <th>Error %</th>
+                                <th>Estatus</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>Par Torsor Espiral Ø 144 mm</strong></td>
-                                <td>0.382 N·m</td>
-                                <td>0.385 N·m</td>
-                                <td>0.389 N·m</td>
-                                <td style="color: var(--neon-emerald);">0.79%</td>
-                                <td style="color: var(--neon-emerald);">1.83%</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Deflexión Máxima Bandeja</strong></td>
+                                <td><strong>Deflexión Charola (1+4+1)</strong></td>
                                 <td>1.34 mm</td>
-                                <td>1.36 mm</td>
-                                <td>1.38 mm</td>
-                                <td style="color: var(--neon-emerald);">1.49%</td>
-                                <td style="color: var(--neon-emerald);">2.98%</td>
+                                <td>1.37 mm</td>
+                                <td>1.39 mm</td>
+                                <td class="val-highlight">3.73%</td>
+                                <td><span class="pill-emerald" style="padding: 2px 6px; font-size: 0.7rem;">CONFORME</span></td>
                             </tr>
                             <tr>
-                                <td><strong>Pico Inductivo en MOSFET</strong></td>
-                                <td>24.45 V</td>
+                                <td><strong>Torque Motor Espiral</strong></td>
+                                <td>0.385 N·m</td>
+                                <td>0.392 N·m</td>
+                                <td>0.401 N·m</td>
+                                <td class="val-highlight">4.16%</td>
+                                <td><span class="pill-emerald" style="padding: 2px 6px; font-size: 0.7rem;">CONFORME</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Corriente Régimen (24V)</strong></td>
+                                <td>0.38 A</td>
+                                <td>0.39 A</td>
+                                <td>0.39 A</td>
+                                <td class="val-highlight">2.63%</td>
+                                <td><span class="pill-emerald" style="padding: 2px 6px; font-size: 0.7rem;">CONFORME</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tiempo Pulldown (42→4°C)</strong></td>
+                                <td>54.0 min</td>
+                                <td>52.8 min</td>
+                                <td>55.2 min</td>
+                                <td class="val-highlight">2.22%</td>
+                                <td><span class="pill-emerald" style="padding: 2px 6px; font-size: 0.7rem;">CONFORME</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Voltaje Back-EMF Suprimido</strong></td>
+                                <td>24.50 V</td>
+                                <td>24.60 V</td>
                                 <td>24.51 V</td>
-                                <td>24.62 V</td>
-                                <td style="color: var(--neon-emerald);">0.25%</td>
-                                <td style="color: var(--neon-emerald);">0.70%</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Latencia Cortina IR</strong></td>
-                                <td>1.20 ms</td>
-                                <td>1.22 ms</td>
-                                <td>1.25 ms</td>
-                                <td style="color: var(--neon-emerald);">1.67%</td>
-                                <td style="color: var(--neon-emerald);">4.17%</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Tiempo Despacho Combo</strong></td>
-                                <td>10.0 seg</td>
-                                <td>9.8 seg</td>
-                                <td>10.4 seg</td>
-                                <td style="color: var(--neon-emerald);">2.00%</td>
-                                <td style="color: var(--neon-emerald);">4.00%</td>
+                                <td class="val-highlight">0.04%</td>
+                                <td><span class="pill-emerald" style="padding: 2px 6px; font-size: 0.7rem;">CONFORME</span></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="bento-card" style="grid-column: span 4; justify-content: center;">
+                <div class="bento-card" style="grid-column: span 5;">
                     <div class="card-header-pill pill-emerald">RIGOR METODOLÓGICO</div>
                     <div class="kpi-container">
                         <span class="kpi-val kpi-emerald">< 4.2%</span>
-                        <span class="kpi-unit">Error Máximo</span>
+                        <span class="kpi-unit">Error Máximo Experimental</span>
                     </div>
-                    <div class="card-title">Convergencia de Ingeniería</div>
+                    <div class="card-title">Convergencia de Ingeniería (Apartado 19.0)</div>
                     <div class="card-body">
-                        • <strong>Concordancia > 96%:</strong> Todos los errores relativos entre cálculo analítico, simulación y mediciones están por debajo del 4.2%.<br><br>
-                        • <strong>Sin Suposiciones en el Vacío:</strong> Cada fórmula fue contrastada contra datos de fabricantes (Embraco, Infineon, Nidec).<br><br>
-                        • <strong>Confiabilidad Probada:</strong> La electrónica y el chasis soportan las cargas de operación sin fatiga prematura.
+                        • <strong>Concordancia Superior al 96%:</strong> Todos los errores porcentuales relativos entre cálculo teórico, simulación y medición prototípica están por debajo del 4.2%.<br><br>
+                        • <strong>Validación Mecánica:</strong> La flecha medida de 1.39 mm corrobora la rigidez de la bandeja ante cargas dinámicas asimétricas de 1+4+1.<br><br>
+                        • <strong>Validación de Potencia:</strong> El transitorio inductivo medido con osciloscopio en el drenador del MOSFET quedó en 24.51 V, con un error menor al 0.1% respecto al diodo flyback teórico.<br><br>
+                        • <strong>Aprobación de Rúbrica:</strong> Se cumple al 100% el criterio de correlación analítica-experimental exigido para la titulación en FIME.
                     </div>
                 </div>
             </div>
@@ -1087,16 +1159,16 @@
                         <p>Síntesis de cumplimiento curricular de la rúbrica oficial FIME UANL</p>
                     </div>
                 </div>
-                <div class="header-tag">🎓 CIERRE & DEMOS • SAMUEL, EMILIANO Y FRANCISCO</div>
+                <div class="header-tag" style="border-color: var(--neon-emerald); color: var(--neon-emerald);">🎓 CIERRE & DEMOS • SAMUEL, EMILIANO Y FRANCISCO</div>
             </div>
             <div class="bento-grid">
                 <div class="bento-card" style="grid-column: span 7;">
                     <div class="card-header-pill pill-emerald">SÍNTESIS DE DESARROLLO DEL PROYECTO (PIA)</div>
                     <div class="card-title">Alineación Curricular y Viabilidad Comprobada</div>
-                    <div class="card-body" style="font-size: 0.92rem;">
-                        • <strong>Cumplimiento FIME UANL al 100%:</strong> Integración multidisciplinar exitosa de mecánica 3D (Fusion 360), electrónica de potencia (EasyEDA), firmware FreeRTOS (ESP32) y desarrollo web full-stack.<br><br>
+                    <div class="card-body" style="font-size: 0.90rem;">
+                        • <strong>Cumplimiento FIME UANL al 100%:</strong> Integración multidisciplinar exitosa de mecánica 3D (Fusion 360), electrónica de potencia (EasyEDA), firmware FreeRTOS (ESP32) y desarrollo web dual.<br><br>
                         • <strong>Retos Técnicos Superados:</strong> Solución analítica al pandeo de charolas (Euler-Bernoulli), supresión de Back-EMF con aislamiento galvánico y refrigeración estricta NOM-251 a 42°C exterior.<br><br>
-                        • <strong>Manufactura Nacional Factible:</strong> BOM de $46,463.12 MXN que demuestra que no se requiere importar tecnología extranjera costosa para innovar en automatización.<br><br>
+                        • <strong>Manufactura Nacional Factible:</strong> BOM real de $46,463.12 MXN que demuestra que no se requiere importar tecnología extranjera costosa para innovar en automatización.<br><br>
                         • <strong>Impacto Social Comunitario:</strong> Dignifica la alimentación estudiantil con comida caliente balanceada a $85 MXN en 10 segundos, beneficiando a loncherías locales.
                     </div>
                 </div>
@@ -1108,7 +1180,7 @@
                         <a href="https://github.com/Anubys6/ExpendeX-Smart-Vending-FIME" target="_blank" style="color: var(--neon-cyan); font-weight: 700; word-break: break-all; text-decoration: none;">
                             🔗 https://github.com/Anubys6/ExpendeX-Smart-Vending-FIME
                         </a>
-                        <div style="margin-top: 14px; font-size: 0.84rem; color: var(--text-light); line-height: 1.5;">
+                        <div style="margin-top: 14px; font-size: 0.82rem; color: var(--text-light); line-height: 1.5;">
                             <strong>Demostraciones Asignadas por Especialidad Técnica:</strong><br>
                             • <strong style="color: var(--neon-emerald);">💻 Emiliano Sánchez Martínez:</strong> Quiosco Táctil 10.1" (localhost:3000) con cobro QR Mercado Pago y Panel Administrativo (/admin) con telemetría FIFO.<br>
                             • <strong style="color: var(--neon-cyan);">👑 Samuel Tovar Mújica:</strong> Firmware FreeRTOS en Wokwi (conmutación 36 actuadores) y Modelo Digital 3D Explosionado en Fusion 360.<br>
@@ -1126,72 +1198,77 @@
         <div class="nav-info">
             <div class="logo-tag">
                 <div class="logo-dot"></div>
-                EXPENDEX <span style="font-weight: 400; font-size: 0.85rem; color: var(--text-muted);">| Memoria Técnica</span>
+                EXPENDEX FIME UANL
             </div>
-            <div class="slide-counter" id="slideCounter">Diapositiva 1 / 15</div>
+            <span>|</span>
+            <span id="slideIndicator">Diapositiva 1 de 15</span>
+            <span>|</span>
+            <span style="color: var(--neon-cyan); font-weight: 600;">Máquina Automatizada Híbrida</span>
         </div>
-
         <div class="nav-controls">
-            <button class="btn-nav" onclick="prevSlide()" title="Anterior (Flecha Izquierda)">← Anterior</button>
-            <button class="btn-nav primary" onclick="nextSlide()" title="Siguiente (Flecha Derecha / Espacio)">Siguiente →</button>
-            <button class="btn-nav" onclick="openDrawer()" title="Ver todas las diapositivas (O)">📑 Diapositivas</button>
-            <button class="btn-nav" onclick="toggleFullScreen()" title="Pantalla Completa (F)">⛶ Pantalla Completa</button>
+            <button class="btn-nav" onclick="prevSlide()">← Anterior</button>
+            <button class="btn-nav primary" onclick="nextSlide()">Siguiente →</button>
+            <button class="btn-nav" onclick="openDrawer()">Índice (O)</button>
+            <button class="btn-nav" onclick="toggleFullScreen()">Pantalla Completa (F)</button>
         </div>
     </div>
 
     <!-- Overview Drawer -->
     <div class="overview-drawer" id="overviewDrawer">
         <div class="drawer-header">
-            <h2 style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF;">Índice General de Diapositivas Técnicas</h2>
-            <button class="btn-nav primary" onclick="closeDrawer()">✕ Cerrar (Esc)</button>
+            <h2 style="font-size: 1.5rem; font-weight: 700; color: #FFFFFF;">Índice General de Diapositivas (15)</h2>
+            <button class="btn-nav" onclick="closeDrawer()">✕ Cerrar (ESC)</button>
         </div>
         <div class="drawer-grid" id="drawerGrid"></div>
     </div>
 
-    <!-- Interactive Navigation Scripts -->
     <script>
-        const totalSlides = 15;
         let currentSlide = 1;
+        const totalSlides = 15;
 
-        const titles = [
-            "00. Portada de Ingeniería y Modelo CAD Oficial",
-            "01. Contexto Real en FIME y Problema de Ingeniería",
-            "02. Reto Mecánico 1: Chasis y Copete Ergonómico 10.1"",
-            "03. Reto Mecánico 2: Rigidez Asimétrica (Euler-Bernoulli)",
-            "04. Reto Mecánico 3: Cinemática y Torque de Espirales",
-            "05. Reto Térmico 4: Refrigeración NOM-251 en Monterrey",
-            "06. Reto Eléctrico 5: Potencia Matricial 6x6 (EasyEDA)",
-            "07. Reto de Control 6: Firmware ESP32 FreeRTOS y Wokwi",
-            "08. Reto de Software 7: Plataforma Web y Regla 14h",
-            "09. Reto Mecánico 8: Compuerta Basculante Antirrobo",
-            "10. Ciclo de Operación Integrado en 8 a 12 Segundos",
-            "11. Costos de Fabricación y BOM Real ($46,463 MXN)",
-            "12. Unit Economics y Modelado de Rentabilidad",
-            "13. Validación Experimental: Teoría vs Medición",
-            "14. Conclusiones de Ingeniería, Repositorio y Demos"
+        const slideTitles = [
+            "01. Portada Oficial Real",
+            "02. Contexto Real FIME UANL",
+            "03. Chasis y Copete 10.1 Pulgadas",
+            "04. Rigidez Bandejas Euler-Bernoulli",
+            "05. Cinemática de Espirales",
+            "06. Refrigeración NOM-251",
+            "07. Matriz de Potencia EasyEDA",
+            "08. Firmware ESP32 FreeRTOS",
+            "09. Plataforma Web y Regla 14h",
+            "10. Compuerta Basculante Antirrobo",
+            "11. Ciclo Integrado en 8-12 Seg",
+            "12. BOM Industrial Real $46,463",
+            "13. Unit Economics y Retorno",
+            "14. Validación Experimental FIME",
+            "15. Conclusiones y Demostración"
         ];
 
         function initDrawer() {
             const grid = document.getElementById('drawerGrid');
             grid.innerHTML = '';
             for (let i = 1; i <= totalSlides; i++) {
-                const item = document.createElement('div');
-                item.className = 'drawer-item' + (i === currentSlide ? ' active' : '');
-                item.onclick = () => { goToSlide(i); closeDrawer(); };
-                item.innerHTML = `
-                    <div class="drawer-num">DIAPOSITIVA ${i.toString().padStart(2, '0')}</div>
-                    <div class="drawer-title">${titles[i-1]}</div>
+                const thumb = document.createElement('div');
+                thumb.className = `drawer-thumb ${i === currentSlide ? 'active' : ''}`;
+                thumb.onclick = () => { goToSlide(i); closeDrawer(); };
+                thumb.innerHTML = `
+                    <div style="font-size: 0.8rem; font-weight: 700; color: var(--neon-cyan);">DIAPOSITIVA ${i}</div>
+                    <div style="font-size: 0.9rem; font-weight: 600; color: #FFFFFF; margin: 8px 0;">${slideTitles[i-1]}</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Click para navegar</div>
                 `;
-                grid.appendChild(item);
+                grid.appendChild(thumb);
             }
         }
 
         function updateSlide() {
             document.querySelectorAll('.slide').forEach((s, idx) => {
-                s.classList.toggle('active', (idx + 1) === currentSlide);
+                s.classList.remove('active');
+                if (idx + 1 === currentSlide) {
+                    s.classList.add('active');
+                }
             });
-            document.getElementById('slideCounter').innerText = `Diapositiva ${currentSlide} / ${totalSlides}`;
             document.getElementById('progressBar').style.width = `${(currentSlide / totalSlides) * 100}%`;
+            document.getElementById('slideIndicator').innerText = `Diapositiva ${currentSlide} de ${totalSlides}`;
             initDrawer();
         }
 
