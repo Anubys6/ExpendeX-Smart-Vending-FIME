@@ -19,8 +19,8 @@ import serial.tools.list_ports
 # ----------------------------------------------------------------------------
 # 1. CREDENCIALES OFICIALES DE MERCADO PAGO DEVELOPERS
 # ----------------------------------------------------------------------------
-PUBLIC_KEY   = "APP_USR-82739198-5ca9-4148-8171-1a58ccb81f43"
-ACCESS_TOKEN = "APP_USR-3941039051237299-101604-2a8ab49412b69fce450b8b8b189af1a7-141474351"
+PUBLIC_KEY   = os.environ.get("MP_PUBLIC_KEY", "TU_MERCADOPAGO_PUBLIC_KEY_AQUI")
+ACCESS_TOKEN = os.environ.get("MP_ACCESS_TOKEN", "TU_MERCADOPAGO_ACCESS_TOKEN_AQUI")
 COLLECTOR_ID = "141474351"
 
 HEADERS = {

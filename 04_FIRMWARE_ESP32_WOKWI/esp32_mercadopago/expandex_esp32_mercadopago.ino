@@ -20,8 +20,8 @@ const bool  HABILITAR_WIFI_DIRECTO = false;     // Poner 'true' si el ESP32 cons
 // ----------------------------------------------------------------------------
 // 2. CREDENCIALES OFICIALES DE MERCADO PAGO DEVELOPERS
 // ----------------------------------------------------------------------------
-const char* MP_PUBLIC_KEY   = "APP_USR-b9b1ba31-2b8f-49a4-ae6d-29932498f239";
-const char* MP_ACCESS_TOKEN = "APP_USR-7942610310473752-101604-2171dbea0243c347cf23021159470925-3766833937";
+const char* MP_PUBLIC_KEY   = "YOUR_MERCADOPAGO_PUBLIC_KEY";
+const char* MP_ACCESS_TOKEN = "YOUR_MERCADOPAGO_ACCESS_TOKEN";
 
 // ----------------------------------------------------------------------------
 // 3. PINES MECATRÓNICOS DE ACTUACIÓN Y SENSORES

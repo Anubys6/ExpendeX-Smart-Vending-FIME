@@ -27,9 +27,9 @@ process.on('unhandledRejection', (reason, promise) => {
   console.error('[UNHANDLED REJECTION]', reason);
 });
 
-// CREDENCIALES OFICIALES DE MERCADO PAGO MÉXICO (CUENTA REAL PRODUCCIÓN - TOVARSAMUEL09)
-const MP_PUBLIC_KEY   = 'APP_USR-82739198-5ca9-4148-8171-1a58ccb81f43';
-const MP_ACCESS_TOKEN = 'APP_USR-3941039051237299-101604-2a8ab49412b69fce450b8b8b189af1a7-141474351';
+// CONFIGURACIÓN DE CREDENCIALES DE MERCADO PAGO (VÍA VARIABLES DE ENTORNO O PLACEHOLDER)
+const MP_PUBLIC_KEY   = process.env.MP_PUBLIC_KEY   || 'TU_MERCADOPAGO_PUBLIC_KEY_AQUI';
+const MP_ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN || 'TU_MERCADOPAGO_ACCESS_TOKEN_AQUI';
 
 // Caché en memoria para pagos aprobados (vía Webhooks o Polling)
 const approvedPaymentsCache = {};

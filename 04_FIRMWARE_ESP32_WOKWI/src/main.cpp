@@ -38,7 +38,7 @@ const char* WIFI_PASSWORD = "";
 // =====================================================================================
 // 2. CREDENCIALES OFICIALES DE MERCADO PAGO DEVELOPERS MÉXICO Y SERVIDOR LOCAL
 // =====================================================================================
-String MP_ACCESS_TOKEN = "APP_USR-3941039051237299-101604-2a8ab49412b69fce450b8b8b189af1a7-141474351";
+String MP_ACCESS_TOKEN = "YOUR_MERCADOPAGO_ACCESS_TOKEN";
 String SERVER_URL = "http://host.wokwi.internal:3000";
 
 // =====================================================================================

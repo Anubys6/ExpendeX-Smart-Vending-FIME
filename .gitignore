@@ -1,3 +1,33 @@
+# ========================================================
+# REGLAS DE SEGURIDAD Y PRIVACIDAD - EXPENDEX (FIME UANL)
+# ========================================================
+
+# Variables de entorno y secretos
+.env
+.env.*
+*.env
+*.local
+secrets/
+credentials/
+private/
+token.json
+client_secret*.json
+serviceAccountKey*.json
+google-services.json
+
+# Llaves privadas, certificados y credenciales criptograficas
+*.pem
+*.key
+*.p12
+*.pfx
+*.pkcs12
+*.crt
+*.cer
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+
 # Dependencias y compilaciones temporales
 node_modules/
 .pio/
@@ -5,5 +35,14 @@ node_modules/
 *.log
 active_tunnel_url.txt
 *.tmp
+*.bak
+*.swp
+__pycache__/
+*.pyc
+.idea/
+.vs/
+
+# Archivos del sistema operativo
 .DS_Store
 Thumbs.db
+desktop.ini
